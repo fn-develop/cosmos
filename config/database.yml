@@ -1,0 +1,24 @@
+default: &default
+  adapter: mysql2
+  charset: utf8mb4
+  encoding: utf8mb4
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: root
+  password:
+  socket: /tmp/mysql.sock
+
+development:
+  <<: *default
+  database: cosmos_development
+
+test:
+  <<: *default
+  database: cosmos_management_test
+
+production:
+  <<: *default
+  database: cosmos_production
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV.fetch("COSMOS_DB_USER") { 'XXXXXXXX' } %>
+  socket: /var/lib/mysql/mysql.sock
+
