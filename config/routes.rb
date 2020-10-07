@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  root to: 'customers#index'
+
+  resources :customers
+
   # deviseのログイン機能を自前のコントローラーで管理
   devise_for :users, path: '', path_names: {
     # devise のルーティングをデフォルトから変更する設定
