@@ -5,7 +5,7 @@ class CreateOptionForItems < ActiveRecord::Migration[6.0]
       t.integer :item_type
       t.string :code
       t.string :name
-      t.integer :sort_order
+      t.integer :sort_order, limit: 3
       t.boolean :enabled
 
       t.timestamps

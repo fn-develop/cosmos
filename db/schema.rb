@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_031727) do
     t.integer "collection_id"
     t.integer "item_id"
     t.integer "item_type"
-    t.integer "sort_order"
+    t.integer "sort_order", limit: 3
     t.boolean "enabled"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_031727) do
     t.integer "item_type"
     t.string "code"
     t.string "name"
-    t.integer "sort_order"
+    t.integer "sort_order", limit: 3
     t.boolean "enabled"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
