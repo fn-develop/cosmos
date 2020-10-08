@@ -74,9 +74,8 @@ ActiveRecord::Schema.define(version: 2020_10_08_043526) do
     t.index ["company_id"], name: "index_items_on_company_id"
   end
 
-  create_table "option_for_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.integer "item_id"
-    t.integer "item_type"
+  create_table "option_for_collection_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "collection_item_id"
     t.string "code"
     t.string "name"
     t.integer "sort_order", limit: 3

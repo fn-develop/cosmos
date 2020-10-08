@@ -14,4 +14,5 @@
 class CollectionItem < ApplicationRecord
   belongs_to :collection
   belongs_to :item
+  has_many :option_for_collection_items, dependent: :destroy
 end

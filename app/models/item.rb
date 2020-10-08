@@ -15,4 +15,5 @@
 #
 class Item < ApplicationRecord
   belongs_to :company
+  has_many :collection_items
 end
