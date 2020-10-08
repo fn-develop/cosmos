@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :collection_items
   resources :collections
   resources :option_for_items
   resources :items
