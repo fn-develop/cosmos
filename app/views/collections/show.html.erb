@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Company:</strong>
+  <%= @collection.company_id %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @collection.code %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @collection.name %>
+</p>
+
+<p>
+  <strong>Sort order:</strong>
+  <%= @collection.sort_order %>
+</p>
+
+<p>
+  <strong>Enabled:</strong>
+  <%= @collection.enabled %>
+</p>
+
+<%= link_to 'Edit', edit_collection_path(@collection) %> |
+<%= link_to 'Back', collections_path %>
