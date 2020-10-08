@@ -50,7 +50,6 @@ ActiveRecord::Schema.define(version: 2020_10_08_031727) do
 
   create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "company_id"
-    t.integer "item_type", limit: 2
     t.string "code"
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
