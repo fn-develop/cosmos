@@ -14,4 +14,6 @@
 #  index_company_users_on_user_id     (user_id)
 #
 class CompanyUser < ApplicationRecord
+  belongs_to :company
+  belongs_to :user
 end

@@ -23,4 +23,7 @@ class User < ApplicationRecord
   # devise :database_authenticatable, :registerable,
   #        :recoverable, :rememberable, :validatable
   devise :database_authenticatable, :rememberable, :validatable
+
+  has_many :company_users, dependent: :destroy
+  has_many :companies, through: :company_users
 end
