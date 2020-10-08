@@ -14,4 +14,5 @@
 #  index_items_on_company_id  (company_id)
 #
 class Item < ApplicationRecord
+  belongs_to :company
 end
