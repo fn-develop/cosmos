@@ -16,4 +16,6 @@
 #  index_collections_on_company_id  (company_id)
 #
 class Collection < ApplicationRecord
+  has_many :collection_items, dependent: :destroy
+  belongs_to :company
 end
