@@ -18,3 +18,4 @@ require("channels")
 require("admin-lte");
 
 window.$ = jQuery;
+window.jQuery = jQuery;
