@@ -15,7 +15,6 @@ require("channels")
 // const imagePath = (name) => images(name, true)
 
 // ADD
-require("jquery")
-require("bootstrap")
+require("admin-lte");
 
 window.$ = jQuery;
