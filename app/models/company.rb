@@ -17,4 +17,8 @@ class Company < ApplicationRecord
 
   validates :code, presence: true, uniqueness: true, length: { in: 2..10 }, format: { with: /\A[a-z]+\z/, message: "英文字のみが使用できます" }
   validates :name, presence: true, length: { in: 1..50 }
+
+  def customer_users
+    self.users # debug code
+  end
 end

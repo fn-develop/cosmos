@@ -4,7 +4,7 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.json
   def index
-    @customers = Customer.all
+    @customers = company.customer_users
   end
 
   # GET /customers/1
@@ -70,5 +70,9 @@ class CustomersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def customer_params
       params.require(:customer).permit(:name, :name_kana, :gender, :tel_number, :birthday, :postal_code, :prefecture, :city, :address1, :address2)
+    end
+
+    def company
+      @company ||= Company.find_or_create_by(code: :pp, name: :tes) # debug code
     end
 end

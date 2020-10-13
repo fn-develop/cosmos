@@ -3,79 +3,61 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">顧客リスト</h1>
+          <h1 class="m-0 text-dark">顧客</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/">ホーム</a></li>
-            <li class="breadcrumb-item active">顧客リスト</li>
+            <li class="breadcrumb-item active">顧客</li>
           </ol>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
+  <section class="content">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">リスト</h3>
+      </div>
 
-              <p class="card-text">
-                Some quick example text to build on the card title and make up the bulk of the card's
-                content.
-              </p>
+      <div class="card-body">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th style="width: 10px">#</th>
+              <th>名前</th>
+              <th>Email</th>
+              <th style="width: 40px">電話番号</th>
+            </tr>
+          </thead>
+          <tbody>
 
-              <a href="#" class="card-link">Card link</a>
-              <a href="#" class="card-link">Another link</a>
-            </div>
-          </div>
+            <% @customers.each_with_index do |customer, i| %>
+              <tr>
+                <td><%= i+1 %>.</td>
+                <td><%= customer.email %></td>
+                <td><%= customer.email %></td>
+                <td><%= customer.email %></td>
+              </tr>
+            <% end %>
 
-          <div class="card card-primary card-outline">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
+          </tbody>
+        </table>
+      </div>
 
-              <p class="card-text">
-                Some quick example text to build on the card title and make up the bulk of the card's
-                content.
-              </p>
-              <a href="#" class="card-link">Card link</a>
-              <a href="#" class="card-link">Another link</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6">
-          <div class="card">
-            <div class="card-header">
-              <h5 class="m-0">Featured</h5>
-            </div>
-            <div class="card-body">
-              <h6 class="card-title">Special title treatment</h6>
-
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-
-          <div class="card card-primary card-outline">
-            <div class="card-header">
-              <h5 class="m-0">Featured</h5>
-            </div>
-            <div class="card-body">
-              <h6 class="card-title">Special title treatment</h6>
-
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-
+      <div class="card-footer clearfix">
+        <ul class="pagination pagination-sm m-0 float-right">
+          <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+        </ul>
       </div>
     </div>
-  </div>
+  </section>
+
 </div>
 
 <%# サブサイドバーは必ず全画面で用意する事！ %>

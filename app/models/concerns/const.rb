@@ -8,4 +8,8 @@ module Const
       DATE     = 'date'
     end
   end
+
+  module Controller
+    CUSTOMER = 'customers'
+  end
 end
