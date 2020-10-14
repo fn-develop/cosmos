@@ -10,10 +10,10 @@
 
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="<%= image_path 'user-icon.png'%>" class="img-circle elevation-2" alt="<%= current_user.email %>">
+        <img src="<%= image_path 'user-icon.png'%>" class="img-circle elevation-2" alt="<%= current_user.try(:email) %>">
       </div>
       <div class="info">
-        <a href="#" class="d-block"><%= current_user.email %></a>
+        <a href="#" class="d-block"><%= current_user.try(:email) %></a>
       </div>
     </div>
 
@@ -21,7 +21,7 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
         <li class="nav-item">
-          <a href="<%= customers_path %>" class="nav-link <%= activate_css(Const::Controller::CUSTOMER) %>">
+          <a href="<%= customers_path(params[:company_code]) %>" class="nav-link <%= activate_css(Const::Controller::CUSTOMER) %>">
             <i class="nav-icon fas fa-users"></i>
             <p>
               顧客

@@ -19,6 +19,6 @@ class Company < ApplicationRecord
   validates :name, presence: true, length: { in: 1..50 }
 
   def customer_users
-    self.users # debug code
+    self.users
   end
 end
