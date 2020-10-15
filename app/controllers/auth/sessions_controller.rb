@@ -18,7 +18,6 @@ class Auth::SessionsController < Devise::SessionsController
   # DELETE /resource/sign_out
   def destroy
     super
-    redirect_to new_user_session_path(params[:company_code])
   end
 
   # protected
@@ -31,5 +30,9 @@ class Auth::SessionsController < Devise::SessionsController
   private
     def company
       @company ||= Company.find_by(code: params[:company_code])
+    end
+
+    def after_sign_out_path_for(resource)
+      new_user_session_path(params[:company_code])
     end
 end
