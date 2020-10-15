@@ -9,7 +9,7 @@
 # User.create(email: 'admin@examole.com', password: 123456, admin: true )
 Company.delete_all
 ActiveRecord::Base.connection.execute('ALTER TABLE companies AUTO_INCREMENT = 1')
-host_company = Company.create(code: 'host_company', name: 'システム管理会社', enabled: true)
+host_company = Company.create(code: 'host', name: 'システム管理会社', enabled: true)
 
 Item.delete_all
 ActiveRecord::Base.connection.execute('ALTER TABLE items AUTO_INCREMENT = 1')
@@ -47,7 +47,6 @@ ActiveRecord::Base.connection.execute('ALTER TABLE collection_items AUTO_INCREME
 
 OptionForCollectionItem.delete_all
 ActiveRecord::Base.connection.execute('ALTER TABLE option_for_collection_items AUTO_INCREMENT = 1')
-binding.pry
 collection_item_gender = item_gender.collection_items.first
 collection_item_gender.option_for_collection_items.create(code: 'woman', name: '女性', sort_order: 0, enabled: true)
 collection_item_gender.option_for_collection_items.create(code: 'man', name: '男性', sort_order: 1, enabled: true)
