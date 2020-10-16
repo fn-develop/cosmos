@@ -39,4 +39,4 @@ yarn-debug.log*
 /vendor/*
 !/vendor/.keep
 .DS_Store
-
+/config/credentials.yml.enc
