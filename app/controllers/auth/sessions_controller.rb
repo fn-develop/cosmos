@@ -35,4 +35,8 @@ class Auth::SessionsController < Devise::SessionsController
     def after_sign_out_path_for(resource)
       new_user_session_path(params[:company_code])
     end
+
+    def after_sign_in_path_for(resource)
+      customers_path(params[:company_code])
+    end
 end
