@@ -31,5 +31,8 @@ module Cosmos
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+    # assets precompileを無効化します。
+    # see:https://qiita.com/Tak0325/items/efce14f67eb572d8742e
+    config.assets.enabled = false
   end
 end
