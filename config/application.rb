@@ -12,7 +12,7 @@ require "action_mailbox/engine"
 require "action_text/engine"
 require "action_view/railtie"
 require "action_cable/engine"
-require "sprockets/railtie"
+# require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -31,5 +31,8 @@ module Cosmos
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+    # assets precompileを無効化します。
+    # see:https://qiita.com/Tak0325/items/efce14f67eb572d8742e
+    config.assets.enabled = false
   end
 end

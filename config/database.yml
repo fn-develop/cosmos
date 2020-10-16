@@ -20,5 +20,5 @@ production:
   database: cosmos_production
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: <%= ENV.fetch("COSMOS_DB_USER") { 'XXXXXXXX' } %>
-  socket: /var/lib/mysql/mysql.sock
+  socket: /tmp/mysql.sock
 
