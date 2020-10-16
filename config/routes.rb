@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :collections
   resources :items
 
+  root to: 'public/homes#index'
+
   # deviseのログイン機能を自前のコントローラーで管理
   devise_for :users, path: '/:company_code/', path_names: {
     # devise のルーティングをデフォルトから変更する設定
@@ -16,6 +18,10 @@ Rails.application.routes.draw do
 
   scope '/:company_code/' do
     resources :customers
+  end
+
+  scope module: :public do
+    resources :homes
   end
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
