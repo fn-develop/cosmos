@@ -16,6 +16,7 @@ gem 'rails_admin'
 gem 'annotate' # モデルにコメントを自動付与
 # Sprockets4.0だと、app/assetsディレクトリを削除するとSprockets::Railtie::ManifestNeededErrorが発生する
 gem 'sprockets', '~> 3.7.2'
+gem 'puma_worker_killer'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
