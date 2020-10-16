@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   end
 
   scope module: :public do
-    resources :homes
+    resources :homes, path: '/(:company_code)'
   end
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'

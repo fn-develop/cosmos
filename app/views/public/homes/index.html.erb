@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title><%= @company.try(:name) || 'COSMOS' %></title>
+
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_pack_tag 'application', media: 'all' %>
+  <%= javascript_pack_tag 'application' %>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition sidebar-mini sidebar-collapse">
+
+<div class="wrapper">
+
+<% if current_user.blank? && @company.present? %>
+  <a href="<%= new_user_session_path(company_code: @company.code) %>">ログイン</a>
+<% end %>
+
+</div>
+
+</body>
+</html>
