@@ -63,7 +63,7 @@ class CustomersController < ApplicationMultiTenantController
 
   def regist_with_line
     company = Company.find_by(code: params[:company_code])
-    raise CanCan::AccessDenied if company.blank
+    raise CanCan::AccessDenied if company.blank?
 
     # T.D.B
     render plain: '作成中'
