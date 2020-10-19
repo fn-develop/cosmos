@@ -30,13 +30,13 @@ module Api
           case event
           when Line::Bot::Event::Follow
             save_line_user(event, company)
-            message[:text] = "下記URLにアクセスしユーザー登録を完了してください。\n（#{regist_with_line_customers_path(event['replyToken'])}）"
+            message[:text] = "下記URLにアクセスしユーザー登録を完了してください。\n（#{regist_with_line_customers_path({ company_code: company.code, reply_token: event['replyToken'] })}）"
           when Line::Bot::Event::Message
             case event.try(:type)
             when Line::Bot::Event::MessageType::Text
               if event.message['text'] === 'XXX'
                 save_line_user(event, company)
-                message[:text] = "XXX\n（#{regist_with_line_customers_path(event['replyToken'])}）"
+                message[:text] = "XXX\n（#{regist_with_line_customers_path({ company_code: company.code, reply_token: event['replyToken'] })}）"
               else
                 message[:text] = 'XXX'
               end
