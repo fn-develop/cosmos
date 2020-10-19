@@ -13,6 +13,7 @@
 #
 class LineUser < ApplicationRecord
   belongs_to :user, required: false
+  belongs_to :company, required: false
 
   def self.push_text_message(line_user_id, text_message)
     message = {
