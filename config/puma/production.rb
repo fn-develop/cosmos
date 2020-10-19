@@ -2,8 +2,7 @@ environment ENV.fetch("RAILS_ENV") { "production" }
 
 # UNIX Socketへのバインド
 tmp_path = "#{ File.expand_path("../../..", __FILE__) }/tmp"
-# bind "unix://#{ tmp_path }/sockets/puma.sock"
-port 3000
+bind "unix://#{ tmp_path }/sockets/puma.sock"
 
 # スレッド数とWorker数の指定
 # MariaDB「show variables like "%max_connections%";」で確認した数値を超えないように設定
@@ -14,10 +13,10 @@ workers 2
 preload_app!
 
 # デーモン化の設定
-# daemonize true
-# pidfile "#{ tmp_path }/puma.pid"
-# stdout_redirect "#{ tmp_path }/puma.stdout.log", "#{ tmp_path }/puma.stderr.log", true
-# state_path "#{ tmp_path }/pids/puma.state"
+daemonize true
+pidfile "#{ tmp_path }/puma.pid"
+stdout_redirect "#{ tmp_path }/puma.stdout.log", "#{ tmp_path }/puma.stderr.log", true
+state_path "#{ tmp_path }/pids/puma.state"
 
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
