@@ -7,6 +7,7 @@
 #  request_json :text(65535)
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  company_id   :integer
 #  line_user_id :string(255)
 #  user_id      :integer
 #
