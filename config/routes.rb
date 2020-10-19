@@ -17,11 +17,21 @@ Rails.application.routes.draw do
   }
 
   scope '/:company_code/' do
-    resources :customers
+    resources :customers do
+      get 'regist_with_line/:reply_token', to: 'customers#regist_with_line', as: :regist_with_line, on: :collection
+    end
   end
 
   scope module: :public do
     resources :homes, path: '/(:company_code)'
+  end
+
+  namespace 'api' do
+    namespace 'v1' do
+      resource :line do
+        post 'callback', to: 'lines#callback'
+      end
+    end
   end
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'

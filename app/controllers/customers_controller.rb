@@ -61,6 +61,14 @@ class CustomersController < ApplicationMultiTenantController
     end
   end
 
+  def regist_with_line
+    company = Company.find_by(company_code: params[:company_code])
+    raise CanCan::AccessDenied if company.blank
+
+    # T.D.B
+    render plain: '作成中'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_customer
