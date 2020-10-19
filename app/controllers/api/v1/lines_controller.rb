@@ -13,10 +13,12 @@ module Api
       end
 
       def callback
+        company = Company.find_by(company_code: params[:company_code])
+
         body = request.body.read
         signature = request.env['HTTP_X_LINE_SIGNATURE']
         client = LineUser::client
-        unless client.validate_signature(body, signature)
+        unless client.validate_signature(body, signature) || company.blank?
           error 400 do 'Bad Request' end
         end
 
@@ -27,11 +29,8 @@ module Api
         events.each do |event|
           case event
           when Line::Bot::Event::Follow
-            case event.type
-            when Line::Bot::Event::MessageType::Text
-              save_line_user(events_param)
-              message[:text] = "下記URLにアクセスしユーザー登録を完了してください。\n（#{regist_with_line_customers_path(event['replyToken'])}）"
-            end
+            save_line_user(events_param)
+            message[:text] = "下記URLにアクセスしユーザー登録を完了してください。\n（#{regist_with_line_customers_path(event['replyToken'])}）"
           when Line::Bot::Event::Message
             case event.type
             when Line::Bot::Event::MessageType::Text
