@@ -79,4 +79,8 @@ class CustomersController < ApplicationMultiTenantController
     def customer_params
       params.require(:customer).permit(:name, :name_kana, :gender, :tel_number, :birthday, :postal_code, :prefecture, :city, :address1, :address2)
     end
+
+    def is_public?
+      params[:action] == :regist_with_line
+    end
 end
