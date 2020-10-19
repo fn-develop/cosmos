@@ -13,7 +13,7 @@ module Api
       end
 
       def callback
-        company = Company.find_by(company_code: params[:company_code])
+        company = Company.find_by(code: params[:company_code])
 
         body = request.body.read
         signature = request.env['HTTP_X_LINE_SIGNATURE']
