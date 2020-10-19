@@ -29,13 +29,13 @@ module Api
         events.each do |event|
           case event
           when Line::Bot::Event::Follow
-            save_line_user(events_param)
+            save_line_user(event, company)
             message[:text] = "下記URLにアクセスしユーザー登録を完了してください。\n（#{regist_with_line_customers_path(event['replyToken'])}）"
           when Line::Bot::Event::Message
-            case event.type
+            case event.try(:type)
             when Line::Bot::Event::MessageType::Text
               if event.message['text'] === 'XXX'
-                save_line_user(event)
+                save_line_user(event, company)
                 message[:text] = "XXX\n（#{regist_with_line_customers_path(event['replyToken'])}）"
               else
                 message[:text] = 'XXX'
@@ -50,8 +50,9 @@ module Api
       end
 
     private
-      def save_line_user(event)
+      def save_line_user(event, company)
         line_user              = LineUser.find_or_initialize_by(line_user_id: event['source']['userId'])
+        line_user.company      = company
         line_user.request_json = params.to_json
         line_user.reply_token  = event['replyToken']
         line_user.save
