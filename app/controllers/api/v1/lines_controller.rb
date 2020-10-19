@@ -30,16 +30,12 @@ module Api
           case event
           when Line::Bot::Event::Follow
             save_line_user(event, company)
-            message[:text] = "下記URLにアクセスしユーザー登録を完了してください。\n（#{regist_with_line_customers_path({ company_code: company.code, reply_token: event['replyToken'] })}）"
+            message[:text] = "下記URLにアクセスしユーザー登録を完了してください。\n（#{regist_with_line_customers_url({ company_code: company.code, reply_token: event['replyToken'] })}）"
           when Line::Bot::Event::Message
             case event.try(:type)
             when Line::Bot::Event::MessageType::Text
-              if event.message['text'] === 'XXX'
-                save_line_user(event, company)
-                message[:text] = "XXX\n（#{regist_with_line_customers_path({ company_code: company.code, reply_token: event['replyToken'] })}）"
-              else
-                message[:text] = 'XXX'
-              end
+              save_line_user(event, company)
+              message[:text] = "下記URLにアクセスしユーザー登録を完了してください。\n（#{regist_with_line_customers_url({ company_code: company.code, reply_token: event['replyToken'] })}）"
             end
           end
 
@@ -49,15 +45,14 @@ module Api
         head :ok
       end
 
-    private
-      def save_line_user(event, company)
-        line_user              = LineUser.find_or_initialize_by(line_user_id: event['source']['userId'])
-        line_user.company      = company
-        line_user.request_json = params.to_json
-        line_user.reply_token  = event['replyToken']
-        line_user.save
-        return line_user
-      end
+      private
+        def save_line_user(event, company)
+          line_user              = LineUser.find_or_initialize_by(company: company, line_user_id: event['source']['userId'])
+          line_user.request_json = params.to_json
+          line_user.reply_token  = event['replyToken']
+          line_user.save
+          return line_user
+        end
 
     end
   end
