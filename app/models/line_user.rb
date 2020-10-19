@@ -25,8 +25,8 @@ class LineUser < ApplicationRecord
   # LINE Developers登録完了後に作成される環境変数の認証
   def self.client
     @client ||= Line::Bot::Client.new { |config|
-      config.channel_secret = Rails.application.config.setting.line[:channel_secret]
-      config.channel_token  = Rails.application.config.setting.line[:channel_token]
+      config.channel_secret = ENV[:LINE_CHANNEL_SECRET]
+      config.channel_token  = ENV[:LINE_CHANNEL_TOKEN]
     }
   end
 end
