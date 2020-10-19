@@ -62,7 +62,7 @@ class CustomersController < ApplicationMultiTenantController
   end
 
   def regist_with_line
-    company = Company.find_by(company_code: params[:company_code])
+    company = Company.find_by(code: params[:company_code])
     raise CanCan::AccessDenied if company.blank
 
     # T.D.B
@@ -81,6 +81,6 @@ class CustomersController < ApplicationMultiTenantController
     end
 
     def is_public?
-      params[:action] == :regist_with_line
+      params[:action] == 'regist_with_line'
     end
 end
