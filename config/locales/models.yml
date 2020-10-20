@@ -16,3 +16,9 @@ ja:
         postal_code: '郵便番号'
         address1:    '住所'
         address2:    '建物名・号室'
+  activemodel:
+    models:
+      line_message: 'LINEメッセージ'
+    attributes:
+      line_message:
+        message: 'メッセージ'

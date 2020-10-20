@@ -18,7 +18,9 @@ Rails.application.routes.draw do
 
   scope '/:company_code/' do
     resources :customers do
-      get 'new/:reply_token', to: 'customers#new', as: :new, on: :collection
+      get  'new/:reply_token', to: 'customers#new', as: :new, on: :collection
+      get  'new_line_message', to: 'customers#new_line_message', on: :member
+      post 'send_line_message', to: 'customers#send_line_message', on: :member
     end
 
     scope module: :public do

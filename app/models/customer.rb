@@ -19,4 +19,8 @@
 #
 class Customer < ApplicationRecord
   belongs_to :user, required: false
+
+  def line?
+    self.user.try(:line_user).present?
+  end
 end

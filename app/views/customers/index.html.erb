@@ -17,17 +17,19 @@
               <th><%= Customer.human_attribute_name(:gender) %></th>
               <th><%= Customer.human_attribute_name(:tel_number) %></th>
               <th><%= Customer.human_attribute_name(:birthday) %></th>
+              <th>LINE通知</th>
             </tr>
           </thead>
           <tbody>
             <% @customers.each_with_index do |customer, i| %>
               <tr>
-                <td><%= customer.id.to_s %>.</td>
+                <td><a href="<%= customer_path(customer, company_code: @company.code ) %>"><%= customer.id.to_s %>.</td>
                 <td><%= customer.name.to_s %></td>
                 <td><%= customer.name_kana.to_s %></td>
                 <td><%= customer.gender.to_s %></td>
                 <td><%= customer.tel_number.to_s %></td>
                 <td><%= customer.birthday.to_s %></td>
+                <td></td>
               </tr>
             <% end %>
 

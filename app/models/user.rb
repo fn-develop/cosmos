@@ -26,6 +26,6 @@ class User < ApplicationRecord
 
   has_many :company_users, dependent: :destroy
   has_many :companies, through: :company_users
-  has_many :line_user, dependent: :destroy
+  has_one  :line_user, dependent: :destroy
   has_one  :customer, dependent: :destroy
 end
