@@ -1,0 +1,18 @@
+ja:
+  activerecord:
+    models:
+      customer: '顧客'
+    attributes:
+      customer:
+        id:          'ID'
+        name:        '名前'
+        name_kana:   '名前（カナ）'
+        gender:      '性別'
+        tel_number:  '電話番号（携帯）'
+        birthday:    '生年月日'
+        postal_code: '郵便番号'
+        prefecture:  '都道府県'
+        city:        '市区町村'
+        postal_code: '郵便番号'
+        address1:    '住所'
+        address2:    '建物名・号室'

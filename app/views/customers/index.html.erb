@@ -1,44 +1,33 @@
 <div class="content-wrapper">
-  <div class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1 class="m-0 text-dark">顧客</h1>
-        </div>
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="<%= homes_path(company_code: params[:company_code]) %>">ホーム</a></li>
-            <li class="breadcrumb-item active">顧客</li>
-          </ol>
-        </div>
-      </div>
-    </div>
-  </div>
+  <%= render 'content_header', active_breadcrumb_item: Const::View::Name::INDEX %>
 
   <section class="content">
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">リスト</h3>
+        <h3 class="card-title">一覧</h3>
       </div>
 
       <div class="card-body">
         <table class="table table-bordered">
           <thead>
             <tr>
-              <th style="width: 10px">#</th>
-              <th>名前</th>
-              <th>Email</th>
-              <th style="width: 40px">電話番号</th>
+              <th style="width: 10px"><%= Customer.human_attribute_name(:id) %></th>
+              <th><%= Customer.human_attribute_name(:name) %></th>
+              <th><%= Customer.human_attribute_name(:name_kana) %></th>
+              <th><%= Customer.human_attribute_name(:gender) %></th>
+              <th><%= Customer.human_attribute_name(:tel_number) %></th>
+              <th><%= Customer.human_attribute_name(:birthday) %></th>
             </tr>
           </thead>
           <tbody>
-
             <% @customers.each_with_index do |customer, i| %>
               <tr>
-                <td><%= i+1 %>.</td>
-                <td><%= '名前' %></td>
-                <td><%= customer.email %></td>
-                <td><%= customer.email %></td>
+                <td><%= customer.id.to_s %>.</td>
+                <td><%= customer.name.to_s %></td>
+                <td><%= customer.name_kana.to_s %></td>
+                <td><%= customer.gender.to_s %></td>
+                <td><%= customer.tel_number.to_s %></td>
+                <td><%= customer.birthday.to_s %></td>
               </tr>
             <% end %>
 
@@ -47,15 +36,8 @@
       </div>
 
       <div class="card-footer clearfix">
-        <ul class="pagination pagination-sm m-0 float-right">
-          <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-        </ul>
+
       </div>
     </div>
   </section>
-
 </div>

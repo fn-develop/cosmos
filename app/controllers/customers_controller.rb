@@ -14,6 +14,10 @@ class CustomersController < ApplicationMultiTenantController
 
   # GET /customers/new
   def new
+    company_code = session[:company_code] = params[:company_code]
+    reply_token  = session[:reply_token]  = params[:reply_token]
+    line_user    = company.line_users.find_by(reply_token: reply_token)
+
     @customer = Customer.new
   end
 
@@ -26,14 +30,16 @@ class CustomersController < ApplicationMultiTenantController
   def create
     @customer = Customer.new(customer_params)
 
-    respond_to do |format|
+    ApplicationRecord.transaction do
       if @customer.save
-        format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
-        format.json { render :show, status: :created, location: @customer }
-      else
-        format.html { render :new }
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
+        @customer.create_user!(companies: [company])
       end
+    end
+
+    if @customer.valid?
+      redirect_to customer_path(@customer, { company_code: session[:company_code] }), notice: "登録が完了しました。"
+    else
+      render :new
     end
   end
 
@@ -61,14 +67,6 @@ class CustomersController < ApplicationMultiTenantController
     end
   end
 
-  def regist_with_line
-    company = Company.find_by(code: params[:company_code])
-    raise CanCan::AccessDenied if company.blank?
-
-    # T.D.B
-    render plain: '作成中'
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_customer
@@ -81,6 +79,6 @@ class CustomersController < ApplicationMultiTenantController
     end
 
     def is_public?
-      params[:action] == 'regist_with_line'
+      true
     end
 end

@@ -15,6 +15,8 @@
 #  tel_number  :string(255)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  user_id     :integer
 #
 class Customer < ApplicationRecord
+  belongs_to :user, required: false
 end

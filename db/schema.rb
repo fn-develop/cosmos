@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2020_10_19_041819) do
   end
 
   create_table "customers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "user_id"
     t.string "name"
     t.string "name_kana"
     t.integer "gender", limit: 1
@@ -103,7 +104,7 @@ ActiveRecord::Schema.define(version: 2020_10_19_041819) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "admin"
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["email"], name: "index_users_on_email"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

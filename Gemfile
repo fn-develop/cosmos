@@ -18,6 +18,7 @@ gem 'annotate' # モデルにコメントを自動付与
 gem 'sprockets', '~> 3.7.2'
 gem 'puma_worker_killer'
 gem 'line-bot-api'
+gem 'rails-i18n'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

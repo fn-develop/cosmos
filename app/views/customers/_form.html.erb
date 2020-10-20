@@ -1,67 +1,103 @@
-<%= form_with(model: customer, local: true) do |form| %>
-  <% if customer.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
 
-      <ul>
-        <% customer.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+      <div class="col-md-12">
+
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">登録情報を入力してください。 <small></small></h3>
+          </div>
+
+          <%= form_with(model: customer, local: true) do |form| %>
+            <div class="card-body">
+
+              <div class="form-group">
+                <%= form.label :name %>
+                <%= form.text_field :name, { class: 'form-control', placeholder: '名前' } %>
+              </div>
+
+              <div class="form-group">
+                <%= form.label :name_kana %>
+                <%= form.text_field :name_kana, { class: 'form-control', placeholder: '名前（カナ）' } %>
+              </div>
+
+              <div class="form-group">
+                <%= form.label :gender %>
+                <%= form.number_field :gender, { class: 'form-control' } %>
+              </div>
+
+              <div class="form-group">
+                <%= form.label :tel_number %>
+                <%= form.text_field :tel_number, { class: 'form-control' } %>
+              </div>
+
+              <div class="form-group">
+                <%= form.label :birthday %>
+                <div >
+                <%= raw sprintf(form.date_select(
+                                  :birthday,
+                                  {
+                                    with_css_classes: true,
+                                    use_month_numbers: true,
+                                    start_year: 1940,
+                                    end_year: (Time.now.year),
+                                    default: Date.today - 20.years,
+                                    date_separator: '%s',
+                                    class: 'form-control',
+                                  }),
+                                '年 ', '月 ') + '日'
+                %>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <%= form.label :postal_code %>
+                <%= form.text_field :postal_code, { class: 'form-control' } %>
+              </div>
+
+              <div class="form-group">
+                <%= form.label :prefecture %>
+                <%= form.text_field :prefecture, { class: 'form-control' } %>
+              </div>
+
+              <div class="form-group">
+                <%= form.label :city %>
+                <%= form.text_field :city, { class: 'form-control' } %>
+              </div>
+
+              <div class="form-group">
+                <%= form.label :address1 %>
+                <%= form.text_field :address1, { class: 'form-control' } %>
+              </div>
+
+              <div class="form-group">
+                <%= form.label :address2 %>
+                <%= form.text_field :address2, { class: 'form-control' } %>
+              </div>
+
+            </div>
+
+            <div class="card-footer">
+              <%= form.submit class: 'btn btn-primary' %>
+            </div>
+          <% end %>
+        </div>
+
+      </div>
+      <div class="col-md-6">
+
+      </div>
+
     </div>
+
+  </div>
+</section>
+
+<% content_for :page_javascript do %>
+  <%= javascript_tag do %>
+    $(function() {
+      $('.year, .month, .day').addClass('form-control d-inline col-2');
+    });
   <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :name_kana %>
-    <%= form.text_field :name_kana %>
-  </div>
-
-  <div class="field">
-    <%= form.label :gender %>
-    <%= form.number_field :gender %>
-  </div>
-
-  <div class="field">
-    <%= form.label :tel_number %>
-    <%= form.text_field :tel_number %>
-  </div>
-
-  <div class="field">
-    <%= form.label :birthday %>
-    <%= form.date_select :birthday %>
-  </div>
-
-  <div class="field">
-    <%= form.label :postal_code %>
-    <%= form.text_field :postal_code %>
-  </div>
-
-  <div class="field">
-    <%= form.label :prefecture %>
-    <%= form.text_field :prefecture %>
-  </div>
-
-  <div class="field">
-    <%= form.label :city %>
-    <%= form.text_field :city %>
-  </div>
-
-  <div class="field">
-    <%= form.label :address1 %>
-    <%= form.text_field :address1 %>
-  </div>
-
-  <div class="field">
-    <%= form.label :address2 %>
-    <%= form.text_field :address2 %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
 <% end %>

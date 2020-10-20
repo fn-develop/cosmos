@@ -6,28 +6,28 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# User.create(email: 'admin@example.com', password: 123456, admin: true )
+# User.create(email: 'admin@example.com', password: 123456, admin: true, companies: Company.where(code: 'demo') )
 Company.delete_all
 ActiveRecord::Base.connection.execute('ALTER TABLE companies AUTO_INCREMENT = 1')
-host_company = Company.create(code: 'host', name: 'システム管理会社', enabled: true)
+demo_company = Company.create(code: 'demo', name: 'DEMO会社', enabled: true)
 
 Item.delete_all
 ActiveRecord::Base.connection.execute('ALTER TABLE items AUTO_INCREMENT = 1')
-item_name_kanji          = host_company.items.create(code: 'name_kanji', name: 'ユーザー名')
-item_name_kana           = host_company.items.create(code: 'name_kana', name: 'ユーザー名（カナ）')
-item_phone_number        = host_company.items.create(code: 'phone_number', name: '固定電話番号')
-item_mobile_phone_number = host_company.items.create(code: 'mobile_phone_number', name: '携帯電話番号')
-item_gender              = host_company.items.create(code: 'gender', name: '性別')
-item_birthday            = host_company.items.create(code: 'birthday', name: '生年月日')
-item_postal_code         = host_company.items.create(code: 'postal_code', name: '郵便番号')
-item_prefecture          = host_company.items.create(code: 'prefecture', name: '都道府県')
-item_city                = host_company.items.create(code: 'city', name: '市区町村')
-item_address1            = host_company.items.create(code: 'address1', name: '番地')
-item_address2            = host_company.items.create(code: 'address2', name: '建物名・号室')
+item_name_kanji          = demo_company.items.create(code: 'name_kanji', name: 'ユーザー名')
+item_name_kana           = demo_company.items.create(code: 'name_kana', name: 'ユーザー名（カナ）')
+item_phone_number        = demo_company.items.create(code: 'phone_number', name: '固定電話番号')
+item_mobile_phone_number = demo_company.items.create(code: 'mobile_phone_number', name: '携帯電話番号')
+item_gender              = demo_company.items.create(code: 'gender', name: '性別')
+item_birthday            = demo_company.items.create(code: 'birthday', name: '生年月日')
+item_postal_code         = demo_company.items.create(code: 'postal_code', name: '郵便番号')
+item_prefecture          = demo_company.items.create(code: 'prefecture', name: '都道府県')
+item_city                = demo_company.items.create(code: 'city', name: '市区町村')
+item_address1            = demo_company.items.create(code: 'address1', name: '番地')
+item_address2            = demo_company.items.create(code: 'address2', name: '建物名・号室')
 
 Collection.delete_all
 ActiveRecord::Base.connection.execute('ALTER TABLE collections AUTO_INCREMENT = 1')
-collection = host_company.collections.create(code: 'customer', name: '顧客情報', sort_order: 0, enabled: true)
+collection = demo_company.collections.create(code: 'customer', name: '顧客情報', sort_order: 0, enabled: true)
 
 CollectionItem.delete_all
 ActiveRecord::Base.connection.execute('ALTER TABLE collection_items AUTO_INCREMENT = 1')

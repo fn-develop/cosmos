@@ -1,54 +1,42 @@
-<p id="notice"><%= notice %></p>
+<div class="content-wrapper">
+  <%= render 'content_header', active_breadcrumb_item: Const::View::Name::SHOW %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @customer.name %>
-</p>
+  <section class="content">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">情報</h3>
+      </div>
 
-<p>
-  <strong>Name kana:</strong>
-  <%= @customer.name_kana %>
-</p>
+      <div class="card-body">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <th class="text-nowrap" style="width: 10px"><%= Customer.human_attribute_name(:id) %></th>
+              <td><%= @customer.id %></td>
+            </tr><tr>
+              <th class="text-nowrap"><%= Customer.human_attribute_name(:name) %></th>
+              <td><%= @customer.name.to_s %></td>
+            </tr><tr>
+              <th class="text-nowrap"><%= Customer.human_attribute_name(:name_kana) %></th>
+              <td><%= @customer.name_kana.to_s %></td>
+            </tr><tr>
+              <th class="text-nowrap"><%= Customer.human_attribute_name(:gender) %></th>
+              <td><%= @customer.gender.to_s %></td>
+            </tr><tr>
+              <th class="text-nowrap"><%= Customer.human_attribute_name(:tel_number) %></th>
+              <td><%= @customer.tel_number.to_s %></td>
+            </tr><tr>
+              <th class="text-nowrap"><%= Customer.human_attribute_name(:birthday) %></th>
+              <td><%= @customer.birthday.to_s %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-<p>
-  <strong>Gender:</strong>
-  <%= @customer.gender %>
-</p>
-
-<p>
-  <strong>Tel number:</strong>
-  <%= @customer.tel_number %>
-</p>
-
-<p>
-  <strong>Birthday:</strong>
-  <%= @customer.birthday %>
-</p>
-
-<p>
-  <strong>Postal code:</strong>
-  <%= @customer.postal_code %>
-</p>
-
-<p>
-  <strong>Prefecture:</strong>
-  <%= @customer.prefecture %>
-</p>
-
-<p>
-  <strong>City:</strong>
-  <%= @customer.city %>
-</p>
-
-<p>
-  <strong>Address1:</strong>
-  <%= @customer.address1 %>
-</p>
-
-<p>
-  <strong>Address2:</strong>
-  <%= @customer.address2 %>
-</p>
-
-<%= link_to 'Edit', edit_customer_path(@customer) %> |
-<%= link_to 'Back', customers_path %>
+      <div class="card-footer clearfix">
+        <%= link_to 'Edit', edit_customer_path(@customer) %> |
+        <%= link_to 'Back', customers_path %>
+      </div>
+    </div>
+  </section>
+</div>

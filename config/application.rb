@@ -34,5 +34,6 @@ module Cosmos
     # assets precompileを無効化します。
     # see:https://qiita.com/Tak0325/items/efce14f67eb572d8742e
     config.assets.enabled = false
+    config.i18n.default_locale = :ja
   end
 end
