@@ -14,20 +14,4 @@
 class LineUser < ApplicationRecord
   belongs_to :user, required: false
   belongs_to :company, required: false
-
-  def self.push_text_message(line_user_id, text_message)
-    message = {
-      type: 'text',
-      text: text_message
-    }
-    client.push_message(line_user_id, message)
-  end
-
-  # LINE Developers登録完了後に作成される環境変数の認証
-  def self.client
-    @client ||= Line::Bot::Client.new { |config|
-      config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
-      config.channel_token  = ENV["LINE_CHANNEL_TOKEN"]
-    }
-  end
 end

@@ -1,5 +1,5 @@
 class CustomersController < ApplicationMultiTenantController
-  before_action :set_customer, only: [:show, :edit, :update, :destroy]
+  before_action :set_customer, only: [:show, :edit, :update, :destroy, :new_line_message, :send_line_message]
   before_action :company
 
   # GET /customers
@@ -69,8 +69,12 @@ class CustomersController < ApplicationMultiTenantController
   end
 
   def new_line_message
-    @customer = Customer.find(params[:id])
-    @line_message = LineMessage.new(customer: @customer, message: 'XXX')
+    @line_message = LineMessage.new(user_id: @customer.user_id)
+  end
+
+  def send_line_message
+    @line_message = LineMessage.new(line_message_params)
+    render plain: '作成中'
   end
 
   private
@@ -84,5 +88,9 @@ class CustomersController < ApplicationMultiTenantController
 
     def is_public?
       true
+    end
+
+    def line_message_params
+      params.require(:line_message).permit(:message, :user_id)
     end
 end
