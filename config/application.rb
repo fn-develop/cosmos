@@ -35,5 +35,13 @@ module Cosmos
     # see:https://qiita.com/Tak0325/items/efce14f67eb572d8742e
     config.assets.enabled = false
     config.i18n.default_locale = :ja
+    # rspecのgenerator設定 request_spec, model_spec だけ書くので、それ以外はfalse see: https://qiita.com/Ushinji/items/522ed01c9c14b680222c
+    config.generators do |g|
+      g.test_framework :rspec,
+            view_specs: false,
+            helper_specs: false,
+            controller_specs: false,
+            routing_specs: false
+    end
   end
 end
