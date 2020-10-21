@@ -22,6 +22,10 @@
   <a href="<%= new_user_session_path(company_code: @company.code) %>">ログイン</a>
 <% end %>
 
+<% if @company.present? %>
+  <img src="/line_demo.png" />
+<% end %>
+
 </div>
 
 </body>
