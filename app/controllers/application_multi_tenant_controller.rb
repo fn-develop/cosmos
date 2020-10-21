@@ -1,4 +1,5 @@
 class ApplicationMultiTenantController < ApplicationController
+  before_action :company
   before_action :authenticate_user!, :check_company_user!, unless: :is_public?
   # 各アクションで権限をチェック。オプションでモデル依存をfalseに。
   authorize_resource class: false

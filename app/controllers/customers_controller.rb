@@ -1,6 +1,5 @@
 class CustomersController < ApplicationMultiTenantController
   before_action :set_customer, only: [:show, :new_line_message, :send_line_message]
-  before_action :company
 
   def index
     @customers = company.customer_users
