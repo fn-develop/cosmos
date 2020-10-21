@@ -74,7 +74,10 @@ class CustomersController < ApplicationMultiTenantController
 
   def send_line_message
     @line_message = LineMessage.new(line_message_params)
-    render plain: '作成中'
+    if @line_message.valid?
+      @line_message.send_text_message
+    end
+    render 'new_line_message'
   end
 
   private
