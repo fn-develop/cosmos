@@ -17,7 +17,7 @@
             </div>
 
             <div class="card-footer">
-              <%= link_to 'Back', customer_path(@customer, company_code: @company.code) %>
+              <%= link_to 'Back', customer_path(@customer, company_code: @company.code), { class: 'btn btn-success' } %>
               <button type="submit" class="btn btn-success">送信</button>
             </div>
           <% end %>

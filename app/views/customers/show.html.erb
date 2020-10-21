@@ -37,7 +37,6 @@
         <% if @customer.line? %>
           <%= link_to 'LINE通知', new_line_message_customer_path(@customer, company_code: @company.code) %> |
         <% end %>
-        <%= link_to 'Edit', edit_customer_path(@customer, company_code: @company.code) %> |
         <%= link_to 'Back', customers_path(company_code: @company.code) %>
       </div>
     </div>
