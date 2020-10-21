@@ -35,7 +35,7 @@ class CustomersController < ApplicationMultiTenantController
 
     if @customer.valid?
       session[:company_code] = session[:reply_token] = nil
-      redirect_to customer_path(@customer, { company_code: company.code }), notice: "登録が完了しました。"
+      render plain: '登録が完了しました。'
     else
       render :new
     end
