@@ -1,14 +1,11 @@
 <section class="content">
   <div class="container-fluid">
     <div class="row">
-
       <div class="col-md-12">
-
         <div class="card card-primary">
           <div class="card-header">
             <h3 class="card-title">TO: <%= customer.name %><small></small></h3>
           </div>
-
 
           <%= form_with(model: line_message, url: send_line_message_customer_path(customer, company_code: @company.code),local: true) do |form| %>
             <%= form.hidden_field :user_id %>
@@ -26,13 +23,10 @@
           <% end %>
 
         </div>
-
       </div>
+
       <div class="col-md-6">
-
       </div>
-
     </div>
-
   </div>
 </section>

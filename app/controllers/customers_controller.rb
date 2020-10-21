@@ -20,7 +20,6 @@ class CustomersController < ApplicationMultiTenantController
     end
   end
 
-  # POST /customers
   def create
     @customer = Customer.new(customer_params)
 
