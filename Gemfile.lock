@@ -81,6 +81,11 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.4.4)
     erubi (1.9.0)
+    factory_bot (6.1.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.1.0)
+      factory_bot (~> 6.1.0)
+      railties (>= 5.0.0)
     ffi (1.13.1)
     get_process_mem (0.2.7)
       ffi (~> 1.0)
@@ -273,6 +278,7 @@ DEPENDENCIES
   byebug
   cancancan
   devise
+  factory_bot_rails
   jbuilder (~> 2.7)
   line-bot-api
   listen (~> 3.2)
