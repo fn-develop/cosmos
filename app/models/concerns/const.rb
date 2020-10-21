@@ -15,9 +15,9 @@ module Const
 
   module View
     module Name
-      INDEX       = '顧客一覧'.freeze
-      NEW         = '顧客情報登録'.freeze
-      SHOW        = '顧客情報参照'.freeze
+      CUSTOMER_INDEX       = '顧客一覧'.freeze
+      CUSTOMER_NEW         = '顧客登録'.freeze
+      CUSTOMER_SHOW        = '顧客詳細'.freeze
       LINE_NOTIFY = 'LINE通知'.freeze
     end
   end
