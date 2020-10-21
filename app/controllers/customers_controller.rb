@@ -13,6 +13,8 @@ class CustomersController < ApplicationMultiTenantController
     session[:reply_token] = params[:reply_token]
     line_user = company.line_users.find_by(reply_token: params[:reply_token])
 
+    CanCan::AccessDenied if line_user.blank?
+
     if line_user.user
       render plain: '既にユーザー登録が完了しています。'
     else
