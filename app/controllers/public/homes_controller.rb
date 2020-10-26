@@ -3,6 +3,9 @@ class Public::HomesController < ApplicationController
   layout false
 
   def index
+    if current_user.try(:admin?)
+      render action: :index_admin, layout: 'application'
+    end
   end
 
   private
