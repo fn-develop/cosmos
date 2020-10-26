@@ -8,7 +8,7 @@ class CustomersController < ApplicationMultiTenantController
   def show
   end
 
-  def new
+  def new_with_line
     session[:reply_token] = params[:reply_token]
     line_user = company.line_users.find_by(reply_token: params[:reply_token])
 
@@ -19,6 +19,8 @@ class CustomersController < ApplicationMultiTenantController
     else
       @customer = Customer.new
     end
+
+    render :new
   end
 
   def create
@@ -63,7 +65,7 @@ class CustomersController < ApplicationMultiTenantController
     end
 
     def is_public?
-      ['new', 'create'].include?(params[:action])
+      ['new_with_line', 'create'].include?(params[:action])
     end
 
     def line_message_params

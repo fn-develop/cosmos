@@ -22,7 +22,7 @@ module Api
           error 400 do 'Bad Request' end
         end
 
-        message = {type: 'text', text: '不明なアクセスです。'}
+        message = { type: 'text', text: '不明なアクセスです。' }
 
         events = client.parse_events_from(body)
 
@@ -30,12 +30,12 @@ module Api
           case event
           when Line::Bot::Event::Follow
             save_line_user(event, company)
-            message[:text] = "下記URLにアクセスしユーザー登録を完了してください。\n（#{new_customer_url({ company_code: company.code, reply_token: event['replyToken'] })}）"
+            message[:text] = "下記URLにアクセスしユーザー登録を完了してください。\n（#{ new_with_line_customers_url({ company_code: company.code, reply_token: event['replyToken'] }) }）"
           when Line::Bot::Event::Message
             case event.try(:type)
             when Line::Bot::Event::MessageType::Text
               save_line_user(event, company)
-              message[:text] = "下記URLにアクセスしユーザー登録を完了してください。\n（#{new_customer_url({ company_code: company.code, reply_token: event['replyToken'] })}）"
+              message[:text] = "下記URLにアクセスしユーザー登録を完了してください。\n（#{ new_with_line_customers_url({ company_code: company.code, reply_token: event['replyToken'] }) }）"
             end
           end
 
