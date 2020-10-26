@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     sessions: 'auth/sessions'
   }
 
-  scope '/:company_code/' do
+  scope '/:company_code/', constraints: { company_code: /[a-z]+/ } do
     resources :customers do
       get  'new/:reply_token', to: 'customers#new', as: :new, on: :collection
       get  'new_line_message', to: 'customers#new_line_message', on: :member
@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     end
 
     scope module: :public do
-      resources :homes, path: 'home'
+      resources :homes, path: ''
     end
 
     namespace 'api' do
@@ -36,5 +36,5 @@ Rails.application.routes.draw do
     end
   end
 
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  mount RailsAdmin::Engine => '/0', as: 'rails_admin'
 end
