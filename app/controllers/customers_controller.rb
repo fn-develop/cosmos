@@ -63,7 +63,7 @@ class CustomersController < ApplicationMultiTenantController
     end
 
     def is_public?
-      true
+      ['new', 'create'].include?(params[:action])
     end
 
     def line_message_params
