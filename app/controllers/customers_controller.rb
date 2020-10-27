@@ -18,12 +18,13 @@ class CustomersController < ApplicationMultiTenantController
       render plain: '既にユーザー登録が完了しています。'
     else
       @customer = Customer.new
-      render :new
+      render :new, layout: :public
     end
   end
 
   def new
     @customer = Customer.new
+    render :new
   end
 
   def create

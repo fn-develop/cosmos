@@ -1,46 +1,41 @@
-# frozen_string_literal: true
-
 class Ability
   include CanCan::Ability
 
   def initialize(user)
-
     # ログイン/アウトは全てのユーザーで許可
     can :manage, :session
+    can :read, :home
 
     user ||= User.new
 
     if user.admin?
-      can :access, :rails_admin   # grant access to rails_admin
+      can :manage, :all
+      can :access, :rails_admin
+    else
+      # User.roles => { customer: 0, staff: 1, owner: 2 }
+      send("#{ user.role }_ability", user)
+    end
+  end
+
+  private
+
+    # 顧客
+    def customer_ability(user)
+      can [:new_with_line, :create], :customer
+      can :read, Company, id: user.companies.pluck(:id)
     end
 
-    can :manage, :all
+    # スタッフ
+    def staff_ability(user)
+      can :manage, :customer
+      can :manage, Customer, user_id: User.where(company_id: user.companies.pluck(:id))
+      can :manage, Company, id: user.companies.pluck(:id)
+    end
 
-    # Define abilities for the passed in user here. For example:
-    #
-    #   user ||= User.new # guest user (not logged in)
-    #   if user.admin?
-    #     can :manage, :all
-    #   else
-    #     can :read, :all
-    #   end
-    #
-    # The first argument to `can` is the action you are giving the user
-    # permission to do.
-    # If you pass :manage it will apply to every action. Other common actions
-    # here are :read, :create, :update and :destroy.
-    #
-    # The second argument is the resource the user can perform the action on.
-    # If you pass :all it will apply to every resource. Otherwise pass a Ruby
-    # class of the resource.
-    #
-    # The third argument is an optional hash of conditions to further filter the
-    # objects.
-    # For example, here the user can only update published articles.
-    #
-    #   can :update, Article, :published => true
-    #
-    # See the wiki for details:
-    # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
-  end
+    # 管理者
+    def admin_ability(user)
+      can :manage, :customer
+      can :manage, Customer, user_id: User.where(company_id: user.companies.pluck(:id))
+      can :manage, Company, id: user.companies.pluck(:id)
+    end
 end

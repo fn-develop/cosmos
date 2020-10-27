@@ -9,6 +9,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string(255)
+#  role                   :integer          default(0), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
@@ -28,4 +29,6 @@ class User < ApplicationRecord
   has_many :companies, through: :company_users
   has_one  :line_user, dependent: :destroy
   has_one  :customer, dependent: :destroy
+
+  enum role: { customer: 0, staff: 1, owner: 2 }
 end

@@ -1,18 +1,19 @@
 class Public::HomesController < ApplicationController
-  before_action :check_company!
-  layout false
-
   def index
-    if current_user.try(:admin?)
-      render action: :index_admin, layout: 'application'
+    if company.blank?
+      render action: :index_public, layout: 'public'
+      return
+    end
+
+    # 未ログインユーザーの場合
+    if current_user.blank?
+      render action: :index_company, layout: 'public'
+    # 管理者、オーナー、店舗スタッフ
+    elsif current_user.admin? || current_user.owner? || current_user.staff?
+      render action: :index_staff, layout: 'application'
+    # 顧客ユーザーの場合
+    else
+      render action: :index_customer, layout: 'public'
     end
   end
-
-  private
-    def check_company!
-      @company = Company.find_by(code: params[:company_code])
-      if params[:company_code].present? && @company.blank?
-        raise ActiveRecord::RecordNotFound
-      end
-    end
 end

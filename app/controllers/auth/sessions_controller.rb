@@ -37,6 +37,6 @@ class Auth::SessionsController < Devise::SessionsController
     end
 
     def after_sign_in_path_for(resource)
-      customers_path(params[:company_code])
+      homes_path(params[:company_code])
     end
 end
