@@ -11,13 +11,21 @@
             <div class="card-body">
 
               <div class="form-group">
+                <% name_err = true if customer.errors.include?(:name) %>
                 <%= form.label :name %>
-                <%= form.text_field :name, { class: 'form-control', placeholder: '名前' } %>
+                <%= form.text_field :name, { class: "form-control #{ name_err ? 'is-invalid' : '' }", placeholder: '名前' } %>
+                <% if name_err %>
+                  <span class="error invalid-feedback"><%= customer.errors.full_messages_for(:name).first %></span>
+                <% end %>
               </div>
 
               <div class="form-group">
+                <% name_kana_err = true if customer.errors.include?(:name_kana) %>
                 <%= form.label :name_kana %>
-                <%= form.text_field :name_kana, { class: 'form-control', placeholder: '名前（カナ）' } %>
+                <%= form.text_field :name_kana, { class: "form-control #{ name_kana_err ? 'is-invalid' : '' }", placeholder: '名前（カナ）' } %>
+                <% if name_kana_err %>
+                  <span class="error invalid-feedback"><%= customer.errors.full_messages_for(:name_kana).first %></span>
+                <% end %>
               </div>
 
               <div class="form-group">
@@ -26,8 +34,12 @@
               </div>
 
               <div class="form-group">
+                <% tel_number_err = true if customer.errors.include?(:tel_number) %>
                 <%= form.label :tel_number %>
-                <%= form.text_field :tel_number, { class: 'form-control' } %>
+                <%= form.text_field :tel_number, { class: "form-control #{ tel_number_err ? 'is-invalid' : '' }" } %>
+                <% if tel_number_err %>
+                  <span class="error invalid-feedback"><%= customer.errors.full_messages_for(:tel_number).first %></span>
+                <% end %>
               </div>
 
               <div class="form-group">
@@ -50,8 +62,12 @@
               </div>
 
               <div class="form-group">
+                <% postal_code_err = true if customer.errors.include?(:postal_code) %>
                 <%= form.label :postal_code %>
-                <%= form.text_field :postal_code, { class: 'form-control' } %>
+                <%= form.text_field :postal_code, { class: "form-control #{ postal_code_err ? 'is-invalid' : '' }" } %>
+                <% if postal_code_err %>
+                  <span class="error invalid-feedback"><%= customer.errors.full_messages_for(:postal_code).first %></span>
+                <% end %>
               </div>
 
               <div class="form-group">

@@ -20,6 +20,11 @@
 class Customer < ApplicationRecord
   belongs_to :user, required: false
 
+  validates :name, presence: true
+  validates :name_kana, presence: true
+  validates :tel_number, presence: true
+  validates :postal_code, presence: true
+
   def line?
     self.user.try(:line_user).present?
   end
