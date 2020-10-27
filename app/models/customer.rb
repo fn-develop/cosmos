@@ -20,8 +20,11 @@
 class Customer < ApplicationRecord
   belongs_to :user, required: false
 
+  enum gender: { men: 0, women: 1 }
+
   validates :name, presence: true
   validates :name_kana, presence: true
+  validates :gender, presence: true
   validates :tel_number, presence: true
   validates :postal_code, presence: true
 

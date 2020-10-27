@@ -29,9 +29,25 @@
               </div>
 
               <div class="form-group">
-                <%= form.label :gender %>
-                <%= form.number_field :gender, { class: 'form-control' } %>
+                <% gender_err = true if customer.errors.include?(:gender) %>
+
+                <%= form.label :gender , { class: "#{ gender_err ? 'is-invalid' : '' }" } %><br />
+
+                <div class="form-check form-check-inline">
+                  <%= form.radio_button :gender, :men, class: 'form-check-input', checked: "#{ 'checked' if form.object.men? }" %>
+                  <%= form.label :gender, Customer.human_attribute_name("gender.men"), value: :men, class: 'form-check-label' %>
+                </div>
+
+                <div class="form-check form-check-inline">
+                  <%= form.radio_button :gender, :women, class: 'form-check-input', checked: "#{ 'checked' if form.object.women? }" %>
+                  <%= form.label :gender, Customer.human_attribute_name("gender.women"), value: :women, class: 'form-check-label' %>
+                </div>
+                <% if gender_err %>
+                  <span class="error invalid-feedback"><%= customer.errors.full_messages_for(:gender).first %></span>
+                <% end %>
               </div>
+
+
 
               <div class="form-group">
                 <% tel_number_err = true if customer.errors.include?(:tel_number) %>
