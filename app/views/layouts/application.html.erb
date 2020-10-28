@@ -11,7 +11,6 @@
   <%= stylesheet_pack_tag 'application', media: 'all' %>
   <%= javascript_pack_tag 'application' %>
   <%= yield(:page_javascript) if content_for?(:page_javascript) %>
-
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -29,6 +28,23 @@
 
   <%= render '/layouts/main_footer' %>
 </div>
+
+<% if notice || alert %>
+  <div id="notice_modal" data-izimodal-title="通知" data-izimodal-subtitle="<%= Date.today.to_s %>">
+    <p>
+      <div class="col p-3">
+        <%= notice || alert %>
+      </div>
+    </p>
+  </div>
+
+  <%= javascript_tag do %>
+    $(function() {
+      $('#notice_modal').iziModal();
+      $('#notice_modal').iziModal('open');
+    });
+  <% end %>
+<% end %>
 
 </body>
 </html>
