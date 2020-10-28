@@ -1,0 +1,4 @@
+<div class="content-wrapper">
+  <%= render 'content_header', active_breadcrumb_item: Const::View::Name::CUSTOMER_EDIT %>
+  <%= render 'form', customer: @customer, url: { company_code: @company.code, action: :update } %>
+</div>

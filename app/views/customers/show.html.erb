@@ -53,7 +53,8 @@
         <% if @customer.line? %>
           <%= link_to 'LINE通知', new_line_message_customer_path(@customer, company_code: @company.code) %> |
         <% end %>
-        <%= link_to 'Back', customers_path(company_code: @company.code) %>
+        <a href="<%= edit_customer_path(@customer, company_code: @company.code ) %>" class="btn btn-sm btn-info float-left">編集</a>
+        <a href="<%= customers_path(company_code: @company.code) %>" class="btn btn-sm btn-default float-right">戻る</a>
       </div>
     </div>
   </section>

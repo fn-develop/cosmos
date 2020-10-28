@@ -19,6 +19,7 @@ module Const
       CUSTOMER_INDEX = '顧客一覧'.freeze
       CUSTOMER_NEW   = '顧客登録'.freeze
       CUSTOMER_SHOW  = '顧客詳細'.freeze
+      CUSTOMER_EDIT  = '顧客編集'.freeze
       LINE_NOTIFY    = 'LINE通知'.freeze
     end
   end

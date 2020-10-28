@@ -1,4 +1,4 @@
 <div class="content-wrapper">
   <%= render 'content_header', active_breadcrumb_item: Const::View::Name::CUSTOMER_NEW %>
-  <%= render 'form', customer: @customer %>
+  <%= render 'form', customer: @customer, url: { action: :create } %>
 </div>

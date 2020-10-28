@@ -31,4 +31,8 @@ class ApplicationController < ActionController::Base
         authorize! :read, company
       end
     end
+
+    def company_code
+      company.try(:code)
+    end
 end

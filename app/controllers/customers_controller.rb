@@ -1,5 +1,5 @@
 class CustomersController < ApplicationMultiTenantController
-  before_action :set_customer, only: [:show, :new_line_message, :send_line_message]
+  before_action :set_customer, only: [:show, :edit, :update, :new_line_message, :send_line_message]
 
   def index
     @customers = company.customer_users
@@ -18,7 +18,7 @@ class CustomersController < ApplicationMultiTenantController
       render plain: '既にユーザー登録が完了しています。'
     else
       @customer = Customer.new
-      render :new, layout: :public
+      render :new
     end
   end
 
@@ -44,6 +44,19 @@ class CustomersController < ApplicationMultiTenantController
       render plain: '登録が完了しました。'
     else
       render :new
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    @customer.attributes = customer_params
+
+    if @customer.save
+      redirect_to customer_path(company_code, @customer), notice: "ID:#{ @customer.id }の更新が完了しました。"
+    else
+      render :edit
     end
   end
 

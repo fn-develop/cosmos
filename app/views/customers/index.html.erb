@@ -21,6 +21,7 @@
             </tr>
           </thead>
           <tbody>
+
             <% @customers.each_with_index do |customer, i| %>
               <tr>
                 <td><a href="<%= customer_path(customer, company_code: @company.code ) %>"><%= customer.id.to_s %>.</td>
