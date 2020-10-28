@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
         raise ActiveRecord::RecordNotFound
       end
 
-      # 所属する会社かどうか
+      # ログインしている場合は所属する会社かどうかをチェック
       if current_user
         # 権限チェック：see: Ability.rb
         authorize! :read, company

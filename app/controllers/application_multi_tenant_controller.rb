@@ -1,16 +1,10 @@
 class ApplicationMultiTenantController < ApplicationController
-  before_action :authenticate_user!, :check_company_user!, unless: :is_public?
+  before_action :authenticate_user!, unless: :is_public?
   # 各アクションで権限をチェック。オプションでモデル依存をfalseに。
   authorize_resource class: false
 
   private
-
-
-    def check_company_user!
-      raise CanCan::AccessDenied if company.blank?
-      company.users.find(current_user.id)
-    end
-
+    # ログイン無しでもアクセス可能にする制御
     def is_public?
        false
     end
