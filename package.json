@@ -11,6 +11,7 @@
     "bootstrap": "^4.5.2",
     "izimodal": "^1.5.1",
     "jquery": "^3.5.1",
+    "jquery-jpostal-ja": "^2.14.1",
     "popper.js": "^1.16.1"
   },
   "version": "0.1.0",

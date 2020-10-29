@@ -21,6 +21,7 @@ import '@fortawesome/fontawesome-free/js/all';
 require("jquery");
 require("admin-lte");
 require("izimodal");
+require("jquery-jpostal-ja");
 
 window.$ = jQuery;
 window.jQuery = jQuery;

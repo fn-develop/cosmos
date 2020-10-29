@@ -7,6 +7,7 @@ environment.plugins.append('Provide',
     jQuery: 'jquery',
     Popper: ['popper.js', 'default'],
     iziModal: 'izimodal',
+    jpostal: 'jpostal',
   })
 )
 
