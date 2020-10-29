@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>COSMOS</title>
+  <title><%= @company.name %></title>
 
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
@@ -30,7 +30,7 @@
 </div>
 
 <% if notice || alert %>
-  <div id="notice_modal" data-izimodal-title="通知" data-izimodal-subtitle="<%= Date.today.to_s %>">
+  <div id="notice_modal" data-izimodal-title="通知" data-izimodal-subtitle="<%= Time.now.strftime("%Y-%m-%d %H:%M") %>">
     <p>
       <div class="col p-3">
         <%= notice || alert %>

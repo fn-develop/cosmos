@@ -3,7 +3,7 @@
   <a href="<%= homes_path(company_code: params[:company_code]) %>" class="brand-link">
     <img src="<%= asset_pack_path 'media/images/logo.png'%>" alt="COSMOS Logo" class="brand-image img-circle elevation-3"
          style="opacity: .8">
-    <span class="brand-text font-weight-light">COSMOS</span>
+    <span class="brand-text font-weight-light"><%= @company.name %></span>
   </a>
 
   <div class="sidebar">

@@ -25,3 +25,9 @@ ja:
     attributes:
       line_message:
         message: 'メッセージ'
+
+
+  devise:
+    sessions:
+      user:
+        signed_in: 'ログインしました。'

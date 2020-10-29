@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>COSMOS</title>
+  <title><%= @company.name %></title>
 
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
@@ -19,7 +19,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="/"><b>COSMOS</b></a>
+    <a href="/"><b><%= @company.name %></b></a>
   </div>
 
   <%= yield %>
