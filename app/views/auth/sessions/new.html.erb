@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-body login-card-body">
-    <p class="login-box-msg">LOGIN</p>
+    <p class="login-box-msg">Please enter your email and password.</p>
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="input-group mb-3">
@@ -22,19 +22,8 @@
       </div>
 
       <div class="row">
-        <% if devise_mapping.rememberable? %>
-        <div class="col-8">
-          <div class="icheck-primary">
-            <%= f.check_box :remember_me %>
-            <label for="remember">
-              ログイン状態を保持
-            </label>
-          </div>
-        </div>
-        <% end %>
-
-        <div class="col-4">
-          <%= f.submit 'ログイン', class: 'btn btn-primary btn-block' %>
+        <div class="col-12">
+          <%= f.submit 'login', class: 'btn btn-primary btn-block' %>
         </div>
       </div>
     <% end %>
