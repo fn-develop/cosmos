@@ -40,7 +40,7 @@
               <td><%= Customer.human_attribute_name("gender.#{ @customer.gender }") %></td>
             </tr><tr>
               <th class="text-nowrap"><%= Customer.human_attribute_name(:tel_number) %></th>
-              <td><%= @customer.tel_number.to_s %></td>
+              <td><%= @customer.formatted_tel_number.to_s %></td>
             </tr><tr>
               <th class="text-nowrap"><%= Customer.human_attribute_name(:birthday) %></th>
               <td><%= @customer.birthday.strftime("%Y年%m月%d日") if @customer.birthday %></td>

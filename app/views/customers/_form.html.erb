@@ -49,11 +49,19 @@
 
               <div class="form-group">
                 <% tel_number_err = true if customer.errors.include?(:tel_number) %>
-                <%= form.label :tel_number %>
-                <%= form.text_field :tel_number, { class: "form-control #{ tel_number_err ? 'is-invalid' : '' }" } %>
-                <% if tel_number_err %>
-                  <span class="error invalid-feedback"><%= customer.errors.full_messages_for(:tel_number).first %></span>
-                <% end %>
+                <%= form.label :tel_number, { class: "#{ tel_number_err ? 'is-invalid' : '' }" } %>
+                <div class="form-row align-items-center">
+                  <div class="col">
+                    <%= form.text_field :tel_number1, { maxlength:3, class: "form-control #{ tel_number_err ? 'is-invalid' : '' }" } %>
+                  </div>
+                  <div class="col">
+                    <%= form.text_field :tel_number2, { maxlength:4, class: "form-control #{ tel_number_err ? 'is-invalid' : '' }" } %>
+                  </div>
+                  <div class="col">
+                    <%= form.text_field :tel_number3, { maxlength:4, class: "form-control #{ tel_number_err ? 'is-invalid' : '' }" } %>
+                  </div>
+                </div>
+                <span class="error invalid-feedback"><%= customer.errors.full_messages_for(:tel_number).first %></span>
               </div>
 
               <div class="form-group">
@@ -103,7 +111,6 @@
                 <%= form.label :address2 %>
                 <%= form.text_field :address2, { class: 'form-control' } %>
               </div>
-
             </div>
 
             <div class="card-footer">

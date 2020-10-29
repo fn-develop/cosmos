@@ -22,13 +22,33 @@ class Customer < ApplicationRecord
 
   enum gender: { men: 0, women: 1 }
 
+  attr_accessor :tel_number1
+  attr_accessor :tel_number2
+  attr_accessor :tel_number3
+
+  after_find :split_tel_number
+  before_validation :join_tel_numbers
+
   validates :name, presence: true
   validates :name_kana, presence: true
   validates :gender, presence: true
-  validates :tel_number, presence: true
+  validates :tel_number, presence: true, length: { is: 11 }, numericality: { only_integer: true }
   validates :postal_code, presence: true
 
   def line?
     self.user.try(:line_user).present?
   end
+
+  def formatted_tel_number
+    self[:tel_number].gsub(/(\d{3})(\d{4})(\d{4})/, '\1-\2-\3')
+  end
+
+  private
+    def split_tel_number
+      self.tel_number1, self.tel_number2, self.tel_number3 = self.formatted_tel_number.split('-')
+    end
+
+    def join_tel_numbers
+      self.tel_number = self.tel_number1.to_s + self.tel_number2.to_s + self.tel_number3.to_s
+    end
 end
