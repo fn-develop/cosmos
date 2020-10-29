@@ -20,7 +20,7 @@ class Ability
   private
 
     # ゲスト
-    def customer_ability(user)
+    def guest_ability(user)
       can [:new_with_line, :create], :customer
       can :read, Company, id: user.companies.pluck(:id)
     end
