@@ -13,7 +13,7 @@ class Ability
       can :access, :rails_admin
     else
       # User.roles => { customer: 0, staff: 1, owner: 2 }
-      send("#{ user.role || 'guest' }_ability", user)
+      send("#{ user.try(:role) || 'guest' }_ability", user)
     end
   end
 
