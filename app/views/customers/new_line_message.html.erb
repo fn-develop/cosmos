@@ -1,22 +1,20 @@
-<div class="content-wrapper">
-  <div class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1 class="m-0 text-dark"><%= Const::View::Name::LINE_NOTIFY %></h1>
-        </div>
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark"><%= Const::View::Name::LINE_NOTIFY %></h1>
+      </div>
 
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="<%= homes_path(company_code: params[:company_code]) %>">ホーム</a></li>
-            <li class="breadcrumb-item"><a href="<%= customers_path(company_code: @company.code) %>"><%= Const::View::Name::CUSTOMER_INDEX %></a></li>
-            <li class="breadcrumb-item"><a href="<%= customer_path(@customer, company_code: @company.code) %>"><%= Const::View::Name::CUSTOMER_SHOW %></a></li>
-            <li class="breadcrumb-item active"><%= Const::View::Name::LINE_NOTIFY %></li>
-          </ol>
-        </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="<%= homes_path(company_code: params[:company_code]) %>">ホーム</a></li>
+          <li class="breadcrumb-item"><a href="<%= customers_path(company_code: @company.code) %>"><%= Const::View::Name::CUSTOMER_INDEX %></a></li>
+          <li class="breadcrumb-item"><a href="<%= customer_path(@customer, company_code: @company.code) %>"><%= Const::View::Name::CUSTOMER_SHOW %></a></li>
+          <li class="breadcrumb-item active"><%= Const::View::Name::LINE_NOTIFY %></li>
+        </ol>
       </div>
     </div>
   </div>
-
-  <%= render 'form_line', customer: @customer, line_message: @line_message %>
 </div>
+
+<%= render 'form_line', customer: @customer, line_message: @line_message %>

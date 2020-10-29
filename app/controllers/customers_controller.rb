@@ -18,7 +18,7 @@ class CustomersController < ApplicationMultiTenantController
       render plain: '既にユーザー登録が完了しています。'
     else
       @customer = Customer.new
-      render :new
+      render :new, layout: 'line_regist'
     end
   end
 
@@ -43,7 +43,7 @@ class CustomersController < ApplicationMultiTenantController
       session[:company_code] = session[:reply_token] = nil
       render plain: '登録が完了しました。'
     else
-      render :new
+      render :new, notice: '入力内容にエラーがあります。'
     end
   end
 
@@ -56,7 +56,7 @@ class CustomersController < ApplicationMultiTenantController
     if @customer.save
       redirect_to customer_path(company_code, @customer), notice: "ID:#{ @customer.id }の更新が完了しました。"
     else
-      render :edit
+      render :edit, notice: '入力内容にエラーがあります。'
     end
   end
 

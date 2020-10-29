@@ -13,11 +13,17 @@ class Ability
       can :access, :rails_admin
     else
       # User.roles => { customer: 0, staff: 1, owner: 2 }
-      send("#{ user.role }_ability", user)
+      send("#{ user.role || 'guest' }_ability", user)
     end
   end
 
   private
+
+    # ゲスト
+    def customer_ability(user)
+      can [:new_with_line, :create], :customer
+      can :read, Company, id: user.companies.pluck(:id)
+    end
 
     # 顧客
     def customer_ability(user)

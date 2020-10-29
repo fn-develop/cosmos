@@ -1,46 +1,44 @@
-<div class="content-wrapper">
-  <%= render 'content_header', active_breadcrumb_item: Const::View::Name::CUSTOMER_INDEX %>
+<%= render 'content_header', active_breadcrumb_item: Const::View::Name::CUSTOMER_INDEX %>
 
-  <section class="content">
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title">一覧</h3>
-      </div>
-
-      <div class="card-body">
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th style="width: 10px"><%= Customer.human_attribute_name(:id) %></th>
-              <th><%= Customer.human_attribute_name(:name) %></th>
-              <th><%= Customer.human_attribute_name(:name_kana) %></th>
-              <th><%= Customer.human_attribute_name(:gender) %></th>
-              <th><%= Customer.human_attribute_name(:tel_number) %></th>
-              <th><%= Customer.human_attribute_name(:birthday) %></th>
-              <th>LINE通知</th>
-            </tr>
-          </thead>
-          <tbody>
-
-            <% @customers.each_with_index do |customer, i| %>
-              <tr>
-                <td><a href="<%= customer_path(customer, company_code: @company.code ) %>"><%= customer.id.to_s %>.</td>
-                <td><%= customer.name.to_s %></td>
-                <td><%= customer.name_kana.to_s %></td>
-                <td><%= Customer.human_attribute_name("gender.#{ customer.gender }") if customer.gender %></td>
-                <td><%= customer.formatted_tel_number.to_s %></td>
-                <td><%= customer.birthday.strftime("%Y年%m月%d日") if customer.birthday %></td>
-                <td></td>
-              </tr>
-            <% end %>
-
-          </tbody>
-        </table>
-      </div>
-
-      <div class="card-footer clearfix">
-        <a href="<%= new_customer_path(company_code: @company.code ) %>" class="btn btn-sm btn-info float-left">新規作成</a>
-      </div>
+<section class="content">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">一覧</h3>
     </div>
-  </section>
-</div>
+
+    <div class="card-body">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th style="width: 10px"><%= Customer.human_attribute_name(:id) %></th>
+            <th><%= Customer.human_attribute_name(:name) %></th>
+            <th><%= Customer.human_attribute_name(:name_kana) %></th>
+            <th><%= Customer.human_attribute_name(:gender) %></th>
+            <th><%= Customer.human_attribute_name(:tel_number) %></th>
+            <th><%= Customer.human_attribute_name(:birthday) %></th>
+            <th>LINE通知</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <% @customers.each_with_index do |customer, i| %>
+            <tr>
+              <td><a href="<%= customer_path(customer, company_code: @company.code ) %>"><%= customer.id.to_s %>.</td>
+              <td><%= customer.name.to_s %></td>
+              <td><%= customer.name_kana.to_s %></td>
+              <td><%= Customer.human_attribute_name("gender.#{ customer.gender }") if customer.gender %></td>
+              <td><%= customer.formatted_tel_number.to_s %></td>
+              <td><%= customer.birthday.strftime("%Y年%m月%d日") if customer.birthday %></td>
+              <td></td>
+            </tr>
+          <% end %>
+
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card-footer clearfix">
+      <a href="<%= new_customer_path(company_code: @company.code ) %>" class="btn btn-sm btn-info float-left">新規作成</a>
+    </div>
+  </div>
+</section>

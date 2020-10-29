@@ -16,20 +16,7 @@
 </head>
 <body class="hold-transition sidebar-mini sidebar-collapse">
 
-<div class="wrapper">
-
-  <%= render '/layouts/header' %>
-
-  <%= render '/layouts/main_sidebar' %>
-
-  <div class="content-wrapper">
-    <%= yield %>
-  </div>
-
-  <%= render '/layouts/sub_sidebar' %>
-
-  <%= render '/layouts/main_footer' %>
-</div>
+<%= yield %>
 
 <% if notice || alert %>
   <div id="notice_modal" data-izimodal-title="通知" data-izimodal-subtitle="<%= Time.now.strftime("%Y-%m-%d %H:%M") %>">
