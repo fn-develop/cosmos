@@ -27,7 +27,7 @@
                 <td><a href="<%= customer_path(customer, company_code: @company.code ) %>"><%= customer.id.to_s %>.</td>
                 <td><%= customer.name.to_s %></td>
                 <td><%= customer.name_kana.to_s %></td>
-                <td><%= customer.gender.to_s %></td>
+                <td><%= Customer.human_attribute_name("gender.#{ customer.gender }") if customer.gender %></td>
                 <td><%= customer.tel_number.to_s %></td>
                 <td><%= customer.birthday.to_s %></td>
                 <td></td>

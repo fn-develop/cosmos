@@ -37,7 +37,7 @@
               <td><%= @customer.name_kana.to_s %></td>
             </tr><tr>
               <th class="text-nowrap"><%= Customer.human_attribute_name(:gender) %></th>
-              <td><%= @customer.gender.to_s %></td>
+              <td><%= Customer.human_attribute_name("gender.#{ @customer.gender }") %></td>
             </tr><tr>
               <th class="text-nowrap"><%= Customer.human_attribute_name(:tel_number) %></th>
               <td><%= @customer.tel_number.to_s %></td>
