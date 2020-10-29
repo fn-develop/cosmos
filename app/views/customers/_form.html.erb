@@ -51,21 +51,21 @@
                 <% tel_number_err = true if customer.errors.include?(:tel_number) %>
                 <%= form.label :tel_number, { class: "#{ tel_number_err ? 'is-invalid' : '' }" } %>
                 <div class="form-row align-items-center">
-                  <div class="col">
+                  <div class="col-3">
                     <%= form.telephone_field :tel_number1, {
                       maxlength:3,
                       class: "form-control #{ tel_number_err ? 'is-invalid' : '' }",
                       onKeyup: "this.value=this.value.replace(/[^0-9]+/i,''); nextField(this, 'customer_tel_number2', 3)"
                     } %>
                   </div>
-                  <div class="col">
+                  <div class="col-3">
                     <%= form.telephone_field :tel_number2, {
                       maxlength:4,
                       class: "form-control #{ tel_number_err ? 'is-invalid' : '' }",
                       onKeyup: "this.value=this.value.replace(/[^0-9]+/i,''); nextField(this, 'customer_tel_number3', 4)"
                     } %>
                   </div>
-                  <div class="col">
+                  <div class="col-3">
                     <%= form.telephone_field :tel_number3, {
                       maxlength:4,
                       class: "form-control #{ tel_number_err ? 'is-invalid' : '' }",
@@ -75,13 +75,6 @@
                 </div>
                 <span class="error invalid-feedback"><%= customer.errors.full_messages_for(:tel_number).first %></span>
               </div>
-              <script type="text/javascript">
-              function nextField(i, n, m) {
-                if (i.value.length >= m) {
-                  i.form.elements[n].focus();
-                }
-              }
-              </script>
 
               <div class="form-group">
                 <%= form.label :birthday %>
@@ -104,11 +97,24 @@
 
               <div class="form-group">
                 <% postal_code_err = true if customer.errors.include?(:postal_code) %>
-                <%= form.label :postal_code %>
-                <%= form.text_field :postal_code, { class: "form-control #{ postal_code_err ? 'is-invalid' : '' }" } %>
-                <% if postal_code_err %>
-                  <span class="error invalid-feedback"><%= customer.errors.full_messages_for(:postal_code).first %></span>
-                <% end %>
+                <%= form.label :postal_code, { class: "#{ postal_code_err ? 'is-invalid' : '' }" } %>
+                <div class="form-row align-items-center">
+                  <div class="col-3">
+                    <%= form.telephone_field :postal_code1, {
+                      maxlength:3,
+                      class: "form-control #{ postal_code_err ? 'is-invalid' : '' }",
+                      onKeyup: "this.value=this.value.replace(/[^0-9]+/i,''); nextField(this, 'customer_postal_code2', 3)"
+                    } %>
+                  </div>
+                  <div class="col-4">
+                    <%= form.telephone_field :postal_code2, {
+                      maxlength:4,
+                      class: "form-control #{ postal_code_err ? 'is-invalid' : '' }",
+                      onKeyup: "this.value=this.value.replace(/[^0-9]+/i,'');"
+                    } %>
+                  </div>
+                </div>
+                <span class="error invalid-feedback"><%= customer.errors.full_messages_for(:postal_code).first %></span>
               </div>
 
               <div class="form-group">
@@ -150,5 +156,11 @@
     $(function() {
       $('.year, .month, .day').addClass('form-control d-inline col-3');
     });
+
+    function nextField(i, n, m) {
+      if (i.value.length >= m) {
+        i.form.elements[n].focus();
+      }
+    }
   <% end %>
 <% end %>
