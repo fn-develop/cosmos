@@ -35,7 +35,9 @@ module Const
 
     # Const::LineMessage::Code
     module Code
-      PUSH = 'push'.freeze
+      PUSH                 = 'push'.freeze
+      ACCOUNT_USER_MESSAGE = 'account_user_message'.freeze
+      NON_ACCOUNT_MESSAGE  = 'non_account_message'.freeze
     end
   end
 end

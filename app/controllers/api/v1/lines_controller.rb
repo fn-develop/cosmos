@@ -35,6 +35,7 @@ module Api
             case event.try(:type)
             when Line::Bot::Event::MessageType::Text
               save_line_user(event, company)
+              save_sender_message(event, company)
               message[:text] = "【自動応答メッセージ】再登録は下記URLで行えます。\n（#{ new_with_line_customers_url({ company_code: company.code, reply_token: event['replyToken'] }) }）"
             end
           end
@@ -54,6 +55,23 @@ module Api
           return line_user
         end
 
+        def save_sender_message(event, company)
+          line_user = LineUser.find_or_initialize_by(company: company, line_user_id: event['source']['userId'])
+          lml = LineMessageLog.build(
+            company:      company,
+            code:         Const::LineMessage::Code::ACCOUNT_USER_MESSAGE,
+            line_user_id: event['source']['userId'],
+            message:      event['message']['text'],
+          )
+          if line_user.user
+            lml.user = line_user.user
+            lml.code = Const::LineMessage::Code::ACCOUNT_USER_MESSAGE
+          else
+            lml.code = Const::LineMessage::Code::NON_ACCOUNT_MESSAGE
+          end
+
+          lml.save
+        end
     end
   end
 end
