@@ -23,7 +23,7 @@ class LineMessage
       today = Date.today
       LineMessageLog.create(
         company: RequestStore.store[:company],
-        user:    self.user_id,
+        user_id: self.user_id,
         year:    today.year.to_s,
         month:   today.month.to_s,
         code:    Const::LineMessage::Code::PUSH,
