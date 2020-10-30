@@ -41,7 +41,11 @@ class CustomersController < ApplicationMultiTenantController
 
     if @customer.valid?
       session[:company_code] = session[:reply_token] = nil
-      render plain: '登録が完了しました。'
+      if current_user.try(:over_staff_or_more?)
+        redirect_to customer_path(company_code, @customer), notice: "ID:#{ @customer.name }の登録が完了しました。"
+      else
+        render plain: '登録が完了しました。'
+      end
     else
       render :new, notice: '入力内容にエラーがあります。'
     end

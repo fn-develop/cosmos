@@ -31,4 +31,9 @@ class User < ApplicationRecord
   has_one  :customer, dependent: :destroy
 
   enum role: { customer: 0, staff: 1, owner: 2 }
+
+  # スタッフ以上の権限を持つユーザーかどうか
+  def over_staff_or_more?
+    (self.role_before_type_cast > 0 || self.admin?)
+  end
 end
