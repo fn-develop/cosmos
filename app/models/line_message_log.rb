@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: line_mseege_logs
+# Table name: line_message_logs
 #
 #  id         :bigint           not null, primary key
 #  code       :string(255)
@@ -15,12 +15,11 @@
 #
 # Indexes
 #
-#  index_line_mseege_logs_on_code                    (code)
-#  index_line_mseege_logs_on_company_id_and_user_id  (company_id,user_id)
-#  index_line_mseege_logs_on_year_and_month          (year,month)
+#  index_line_message_logs_on_code                    (code)
+#  index_line_message_logs_on_company_id_and_user_id  (company_id,user_id)
+#  index_line_message_logs_on_year_and_month          (year,month)
 #
-require 'rails_helper'
-
-RSpec.describe LineMseegeLog, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+class LineMessageLog < ApplicationRecord
+  belongs_to :user
+  belongs_to :staff, class_name: 'User'
 end

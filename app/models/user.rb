@@ -27,6 +27,8 @@ class User < ApplicationRecord
 
   has_many :company_users, dependent: :destroy
   has_many :companies, through: :company_users
+  has_many :line_message_logs
+  has_many :staff_line_mseege_logs, class_name: 'LineMessageLog', foreign_key: 'staff_id'
   has_one  :line_user, dependent: :destroy
   has_one  :customer, dependent: :destroy
 
