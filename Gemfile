@@ -19,6 +19,7 @@ gem 'sprockets', '~> 3.7.2'
 gem 'puma_worker_killer'
 gem 'line-bot-api'
 gem 'rails-i18n'
+gem 'request_store'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

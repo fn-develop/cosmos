@@ -16,7 +16,18 @@ class LineMessage
       type: Const::LineMessage::Type::TEXT,
       text: self.message,
     }
-    client.push_message(line_user_id, send_message)
+    response = client.push_message(line_user_id, send_message)
+    if response.code >= 200 && response.code < 300
+      today = Date.today
+      LineMessageLog.create(
+        comoany: RequestStore.store[:company],
+        year:    today.year.to_s,
+        month:   today.month.to_s,
+        code:    Const::LineMessage::Code::PUSH,
+        message: send_message,
+        staff:   RequestStore.store[:current_user],
+      )
+    end
   end
 
   # LINE Developers登録完了後に作成される環境変数の認証

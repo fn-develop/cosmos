@@ -1,5 +1,6 @@
 module Const
   module CollectionItem
+    # Const::CollectionItem::ItemType
     module ItemType
       TEXT     = 'text'.freeze
       SELECT   = 'select'.freeze
@@ -9,11 +10,13 @@ module Const
     end
   end
 
+  # Const::Controller
   module Controller
     CUSTOMER = 'customers'.freeze
   end
 
   module View
+    # Const::View::Name
     module Name
       HOME_INDEX     = 'ホーム'.freeze
       CUSTOMER_INDEX = '顧客一覧'.freeze
@@ -25,8 +28,14 @@ module Const
   end
 
   module LineMessage
+    # Const::LineMessage::Type
     module Type
       TEXT = 'text'.freeze
+    end
+
+    # Const::LineMessage::Code
+    module Code
+      PUSH = 'push'.freeze
     end
   end
 end

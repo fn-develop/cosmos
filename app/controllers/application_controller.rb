@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
-  before_action :company
   before_action :check_company!
+  before_action :store_company
+  before_action :store_current_user
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
   # 権限が無いページへアクセス時の例外処理
@@ -34,5 +35,13 @@ class ApplicationController < ActionController::Base
 
     def company_code
       company.try(:code)
+    end
+
+    def store_company
+      RequestStore.store[:company] = company
+    end
+
+    def store_current_user
+      RequestStore.store[:current_user] = current_user
     end
 end
