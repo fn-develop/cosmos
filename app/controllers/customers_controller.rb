@@ -1,5 +1,5 @@
 class CustomersController < ApplicationMultiTenantController
-  before_action :set_customer, only: [:show, :edit, :update, :new_line_message, :send_line_message]
+  before_action :set_customer, only: [:show, :edit, :update, :destroy, :new_line_message, :send_line_message]
 
   def index
     @customers = company.customer_users
@@ -57,6 +57,14 @@ class CustomersController < ApplicationMultiTenantController
       redirect_to customer_path(company_code, @customer), notice: "ID:#{ @customer.id }の更新が完了しました。"
     else
       render :edit, notice: '入力内容にエラーがあります。'
+    end
+  end
+
+  def destroy
+    if @customer.destroy
+      redirect_to customers_path(company_code), notice: "顧客:#{ @customer.name }を削除しました。"
+    else
+      render :show, notice: 'エラー発生、削除できませんでした。'
     end
   end
 
