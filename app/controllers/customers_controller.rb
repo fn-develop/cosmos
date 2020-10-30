@@ -65,11 +65,12 @@ class CustomersController < ApplicationMultiTenantController
   end
 
   def destroy
-    if @customer.destroy
-      redirect_to customers_path(company_code), notice: "顧客:#{ @customer.name }を削除しました。"
-    else
-      render :show, notice: 'エラー発生、削除できませんでした。'
+    ApplicationRecord.transaction do
+      user = @customer.user
+      user.destroy!
     end
+
+    redirect_to customers_path(company_code), notice: "顧客:#{ @customer.name }を削除しました。"
   end
 
   def new_line_message
