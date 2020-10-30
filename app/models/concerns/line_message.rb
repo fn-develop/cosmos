@@ -27,7 +27,7 @@ class LineMessage
         year:    today.year.to_s,
         month:   today.month.to_s,
         code:    Const::LineMessage::Code::PUSH,
-        message: send_message,
+        message: self.message,
         staff:   RequestStore.store[:current_user],
       )
     end
