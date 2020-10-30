@@ -57,7 +57,7 @@ module Api
 
         def save_sender_message(event, company)
           line_user = LineUser.find_or_initialize_by(company: company, line_user_id: event['source']['userId'])
-          lml = LineMessageLog.build(
+          lml = LineMessageLog.new(
             company:      company,
             code:         Const::LineMessage::Code::ACCOUNT_USER_MESSAGE,
             line_user_id: event['source']['userId'],
