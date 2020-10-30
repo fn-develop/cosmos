@@ -17,10 +17,13 @@ class LineMessage
       text: self.message,
     }
     response = client.push_message(line_user_id, send_message)
-    if response.code >= 200 && response.code < 300
+    response_code = response.code.to_i
+
+    if response_code >= 200 && response_code < 300
       today = Date.today
       LineMessageLog.create(
-        comoany: RequestStore.store[:company],
+        company: RequestStore.store[:company],
+        user:    self.user_id,
         year:    today.year.to_s,
         month:   today.month.to_s,
         code:    Const::LineMessage::Code::PUSH,
