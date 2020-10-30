@@ -21,6 +21,6 @@
 #
 class LineMessageLog < ApplicationRecord
   belongs_to :company
-  belongs_to :user
-  belongs_to :staff, class_name: 'User'
+  belongs_to :user, required: false
+  belongs_to :staff, class_name: 'User', required: false
 end
