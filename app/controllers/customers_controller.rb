@@ -75,10 +75,12 @@ class CustomersController < ApplicationMultiTenantController
 
   def new_line_message
     @line_message = LineMessage.new(user_id: @customer.user_id)
+    @line_message.company = company
   end
 
   def send_line_message
     @line_message = LineMessage.new(line_message_params)
+    @line_message.company = company
     if @line_message.valid?
       @line_message.send_text_message
     end

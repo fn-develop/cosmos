@@ -17,7 +17,7 @@ module Api
 
         body = request.body.read
         signature = request.env['HTTP_X_LINE_SIGNATURE']
-        client = LineMessage.new.client
+        client = LineMessage.new(company: company).client
         unless client.validate_signature(body, signature) || company.blank?
           error 400 do 'Bad Request' end
         end

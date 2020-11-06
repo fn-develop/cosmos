@@ -6,6 +6,8 @@ class LineMessage
   attr_accessor :user_id
   # 通知メッセージ
   attr_accessor :message
+  # 会社
+  attr_accessor :company
 
   validates :user_id, presence: true
   validates :message, presence: true
@@ -35,9 +37,9 @@ class LineMessage
 
   # LINE Developers登録完了後に作成される環境変数の認証
   def client
-    Line::Bot::Client.new { |config|
-      config.channel_secret = ENV['LINE_CHANNEL_SECRET']
-      config.channel_token  = ENV['LINE_CHANNEL_TOKEN']
+    @client ||= Line::Bot::Client.new { |config|
+      config.channel_secret = self.company.try(:line_channel_secret)
+      config.channel_token  = self.company.try(:line_channel_token)
     }
   end
 end

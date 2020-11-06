@@ -2,12 +2,14 @@
 #
 # Table name: companies
 #
-#  id         :bigint           not null, primary key
-#  code       :string(255)
-#  enabled    :boolean
-#  name       :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                  :bigint           not null, primary key
+#  code                :string(255)
+#  enabled             :boolean
+#  line_channel_secret :string(255)
+#  line_channel_token  :string(255)
+#  name                :string(255)
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
 #
 class Company < ApplicationRecord
   has_many :company_users, dependent: :destroy
