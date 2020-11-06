@@ -56,10 +56,10 @@ module Api
           line_user = LineUser.find_or_initialize_by(company: company, line_user_id: event['source']['userId'])
 
           lml = LineMessageLog.new(
-            company:         company,
-            line_message_id: event['message']['id'],
-            line_user_id:    event['source']['userId'],
-            message:         event['message']['text'],
+            company:      company,
+            message_id:   event['message']['id'],
+            line_user_id: event['source']['userId'],
+            message:      event['message']['text'],
           )
           if line_user.user
             lml.user = line_user.user
