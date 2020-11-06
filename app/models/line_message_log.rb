@@ -13,7 +13,7 @@
 #  updated_at         :datetime         not null
 #  company_id         :integer
 #  line_user_id       :string(255)
-#  message_id         :integer
+#  message_id         :bigint
 #  staff_id           :integer
 #  user_id            :string(255)
 #

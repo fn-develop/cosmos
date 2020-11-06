@@ -57,7 +57,7 @@ module Api
 
           lml = LineMessageLog.new(
             company:      company,
-            message_id:   event['message']['id'].to_i,
+            message_id:   event['message']['id'],
             line_user_id: event['source']['userId'],
             message:      event['message']['text'],
           )
