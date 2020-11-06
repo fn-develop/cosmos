@@ -21,18 +21,20 @@ class LineMessage
     response = client.push_message(line_user_id, send_message)
     response_code = response.code.to_i
 
-    if response_code >= 200 && response_code < 300
-      today = Date.today
-      LineMessageLog.create(
-        company: RequestStore.store[:company],
-        user_id: self.user_id,
-        year:    today.year.to_s,
-        month:   today.month.to_s,
-        code:    Const::LineMessage::Code::PUSH,
-        message: self.message,
-        staff:   RequestStore.store[:current_user],
-      )
-    end
+    today = Date.today
+    lml = LineMessageLog.new(
+      company:      RequestStore.store[:company],
+      user_id:      self.user_id,
+      line_user_id: line_user_id,
+      year:         today.year.to_s,
+      month:        today.month.to_s,
+      code:         Const::LineMessage::Code::PUSH,
+      message:      self.message,
+      staff:        RequestStore.store[:current_user],
+    )
+
+    lml.success_or_failure = (response_code >= 200 && response_code < 300)
+    lml.save
   end
 
   # LINE Developers登録完了後に作成される環境変数の認証

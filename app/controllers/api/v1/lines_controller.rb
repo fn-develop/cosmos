@@ -31,16 +31,13 @@ module Api
           when Line::Bot::Event::Follow
             save_line_user(event, company)
             message[:text] = "【自動応答メッセージ】下記URLにアクセスしユーザー登録を完了してください。\n（#{ new_with_line_customers_url({ company_code: company.code, reply_token: event['replyToken'] }) }）"
+            client.reply_message(event['replyToken'], message) unless event['replyToken'] === IGNORE_REPLY_TOKEN # テスト応答時はメッセージを返信しない
           when Line::Bot::Event::Message
             case event.try(:type)
             when Line::Bot::Event::MessageType::Text
-              save_line_user(event, company)
-              save_sender_message(event, company)
-              message[:text] = "【自動応答メッセージ】再登録は下記URLで行えます。\n（#{ new_with_line_customers_url({ company_code: company.code, reply_token: event['replyToken'] }) }）"
+              save_user_message(event, company)
             end
           end
-
-          client.reply_message(event['replyToken'], message) unless event['replyToken'] === IGNORE_REPLY_TOKEN # テスト応答時はメッセージを返信しない
         end
 
         head :ok
@@ -55,13 +52,14 @@ module Api
           return line_user
         end
 
-        def save_sender_message(event, company)
+        def save_user_message(event, company)
           line_user = LineUser.find_or_initialize_by(company: company, line_user_id: event['source']['userId'])
+
           lml = LineMessageLog.new(
-            company:      company,
-            code:         Const::LineMessage::Code::ACCOUNT_USER_MESSAGE,
-            line_user_id: event['source']['userId'],
-            message:      event['message']['text'],
+            company:         company,
+            line_message_id: event['message']['id'],
+            line_user_id:    event['source']['userId'],
+            message:         event['message']['text'],
           )
           if line_user.user
             lml.user = line_user.user

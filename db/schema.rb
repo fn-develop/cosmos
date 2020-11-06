@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_06_003636) do
+ActiveRecord::Schema.define(version: 2020_11_06_053143) do
 
   create_table "collection_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "collection_id"
@@ -78,6 +78,9 @@ ActiveRecord::Schema.define(version: 2020_11_06_003636) do
   end
 
   create_table "line_message_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.boolean "success_or_failure", default: true
+    t.boolean "checked", default: false
+    t.integer "message_id"
     t.integer "company_id"
     t.string "user_id"
     t.string "line_user_id"
