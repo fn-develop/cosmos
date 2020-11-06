@@ -80,11 +80,14 @@ class CustomersController < ApplicationMultiTenantController
   end
 
   def send_line_message
+    @line_message_logs = LineMessageLog.where(user_id: @customer.user_id)
     @line_message = LineMessage.new(line_message_params)
     @line_message.company = company
     if @line_message.valid?
       @line_message.send_text_message
+      @line_message = LineMessage.new()
     end
+
     render 'new_line_message'
   end
 
