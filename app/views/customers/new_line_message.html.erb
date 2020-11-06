@@ -17,4 +17,37 @@
   </div>
 </div>
 
-<%= render 'form_line', customer: @customer, line_message: @line_message %>
+<section class="content">
+  <div class="container-fluid">
+    <div class="card card-success">
+      <div class="card-header">
+        <h3 class="card-title">TO: <%= @customer.name %></h3>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card card-success direct-chat direct-chat-success">
+              <div class="card-body">
+                <div class="direct-chat-messages">
+                  <% @line_message_logs.each do |message_log| %>
+                    <% if message_log.staff_id.present? %>
+                      <%= render '/customers/line_message/staff', message: message_log %>
+                    <% else %>
+                      <%= render '/customers/line_message/user', customer: @customer, message: message_log %>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <%= render '/customers/line_message/form', customer: @customer, line_message: @line_message %>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <%= link_to '戻る', customer_path(@customer, company_code: @company.code), { class: 'btn  btn-default float-right' } %>
+      </div>
+    </div>
+  </div>
+</section>

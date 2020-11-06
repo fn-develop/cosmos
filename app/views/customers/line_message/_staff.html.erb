@@ -1,0 +1,10 @@
+<div class="direct-chat-msg right">
+  <div class="direct-chat-infos clearfix">
+    <span class="direct-chat-name float-right"><%= @company.name %></span>
+    <span class="direct-chat-timestamp float-left"><%= message.created_at.strftime("%Y-%m-%d %H:%M") %></span>
+  </div>
+  <div class="direct-chat-img" >◀︎</div>
+  <div class="direct-chat-text">
+    <%= message.message.to_s %>
+  </div>
+</div>

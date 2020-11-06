@@ -74,7 +74,8 @@ class CustomersController < ApplicationMultiTenantController
   end
 
   def new_line_message
-    @line_message = LineMessage.new(user_id: @customer.user_id)
+    @line_message_logs    = LineMessageLog.where(user_id: @customer.user_id)
+    @line_message         = LineMessage.new(user_id:      @customer.user_id)
     @line_message.company = company
   end
 
