@@ -13,16 +13,16 @@
   </ul>
 
   <ul class="navbar-nav ml-auto">
-    <% if @new_line_user_messages.present? %>
+    <% if @new_user_line_messages.present? %>
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
           <i class="far fa-comments"></i>
-          <span class="badge badge-danger navbar-badge">3</span>
+          <span class="badge badge-danger navbar-badge"><%= @new_user_line_messages.size() %></span>
         </a>
 
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
-          <% @new_line_user_messages.each do |msg| %>
-            <% customer = msg.user.customer %>
+          <% @new_user_line_messages.each do |msg| %>
+            <% customer = msg.user.customers.find_by(company: @company) %>
             <a href="<%= new_line_message_customer_path(@company.code, customer) %>" class="dropdown-item">
               <!-- Message Start -->
               <div class="media">
