@@ -38,4 +38,8 @@ class User < ApplicationRecord
   def over_staff_or_more?
     (self.role_before_type_cast > 0 || self.admin?)
   end
+
+  def unread_user_line_message?
+    self.line_message_logs.where(checked: false).present?
+  end
 end
