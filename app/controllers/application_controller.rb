@@ -51,13 +51,12 @@ class ApplicationController < ActionController::Base
     end
 
     def current_user_over_customer?
-      current_user.try(:over_staff_or_more?)
+      company.present? && current_user.try(:over_staff_or_more?)
     end
 
     def get_new_user_line_messages
       @new_user_line_messages ||= LineMessageLog.includes(user: :customer)
-                                                .where(company: company, checked: false)
-                                                .where(user_id: Customer.where(user: User.where(companies: company, role: :customer)).pluck(:user_id))
+                                    .where(company: company, checked: false, user_id: company.customers.pluck(:user_id))
     end
 
     # ログイン無しでもアクセス可能にする制御

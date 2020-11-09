@@ -2,7 +2,7 @@ class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy, :new_line_message, :send_line_message]
 
   def index
-    @customers = company.customer_users.includes(user: [:line_user, :line_message_logs])
+    @customers = company.customers.includes(user: [:line_user, :line_message_logs])
   end
 
   def show
@@ -28,7 +28,8 @@ class CustomersController < ApplicationController
   end
 
   def create
-    @customer = Customer.new(customer_params)
+    @customer         = Customer.new(customer_params)
+    @customer.company = company
 
     ApplicationRecord.transaction do
       if @customer.save

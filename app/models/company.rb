@@ -14,14 +14,11 @@
 class Company < ApplicationRecord
   has_many :company_users, dependent: :destroy
   has_many :users, through: :company_users
+  has_many :customers, dependent: :destroy
   has_many :items, dependent: :destroy
   has_many :collections, dependent: :destroy
   has_many :line_users, dependent: :destroy
 
   validates :code, presence: true, uniqueness: true, length: { in: 2..10 }, format: { with: /\A[a-z]+\z/, message: "英文字のみが使用できます" }
   validates :name, presence: true, length: { in: 1..50 }
-
-  def customer_users
-    Customer.where(user: self.users)
-  end
 end

@@ -15,10 +15,16 @@
 #  tel_number  :string(255)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  company_id  :integer          not null
 #  user_id     :integer
+#
+# Indexes
+#
+#  index_customers_on_company_id  (company_id)
 #
 class Customer < ApplicationRecord
   belongs_to :user, required: false
+  belongs_to :company
 
   enum gender: { men: 0, women: 1 }
 
