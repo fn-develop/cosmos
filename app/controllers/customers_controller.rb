@@ -1,4 +1,4 @@
-class CustomersController < ApplicationMultiTenantController
+class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy, :new_line_message, :send_line_message]
 
   def index

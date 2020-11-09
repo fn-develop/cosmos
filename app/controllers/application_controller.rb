@@ -1,7 +1,11 @@
 class ApplicationController < ActionController::Base
   before_action :check_company!
+  before_action :authenticate_user!, unless: :is_public?
   before_action :store_company
   before_action :store_current_user
+
+  # 各アクションで権限をチェック。オプションでモデル依存をfalseに。
+  authorize_resource class: false
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
   # 権限が無いページへアクセス時の例外処理
@@ -43,5 +47,10 @@ class ApplicationController < ActionController::Base
 
     def store_current_user
       RequestStore.store[:current_user] = current_user
+    end
+
+    # ログイン無しでもアクセス可能にする制御
+    def is_public?
+       false
     end
 end

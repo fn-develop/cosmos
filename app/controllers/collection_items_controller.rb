@@ -1,4 +1,4 @@
-class CollectionItemsController < ApplicationMultiTenantController
+class CollectionItemsController < ApplicationController
   before_action :set_collection_item, only: [:show, :edit, :update, :destroy]
 
   # GET /collection_items
