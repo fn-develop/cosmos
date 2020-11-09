@@ -43,6 +43,21 @@
           </tr><tr>
             <th class="text-nowrap"><%= Customer.human_attribute_name(:birthday) %></th>
             <td><%= @customer.birthday.strftime("%Y年%m月%d日") if @customer.birthday %></td>
+          </tr><tr>
+            <th class="text-nowrap"><%= Customer.human_attribute_name(:postal_code) %></th>
+            <td><%= @customer.formatted_postal_code %></td>
+          </tr><tr>
+            <th class="text-nowrap"><%= Customer.human_attribute_name(:prefecture) %></th>
+            <td><%= @customer.prefecture %></td>
+          </tr><tr>
+            <th class="text-nowrap"><%= Customer.human_attribute_name(:city) %></th>
+            <td><%= @customer.city %></td>
+          </tr><tr>
+            <th class="text-nowrap"><%= Customer.human_attribute_name(:address1) %></th>
+            <td><%= @customer.address1 %></td>
+          </tr><tr>
+            <th class="text-nowrap"><%= Customer.human_attribute_name(:address2) %></th>
+            <td><%= @customer.address2 %></td>
           </tr>
         </tbody>
       </table>
