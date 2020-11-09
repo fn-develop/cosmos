@@ -28,4 +28,8 @@ class Public::HomesController < ApplicationController
         return 'application'
       end
     end
+
+    def is_public?
+       true
+    end
 end
