@@ -44,6 +44,8 @@ module Cosmos
             routing_specs: false
     end
 
+    config.time_zone = 'Tokyo'
+
     # Railsが自動で挿入するエラータグを非表示とする
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag }
   end
