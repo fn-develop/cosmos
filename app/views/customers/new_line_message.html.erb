@@ -28,7 +28,7 @@
           <div class="col-md-6">
             <div class="card card-primary direct-chat direct-chat-primary">
               <div class="card-body">
-                <div id="message-log" class="direct-chat-messages">
+                <div id="message-log" class="direct-chat-messages" style="height: 320px;">
                   <% @line_message_logs.each do |message_log| %>
                     <% if message_log.staff_id.present? %>
                       <%= render '/customers/line_message/staff', message: message_log %>
