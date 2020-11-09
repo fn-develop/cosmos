@@ -1,7 +1,7 @@
 <div class="direct-chat-msg right">
   <div class="direct-chat-infos clearfix">
-    <span class="direct-chat-name float-right"><%= @company.name %></span>
-    <span class="direct-chat-timestamp float-left"><%= message.created_at.strftime("%Y/%m/%d %H:%M") %></span>
+    <span class="direct-chat-timestamp float-right"><%= message.created_at.strftime("%Y/%m/%d %H:%M") %></span>
+    <span class="direct-chat-name float-right"><%= @company.name %>&nbsp;</span>
   </div>
   <div class="direct-chat-text" style="margin-right: 0px; margin-left: 20px;">
     <%= message.message.to_s %>
