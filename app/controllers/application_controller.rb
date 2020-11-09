@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!, unless: :is_public?
   before_action :store_company
   before_action :store_current_user
+  before_action :get_new_line_user_messages, if: :current_user_over_customer?
 
   # 各アクションで権限をチェック。オプションでモデル依存をfalseに。
   authorize_resource class: false
@@ -47,6 +48,14 @@ class ApplicationController < ActionController::Base
 
     def store_current_user
       RequestStore.store[:current_user] = current_user
+    end
+
+    def current_user_over_customer?
+      current_user.try(:over_staff_or_more?)
+    end
+
+    def get_new_line_user_messages
+      @new_line_user_messages ||= LineMessageLog.where(company: company, checked: false)
     end
 
     # ログイン無しでもアクセス可能にする制御

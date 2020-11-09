@@ -13,6 +13,36 @@
   </ul>
 
   <ul class="navbar-nav ml-auto">
+    <% if @new_line_user_messages.present? %>
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+          <i class="far fa-comments"></i>
+          <span class="badge badge-danger navbar-badge">3</span>
+        </a>
+
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
+          <% @new_line_user_messages.each do |msg| %>
+            <% customer = msg.user.customer %>
+            <a href="<%= new_line_message_customer_path(@company.code, customer) %>" class="dropdown-item">
+              <!-- Message Start -->
+              <div class="media">
+                <div class="media-body">
+                  <h3 class="dropdown-item-title">
+                    <%= customer.name.to_s %>
+                    <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
+                  </h3>
+                  <p class="text-sm"><%= msg.message.to_s[0, 10] %>...</p>
+                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i><%= msg.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+                </div>
+              </div>
+            </a>
+          <% end %>
+          <div class="dropdown-divider"></div>
+          <a href="<%= customers_path %>" class="dropdown-item dropdown-footer">顧客一覧へ</a>
+        </div>
+      </li>
+    <% end %>
+
     <li class="nav-item">
       <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i
           class="fas fa-th-large"></i></a>
