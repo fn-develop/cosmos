@@ -11,7 +11,7 @@ class Public::HomesController < ApplicationController
     if current_user.blank?
       render action: :index_for_tenant_promotion
     # 管理者、オーナー、店舗スタッフ
-    elsif current_user.admin? || current_user.owner? || current_user.staff?
+    elsif current_user.system_admin? || current_user.owner? || current_user.staff?
       render action: :index_for_system
     # 顧客ユーザーの場合
     else
@@ -22,7 +22,7 @@ class Public::HomesController < ApplicationController
   private
     # レイアウトの指定
     def specification_layout
-      if company.blank? || current_user.blank? || (!current_user.admin? && current_user.customer?)
+      if company.blank? || current_user.blank? || (!current_user.system_admin? && current_user.customer?)
         return 'public'
       else
         return 'application'

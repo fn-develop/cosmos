@@ -45,7 +45,7 @@ class Customer < ApplicationRecord
   validates :postal_code, presence: true, length: { is: 7 }, numericality: { only_integer: true }
 
   def line?
-    self.user.try(:line_user).present?
+    self.user.try(:line_user_id).present?
   end
 
   def formatted_tel_number

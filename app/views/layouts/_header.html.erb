@@ -22,7 +22,7 @@
 
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
           <% @new_user_line_messages.each do |msg| %>
-            <% customer = msg.user.customers.find_by(company: @company) %>
+            <% customer = msg.user.customer %>
             <a href="<%= new_line_message_customer_path(@company.code, customer) %>" class="dropdown-item">
               <!-- Message Start -->
               <div class="media">

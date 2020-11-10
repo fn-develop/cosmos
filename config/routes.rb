@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   scope '/:company_code/', constraints: { company_code: /[a-z]+/ } do
     resources :customers do
-      get  'new_with_line/:reply_token', to: 'customers#new_with_line', as: :new_with_line, on: :collection
+      get  'new_with_line/:line_user_id', to: 'customers#new_with_line', as: :new_with_line, on: :collection
       get  'new_line_message', to: 'customers#new_line_message', on: :member
       post 'send_line_message', to: 'customers#send_line_message', on: :member
       post 'create_with_line', to: 'customers#create_with_line', on: :collection

@@ -3,7 +3,6 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
-#  admin                  :boolean
 #  email                  :string(255)      default(""), not null
 #  encrypted_password     :string(255)      default(""), not null
 #  remember_created_at    :datetime
@@ -12,6 +11,8 @@
 #  role                   :integer          default("customer"), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  company_id             :integer          not null
+#  line_user_id           :string(255)
 #
 # Indexes
 #

@@ -29,7 +29,7 @@ module Api
         events.each do |event|
           case event
           when Line::Bot::Event::Follow
-            save_line_user(event, company)
+            save_user(event, company)
             message[:text] = "【自動応答メッセージ】下記URLにアクセスしユーザー登録を完了してください。\n（#{ new_with_line_customers_url({ company_code: company.code, reply_token: event['replyToken'] }) }）"
             client.reply_message(event['replyToken'], message) unless event['replyToken'] === IGNORE_REPLY_TOKEN # テスト応答時はメッセージを返信しない
           when Line::Bot::Event::Message
@@ -44,25 +44,22 @@ module Api
       end
 
       private
-        def save_line_user(event, company)
-          line_user              = LineUser.find_or_initialize_by(company: company, line_user_id: event['source']['userId'])
-          line_user.request_json = params.to_json
-          line_user.reply_token  = event['replyToken']
-          line_user.save
-          return line_user
+        def save_user(event, company)
+          user = User.find_or_initialize_by(company: company, line_user_id: event['source']['userId'])
+          user.save if user.new_record?
+          user
         end
 
         def save_user_message(event, company)
-          line_user = LineUser.find_or_initialize_by(company: company, line_user_id: event['source']['userId'])
+          user = User.find(company: company, line_user_id: event['source']['userId'])
 
-          lml = LineMessageLog.new(
+          lml = user.line_message_log.new(
             company:      company,
             message_id:   event['message']['id'],
             line_user_id: event['source']['userId'],
             message:      event['message']['text'],
           )
-          if line_user.user
-            lml.user = line_user.user
+          if user.customer.present?
             lml.code = Const::LineMessage::Code::ACCOUNT_USER_MESSAGE
           else
             lml.code = Const::LineMessage::Code::NON_ACCOUNT_MESSAGE

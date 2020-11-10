@@ -3,7 +3,6 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
-#  admin                  :boolean
 #  email                  :string(255)      default(""), not null
 #  encrypted_password     :string(255)      default(""), not null
 #  remember_created_at    :datetime
@@ -12,6 +11,8 @@
 #  role                   :integer          default("customer"), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  company_id             :integer          not null
+#  line_user_id           :string(255)
 #
 # Indexes
 #
@@ -24,19 +25,17 @@ class User < ApplicationRecord
   # devise :database_authenticatable, :registerable,
   #        :recoverable, :rememberable, :validatable, :validatable
   devise :database_authenticatable, :rememberable
+  belongs_to :company
 
-  has_many :company_users, dependent: :destroy
-  has_many :companies, through: :company_users
   has_many :line_message_logs
   has_many :staff_line_mseege_logs, class_name: 'LineMessageLog', foreign_key: 'staff_id'
-  has_one  :line_user, dependent: :destroy
-  has_many :customers, dependent: :destroy
+  has_one :customer, dependent: :destroy
 
-  enum role: { customer: 0, staff: 1, owner: 2 }
+  enum role: { customer: 0, staff: 1, owner: 2, system_admin: 9 }
 
   # スタッフ以上の権限を持つユーザーかどうか
   def over_staff_or_more?
-    (self.role_before_type_cast > 0 || self.admin?)
+    (self.role_before_type_cast > 0)
   end
 
   def unread_user_line_message?

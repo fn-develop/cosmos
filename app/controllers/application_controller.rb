@@ -55,7 +55,11 @@ class ApplicationController < ActionController::Base
     end
 
     def get_new_user_line_messages
-      @new_user_line_messages ||= LineMessageLog.includes(user: :customers).where(company: company, checked: false, user_id: company.customers.pluck(:user_id))
+      @new_user_line_messages ||= LineMessageLog.includes(user: :customer).where(
+                                   company: company,
+                                   checked: false,
+                                   user_id: company.customers.pluck(:user_id)
+                                  )
     end
 
     # ログイン無しでもアクセス可能にする制御

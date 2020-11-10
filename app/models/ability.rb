@@ -8,13 +8,8 @@ class Ability
 
     user ||= User.new
 
-    if user.admin?
-      can :manage, :all
-      can :access, :rails_admin
-    else
-      # User.roles => { customer: 0, staff: 1, owner: 2 }
-      send("#{ user.try(:role) || 'guest' }_ability", user)
-    end
+    # User.roles => { customer: 0, staff: 1, owner: 2, system_admin: 9 }
+    send("#{ user.try(:role) || 'guest' }_ability", user)
   end
 
   private
@@ -22,26 +17,32 @@ class Ability
     # ゲスト
     def guest_ability(user)
       can [:new_with_line, :create_with_line], :customer
-      can :read, Company, id: user.companies.pluck(:id)
+      can :read, Company
     end
 
     # 顧客
     def customer_ability(user)
       can [:new_with_line, :create_with_line], :customer
-      can :read, Company, id: user.companies.pluck(:id)
+      can :read, Company, company: user.company
     end
 
     # スタッフ
     def staff_ability(user)
       can :manage, :customer
-      can :manage, Customer, user_id: User.where(company_id: user.companies.pluck(:id))
-      can :manage, Company, id: user.companies.pluck(:id)
+      can :manage, Customer, user: User.where(company: user.company)
+      can :manage, Company, company: user.company
     end
 
-    # 管理者
-    def admin_ability(user)
+    # 店舗オーナー
+    def owner_ability(user)
       can :manage, :customer
-      can :manage, Customer, user_id: User.where(company_id: user.companies.pluck(:id))
-      can :manage, Company, id: user.companies.pluck(:id)
+      can :manage, Customer, user: User.where(company: user.company)
+      can :manage, Company, company: user.company
+    end
+
+    # システム管理者
+    def system_admin_ability(user)
+      can :manage, :all
+      can :access, :rails_admin
     end
 end

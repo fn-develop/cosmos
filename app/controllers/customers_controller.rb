@@ -2,19 +2,18 @@ class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy, :new_line_message, :send_line_message]
 
   def index
-    @customers = company.customers.includes(user: [:line_user, :line_message_logs])
+    @customers = company.customers.includes(user: [:line_message_logs])
   end
 
   def show
   end
 
   def new_with_line
-    session[:reply_token] = params[:reply_token]
-    line_user = company.line_users.find_by(reply_token: params[:reply_token])
+    raise CanCan::AccessDenied if params[:line_user_id].blank?
+    user = company.users.find_by(line_user_id: params[:line_user_id])
+    raise CanCan::AccessDenied if user.blank?
 
-    raise CanCan::AccessDenied if line_user.blank?
-
-    if line_user.user
+    if user.customer
       render plain: '既にユーザー登録が完了しています。'
     else
       @customer = Customer.new
@@ -23,25 +22,15 @@ class CustomersController < ApplicationController
   end
 
   def create_with_line
-    @customer         = Customer.new(customer_params)
-    @customer.company = company
+    user = company.users.find_by(line_user_id: session[:line_user_id])
+    raise CanCan::AccessDenied if user.blank?
 
-    ApplicationRecord.transaction do
-      if @customer.save
-        @customer.create_user!(companies: [company])
-        if session[:reply_token].present?
-          company.line_users.find_by(reply_token: session[:reply_token]).update_attributes!(user: @customer.user)
-        end
-      end
-    end
+    @customer = company.customers.new(customer_params)
+    @customer.user = user
 
-    if @customer.valid?
-      session[:company_code] = session[:reply_token] = nil
-      if current_user.try(:over_staff_or_more?)
-        redirect_to customer_path(company_code, @customer), notice: "ID:#{ @customer.name }の登録が完了しました。"
-      else
-        render plain: '登録が完了しました。'
-      end
+    if @customer.save
+      session[:line_user_id] = nil
+      render plain: '登録が完了しました。'
     else
       render :new_with_line, layout: 'line_regist', notice: '入力内容にエラーがあります。'
     end
@@ -58,7 +47,7 @@ class CustomersController < ApplicationController
 
     ApplicationRecord.transaction do
       if @customer.save
-        @customer.create_user!(companies: [company])
+        @customer.create_user!(company: company)
       end
     end
 
@@ -135,7 +124,7 @@ class CustomersController < ApplicationController
     end
 
     def is_public?
-      ['new_with_line', 'create'].include?(params[:action])
+      ['new_with_line', 'create_with_line'].include?(params[:action])
     end
 
     def line_message_params
