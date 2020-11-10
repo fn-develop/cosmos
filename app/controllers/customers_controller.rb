@@ -18,16 +18,11 @@ class CustomersController < ApplicationController
       render plain: '既にユーザー登録が完了しています。'
     else
       @customer = Customer.new
-      render :new, layout: 'line_regist'
+      render layout: 'line_regist'
     end
   end
 
-  def new
-    @customer = Customer.new
-    render :new
-  end
-
-  def create
+  def create_with_line
     @customer         = Customer.new(customer_params)
     @customer.company = company
 
@@ -47,6 +42,28 @@ class CustomersController < ApplicationController
       else
         render plain: '登録が完了しました。'
       end
+    else
+      render :new_with_line, layout: 'line_regist', notice: '入力内容にエラーがあります。'
+    end
+  end
+
+  def new
+    @customer = Customer.new
+    render :new
+  end
+
+  def create
+    @customer         = Customer.new(customer_params)
+    @customer.company = company
+
+    ApplicationRecord.transaction do
+      if @customer.save
+        @customer.create_user!(companies: [company])
+      end
+    end
+
+    if @customer.valid?
+      redirect_to customer_path(company_code, @customer), notice: "ID:#{ @customer.name }の登録が完了しました。"
     else
       render :new, notice: '入力内容にエラーがあります。'
     end
