@@ -13,7 +13,7 @@ class LineMessage
   validates :message, presence: true
 
   def send_text_message
-    line_user_id = LineUser.find_by(user_id: self.user_id).line_user_id
+    line_user_id = User.find_by(user_id: self.user_id).line_user_id
     send_message = {
       type: Const::LineMessage::Type::TEXT,
       text: self.message,
