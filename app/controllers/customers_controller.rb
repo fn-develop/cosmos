@@ -9,7 +9,12 @@ class CustomersController < ApplicationController
   end
 
   def new_with_line
-    raise CanCan::AccessDenied if params[:line_user_id].blank?
+    if params[:line_user_id].blank?
+      raise CanCan::AccessDenied
+    else
+      session[:line_user_id] = params[:line_user_id]
+    end
+
     user = company.users.find_by(line_user_id: params[:line_user_id])
     raise CanCan::AccessDenied if user.blank?
 
