@@ -30,7 +30,7 @@ module Api
           case event
           when Line::Bot::Event::Follow
             save_user(event, company)
-            message[:text] = "【自動応答メッセージ】下記URLにアクセスしユーザー登録を完了してください。\n（#{ new_with_line_customers_url({ company_code: company.code, reply_token: event['replyToken'] }) }）"
+            message[:text] = "【自動応答メッセージ】下記URLにアクセスしユーザー登録を完了してください。\n（#{ new_with_line_customers_url({ company_code: company.code, line_user_id: event['source']['userId'] }) }）"
             client.reply_message(event['replyToken'], message) unless event['replyToken'] === IGNORE_REPLY_TOKEN # テスト応答時はメッセージを返信しない
           when Line::Bot::Event::Message
             case event.try(:type)
