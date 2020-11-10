@@ -51,7 +51,7 @@ module Api
         end
 
         def save_user_message(event, company)
-          user = User.find(company: company, line_user_id: event['source']['userId'])
+          user = User.find_by(company: company, line_user_id: event['source']['userId'])
 
           lml = user.line_message_log.new(
             company:      company,
