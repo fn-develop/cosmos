@@ -8,7 +8,7 @@ class Ability
 
     user ||= User.new
 
-    # User.roles => { customer: 0, staff: 1, owner: 2, system_admin: 9 }
+    # User.roles => { guest: 0, customer: 1, staff: 2, owner: 3, system_admin: 9 }
     send("#{ user.try(:role) || 'guest' }_ability", user)
   end
 
@@ -23,21 +23,25 @@ class Ability
     # 顧客
     def customer_ability(user)
       can [:new_with_line, :create_with_line], :customer
-      can :read, Company, company: user.company
+      can :read, Company
     end
 
     # スタッフ
     def staff_ability(user)
       can :manage, :customer
       can :manage, Customer, user: User.where(company: user.company)
-      can :manage, Company, company: user.company
+      can :manage, Company
+      can :manage, :user
+      can :manage, User, company: user.company
     end
 
     # 店舗オーナー
     def owner_ability(user)
       can :manage, :customer
       can :manage, Customer, user: User.where(company: user.company)
-      can :manage, Company, company: user.company
+      can :manage, Company
+      can :manage, :user
+      can :manage, User, company: user.company
     end
 
     # システム管理者

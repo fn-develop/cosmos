@@ -22,7 +22,7 @@ module Api
           error 400 do 'Bad Request' end
         end
 
-        message = { type: 'text', text: '不明なアクセスです。' }
+        message = { type: 'text', text: '' }
 
         events = client.parse_events_from(body)
 
@@ -30,11 +30,17 @@ module Api
           case event
           when Line::Bot::Event::Follow
             save_user(event, company)
-            message[:text] = "【自動応答メッセージ】下記URLにアクセスしユーザー登録を完了してください。\n（#{ new_with_line_customers_url({ company_code: company.code, line_user_id: event['source']['userId'] }) }）"
+            message[:text] = regit_url_message(event, company)
             client.reply_message(event['replyToken'], message) unless event['replyToken'] === IGNORE_REPLY_TOKEN # テスト応答時はメッセージを返信しない
           when Line::Bot::Event::Message
             case event.try(:type)
             when Line::Bot::Event::MessageType::Text
+              user = regist_user(event, company)
+              if user.try(:customer).blank?
+                save_user(event, company)
+                message[:text] = regit_url_message(event, company)
+                client.reply_message(event['replyToken'], message) unless event['replyToken'] === IGNORE_REPLY_TOKEN # テスト応答時はメッセージを返信しない
+              end
               save_user_message(event, company)
             end
           end
@@ -47,11 +53,10 @@ module Api
         def save_user(event, company)
           user = User.find_or_initialize_by(company: company, line_user_id: event['source']['userId'])
           user.save if user.new_record?
-          user
         end
 
         def save_user_message(event, company)
-          user = User.find_by(company: company, line_user_id: event['source']['userId'])
+          user = regist_user(event, company)
 
           lml = user.line_message_logs.new(
             company:      company,
@@ -66,6 +71,14 @@ module Api
           end
 
           lml.save
+        end
+
+        def regit_url_message(event, company)
+           "【自動応答メッセージ】下記URLにアクセスしユーザー登録を完了してください。\n#{ new_with_line_customers_url({ company_code: company.code, line_user_id: event['source']['userId'] }) }"
+        end
+
+        def regist_user(event, company)
+          User.find_by(company: company, line_user_id: event['source']['userId'])
         end
     end
   end

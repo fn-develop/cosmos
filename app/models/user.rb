@@ -31,7 +31,7 @@ class User < ApplicationRecord
   has_many :staff_line_mseege_logs, class_name: 'LineMessageLog', foreign_key: 'staff_id'
   has_one :customer, dependent: :destroy
 
-  enum role: { customer: 0, staff: 1, owner: 2, system_admin: 9 }
+  enum role: { guest: 0, customer: 1, staff: 2, owner: 3, system_admin: 9 }
 
   # スタッフ以上の権限を持つユーザーかどうか
   def over_staff_or_more?

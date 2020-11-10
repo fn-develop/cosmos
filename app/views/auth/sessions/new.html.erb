@@ -3,6 +3,7 @@
     <p class="login-box-msg">Please enter your email and password.</p>
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <%= f.hidden_field :company_id, value: @company.id %>
       <div class="input-group mb-3">
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', placeholder: 'Email' %>
         <div class="input-group-append">

@@ -24,6 +24,8 @@ Rails.application.routes.draw do
       post 'create_with_line', to: 'customers#create_with_line', on: :collection
     end
 
+    resources :users
+
     scope module: :public do
       resources :homes, path: ''
     end
