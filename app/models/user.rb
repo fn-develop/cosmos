@@ -25,6 +25,8 @@ class User < ApplicationRecord
   # devise :database_authenticatable, :registerable,
   #        :recoverable, :rememberable, :validatable, :validatable
   devise :database_authenticatable, :rememberable
+  devise :validatable, password_length: 8..20
+
   belongs_to :company
 
   has_many :line_message_logs

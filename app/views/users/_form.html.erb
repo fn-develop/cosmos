@@ -1,27 +1,43 @@
-<%= form_with(model: user, url: url, local: true) do |form| %>
-  <% if user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">ログイン情報を入力してください。 <small></small></h3>
+          </div>
 
-      <ul>
-        <% user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+          <%= form_with(model: user, url: url, local: true) do |form| %>
+            <div class="card-body">
+
+              <div class="form-group">
+                <% email_err = true if user.errors.include?(:email) %>
+                <%= form.label :email %>
+                <%= form.text_field :email, { class: "form-control #{ email_err ? 'is-invalid' : '' }", placeholder: 'xxx@examole.com', maxlength: 100 } %>
+                <% if email_err %>
+                  <span class="error invalid-feedback"><%= user.errors.full_messages_for(:email).first %></span>
+                <% end %>
+              </div>
+
+              <div class="form-group">
+                <% password_err = true if user.errors.include?(:password) %>
+                <%= form.label :password %>
+                <%= form.password_field :password, { class: "form-control #{ password_err ? 'is-invalid' : '' }", placeholder: '********', maxlength: 20 } %>
+                <% if password_err %>
+                  <span class="error invalid-feedback"><%= user.errors.full_messages_for(:password).first %></span>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <%= form.submit class: 'btn btn-primary' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+      </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
   </div>
-
-  <div class="field">
-    <%= form.label :password %>
-    <%= form.text_field :password %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</section>
