@@ -1,9 +1,13 @@
 class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy, :new_line_message, :send_line_message]
-  PER_PAGE = 50
 
   def index
-    @customers = company.customers.includes(user: [:line_message_logs]).all.page(params[:page]).per(PER_PAGE)
+    @search = CustomerSearch.new({
+      company: company,
+      current_ability: current_ability,
+    }.merge(customer_search_params))
+
+    @customers = @search.search
   end
 
   def show
@@ -134,5 +138,9 @@ class CustomersController < ApplicationController
 
     def line_message_params
       params.require(:line_message).permit(:message, :user_id)
+    end
+
+    def customer_search_params
+      params.key?(:customer_search) ? params.require(:customer_search).permit(:name) : {}
     end
 end
