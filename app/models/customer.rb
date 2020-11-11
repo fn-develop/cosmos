@@ -56,6 +56,10 @@ class Customer < ApplicationRecord
     self[:postal_code].gsub(/(\d{3})(\d{4})/, '\1-\2')
   end
 
+  def all_address
+    "#{self.prefecture} #{self.city} #{self.address1} #{self.address2}"
+  end
+
   private
     def split_tel_number
       self.tel_number1, self.tel_number2, self.tel_number3 = self.formatted_tel_number.split('-')

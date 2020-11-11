@@ -6,7 +6,7 @@
       <div class="card-body">
         <div class="form-group">
           <%= form.label :message %>
-          <%= form.text_field :message, { class: 'form-control', placeholder: 'メッセージを入力してください。' } %>
+          <%= form.text_area :message, { class: 'form-control', placeholder: 'メッセージを入力してください。', maxlength: 240, rows: 4 } %>
         </div>
       </div>
 

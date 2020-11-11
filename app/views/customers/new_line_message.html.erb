@@ -19,12 +19,44 @@
 
 <section class="content">
   <div class="container-fluid">
-    <div class="card card-success">
+    <div class="card">
       <div class="card-header">
-        <h3 class="card-title">TO: <%= @customer.name %></h3>
+        <h3 class="card-title">TO: <%= @customer.name %> 様</h3>
       </div>
+
       <div class="card-body">
         <div class="row">
+          <div class="col-md-6">
+            <div class="card card-primary direct-chat direct-chat-primary">
+              <div class="card-body">
+                <div id="message-log" class="direct-chat-messages" style="height: 320px;">
+                  <table class="table table-bordered">
+                    <tbody>
+                      <tr>
+                        <th class="text-nowrap"><%= Customer.human_attribute_name(:name) %></th>
+                        <td><%= @customer.name.to_s %>（<%= @customer.name_kana.to_s %>）</td>
+                      </tr><tr>
+                        <th class="text-nowrap"><%= Customer.human_attribute_name(:gender) %></th>
+                        <td><%= Customer.human_attribute_name("gender.#{ @customer.gender }") %></td>
+                      </tr><tr>
+                        <th class="text-nowrap"><%= Customer.human_attribute_name(:tel_number) %></th>
+                        <td><%= @customer.formatted_tel_number.to_s %></td>
+                      </tr><tr>
+                        <th class="text-nowrap"><%= Customer.human_attribute_name(:birthday) %></th>
+                        <td><%= @customer.birthday.strftime("%Y年%m月%d日") if @customer.birthday %></td>
+                      </tr><tr>
+                        <th class="text-nowrap">住所</th>
+                        <td><%= @customer.all_address  %></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <%= link_to '顧客詳細画面へ', customer_path(@customer, company_code: @company.code), { class: 'btn  btn-default float-right' } %>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="col-md-6">
             <div class="card card-primary direct-chat direct-chat-primary">
               <div class="card-body">
@@ -40,12 +72,19 @@
               </div>
             </div>
           </div>
-          <%= render '/customers/line_message/form', customer: @customer, line_message: @line_message %>
         </div>
       </div>
 
       <div class="card-footer">
-        <%= link_to '戻る', customer_path(@customer, company_code: @company.code), { class: 'btn  btn-default float-right' } %>
+        <%= form_with(model: @line_message, url: send_line_message_customer_path(@customer, company_code: @company.code),local: true) do |form| %>
+          <%= form.hidden_field :user_id %>
+
+          <div class="form-group">
+            <%= form.text_area :message, { class: 'form-control', placeholder: 'メッセージを入力してください。', maxlength: 240, rows: 4 } %>
+          </div>
+
+          <button type="submit" class="btn btn-block btn-success">送信</button>
+        <% end %>
       </div>
     </div>
   </div>
