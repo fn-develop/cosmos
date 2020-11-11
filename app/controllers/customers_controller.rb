@@ -1,8 +1,9 @@
 class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy, :new_line_message, :send_line_message]
+  PER_PAGE = 50
 
   def index
-    @customers = company.customers.includes(user: [:line_message_logs])
+    @customers = company.customers.includes(user: [:line_message_logs]).all.page(params[:page]).per(PER_PAGE)
   end
 
   def show
