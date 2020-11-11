@@ -3,7 +3,7 @@
     <span class="direct-chat-name float-left"><%= customer.name %>&nbsp;</span>
     <span class="direct-chat-timestamp float-left"><%= message.created_at.strftime("%Y/%m/%d %H:%M") %></span>
   </div>
-  <div class="direct-chat-text" style="margin-right: 20px; margin-left: 0px;">
+  <div class="w-10 direct-chat-text float-left text-left" style="margin-left: 0px;">
     <%= message.message.to_s %>
   </div>
 </div>
