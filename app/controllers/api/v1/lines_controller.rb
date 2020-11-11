@@ -35,7 +35,7 @@ module Api
           when Line::Bot::Event::Message
             case event.try(:type)
             when Line::Bot::Event::MessageType::Text
-              user = regist_user(event, company)
+              user = registered_user(event, company)
               if user.try(:customer).blank?
                 save_user(event, company)
                 message[:text] = regit_url_message(event, company)
@@ -52,11 +52,11 @@ module Api
       private
         def save_user(event, company)
           user = User.find_or_initialize_by(role: :customer, company: company, line_user_id: event['source']['userId'])
-          user.save if user.new_record?
+          user.save!(validate: false) if user.new_record?
         end
 
         def save_user_message(event, company)
-          user = regist_user(event, company)
+          user = registered_user(event, company)
 
           lml = user.line_message_logs.new(
             company:      company,
@@ -74,10 +74,10 @@ module Api
         end
 
         def regit_url_message(event, company)
-           "【自動応答メッセージ】下記URLにアクセスしユーザー登録を完了してください。\n#{ new_with_line_customers_url({ company_code: company.code, line_user_id: event['source']['userId'] }) }"
+           "【自動応答】登録URL\n#{ new_with_line_customers_url({ company_code: company.code, line_user_id: event['source']['userId'] }) }"
         end
 
-        def regist_user(event, company)
+        def registered_user(event, company)
           User.find_by(company: company, line_user_id: event['source']['userId'])
         end
     end

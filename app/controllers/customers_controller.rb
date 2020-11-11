@@ -47,12 +47,11 @@ class CustomersController < ApplicationController
   end
 
   def create
-    @customer         = Customer.new(customer_params)
-    @customer.company = company
+    @customer = company.customers.new(customer_params)
 
     ApplicationRecord.transaction do
       if @customer.save
-        @customer.create_user!(company: company, role: :customer)
+        @customer.build_user(company: company, role: :customer).save!(validate: false)
       end
     end
 
