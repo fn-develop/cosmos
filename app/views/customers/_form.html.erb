@@ -140,6 +140,7 @@
 
             <div class="card-footer">
               <%= form.submit class: 'btn btn-primary' %>
+              <%= link_to('　削除　', customer_path(@company.code, customer), method: :delete, class: 'btn btn-sm btn-danger float-right', data: { confirm: "削除してよろしいですか？" }) if customer.persisted? %>
             </div>
           <% end %>
         </div>

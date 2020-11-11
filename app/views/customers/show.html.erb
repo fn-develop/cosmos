@@ -64,12 +64,11 @@
     </div>
 
     <div class="card-footer clearfix">
-      <a href="<%= edit_customer_path(@customer, company_code: @company.code ) %>" class="btn btn-sm btn-info float-left mr-2">　編集　</a>
-      <%= link_to '　削除　', customer_path(@customer, company_code: @company.code), method: :delete, class: 'btn btn-sm btn-danger float-left mr-2', data: { confirm: "削除してよろしいですか？" } %>
+      <a href="<%= edit_customer_path(@customer, company_code: @company.code ) %>" class="btn btn-info float-left mr-2">　編集　</a>
       <% if @customer.line? %>
-        <%= link_to 'LINE通知', new_line_message_customer_path(@company.code, @customer), class: 'btn btn-sm btn-success float-left' %>
+        <%= link_to 'LINE通知', new_line_message_customer_path(@company.code, @customer), class: 'btn btn-success float-left' %>
       <% end %>
-      <a href="<%= customers_path(company_code: @company.code) %>" class="btn btn-sm btn-default float-right">　戻る　</a>
+      <a href="<%= customers_path(company_code: @company.code) %>" class="btn btn-default float-right">　戻る　</a>
     </div>
   </div>
 </section>

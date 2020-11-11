@@ -28,5 +28,9 @@
 
 </div>
 
+<% if notice || alert %>
+  <%= render '/layouts/notice_modal' %>
+<% end %>
+
 </body>
 </html>

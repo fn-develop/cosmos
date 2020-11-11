@@ -32,20 +32,7 @@
 </div>
 
 <% if notice || alert %>
-  <div id="notice_modal" data-izimodal-title="通知" data-izimodal-subtitle="<%= Time.now.strftime("%Y-%m-%d %H:%M") %>">
-    <p>
-      <div class="col p-3">
-        <%= notice || alert %>
-      </div>
-    </p>
-  </div>
-
-  <%= javascript_tag do %>
-    $(function() {
-      $('#notice_modal').iziModal();
-      $('#notice_modal').iziModal('open');
-    });
-  <% end %>
+  <%= render '/layouts/notice_modal' %>
 <% end %>
 
 </body>
