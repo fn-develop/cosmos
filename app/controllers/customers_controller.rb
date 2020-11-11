@@ -52,7 +52,7 @@ class CustomersController < ApplicationController
 
     ApplicationRecord.transaction do
       if @customer.save
-        @customer.create_user!(company: company)
+        @customer.create_user!(company: company, role: :customer)
       end
     end
 

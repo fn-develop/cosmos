@@ -51,7 +51,7 @@ module Api
 
       private
         def save_user(event, company)
-          user = User.find_or_initialize_by(company: company, line_user_id: event['source']['userId'])
+          user = User.find_or_initialize_by(role: :customer, company: company, line_user_id: event['source']['userId'])
           user.save if user.new_record?
         end
 
