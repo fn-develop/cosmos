@@ -18,13 +18,16 @@ module Const
   module View
     # Const::View::Name
     module Name
-      HOME_INDEX     = 'ホーム'.freeze
-      CUSTOMER_INDEX = '顧客一覧'.freeze
-      CUSTOMER_NEW   = '顧客登録'.freeze
-      CUSTOMER_SHOW  = '顧客詳細'.freeze
-      CUSTOMER_EDIT  = '顧客編集'.freeze
-      LINE_NOTIFY    = 'LINE通知'.freeze
-      USER_EDIT      = 'アカウント'.freeze
+      HOME_INDEX           = 'ホーム'.freeze
+      CUSTOMER_INDEX       = '顧客一覧'.freeze
+      CUSTOMER_NEW         = '顧客登録'.freeze
+      CUSTOMER_SHOW        = '顧客情報'.freeze
+      CUSTOMER_EDIT        = '顧客編集'.freeze
+      LINE_NOTIFY          = 'LINE通知'.freeze
+      USER_SHOW            = 'アカウント'.freeze
+      USER_EDIT            = 'アカウント'.freeze
+      COMPANY_SETTING_SHOW = '店舗情報'.freeze
+      COMPANY_SETTING_EDIT = '店舗編集'.freeze
     end
   end
 

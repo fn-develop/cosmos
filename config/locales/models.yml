@@ -1,8 +1,13 @@
 ja:
   activerecord:
     models:
+      company: '店舗'
       customer: '顧客'
     attributes:
+      company:
+        id: 'ID'
+        code: '店舗コード'
+        name: '名称'
       customer:
         id:          'ID'
         name:        '名前'

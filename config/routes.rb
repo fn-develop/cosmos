@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  resources :companies
-  resources :collection_items
-  resources :collections
-  resources :items
+  # resources :companies
+  # resources :collection_items
+  # resources :collections
+  # resources :items
 
   root to: 'public/homes#index'
 
@@ -28,6 +28,10 @@ Rails.application.routes.draw do
 
     scope module: :public do
       resources :homes, path: ''
+    end
+
+    namespace 'company' do
+      resource :setting, only: [:show, :edit, :update]
     end
 
     namespace 'api' do

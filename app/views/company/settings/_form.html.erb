@@ -1,0 +1,40 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">店舗情報を入力してください。 <small></small></h3>
+          </div>
+
+          <%= form_with(model: company, url: url, local: true) do |form| %>
+            <div class="card-body">
+              <div class="form-group">
+                <%= form.label :code %>
+                <%= form.text_field :code, { class: "form-control" , placeholder: '店舗コード', maxlength: 100, readonly: true } %>
+                <small>*店舗コードは変更できません。</small>
+
+              </div>
+
+              <div class="form-group">
+                <% name_err = true if company.errors.include?(:name) %>
+                <%= form.label :name %>
+                <%= form.text_field :name, { class: "form-control #{ name_err ? 'is-invalid' : '' }", placeholder: '店舗名', maxlength: 100 } %>
+                <% if name_err %>
+                  <span class="error invalid-feedback"><%= company.errors.full_messages_for(:name).first %></span>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <%= form.submit class: 'btn btn-primary', data: { confirm: 'よろしいですか?' } %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-light-lightblue elevation-4">
 
-  <a href="<%= edit_user_path(@company.code, current_user) %>" class="brand-link">
+  <a href="<%= company_setting_path(@company.code) %>" class="brand-link">
     <img src="<%= asset_pack_path 'media/images/logo.png'%>" alt="COSMOS Logo" class="brand-image img-circle elevation-3"
          style="opacity: .8">
     <span class="brand-text font-weight-light">
@@ -13,14 +13,13 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
         <li class="nav-item">
-          <a href="<%= customers_path(params[:company_code]) %>" class="nav-link <%= activate_css(Const::Controller::CUSTOMER) %>">
+          <a href="<%= can?(:manage, @company) ? customers_path(params[:company_code]) : '#' %>" class="nav-link <%= activate_css(Const::Controller::CUSTOMER) %>">
             <i class="nav-icon fas fa-users"></i>
             <p>
               顧客
             </p>
           </a>
         </li>
-
       </ul>
     </nav>
   </div>

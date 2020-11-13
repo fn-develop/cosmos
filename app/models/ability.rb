@@ -30,7 +30,7 @@ class Ability
     def staff_ability(user)
       can :manage, :customer
       can :manage, Customer, user: User.where(company: user.company)
-      can :manage, Company
+      can :read, Company, id: user.company.id
       can :manage, :user
       can :manage, User, company: user.company
     end
@@ -39,7 +39,7 @@ class Ability
     def owner_ability(user)
       can :manage, :customer
       can :manage, Customer, user: User.where(company: user.company)
-      can :manage, Company
+      can :manage, Company, Company, id: user.company.id
       can :manage, :user
       can :manage, User, company: user.company
     end
