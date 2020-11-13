@@ -1,8 +1,40 @@
-<p id="notice"><%= notice %></p>
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark"><%= Const::View::Name::USER_SHOW %></h1>
+      </div>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="<%= homes_path %>">ホーム</a></li>
+          <li class="breadcrumb-item active"><%= Const::View::Name::USER_SHOW %></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
 
-<%= link_to 'Edit', edit_user_path(@company.code, @user) %> |
+<section class="content">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">情報</h3>
+    </div>
+
+    <div class="card-body">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <th class="text-nowrap"><%= User.human_attribute_name(:email) %></th>
+            <td><%= @user.email.to_s %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card-footer clearfix">
+      <a href="<%= edit_user_path(@company.code, @user) %>" class="btn btn-info float-left mr-2">　編集　</a>
+      <a href="<%= homes_path %>" class="btn btn-default float-right">　戻る　</a>
+    </div>
+  </div>
+</section>
