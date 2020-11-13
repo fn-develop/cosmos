@@ -43,4 +43,21 @@ class User < ApplicationRecord
   def unread_user_line_message?
     self.line_message_logs.where(checked: false).present?
   end
+
+  #### START EMAIL 重複OK ######
+  # Deviseを使うと、問答無用でemailがユニーク扱いになる。
+  # それだと論理削除した際に再登録できないので、一旦emailに関する検証を削除する
+  # https://gist.github.com/brenes/4503386
+  _validators.delete(:email)
+  _validate_callbacks.each do |callback|
+    if callback.raw_filter.respond_to? :attributes
+      callback.raw_filter.attributes.delete :email
+    end
+  end
+
+  # emailのバリデーションを定義し直す
+  validates :email, presence: true
+  validates_format_of :email, with: Devise.email_regexp, if: :email_changed?
+  validates_uniqueness_of :email, scope: :company_id, if: :email_changed?
+  #### END EMAIL 重複OK ######
 end
