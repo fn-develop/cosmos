@@ -12,7 +12,9 @@
     "izimodal": "^1.5.1",
     "jquery": "^3.5.1",
     "jquery-jpostal-ja": "^2.14.1",
-    "popper.js": "^1.16.1"
+    "popper.js": "^1.16.1",
+    "sweetalert2": "^10.10.0",
+    "toastr": "^2.1.4"
   },
   "version": "0.1.0",
   "devDependencies": {

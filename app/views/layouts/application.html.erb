@@ -36,4 +36,24 @@
 <% end %>
 
 </body>
+
+<% # 開発環境時にのみアラートを表示 %>
+<% if ENV['MODE'].nil? %>
+  <%= javascript_tag do %>
+    $(function() {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+      });
+
+      Toast.fire({
+        icon: 'success',
+        title: '!!! MODE IS DEVELOPMENT !!!'
+      });
+    });
+  <% end %>
+<% end %>
+
 </html>

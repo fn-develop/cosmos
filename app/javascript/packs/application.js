@@ -22,10 +22,12 @@ require("jquery");
 require("admin-lte");
 require("izimodal");
 require("jquery-jpostal-ja");
+require("sweetalert2");
 
 window.$ = jQuery;
 window.jQuery = jQuery;
 window.$.fn.iziModal = iziModal;
+window.Swal = Swal;
 
 const images = require.context('../images', true)
 const imagePath = (name) => images(name, true)

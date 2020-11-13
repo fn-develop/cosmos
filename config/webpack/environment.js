@@ -8,6 +8,7 @@ environment.plugins.append('Provide',
     Popper: ['popper.js', 'default'],
     iziModal: 'izimodal',
     jpostal: 'jpostal',
+    Swal : 'sweetalert2',
   })
 )
 
