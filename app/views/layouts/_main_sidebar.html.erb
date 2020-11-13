@@ -13,7 +13,7 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
         <li class="nav-item">
-          <a href="<%= can?(:manage, @company) ? customers_path(params[:company_code]) : '#' %>" class="nav-link <%= activate_css(Const::Controller::CUSTOMER) %>">
+          <a href="<%= can?(:manage, :setting) ? customers_path(params[:company_code]) : '#' %>" class="nav-link <%= activate_css(Const::Controller::CUSTOMER) %>">
             <i class="nav-icon fas fa-users"></i>
             <p>
               顧客

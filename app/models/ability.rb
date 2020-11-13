@@ -29,19 +29,21 @@ class Ability
     # スタッフ
     def staff_ability(user)
       can :manage, :customer
-      can :manage, Customer, user: User.where(company: user.company)
-      can :read, Company, id: user.company.id
+      can :manage, Customer, company: user.company
+      can :read, Company, company: user.company
       can :manage, :user
       can :manage, User, company: user.company
+      can :read, :setting
     end
 
     # 店舗オーナー
     def owner_ability(user)
       can :manage, :customer
-      can :manage, Customer, user: User.where(company: user.company)
+      can :manage, Customer, company: user.company
       can :manage, Company, id: user.company.id
       can :manage, :user
       can :manage, User, company: user.company
+      can :manage, :setting
     end
 
     # システム管理者

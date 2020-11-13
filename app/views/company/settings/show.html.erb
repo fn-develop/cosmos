@@ -37,7 +37,7 @@
     </div>
 
     <div class="card-footer clearfix">
-      <% if can? :manage, @company %>
+      <% if can? :manage, :setting %>
         <a href="<%= edit_company_setting_path(@company.code) %>" class="btn btn-info float-left mr-2">　編集　</a>
       <% end %>
       <a href="<%= homes_path %>" class="btn btn-default float-right">　戻る　</a>
