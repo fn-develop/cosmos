@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# User.create(email: 'admin@example.com', role: :system_admin, password: 123456, company: Company.find_by(code: 'demo') )
+# User.create(email: 'admin@example.com', role: :system_admin, password: 12345678, company: Company.find_by(code: 'demo') )
 Company.delete_all
 ActiveRecord::Base.connection.execute('ALTER TABLE companies AUTO_INCREMENT = 1')
 demo_company = Company.create(code: 'demo', name: 'DEMO会社', enabled: true)

@@ -24,7 +24,7 @@ module Const
       CUSTOMER_SHOW  = '顧客詳細'.freeze
       CUSTOMER_EDIT  = '顧客編集'.freeze
       LINE_NOTIFY    = 'LINE通知'.freeze
-      USER_EDIT      = 'ログイン情報'.freeze
+      USER_EDIT      = 'アカウント'.freeze
     end
   end
 
