@@ -31,6 +31,8 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:email, :password)
+      wp = params.require(:user).permit(:email, :password)
+      wp.delete(:password) if wp[:password].blank?
+      wp
     end
 end
