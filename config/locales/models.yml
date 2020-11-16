@@ -13,6 +13,7 @@ ja:
         <<: *attr_common
         code: '店舗コード'
         name: '名称'
+        logo: 'ロゴイメージ'
       customer:
         <<: *attr_common
         name:        '名前'
@@ -43,3 +44,15 @@ ja:
     sessions:
       user:
         signed_in: 'ログインしました。'
+
+  errors:
+    messages:
+      rmagick_processing_error: "ファイルを処理できませんでした。画像を確認してください。エラーメッセージ: %{e}"
+      mini_magick_processing_error: "ファイルを処理できませんでした。画像を確認してください。エラーメッセージ: %{e}"
+      min_size_error: "ファイルを%{min_size}バイト以上のサイズにしてください"
+      max_size_error: "ファイルを%{max_size}バイト以下のサイズにしてください"
+      record_invalid: 'バリデーションに失敗しました: %{errors}'
+      restrict_dependent_destroy:
+        has_one: "%{record}が存在しているので削除できません"
+        has_many: "%{record}が存在しているので削除できません"
+      extension_whitelist_error: 'ファイルは「png」「jpg」「 jpeg」「pdf」「gif」の拡張子のみ受付ます。 '

@@ -32,29 +32,6 @@
 </div>
 </body>
 
-<%= javascript_tag do %>
-  $(function() {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 5000
-    });
-
-    <% if notice %>
-      Toast.fire({
-        icon: 'warning',
-        title: '<%= notice %>',
-      });
-    <% end %>
-
-    <% if alert %>
-      Toast.fire({
-        icon: 'error',
-        title: '<%= alert %>',
-      });
-    <% end %>
-  });
-<% end %>
+<%= render '/layouts/notice_and_alert_js' %>
 
 </html>

@@ -32,6 +32,10 @@
             <th class="text-nowrap"><%= Company.human_attribute_name(:name) %></th>
             <td><%= @company.name.to_s %></td>
           </tr>
+          <tr>
+            <th class="text-nowrap"><%= Company.human_attribute_name(:logo) %></th>
+            <td><%= image_tag @company.logo.try(:thumb_200).try(:url) %></td>
+          </tr>
         </tbody>
       </table>
     </div>

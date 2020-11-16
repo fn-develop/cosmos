@@ -7,11 +7,15 @@
 #  enabled             :boolean
 #  line_channel_secret :string(255)
 #  line_channel_token  :string(255)
+#  line_qr_code        :string(255)
+#  logo                :string(255)
 #  name                :string(255)
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #
 class Company < ApplicationRecord
+  mount_uploader :logo, PublicImageUploader
+
   has_many :users, dependent: :destroy
   has_many :customers, dependent: :destroy
   has_many :items, dependent: :destroy

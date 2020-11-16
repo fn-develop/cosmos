@@ -24,6 +24,42 @@
                   <span class="error invalid-feedback"><%= company.errors.full_messages_for(:name).first %></span>
                 <% end %>
               </div>
+
+              <div class="form-group">
+                <% logo_err = true if company.errors.include?(:logo) %>
+                <%= form.label :logo %>
+
+                <div class="input-group">
+                  <div class="custom-file <%= logo_err ? 'is-invalid' : '' %>">
+                    <%= form.file_field :logo, { class: "custom-file-input #{ logo_err ? 'is-invalid' : '' }", accept: 'image/jpeg,image/gif,image/png' } %>
+                    <%= form.label :logo, { id: 'company_logo-label', class: 'custom-file-label', 'data-browse': '参照' }  do %>
+                      ロゴファイルを選択(ここにドロップすることもできます)
+                    <% end %>
+                  </div>
+
+                  <div class="input-group-append">
+                    <button type="button" class="btn btn-outline-secondary company_logo-reset">取消</button>
+                  </div>
+
+                  <% if logo_err %>
+                    <span class="error invalid-feedback"><%= company.errors.full_messages_for(:logo).first %></span>
+                  <% end %>
+                </div>
+              </div>
+
+              <%= javascript_tag do %>
+                $(function() {
+                  $('.custom-file-input').on('change',function(){
+                    $(this).next('.custom-file-label').html($(this)[0].files[0].name);
+                  })
+                  // ファイルの取消
+                  $('.company_logo-reset').click(function(){
+                    $('#company_logo-label').html('ロゴファイルを選択(ここにドロップすることもできます)');
+                    $('#company_logo').val('');
+                  })
+                });
+              <% end %>
+
             </div>
 
             <div class="card-footer">
