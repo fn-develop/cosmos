@@ -3,13 +3,18 @@ ja:
     models:
       company: '店舗'
       customer: '顧客'
+      item: '項目アイテム'
     attributes:
-      company:
+      attr_common: &attr_common
         id: 'ID'
+        created_at: '作成日時'
+        updated_at: '更新日時'
+      company:
+        <<: *attr_common
         code: '店舗コード'
         name: '名称'
       customer:
-        id:          'ID'
+        <<: *attr_common
         name:        '名前'
         name_kana:   '名前（カナ）'
         gender:      '性別'
@@ -23,6 +28,10 @@ ja:
       customer/gender:
         men: '男性'
         women: '女性'
+      item:
+        <<: *attr_common
+        code: 'コード'
+        name: '名称'
   activemodel:
     models:
       line_message: 'LINEメッセージ'

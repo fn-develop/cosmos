@@ -30,8 +30,9 @@ Rails.application.routes.draw do
       resources :homes, path: ''
     end
 
-    namespace 'company' do
+    namespace 'company', path: 'store' do
       resource :setting, only: [:show, :edit, :update]
+      resources :items
     end
 
     namespace 'api' do

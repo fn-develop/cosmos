@@ -30,30 +30,31 @@
 
   <%= render '/layouts/main_footer' %>
 </div>
-
-<% if notice || alert %>
-  <%= render '/layouts/notice_modal' %>
-<% end %>
-
 </body>
 
-<% # 開発環境時にのみアラートを表示 %>
-<% if ENV['MODE'].nil? %>
-  <%= javascript_tag do %>
-    $(function() {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000
-      });
-
-      Toast.fire({
-        icon: 'success',
-        title: '!!! MODE IS DEVELOPMENT !!!'
-      });
+<%= javascript_tag do %>
+  $(function() {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 5000
     });
-  <% end %>
+
+    <% if notice %>
+      Toast.fire({
+        icon: 'warning',
+        title: '<%= notice %>',
+      });
+    <% end %>
+
+    <% if alert %>
+      Toast.fire({
+        icon: 'error',
+        title: '<%= alert %>',
+      });
+    <% end %>
+  });
 <% end %>
 
 </html>

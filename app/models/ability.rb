@@ -34,6 +34,7 @@ class Ability
       can :manage, :user
       can :manage, User, company: user.company
       can :read, :setting
+      can :read, :item, company: user.company
     end
 
     # 店舗オーナー
@@ -44,6 +45,7 @@ class Ability
       can :manage, :user
       can :manage, User, company: user.company
       can :manage, :setting
+      can :manage, :item, company: user.company
     end
 
     # システム管理者

@@ -28,6 +28,10 @@ module Const
       USER_EDIT            = 'アカウント'.freeze
       COMPANY_SETTING_SHOW = '店舗情報'.freeze
       COMPANY_SETTING_EDIT = '店舗編集'.freeze
+      COMPANY_ITEMS_INDEX  = 'システム項目一覧'.freeze
+      COMPANY_ITEMS_NEW    = 'システム項目登録'.freeze
+      COMPANY_ITEMS_SHOW   = 'システム項目情報'.freeze
+      COMPANY_ITEMS_EDIT   = 'システム項目編集'.freeze
     end
   end
 
