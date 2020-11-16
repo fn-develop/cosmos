@@ -1,4 +1,4 @@
-<aside class="main-sidebar sidebar-light-lightblue elevation-4">
+<aside class="main-sidebar sidebar-light-lightblue elevation-4" <%= "style='background-color:pink'".html_safe if ENV['MODE'].nil? %>>
 
   <a href="<%= company_setting_path(@company.code) %>" class="brand-link">
     <img src="<%= asset_pack_path 'media/images/logo.png'%>" alt="COSMOS Logo" class="brand-image img-circle elevation-3"
