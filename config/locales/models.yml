@@ -15,6 +15,8 @@ ja:
         name: '名称'
         logo: 'ロゴイメージ'
         line_qr_code: 'LINE QRコード'
+        line_channel_secret: 'チャネルシークレット'
+        line_channel_token: 'チャネルアクセストークン'
       customer:
         <<: *attr_common
         name:        '名前'

@@ -87,6 +87,24 @@
                 });
               <% end %>
 
+              <div class="form-group">
+                <% line_channel_secret_err = true if company.errors.include?(:line_channel_secret) %>
+                <%= form.label :line_channel_secret %>
+                <%= form.text_field :line_channel_secret, { class: "form-control #{ line_channel_secret_err ? 'is-invalid' : '' }", placeholder: 'チャネルシークレット', maxlength: 255 } %>
+                <% if line_channel_secret_err %>
+                  <span class="error invalid-feedback"><%= company.errors.full_messages_for(:line_channel_secret).first %></span>
+                <% end %>
+              </div>
+
+              <div class="form-group">
+                <% line_channel_token_err = true if company.errors.include?(:line_channel_token) %>
+                <%= form.label :line_channel_token %>
+                <%= form.text_field :line_channel_token, { class: "form-control #{ line_channel_token_err ? 'is-invalid' : '' }", placeholder: 'チャネルアクセストークン', maxlength: 255 } %>
+                <% if line_channel_token_err %>
+                  <span class="error invalid-feedback"><%= company.errors.full_messages_for(:line_channel_token).first %></span>
+                <% end %>
+              </div>
+
             </div>
 
             <div class="card-footer">
