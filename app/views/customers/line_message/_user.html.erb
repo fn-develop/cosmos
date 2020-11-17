@@ -4,6 +4,6 @@
     <span class="direct-chat-timestamp float-left"><%= message.created_at.strftime("%Y/%m/%d %H:%M") %></span>
   </div>
   <div class="w-10 direct-chat-text float-left text-left" style="margin-left: 0px;">
-    <%= message.message.to_s %>
+    <%= br message.message.to_s %>
   </div>
 </div>
