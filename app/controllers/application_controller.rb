@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
       end
 
       # ログインしている場合は所属する会社かどうかをチェック
-      if current_user
+      if current_user && company.present?
         # 権限チェック：see: Ability.rb
         authorize! :read, company
       end
