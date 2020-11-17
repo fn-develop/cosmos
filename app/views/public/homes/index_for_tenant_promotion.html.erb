@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-12 col-md-offset-3 text-center root-heading">
         <h2><%= @company.name %></h2>
-        <p><%= image_tag @company.logo.try(:thumb_200).try(:url) %></p>
+        <p><%= image_tag @company.logo.try(:thumb_200).try(:url) if @company.logo.present? %></p>
         <p><span>
           <a href="<%= new_user_session_path(@company.code) %>" class="btn btn-primary btn-outline">To Login<i class="icon-arrow-right"></i></a>
         </span></p>
