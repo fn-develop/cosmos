@@ -43,6 +43,7 @@ class Customer < ApplicationRecord
   validates :gender, presence: true
   validates :tel_number, presence: true, length: { is: 11 }, numericality: { only_integer: true }
   validates :postal_code, presence: true, length: { is: 7 }, numericality: { only_integer: true }
+  validates_uniqueness_of :tel_number, scope: :company_id, if: -> { self.tel_number.present? }
 
   def line?
     self.user.try(:line_user_id).present?
@@ -66,6 +67,7 @@ class Customer < ApplicationRecord
     end
 
     def join_tel_numbers
+      return if self.tel_number1.blank? && self.tel_number2.blank? && self.tel_number3.blank?
       self.tel_number = self.tel_number1.to_s + self.tel_number2.to_s + self.tel_number3.to_s
     end
 
@@ -74,6 +76,7 @@ class Customer < ApplicationRecord
     end
 
     def join_postal_codes
+      return if self.postal_code1.blank? && self.postal_code2.blank?
       self.postal_code = self.postal_code1.to_s + self.postal_code2.to_s
     end
 end
