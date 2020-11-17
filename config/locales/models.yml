@@ -14,6 +14,7 @@ ja:
         code: '店舗コード'
         name: '名称'
         logo: 'ロゴイメージ'
+        line_qr_code: 'LINE QRコード'
       customer:
         <<: *attr_common
         name:        '名前'

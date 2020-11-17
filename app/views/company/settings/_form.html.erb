@@ -47,15 +47,42 @@
                 </div>
               </div>
 
+              <div class="form-group">
+                <% line_qr_code_err = true if company.errors.include?(:line_qr_code) %>
+                <%= form.label :line_qr_code %>
+
+                <div class="input-group">
+                  <div class="custom-file <%= line_qr_code_err ? 'is-invalid' : '' %>">
+                    <%= form.file_field :line_qr_code, { class: "custom-file-input #{ line_qr_code_err ? 'is-invalid' : '' }", accept: 'image/jpeg,image/gif,image/png' } %>
+                    <%= form.label :line_qr_code, { id: 'company_line_qr_code-label', class: 'custom-file-label', 'data-browse': '参照' }  do %>
+                      LINE QRコードファイルを選択(ここにドロップすることもできます)
+                    <% end %>
+                  </div>
+
+                  <div class="input-group-append">
+                    <button type="button" class="btn btn-outline-secondary company_line_qr_code-reset">取消</button>
+                  </div>
+
+                  <% if line_qr_code_err %>
+                    <span class="error invalid-feedback"><%= company.errors.full_messages_for(:line_qr_code).first %></span>
+                  <% end %>
+                </div>
+              </div>
+
               <%= javascript_tag do %>
                 $(function() {
                   $('.custom-file-input').on('change',function(){
                     $(this).next('.custom-file-label').html($(this)[0].files[0].name);
                   })
-                  // ファイルの取消
+                  // ファイルの取消(ロゴ)
                   $('.company_logo-reset').click(function(){
                     $('#company_logo-label').html('ロゴファイルを選択(ここにドロップすることもできます)');
                     $('#company_logo').val('');
+                  })
+                  // ファイルの取消(QRコード)
+                  $('.company_line_qr_code-reset').click(function(){
+                    $('#company_line_qr_code-label').html('LINE QRコードファイルを選択(ここにドロップすることもできます)');
+                    $('#company_line_qr_code').val('');
                   })
                 });
               <% end %>

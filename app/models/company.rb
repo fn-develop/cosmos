@@ -15,6 +15,7 @@
 #
 class Company < ApplicationRecord
   mount_uploader :logo, PublicImageUploader
+  mount_uploader :line_qr_code, PublicImageUploader
 
   has_many :users, dependent: :destroy
   has_many :customers, dependent: :destroy

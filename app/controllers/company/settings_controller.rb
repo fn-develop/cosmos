@@ -22,6 +22,6 @@ class Company::SettingsController < ApplicationController
 
   private
     def company_params
-      params.require(:company).permit(:name, :logo)
+      params.require(:company).permit(:name, :logo, :line_qr_code)
     end
 end

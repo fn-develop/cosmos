@@ -34,7 +34,11 @@
           </tr>
           <tr>
             <th class="text-nowrap"><%= Company.human_attribute_name(:logo) %></th>
-            <td><%= image_tag @company.logo.try(:thumb_200).try(:url) if @company.logo.present? %></td>
+            <td><%= image_tag @company.logo.try(:thumb_220).try(:url) if @company.logo.present? %></td>
+          </tr>
+          <tr>
+            <th class="text-nowrap"><%= Company.human_attribute_name(:line_qr_code) %></th>
+            <td><%= image_tag @company.line_qr_code.try(:thumb_220).try(:url) if @company.line_qr_code.present? %></td>
           </tr>
         </tbody>
       </table>

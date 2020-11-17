@@ -8,9 +8,7 @@ class PublicImageUploader < CarrierWave::Uploader::Base
   end
 
   def store_dir
-    #Rails.root.join('public/uploads', model.class.to_s.underscore, model.id.to_s).to_s
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
-
   end
 
   # 保存するファイルの種類を設定
@@ -18,7 +16,7 @@ class PublicImageUploader < CarrierWave::Uploader::Base
     %w(png jpg jpeg pdf gif)
   end
 
-  # ファイル名を指定今回はアップロード日時-ファイル名に設定
+  # ファイル名を指定
   def filename
     "#{ Date.today }-#{ original_filename }"
   end
@@ -32,8 +30,8 @@ class PublicImageUploader < CarrierWave::Uploader::Base
   # end
 
   # サムネイルの為に画像をリサイズ
-  version :thumb_200 do
-    process resize_to_fit: [200, 200]
+  version :thumb_220 do
+    process resize_to_fit: [220, 220]
   end
 
   # サムネイルの為に画像をリサイズ
