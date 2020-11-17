@@ -16,7 +16,7 @@
           <br />ユーザー登録（LINEチャネル）
           <div class="desc">
             <h3>LINE QR CODE</h3>
-            <p><img class="img-responsive" src="/images/line_qr_<%= @company.code %>.png" alt="<%= @company.code %>"></p>
+            <p><%= image_tag @company.line_qr_code.try(:thumb_220).try(:url) if @company.line_qr_code.present? %></p>
             <p></p>
           </div>
         </div>
