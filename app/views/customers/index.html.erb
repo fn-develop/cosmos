@@ -30,6 +30,18 @@
           <div class="col-md-3 mb-2">
             <div class="input-group">
               <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
+              </div>
+              <%= f.select :gender, Customer::gender_select_arr, { include_blank: '' }, class: 'custom-select', id: 'genderListSelect' %>
+              <div class="input-group-append">
+                <span class="input-group-text clear" data-target_id="genderListSelect">C</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3 mb-2">
+            <div class="input-group">
+              <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt"></i></span>
               </div>
               <%= f.text_field :from_age, { autocomplete: "off", class: 'form-control', placeholder: '年齢（以上）', maxlength: 3, id: 'searchAgeFromText', onKeyup: "this.value=this.value.replace(/[^0-9]+/i,'')" } %>
@@ -47,18 +59,6 @@
               <%= f.text_field :to_age, { autocomplete: "off", class: 'form-control', placeholder: '年齢（以下）', maxlength: 3, id: 'searchAgeToText', onKeyup: "this.value=this.value.replace(/[^0-9]+/i,'')" } %>
               <div class="input-group-append">
                 <span class="input-group-text clear" data-target_id="searchAgeToText">C</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-3 mb-2">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
-              </div>
-              <%= f.select :gender, Customer::gender_select_arr, { include_blank: '' }, class: 'custom-select', id: 'genderListSelect' %>
-              <div class="input-group-append">
-                <span class="input-group-text clear" data-target_id="genderListSelect">C</span>
               </div>
             </div>
           </div>
