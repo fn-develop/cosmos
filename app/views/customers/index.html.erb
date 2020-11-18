@@ -63,6 +63,17 @@
             </div>
           </div>
 
+          <div class="col-md-3 mb-2">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <%= f.check_box(:unread_line, {}, checked_value = 'true', unchecked_value = '' ) %>
+                </span>
+              </div>
+              <%= f.label :unread_line , class: 'form-control' do 'LINE未読' end %>
+            </div>
+          </div>
+
           <div class="col-md-2 mb-2">
             <div class="input-group">
               <%= f.submit "検　索", { class: 'btn btn-info rounded-pill' } %>

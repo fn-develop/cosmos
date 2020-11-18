@@ -18,6 +18,8 @@ class CustomerSearch
   attr_accessor :to_age
   # 検索条件：性別
   attr_accessor :gender
+  # 検索条件：LINE未読
+  attr_accessor :unread_line
 
   def search
     self.per ||= DEFAULT_PER
@@ -41,6 +43,11 @@ class CustomerSearch
 
     if self.gender.present?
       c = c.where(gender: self.gender)
+    end
+
+    if self.unread_line.present?
+      line_message_log_user_ids = self.company.line_message_logs.where(checked: false).pluck(:user_id)
+      c = c.where(user_id: line_message_log_user_ids)
     end
 
     c
