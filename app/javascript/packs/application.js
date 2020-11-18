@@ -31,3 +31,10 @@ window.Swal = Swal;
 
 const images = require.context('../images', true)
 const imagePath = (name) => images(name, true)
+
+$(function() {
+  $('.clear').on('click', function() {
+    var target_id = $(this).data('target_id');
+    $('#'+target_id).val('');
+  });
+});

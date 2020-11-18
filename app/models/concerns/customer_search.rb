@@ -12,6 +12,10 @@ class CustomerSearch
   attr_accessor :per
   # 検索条件：顧客名
   attr_accessor :name
+  # 検索条件：年齢(以上)
+  attr_accessor :from_age
+  # 検索条件：年齢(以下)
+  attr_accessor :to_age
 
   def search
     self.per ||= DEFAULT_PER
@@ -21,11 +25,23 @@ class CustomerSearch
   def customers
     c = get_base_rel
 
+    if self.from_age.present?
+      c = c.where('birthday <= ?', Date.today - self.from_age.to_i.year)
+    end
+
+    if self.to_age.present?
+      c = c.where('birthday >= ?', Date.today - self.to_age.to_i.year)
+    end
+
     if self.name.present?
       c = c.where('name LIKE ?', "%#{ self.name }%").or(c.where('name_kana LIKE ?', "%#{ self.name }%"))
     end
 
     c
+  end
+
+  def inputed?
+    self.name.present? || self.from_age.present? || self.to_age.present?
   end
 
   private

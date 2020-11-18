@@ -1,25 +1,55 @@
 <%= render 'content_header', active_breadcrumb_item: Const::View::Name::CUSTOMER_INDEX %>
 
 <section class="content">
-  <div class="card">
+  <div class="card <%= 'collapsed-card' unless @search.inputed? %>">
     <div class="card-header">
       <h3 class="card-title">検索</h3>
 
       <div class="card-tools">
-        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-<%= @search.inputed? ? 'minus' : 'plus' %>"></i>
         </button>
       </div>
     </div>
 
-    <div class="card-body" style="display: block;">
+    <div class="card-body" <%= 'style="display: none;"' unless @search.inputed? %>>
+
       <%= form_with model: @search, url: customers_path, method: :get, local:true do |f| %>
-        <div class="input-group">
-          <%= f.text_field :name, { autocomplete: "off", class: 'form-control', placeholder: '名前', maxlength: 20 } %>
-          <span class="input-group-append">
-            <%= f.submit "検索", { class: 'btn btn-info' } %>
-          </span>
+        <div class="form-row">
+          <div class="col-md-3 mb-2">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text clear" data-target_id="searchNameText">C</span>
+              </div>
+              <%= f.text_field :name, { autocomplete: "off", class: 'form-control', placeholder: '名前', maxlength: 20, id: 'searchNameText' } %>
+            </div>
+          </div>
+
+          <div class="col-md-3 mb-2">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text clear" data-target_id="searchAgeFromText">C</span>
+              </div>
+              <%= f.text_field :from_age, { autocomplete: "off", class: 'form-control', placeholder: '年齢（以上）', maxlength: 3, id: 'searchAgeFromText', onKeyup: "this.value=this.value.replace(/[^0-9]+/i,'')" } %>
+            </div>
+          </div>
+
+          <div class="col-md-3 mb-2">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text clear" data-target_id="searchAgeToText">C</span>
+              </div>
+              <%= f.text_field :to_age, { autocomplete: "off", class: 'form-control', placeholder: '年齢（以下）', maxlength: 3, id: 'searchAgeToText', onKeyup: "this.value=this.value.replace(/[^0-9]+/i,'')" } %>
+            </div>
+          </div>
+
+          <div class="col-md-2 mb-2">
+            <div class="input-group">
+              <%= f.submit "検　索", { class: 'btn btn-info rounded-pill' } %>
+            </div>
+          </div>
         </div>
       <% end %>
+
     </div>
   </div>
 
