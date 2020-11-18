@@ -16,6 +16,8 @@ class CustomerSearch
   attr_accessor :from_age
   # 検索条件：年齢(以下)
   attr_accessor :to_age
+  # 検索条件：性別
+  attr_accessor :gender
 
   def search
     self.per ||= DEFAULT_PER
@@ -35,6 +37,10 @@ class CustomerSearch
 
     if self.name.present?
       c = c.where('name LIKE ?', "%#{ self.name }%").or(c.where('name_kana LIKE ?', "%#{ self.name }%"))
+    end
+
+    if self.gender.present?
+      c = c.where(gender: self.gender)
     end
 
     c

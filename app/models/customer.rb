@@ -61,6 +61,14 @@ class Customer < ApplicationRecord
     "#{self.prefecture} #{self.city} #{self.address1} #{self.address2}"
   end
 
+  def self.gender_select_arr
+    self.genders.map{ |key, value| [self.human_attribute_enum_key('gender', key), key] }
+  end
+
+  def self.human_attribute_enum_key(attr_name, key)
+    self.human_attribute_name("#{attr_name}.#{key}")
+  end
+
   private
     def split_tel_number
       self.tel_number1, self.tel_number2, self.tel_number3 = self.formatted_tel_number.split('-')

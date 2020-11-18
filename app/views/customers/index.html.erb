@@ -42,6 +42,18 @@
             </div>
           </div>
 
+          <div class="col-md-3 mb-2">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text clear" data-target_id="genderListSelect">C</span>
+              </div>
+              <%= f.select :gender, Customer::gender_select_arr, { include_blank: '' }, class: 'custom-select', id: 'genderListSelect' %>
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
+              </div>
+            </div>
+          </div>
+
           <div class="col-md-2 mb-2">
             <div class="input-group">
               <%= f.submit "検　索", { class: 'btn btn-info rounded-pill' } %>
@@ -89,7 +101,9 @@
       </table>
 
       <%= paginate @customers %>
-      <a href="<%= new_customer_path(company_code: @company.code ) %>" class="btn btn-info float-left mt-1">新規作成</a>
+    </div>
+    <div class="card-footer">
+      <a href="<%= new_customer_path(company_code: @company.code ) %>" class="btn btn-sm btn-primary float-left mt-1">新規作成</a>
     </div>
   </div>
 </section>
