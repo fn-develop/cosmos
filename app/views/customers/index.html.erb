@@ -114,23 +114,23 @@
 
           <% @customers.each_with_index do |customer, i| %>
             <tr>
-              <td class="text-nowrap">
+              <td class="text-nowrap align-middle">
                 <%= link_to '詳細', customer_path(@company.code, customer), { class: 'btn btn-outline-info rounded-circle ' } %>
               </td>
               <% if customer.line? %>
-                <td>
+                <td class="align-middle">
                   <%= link_to customer.name.to_s, new_line_message_customer_path(@company.code, customer), { class: 'text-success' } %>
                 </td>
               <% else %>
-                <td>
+                <td class="align-middle">
                   <%= customer.name.to_s %>
                 </td>
               <% end %>
-              <td><%= customer.name_kana.to_s %></td>
-              <td><%= Customer.human_attribute_name("gender.#{ customer.gender }") if customer.gender %></td>
-              <td><%= customer.formatted_tel_number.to_s %></td>
-              <td><%= customer.birthday.strftime("%Y年%m月%d日") if customer.birthday %></td>
-              <td>
+              <td class="align-middle"><%= customer.name_kana.to_s %></td>
+              <td class="align-middle"><%= Customer.human_attribute_name("gender.#{ customer.gender }") if customer.gender %></td>
+              <td class="align-middle"><%= customer.formatted_tel_number.to_s %></td>
+              <td class="align-middle"><%= customer.birthday.strftime("%Y年%m月%d日") if customer.birthday %></td>
+              <td class="align-middle">
                 <% user = customer.user %>
                 <% if user.try(:unread_user_line_message?) %>
                   <%= link_to user.unread_user_last_line_message_content, new_line_message_customer_path(@company.code, customer), class: 'btn btn-sm btn-success float-left' %>
