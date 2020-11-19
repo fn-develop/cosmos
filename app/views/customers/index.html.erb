@@ -90,7 +90,7 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th style="width: 10px"><%= Customer.human_attribute_name(:id) %></th>
+            <th style="width: 10px">詳細</th>
             <th><%= Customer.human_attribute_name(:name) %></th>
             <th><%= Customer.human_attribute_name(:name_kana) %></th>
             <th><%= Customer.human_attribute_name(:gender) %></th>
@@ -103,7 +103,9 @@
 
           <% @customers.each_with_index do |customer, i| %>
             <tr>
-              <td><a href="<%= customer_path(@company.code, customer) %>"><%= customer.id.to_s %>.</a></td>
+              <td class="text-nowrap">
+                <%= link_to '詳細', customer_path(@company.code, customer), { class: 'btn btn-outline-info rounded-circle ' } %>
+              </td>
               <% if customer.line? %>
                 <td>
                   <%= link_to customer.name.to_s, new_line_message_customer_path(@company.code, customer), { class: 'text-success' } %>
