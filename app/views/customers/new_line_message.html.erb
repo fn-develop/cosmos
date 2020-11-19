@@ -24,10 +24,10 @@
         <h3 class="card-title">TO: <%= @customer.name %> 様</h3>
       </div>
 
-      <div class="card-body">
+      <div class="card-body pt-1 pl-1 pr-1 pb-0">
         <div class="row">
           <div class="col-md-6">
-            <div class="card">
+            <div class="card card-primary direct-chat direct-chat-default">
               <div class="card-body">
                 <div class="direct-chat-messages" style="height: 320px;">
                   <table class="table table-bordered">
@@ -50,9 +50,10 @@
                       </tr>
                     </tbody>
                   </table>
-
-                  <%= link_to '顧客詳細画面へ', customer_path(@customer, company_code: @company.code), { class: 'btn  btn-default float-right' } %>
                 </div>
+              </div>
+              <div class="card-footer">
+                <small class="float-right"><%= link_to '顧客詳細画面へ', customer_path(@customer, company_code: @company.code), { class: '' } %></small>
               </div>
             </div>
           </div>
@@ -69,6 +70,9 @@
                     <% end %>
                   <% end %>
                 </div>
+              </div>
+              <div class="card-footer">
+                <small class="float-right"><%= "最大#{ Const::LineMessage::DISPLAY_LIMIT }件表示" %></small>
               </div>
             </div>
           </div>
