@@ -40,8 +40,18 @@ class User < ApplicationRecord
     (self.role_before_type_cast > 0)
   end
 
+  def unread_user_last_line_message
+    @last_message ||= self.line_message_logs.where(checked: false).last
+  end
+
   def unread_user_line_message?
-    self.line_message_logs.where(checked: false).present?
+    unread_user_last_line_message.present?
+  end
+
+  def unread_user_last_line_message_content
+    return if unread_user_last_line_message.blank?
+    sended_time = unread_user_last_line_message.created_at
+    sended_time.strftime("%m/%d %H:%M")
   end
 
   #### START EMAIL 重複OK ######
