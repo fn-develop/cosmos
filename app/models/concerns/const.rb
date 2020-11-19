@@ -15,6 +15,7 @@ module Const
     CUSTOMER = 'customers'.freeze
   end
 
+  # Const::View
   module View
     # Const::View::Name
     module Name
@@ -35,6 +36,7 @@ module Const
     end
   end
 
+  # Const::LineMessage
   module LineMessage
     # Const::LineMessage::Type
     module Type
@@ -47,5 +49,7 @@ module Const
       ACCOUNT_USER_MESSAGE = 'account_user_message'.freeze
       NON_ACCOUNT_MESSAGE  = 'non_account_message'.freeze
     end
+
+    DISPLAY_LIMIT = 100.freeze
   end
 end
