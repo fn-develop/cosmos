@@ -104,7 +104,15 @@
           <% @customers.each_with_index do |customer, i| %>
             <tr>
               <td><a href="<%= customer_path(@company.code, customer) %>"><%= customer.id.to_s %>.</a></td>
-              <td><%= customer.name.to_s %></td>
+              <% if customer.line? %>
+                <td>
+                  <%= link_to customer.name.to_s, new_line_message_customer_path(@company.code, customer), { class: 'text-success' } %>
+                </td>
+              <% else %>
+                <td>
+                  <%= customer.name.to_s %>
+                </td>
+              <% end %>
               <td><%= customer.name_kana.to_s %></td>
               <td><%= Customer.human_attribute_name("gender.#{ customer.gender }") if customer.gender %></td>
               <td><%= customer.formatted_tel_number.to_s %></td>
