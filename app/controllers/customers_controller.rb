@@ -141,6 +141,6 @@ class CustomersController < ApplicationController
     end
 
     def customer_search_params
-      params.key?(:customer_search) ? params.require(:customer_search).permit(:name, :from_age, :to_age, :gender, :unread_line) : {}
+      params.key?(:customer_search) ? params.require(:customer_search).permit(:name, :from_age, :to_age, :gender, :line_registed, :unread_line) : {}
     end
 end

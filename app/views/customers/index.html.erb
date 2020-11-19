@@ -67,6 +67,17 @@
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text">
+                  <%= f.check_box(:line_registed, {}, checked_value = 'true', unchecked_value = '' ) %>
+                </span>
+              </div>
+              <%= f.label :line_registed , class: 'form-control' do 'LINE登録済み' end %>
+            </div>
+          </div>
+
+          <div class="col-md-3 mb-2">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
                   <%= f.check_box(:unread_line, {}, checked_value = 'true', unchecked_value = '' ) %>
                 </span>
               </div>

@@ -18,6 +18,8 @@ class CustomerSearch
   attr_accessor :to_age
   # 検索条件：性別
   attr_accessor :gender
+  # 検索条件：LINE登録済
+  attr_accessor :line_registed
   # 検索条件：LINE未読
   attr_accessor :unread_line
 
@@ -45,6 +47,10 @@ class CustomerSearch
       c = c.where(gender: self.gender)
     end
 
+    if self.line_registed.present?
+      c = c.where({ user: "line_user_id IS NOT NULL AND line_user_id <> ''" })
+    end
+
     if self.unread_line.present?
       line_message_log_user_ids = self.company.line_message_logs.where(checked: false).pluck(:user_id)
       c = c.where(user_id: line_message_log_user_ids)
@@ -54,7 +60,7 @@ class CustomerSearch
   end
 
   def inputed?
-    self.name.present? || self.from_age.present? || self.to_age.present? || self.gender.present? || self.unread_line.present?
+    self.name.present? || self.from_age.present? || self.to_age.present? || self.gender.present? || self.line_registed.present? || self.unread_line.present?
   end
 
   private
