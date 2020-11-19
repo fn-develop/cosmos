@@ -54,7 +54,7 @@ class CustomerSearch
   end
 
   def inputed?
-    self.name.present? || self.from_age.present? || self.to_age.present? || self.gender.present?
+    self.name.present? || self.from_age.present? || self.to_age.present? || self.gender.present? || self.unread_line.present?
   end
 
   private
