@@ -9,18 +9,5 @@
         </span></p>
       </div>
     </div>
-
-    <div class="row">
-      <div class="col-md-12 text-center">
-        <div class="blog-inner">
-          <br />ユーザー登録（LINEチャネル）
-          <div class="desc">
-            <h3>LINE QR CODE</h3>
-            <p><%= image_tag @company.line_qr_code.try(:thumb_220).try(:url) if @company.line_qr_code.present? %></p>
-            <p></p>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
