@@ -48,7 +48,8 @@ class CustomerSearch
     end
 
     if self.line_registed.present?
-      c = c.where({ user: "line_user_id IS NOT NULL AND line_user_id <> ''" })
+      user_ids = company.users.where("line_user_id IS NOT NULL AND line_user_id <> ''").pluck(:id)
+      c = c.where(user_id: user_ids)
     end
 
     if self.unread_line.present?
