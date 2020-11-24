@@ -16,7 +16,7 @@ class Ability
 
     # ゲスト
     def guest_ability(user)
-      can [:new_with_line, :create_with_line], :customer
+      can [:new_with_line, :new_with_line_non_tel_number, :create_with_line], :customer
       can :read, Company
     end
 
