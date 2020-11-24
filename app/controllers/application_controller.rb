@@ -55,10 +55,8 @@ class ApplicationController < ActionController::Base
     end
 
     def get_new_user_line_messages
-      @new_user_line_messages ||= LineMessageLog.includes(user: :customer).where(
-                                   company: company,
+      @new_user_line_messages ||= company.line_message_logs.includes(user: :customer).where(
                                    checked: false,
-                                   user_id: company.customers.pluck(:user_id)
                                   )
     end
 
