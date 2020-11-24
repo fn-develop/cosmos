@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       get  'new_line_message', to: 'customers#new_line_message', on: :member
       post 'send_line_message', to: 'customers#send_line_message', on: :member
       post 'create_with_line', to: 'customers#create_with_line', on: :collection
+      get 'reload_notify_area', to: 'customers#reload_notify_area', on: :collection
     end
 
     resources :users

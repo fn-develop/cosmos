@@ -62,6 +62,9 @@ module LineLinkingController
     end
   end
 
+  # xhr
+  def reload_notify_area
+  end
 
   private def customer_with_phone_number
     tel_number = "#{customer_params[:tel_number1]}#{customer_params[:tel_number2]}#{customer_params[:tel_number3]}"

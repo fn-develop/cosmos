@@ -1,0 +1,28 @@
+<% if @new_user_line_messages.present? %>
+  <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+    <i class="far fa-comments"></i>
+    <span class="badge badge-danger navbar-badge"><%= @new_user_line_messages.size() %></span>
+  </a>
+
+  <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
+    <% @new_user_line_messages.each do |msg| %>
+      <% customer = msg.user.customer %>
+      <a href="<%= new_line_message_customer_path(@company.code, customer) %>" class="dropdown-item">
+        <!-- Message Start -->
+        <div class="media">
+          <div class="media-body">
+            <h3 class="dropdown-item-title">
+              <%= customer.name.to_s %>
+              <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
+            </h3>
+            <p class="text-sm"><%= msg.message.to_s[0, 10] %>...</p>
+            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i><%= msg.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+          </div>
+        </div>
+      </a>
+    <% end %>
+    <div class="dropdown-divider"></div>
+    <a href="<%= customers_path %>" class="dropdown-item dropdown-footer">顧客一覧へ</a>
+  </div>
+<% else %>
+<% end %>
