@@ -5,6 +5,7 @@ class CustomersController < ApplicationController
     @search = CustomerSearch.new({
       company: company,
       current_ability: current_ability,
+      page: params[:page],
     }.merge(customer_search_params))
 
     @customers = @search.search
