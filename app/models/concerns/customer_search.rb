@@ -1,7 +1,7 @@
 class CustomerSearch
   include ActiveModel::Model
 
-  DEFAULT_PER = 20
+  DEFAULT_PER = 100
 
   attr_accessor :company
   # 既定権限

@@ -22,6 +22,7 @@ ja:
         name:        '名前'
         name_kana:   '名前（カナ）'
         gender:      '性別'
+        age:         '年齢'
         tel_number:  '電話番号（携帯）'
         birthday:    '生年月日'
         postal_code: '郵便番号'

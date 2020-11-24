@@ -69,6 +69,11 @@ class Customer < ApplicationRecord
     self.human_attribute_name("#{attr_name}.#{key}")
   end
 
+  def age
+    return '' if self.birthday.blank?
+    ((Date.today.strftime('%Y%m%d').to_i - self.birthday.strftime('%Y%m%d').to_i) / 10000).to_s
+  end
+
   private
     def split_tel_number
       self.tel_number1, self.tel_number2, self.tel_number3 = self.formatted_tel_number.split('-')

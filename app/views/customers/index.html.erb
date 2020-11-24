@@ -98,13 +98,16 @@
 
   <div class="card">
     <div class="card-body">
+      <%= paginate @customers %>
+
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th style="width: 10px" class="text-nowrap">詳細</th>
+            <th style="width: 10px" class="text-nowrap"><%= @customers.total_count %> <small>名</small></th>
             <th><%= Customer.human_attribute_name(:name) %></th>
             <th><%= Customer.human_attribute_name(:name_kana) %></th>
             <th><%= Customer.human_attribute_name(:gender) %></th>
+            <th><%= Customer.human_attribute_name(:age) %></th>
             <th><%= Customer.human_attribute_name(:tel_number) %></th>
             <th><%= Customer.human_attribute_name(:birthday) %></th>
             <th>LINE通知</th>
@@ -128,6 +131,7 @@
               <% end %>
               <td class="align-middle"><%= customer.name_kana.to_s %></td>
               <td class="align-middle"><%= Customer.human_attribute_name("gender.#{ customer.gender }") if customer.gender %></td>
+              <td class="align-middle"><%= customer.age %></td>
               <td class="align-middle"><%= customer.formatted_tel_number.to_s %></td>
               <td class="align-middle"><%= customer.birthday.strftime("%Y年%m月%d日") if customer.birthday %></td>
               <td class="align-middle">
