@@ -53,6 +53,7 @@ module Api
               if event['message']['text'] == QR_CODE_IMAGE_REQUEST
                 image_url = visit_user_qr_code_customers_url(company_code: company.code, line_user_id: user.line_user_id)
                 image_message[:originalContentUrl] = image_url
+                image_message[:previewImageUrl] = image_url
                 client.reply_message(event['replyToken'], image_message)
               else
                 save_user_message(event, company)
