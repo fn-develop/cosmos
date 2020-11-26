@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_16_065429) do
+ActiveRecord::Schema.define(version: 2020_11_26_071004) do
 
   create_table "collection_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "collection_id"
@@ -115,6 +115,21 @@ ActiveRecord::Schema.define(version: 2020_11_16_065429) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "visited_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "company_id", null: false
+    t.integer "customer_id"
+    t.string "year"
+    t.string "month"
+    t.string "day"
+    t.string "visit_token"
+    t.boolean "enabled", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_visited_logs_on_company_id"
+    t.index ["month"], name: "index_visited_logs_on_month"
+    t.index ["year"], name: "index_visited_logs_on_year"
   end
 
 end
