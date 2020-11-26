@@ -28,7 +28,7 @@ module Api
         image_message = {
           type: 'image',
           originalContentUrl: '',
-          # previewImageUrl: '',
+          previewImageUrl: '',
         }
 
         events = client.parse_events_from(body)
