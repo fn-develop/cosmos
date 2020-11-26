@@ -20,4 +20,6 @@
 #  index_visited_logs_on_year        (year)
 #
 class VisitedLog < ApplicationRecord
+  belongs_to :company
+  belongs_to :customer
 end

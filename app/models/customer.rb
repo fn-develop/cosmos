@@ -26,6 +26,8 @@ class Customer < ApplicationRecord
   belongs_to :user, required: false
   belongs_to :company
 
+  has_many :visited_logs, dependent: :destroy
+
   enum gender: { men: 0, women: 1 }
 
   attr_accessor :tel_number1
