@@ -69,7 +69,7 @@ module LineLinkingController
   def visit_user_qr_code
     @user = company.users.find_by(line_user_id: params[:line_user_id])
 
-    qr_url = compete_visited_customers_url(company_code: company.code, line_user_id: @user.line_user_id)
+    qr_url = complete_visited_customers_url(company_code: company.code, line_user_id: @user.line_user_id)
 
     base64_image = ApplicationController.helpers.make_base64_qr_code(content: qr_url, size: 8)
     base64_image = base64_image.split(',', 2).last
