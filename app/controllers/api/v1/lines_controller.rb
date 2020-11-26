@@ -29,7 +29,7 @@ module Api
           type: 'image',
           originalContentUrl: '',
           # previewImageUrl: '',
-        }}
+        }
 
         events = client.parse_events_from(body)
 
