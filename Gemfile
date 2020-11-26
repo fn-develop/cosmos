@@ -23,6 +23,8 @@ gem 'request_store'
 gem 'kaminari'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'rqrcode'
+gem 'chunky_png'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
