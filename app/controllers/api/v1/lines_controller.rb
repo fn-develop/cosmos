@@ -6,7 +6,8 @@ module Api
       # CSRF保護を無効
       protect_from_forgery with: :null_session
 
-      IGNORE_REPLY_TOKEN = '00000000000000000000000000000000'
+      IGNORE_REPLY_TOKEN = '00000000000000000000000000000000'.freeze
+      QR_CODE_IMAGE_REQUEST = '来店'.freeze
 
       def show
         head :ok
@@ -24,6 +25,12 @@ module Api
 
         message = { type: 'text', text: '' }
 
+        image_message = {
+          type: 'image',
+          originalContentUrl: '',
+          # previewImageUrl: '',
+        }}
+
         events = client.parse_events_from(body)
 
         events.each do |event|
@@ -35,13 +42,21 @@ module Api
           when Line::Bot::Event::Message
             case event.try(:type)
             when Line::Bot::Event::MessageType::Text
-              user = registered_user(event, company)
+              user = get_user(event, company)
+
               if user.try(:customer).blank?
                 save_user(event, company)
                 message[:text] = regit_url_message(event, company)
                 client.reply_message(event['replyToken'], message) unless event['replyToken'] === IGNORE_REPLY_TOKEN # テスト応答時はメッセージを返信しない
               end
-              save_user_message(event, company)
+
+              if event['message']['text'] == QR_CODE_IMAGE_REQUEST
+                image_url = visit_user_qr_code_customers_url(company_code: company.code, line_user_id: user.line_user_id)
+                image_message[:originalContentUrl] = image_url
+                client.reply_message(event['replyToken'], image_message)
+              else
+                save_user_message(event, company)
+              end
             end
           end
         end
@@ -56,7 +71,7 @@ module Api
         end
 
         def save_user_message(event, company)
-          user = registered_user(event, company)
+          user = get_user(event, company)
 
           lml = user.line_message_logs.new(
             company:      company,
@@ -77,7 +92,7 @@ module Api
            "【自動応答】登録URL\n#{ new_with_line_customers_url({ company_code: company.code, line_user_id: event['source']['userId'] }) }"
         end
 
-        def registered_user(event, company)
+        def get_user(event, company)
           User.find_by(company: company, line_user_id: event['source']['userId'])
         end
     end

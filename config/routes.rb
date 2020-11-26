@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       post 'send_line_message', to: 'customers#send_line_message', on: :member
       post 'create_with_line', to: 'customers#create_with_line', on: :collection
       get 'reload_notify_area', to: 'customers#reload_notify_area', on: :collection
-      get 'visit_user_qr_code/:line_user_id', to: 'customers#visit_user_qr_code', on: :collection
+      get 'visit_user_qr_code/:line_user_id', to: 'customers#visit_user_qr_code', on: :collection, as: :visit_user_qr_code
       get 'on_visited/:line_user_id', to: 'customers#on_visited', on: :collection
       get 'complete_visited/:line_user_id', to: 'customers#complete_visited', on: :collection, as: :complete_visited
     end
