@@ -22,4 +22,11 @@
 class VisitedLog < ApplicationRecord
   belongs_to :company
   belongs_to :customer
+
+  before_create :set_visit_token
+
+  private
+    def set_visit_token
+      self.visit_token = SecureRandom.urlsafe_base64
+    end
 end
