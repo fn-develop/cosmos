@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Auth::SessionsController < Devise::SessionsController
-  layout 'login'
+  layout 'temporary'
 
   # GET /resource/sign_in
   def new

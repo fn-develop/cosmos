@@ -4,6 +4,7 @@ module LineLinkingController
 
   included do
     layout 'line_regist', only: [:new_with_line, :new_with_line_non_tel_number, :create_with_line]
+    layout 'temporary', only: [:confirm_visited, :complete_visited]
   end
 
   def new_with_line
@@ -67,9 +68,9 @@ module LineLinkingController
   end
 
   def visit_user_qr_code
-    @user = company.users.find_by(line_user_id: params[:line_user_id])
+    visited_log = company.visited_logs.find_by(visit_token: params[:visit_token])
 
-    qr_url = complete_visited_customers_url(company_code: company.code, line_user_id: @user.line_user_id)
+    qr_url = confirm_visited_customers_url(company_code: company.code, visit_token: visited_log.visit_token)
 
     base64_image = ApplicationController.helpers.make_base64_qr_code(content: qr_url, size: 8)
     base64_image = base64_image.split(',', 2).last
@@ -79,13 +80,37 @@ module LineLinkingController
               disposition: 'inline'
   end
 
-  def complete_visited
-    @user = company.users.find_by(line_user_id: params[:line_user_id])
+  def confirm_visited
+    @visited_log = company.visited_logs.find_by(visit_token: params[:visit_token])
 
-    if @user.present?
-      render plain: "#{@user.customer.name}さんの来店を受け付けました。"
+    if @visited_log.present?
+      customer = @visited_log.customer
+
+      if @visited_log.visited?
+        render action: :confirm_visited, notice: "#{customer.name}さんの来店は受付済です。"
+        return
+      end
     else
-      render plain: 'ユーザーが見つかりません。'
+      render plain: 'エラー'
+    end
+  end
+
+  def complete_visited
+    @visited_log = company.visited_logs.find_by(visit_token: params[:visit_token])
+
+    if @visited_log.present?
+      customer = @visited_log.customer
+
+      if @visited_log.visited?
+        render plain: "#{customer.name}さんの来店は受付済です。"
+        return
+      end
+
+      visited_log.enabled = true
+      visited_log.save
+      render plain: "#{customer.name}さんの来店を受け付けました。"
+    else
+      render plain: 'エラー'
     end
   end
 
@@ -95,7 +120,7 @@ module LineLinkingController
   end
 
   private def is_public?
-    ['new_with_line', 'new_with_line_non_tel_number', 'create_with_line', 'visit_user_qr_code'].include?(params[:action])
+    ['new_with_line', 'new_with_line_non_tel_number', 'create_with_line', 'visit_user_qr_code', 'complete_visited', 'confirm_visited'].include?(params[:action])
   end
 
 end

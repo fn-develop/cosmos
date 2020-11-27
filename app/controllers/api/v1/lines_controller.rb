@@ -47,11 +47,16 @@ module Api
               if user.try(:customer).blank?
                 save_user(event, company)
                 message[:text] = regit_url_message(event, company)
+                user.reload
                 client.reply_message(event['replyToken'], message) unless event['replyToken'] === IGNORE_REPLY_TOKEN # テスト応答時はメッセージを返信しない
               end
 
               if event['message']['text'] == QR_CODE_IMAGE_REQUEST
-                image_url = visit_user_qr_code_customers_url(company_code: company.code, line_user_id: user.line_user_id) + '.png'
+                today = Date.today
+
+                visited_log = company.visited_logs.create(customer: user.customer, year: today.year.to_s, month: today.month.to_s, day: today.day.to_s)
+
+                image_url = visit_user_qr_code_customers_url(company_code: company.code, visit_token: visited_log.visit_token) + '.png'
                 image_message[:originalContentUrl] = image_url
                 image_message[:previewImageUrl] = image_url
                 client.reply_message(event['replyToken'], image_message)
