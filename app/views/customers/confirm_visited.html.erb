@@ -3,8 +3,9 @@
     <p class="login-box-msg">来店確認コードを入力してください。</p>
 
     <%= form_with(model: @visited_log, url: complete_visited_customers_url(company_code: @company.code), local: true) do |f| %>
+      <%= f.hidden_field :visit_token %>
       <div class="input-group mb-3">
-        <%= f.telephone_field :password, { autocomplete: false, class: 'form-control', placeholder: '来店確認コード（4ケタ）', required: true, minlength: 4, maxlength: 4 } %>
+        <%= f.telephone_field :visit_confirmation_code, { autocomplete: false, class: 'form-control', placeholder: '来店確認コード（4ケタ）', required: true, minlength: 4, maxlength: 4 } %>
         <div class="input-group-append">
           <div class="input-group-text">
             <span class="fas fa-lock"></span>

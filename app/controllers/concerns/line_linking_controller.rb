@@ -96,21 +96,30 @@ module LineLinkingController
   end
 
   def complete_visited
-    @visited_log = company.visited_logs.find_by(visit_token: params[:visit_token])
+    @visited_log = company.visited_logs.find_by(visit_token: visit_confirmation_params[:visit_token])
 
     if @visited_log.present?
       customer = @visited_log.customer
 
       if @visited_log.visited?
-        render plain: "#{customer.name}さんの来店は受付済です。"
+        flash.now[:notice] = "#{ customer.name }さんの来店は受付済です。"
+        render action: :confirm_visited
+        return
+      elsif visit_confirmation_params[:visit_confirmation_code] != company.visit_confirmation_code
+        flash.now[:alert] = "来店確認コードをご確認ください。"
+        render action: :confirm_visited
         return
       end
 
-      visited_log.enabled = true
-      visited_log.save
-      render plain: "#{customer.name}さんの来店を受け付けました。"
+      @visited_log.enabled = true
+
+      if @visited_log.save
+        flash.now[:notice] = "#{ customer.name } さんの来店を受け付けました。"
+      else
+        flash.now[:alert] = "エラー発生。"
+      end
     else
-      render plain: 'エラー'
+      flash.now[:alert] = "エラー発生。"
     end
   end
 
@@ -121,6 +130,10 @@ module LineLinkingController
 
   private def is_public?
     ['new_with_line', 'new_with_line_non_tel_number', 'create_with_line', 'visit_user_qr_code', 'complete_visited', 'confirm_visited'].include?(params[:action])
+  end
+
+  private def visit_confirmation_params
+    params.require(:visited_log).permit(:visit_token, :visit_confirmation_code)
   end
 
 end

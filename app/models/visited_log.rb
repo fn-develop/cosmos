@@ -25,6 +25,8 @@ class VisitedLog < ApplicationRecord
 
   before_create :set_visit_token
 
+  attr_accessor :visit_confirmation_code
+
   def visited?
     today = Date.today
     self.company.visited_logs.find_by(customer: self.customer, year: today.year.to_s, month: today.month.to_s, day: today.day.to_s, enabled: true).present?
