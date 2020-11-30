@@ -24,6 +24,7 @@ class VisitedLog < ApplicationRecord
   belongs_to :customer
 
   before_create :set_visit_token
+  before_save :rjust_month_and_day
 
   attr_accessor :visit_confirmation_code
 
@@ -32,8 +33,17 @@ class VisitedLog < ApplicationRecord
     self.company.visited_logs.find_by(customer: self.customer, year: today.year.to_s, month: today.month.to_s, day: today.day.to_s, enabled: true).present?
   end
 
+  def visited_day
+    "#{ self.year }年#{ self.month }月#{ self.day }日"
+  end
+
   private
     def set_visit_token
       self.visit_token = SecureRandom.urlsafe_base64
+    end
+
+    def rjust_month_and_day
+      self.month = self.month.rjust(2, '0')
+      self.day = self.day.rjust(2, '0')
     end
 end

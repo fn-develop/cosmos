@@ -2,6 +2,8 @@ class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy, :new_line_message, :send_line_message]
   include LineLinkingController
 
+  VISITED_LOGS_PER = '10'
+
   def index
     @search = CustomerSearch.new({
       company: company,
@@ -13,6 +15,12 @@ class CustomersController < ApplicationController
   end
 
   def show
+    @visited_logs = @customer.visited_logs.where(enabled: true)
+                             .order(year: :desc)
+                             .order(month: :desc)
+                             .order(day: :desc)
+                             .page(params[:page])
+                             .per(VISITED_LOGS_PER)
   end
 
   def new

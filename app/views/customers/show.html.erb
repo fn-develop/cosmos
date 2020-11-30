@@ -17,58 +17,81 @@
 </div>
 
 <section class="content">
-  <div class="card">
-    <div class="card-header">
-      <h3 class="card-title">情報</h3>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">情報</h3>
+        </div>
+
+        <div class="card-body">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="text-nowrap" style="width: 10px"><%= Customer.human_attribute_name(:id) %></th>
+                <td><%= @customer.id %></td>
+              </tr><tr>
+                <th class="text-nowrap"><%= Customer.human_attribute_name(:name) %></th>
+                <td><%= @customer.name.to_s %></td>
+              </tr><tr>
+                <th class="text-nowrap"><%= Customer.human_attribute_name(:name_kana) %></th>
+                <td><%= @customer.name_kana.to_s %></td>
+              </tr><tr>
+                <th class="text-nowrap"><%= Customer.human_attribute_name(:gender) %></th>
+                <td><%= Customer.human_attribute_name("gender.#{ @customer.gender }") %></td>
+              </tr><tr>
+                <th class="text-nowrap"><%= Customer.human_attribute_name(:tel_number) %></th>
+                <td><%= @customer.formatted_tel_number.to_s %></td>
+              </tr><tr>
+                <th class="text-nowrap"><%= Customer.human_attribute_name(:birthday) %></th>
+                <td><%= @customer.birthday.strftime("%Y年%m月%d日") if @customer.birthday %></td>
+              </tr><tr>
+                <th class="text-nowrap"><%= Customer.human_attribute_name(:postal_code) %></th>
+                <td><%= @customer.formatted_postal_code %></td>
+              </tr><tr>
+                <th class="text-nowrap"><%= Customer.human_attribute_name(:prefecture) %></th>
+                <td><%= @customer.prefecture %></td>
+              </tr><tr>
+                <th class="text-nowrap"><%= Customer.human_attribute_name(:city) %></th>
+                <td><%= @customer.city %></td>
+              </tr><tr>
+                <th class="text-nowrap"><%= Customer.human_attribute_name(:address1) %></th>
+                <td><%= @customer.address1 %></td>
+              </tr><tr>
+                <th class="text-nowrap"><%= Customer.human_attribute_name(:address2) %></th>
+                <td><%= @customer.address2 %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card-footer clearfix">
+          <a href="<%= edit_customer_path(@customer, company_code: @company.code ) %>" class="btn btn-info float-left mr-2">　編集　</a>
+          <% if @customer.line? %>
+            <%= link_to 'LINE通知', new_line_message_customer_path(@company.code, @customer), class: 'btn btn-success float-left' %>
+          <% end %>
+          <a href="<%= customers_path(company_code: @company.code) %>" class="btn btn-default float-right">　戻る　</a>
+        </div>
+      </div>
     </div>
 
-    <div class="card-body">
-      <table class="table table-bordered">
-        <tbody>
-          <tr>
-            <th class="text-nowrap" style="width: 10px"><%= Customer.human_attribute_name(:id) %></th>
-            <td><%= @customer.id %></td>
-          </tr><tr>
-            <th class="text-nowrap"><%= Customer.human_attribute_name(:name) %></th>
-            <td><%= @customer.name.to_s %></td>
-          </tr><tr>
-            <th class="text-nowrap"><%= Customer.human_attribute_name(:name_kana) %></th>
-            <td><%= @customer.name_kana.to_s %></td>
-          </tr><tr>
-            <th class="text-nowrap"><%= Customer.human_attribute_name(:gender) %></th>
-            <td><%= Customer.human_attribute_name("gender.#{ @customer.gender }") %></td>
-          </tr><tr>
-            <th class="text-nowrap"><%= Customer.human_attribute_name(:tel_number) %></th>
-            <td><%= @customer.formatted_tel_number.to_s %></td>
-          </tr><tr>
-            <th class="text-nowrap"><%= Customer.human_attribute_name(:birthday) %></th>
-            <td><%= @customer.birthday.strftime("%Y年%m月%d日") if @customer.birthday %></td>
-          </tr><tr>
-            <th class="text-nowrap"><%= Customer.human_attribute_name(:postal_code) %></th>
-            <td><%= @customer.formatted_postal_code %></td>
-          </tr><tr>
-            <th class="text-nowrap"><%= Customer.human_attribute_name(:prefecture) %></th>
-            <td><%= @customer.prefecture %></td>
-          </tr><tr>
-            <th class="text-nowrap"><%= Customer.human_attribute_name(:city) %></th>
-            <td><%= @customer.city %></td>
-          </tr><tr>
-            <th class="text-nowrap"><%= Customer.human_attribute_name(:address1) %></th>
-            <td><%= @customer.address1 %></td>
-          </tr><tr>
-            <th class="text-nowrap"><%= Customer.human_attribute_name(:address2) %></th>
-            <td><%= @customer.address2 %></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title"><%= VisitedLog.model_name.human %><%= "（#{ @visited_logs.total_count } 回）" %></h3>
+        </div>
 
-    <div class="card-footer clearfix">
-      <a href="<%= edit_customer_path(@customer, company_code: @company.code ) %>" class="btn btn-info float-left mr-2">　編集　</a>
-      <% if @customer.line? %>
-        <%= link_to 'LINE通知', new_line_message_customer_path(@company.code, @customer), class: 'btn btn-success float-left' %>
-      <% end %>
-      <a href="<%= customers_path(company_code: @company.code) %>" class="btn btn-default float-right">　戻る　</a>
+        <div class="card-body">
+          <% @visited_logs.each do |vl| %>
+            <p><%= vl.visited_day %></p>
+          <% end %>
+        </div>
+
+        <div class="card-footer clearfix">
+          <%= paginate @visited_logs %>
+          <a href="#" class="btn btn-sm btn-primary float-right mt-1">履歴作成</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>

@@ -53,8 +53,7 @@ module Api
 
               if event['message']['text'] == QR_CODE_IMAGE_REQUEST
                 today = Date.today
-
-                visited_log = company.visited_logs.create(customer: user.customer, year: today.year.to_s, month: today.month.to_s, day: today.day.to_s)
+                visited_log = company.visited_logs.find_or_create_by(customer: user.customer, year: today.year.to_s, month: today.month.to_s, day: today.day.to_s)
 
                 image_url = visit_user_qr_code_customers_url(company_code: company.code, visit_token: visited_log.visit_token) + '.png'
                 image_message[:originalContentUrl] = image_url

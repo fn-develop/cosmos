@@ -1,9 +1,10 @@
 ja:
   activerecord:
     models:
-      company: '店舗'
-      customer: '顧客'
-      item: '項目アイテム'
+      company:     '店舗'
+      customer:    '顧客'
+      item:        '項目アイテム'
+      visited_log: '来店履歴'
     attributes:
       attr_common: &attr_common
         id: 'ID'
