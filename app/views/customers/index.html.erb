@@ -110,6 +110,7 @@
             <th><%= Customer.human_attribute_name(:age) %></th>
             <th><%= Customer.human_attribute_name(:tel_number) %></th>
             <th><%= Customer.human_attribute_name(:birthday) %></th>
+            <th><%= Customer.human_attribute_name(:last_vist_date) %></th>
             <th>LINE通知</th>
           </tr>
         </thead>
@@ -140,6 +141,7 @@
                   <%= link_to user.unread_user_last_line_message_content, new_line_message_customer_path(@company.code, customer), class: 'btn btn-sm btn-success float-left' %>
                 <% end %>
               </td>
+              <td class="align-middle"><%= customer.last_vist_date %></td>
             </tr>
           <% end %>
 

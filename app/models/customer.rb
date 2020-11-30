@@ -76,6 +76,12 @@ class Customer < ApplicationRecord
     ((Date.today.strftime('%Y%m%d').to_i - self.birthday.strftime('%Y%m%d').to_i) / 10000).to_s
   end
 
+  def last_vist_date
+    last_visit = self.visited_logs.where(enabled: true).last
+    return '' if last_visit.blank?
+    last_visit.updated_at.strftime("%Y/%m/%d")
+  end
+
   private
     def split_tel_number
       self.tel_number1, self.tel_number2, self.tel_number3 = self.formatted_tel_number.split('-')
