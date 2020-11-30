@@ -41,6 +41,9 @@ ja:
         <<: *attr_common
         code: 'コード'
         name: '名称'
+      visited_log:
+        <<: *attr_common
+        visited_date: '来店日'
   activemodel:
     models:
       line_message: 'LINEメッセージ'

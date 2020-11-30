@@ -28,6 +28,8 @@ class VisitedLog < ApplicationRecord
 
   attr_accessor :visit_confirmation_code
 
+  validate :valid_date
+
   def route
     { company_code: self.company.try(:code), customer_id: self.customer.try(:id) }.merge(self.attributes)
   end
@@ -49,5 +51,20 @@ class VisitedLog < ApplicationRecord
     def rjust_month_and_day
       self.month = self.month.rjust(2, '0')
       self.day = self.day.rjust(2, '0')
+    end
+
+    def valid_date
+      if self.year.blank? || self.month.blank? || self.day.blank?
+        errors.add(:visited_date, 'を入力してください。')
+      end
+
+      other_visited_log = self.customer.visited_logs.find_by(year: self.year, month: self.month, day: self.day, enabled: true) if self.new_record?
+
+      # 新規作成の場合は同じ日付のレコードある場合重複NG、更新の場合は「同じ日付」かつ「違うID」が存在した場合重複NG
+      if (self.new_record? && other_visited_log.present?) || (other_visited_log.try(:id).present? && other_visited_log.try(:id) != self.id)
+        errors.add(:visited_date, 'は既に登録済です。')
+      elsif !Date.valid_date?(self.year.to_i, self.month.to_i, self.day.to_i)
+        errors.add(:visited_date, 'に正しい日付を入力してください。')
+      end
     end
 end
