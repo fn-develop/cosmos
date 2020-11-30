@@ -28,6 +28,10 @@ Rails.application.routes.draw do
       get 'on_visited/:line_user_id', to: 'customers#on_visited', on: :collection
       get 'confirm_visited/:visit_token', to: 'customers#confirm_visited', on: :collection, as: :confirm_visited
       patch 'complete_visited', to: 'customers#complete_visited', on: :collection, as: :complete_visited
+
+      scope module: :customer do
+        resources :visited_logs
+      end
     end
 
     resources :users

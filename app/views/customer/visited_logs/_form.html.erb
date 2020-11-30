@@ -1,0 +1,40 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">履歴情報を入力してください。 <small></small></h3>
+          </div>
+
+          <%= form_with(model: visited_log, url: url, local: true) do |form| %>
+            <div class="card-body">
+
+
+
+
+
+
+
+            </div>
+
+            <div class="card-footer">
+              <%= form.submit class: 'btn btn-primary', data: { confirm: 'よろしいですか?' } %>
+              <%#= link_to('　削除　', customer_path(@company.code, customer), method: :delete, class: 'btn btn-sm btn-danger float-right', data: { confirm: "削除してよろしいですか？" }) if customer.persisted? %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+      </div>
+    </div>
+  </div>
+</section>
+
+<% content_for :page_javascript do %>
+  <%= javascript_tag do %>
+    $(function() {
+    });
+  <% end %>
+<% end %>

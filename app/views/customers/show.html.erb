@@ -89,7 +89,7 @@
 
         <div class="card-footer clearfix">
           <%= paginate @visited_logs %>
-          <a href="#" class="btn btn-sm btn-primary float-right mt-1">履歴作成</a>
+          <a href="<%= new_customer_visited_log_path(company_code: @company.code, customer_id: @customer.id) %>" class="btn btn-sm btn-primary float-right mt-1">履歴作成</a>
         </div>
       </div>
     </div>
