@@ -1,6 +1,5 @@
 <%= render 'content_header', active_breadcrumb_item: Const::View::Name::CUSTOMER_INDEX %>
 
-
 <section class="content">
   <div class="card <%= 'collapsed-card' unless @search.inputed? %>">
     <div class="card-header">
@@ -14,7 +13,7 @@
 
     <div class="card-body" <%= 'style="display: none;"' unless @search.inputed? %>>
 
-      <%= form_with model: @search, url: customers_path, method: :get, local:true do |f| %>
+      <%= form_with model: @search, url: customers_path, method: :get, id: :search_form, local:true do |f| %>
         <div class="form-row">
           <div class="col-md-3 mb-2">
             <div class="input-group">
@@ -98,7 +97,72 @@
   </div>
 
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-3">
+      <a href="compose.html" class="btn btn-success btn-block mb-3">LINE一斉送信</a>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">年代</h3>
+
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="card-body p-0" style="display: block;">
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+              <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="" data-age_to="19">
+                〜19才
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="20" data-age_to="29">
+                20〜29才
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="30" data-age_to="39">
+                30〜39才
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="40" data-age_to="49">
+                40〜49才
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="50" data-age_to="59">
+                50〜59才
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="60" data-age_to="69">
+                60〜69才
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="70" data-age_to="">
+                70才〜
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <%= javascript_tag do %>
+        $(function() {
+          $('.simple_age').on('click', function(){
+            $('#searchAgeFromText').val($(this).data('age_from'));
+            $('#searchAgeToText').val($(this).data('age_to'));
+            $('#search_form').submit();
+          });
+        });
+      <% end %>
+    </div>
+
+    <div class="col-md-9">
       <div class="card card-primary card-outline">
         <div class="card-header">
           <% page = params[:page].present? ? params[:page].to_i : 1 %>
@@ -114,9 +178,8 @@
               </div>
             </div>
           </div>
-          <!-- /.card-tools -->
         </div>
-        <!-- /.card-header -->
+
         <div class="card-body p-0">
           <div class="mailbox-controls">
             <%= paginate @customers %>
@@ -152,9 +215,9 @@
                   </td>
                   <td class="align-middle">
                     <% if customer.women? %>
-                      <i class="fas fa-female text-red"></i>
+                      <i class="fas fa-venus text-red"></i>
                     <% elsif customer.men? %>
-                      <i class="fas fa-male text-black"></i>
+                      <i class="fas fa-mars text-black"></i>
                     <% end %>
                   </td>
                   <td class="align-middle"><%= customer.age %></td>
@@ -170,9 +233,7 @@
 
               </tbody>
             </table>
-            <!-- /.table -->
           </div>
-          <!-- /.mail-box-messages -->
         </div>
         <div class="card-footer p-0">
           <div class="mailbox-controls">
@@ -180,12 +241,6 @@
           </div>
         </div>
       </div>
-      <!-- /.card -->
     </div>
-    <!-- /.col -->
   </div>
-  <!-- /.row -->
 </section>
-
-
-
