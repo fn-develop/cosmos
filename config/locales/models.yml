@@ -32,7 +32,7 @@ ja:
         city:           '市区町村'
         address1:       '番地'
         address2:       '建物名・号室'
-        line_receiving: 'LINE通知'
+        line_receiving: 'LINE'
         last_vist_date: '最終来店'
       customer/gender:
         men: '男性'
