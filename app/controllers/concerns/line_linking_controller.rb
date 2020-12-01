@@ -4,7 +4,6 @@ module LineLinkingController
 
   included do
     layout 'line_regist', only: [:new_with_line, :new_with_line_non_tel_number, :create_with_line]
-    layout 'temporary', only: [:confirm_visited, :complete_visited]
   end
 
   def new_with_line
@@ -87,7 +86,7 @@ module LineLinkingController
       customer = @visited_log.customer
 
       if @visited_log.visited?
-        render action: :confirm_visited, notice: "#{customer.name}さんの来店は受付済です。"
+        render layout: 'temporary', action: :confirm_visited, notice: "#{customer.name}さんの来店は受付済です。"
         return
       end
     else
@@ -103,24 +102,22 @@ module LineLinkingController
 
       if @visited_log.visited?
         flash.now[:notice] = "#{ customer.name }さんの来店は受付済です。"
-        render action: :confirm_visited
-        return
       elsif visit_confirmation_params[:visit_confirmation_code] != company.visit_confirmation_code
         flash.now[:alert] = "来店確認コードをご確認ください。"
-        render action: :confirm_visited
-        return
-      end
-
-      @visited_log.enabled = true
-
-      if @visited_log.save
-        flash.now[:notice] = "#{ customer.name } さんの来店を受け付けました。"
       else
-        flash.now[:alert] = "エラー発生。"
+        @visited_log.enabled = true
+
+        if @visited_log.save
+          flash.now[:notice] = "#{ customer.name } さんの来店を受け付けました。"
+        else
+          flash.now[:alert] = "エラー発生。"
+        end
       end
     else
       flash.now[:alert] = "エラー発生。"
     end
+
+    render layout: 'temporary', action: :confirm_visited
   end
 
   private def customer_with_phone_number
