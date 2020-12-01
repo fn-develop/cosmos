@@ -58,7 +58,9 @@ class VisitedLog < ApplicationRecord
         errors.add(:visited_date, 'を入力してください。')
       end
 
-      other_visited_log = self.customer.visited_logs.find_by(year: self.year, month: self.month, day: self.day, enabled: true) if self.new_record?
+      if self.new_record?
+        other_visited_log = self.customer.visited_logs.find_by(year: self.year, month: self.month, day: self.day, enabled: true)
+      end
 
       # 新規作成の場合は同じ日付のレコードある場合重複NG、更新の場合は「同じ日付」かつ「違うID」が存在した場合重複NG
       if (self.new_record? && other_visited_log.present?) || (other_visited_log.try(:id).present? && other_visited_log.try(:id) != self.id)
