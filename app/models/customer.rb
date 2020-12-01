@@ -13,6 +13,7 @@
 #  postal_code :string(255)
 #  prefecture  :string(255)
 #  tel_number  :string(255)
+#  ymd_num     :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  company_id  :integer          not null
@@ -79,7 +80,7 @@ class Customer < ApplicationRecord
   def last_vist_date
     last_visit = self.visited_logs.where(enabled: true).last
     return '' if last_visit.blank?
-    last_visit.updated_at.strftime("%Y/%m/%d")
+    "#{last_visit.year}/#{last_visit.month}/#{last_visit.day}"
   end
 
   private

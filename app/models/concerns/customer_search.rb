@@ -1,6 +1,15 @@
 class CustomerSearch
   include ActiveModel::Model
 
+  VISITED_OVER_LIST = [
+    ['〜1ヶ月', '0'],
+    ['1ヶ月超', '1'],
+    ['2ヶ月超', '2'],
+    ['3ヶ月超', '3'],
+    ['4ヶ月超', '4'],
+    ['6ヶ月超', '5'],
+  ].freeze
+
   DEFAULT_PER = 100
 
   attr_accessor :company
@@ -22,6 +31,8 @@ class CustomerSearch
   attr_accessor :line_registed
   # 検索条件：LINE未読
   attr_accessor :unread_line
+  # 検索条件：最終来店
+  attr_accessor :visited_over
 
   def search
     self.per ||= DEFAULT_PER
@@ -57,11 +68,23 @@ class CustomerSearch
       c = c.where(user_id: line_message_log_user_ids)
     end
 
+    if self.visited_over.present?
+      c = c.where('ymd_num IS NOT NULL')
+      case self.visited_over
+      when VISITED_OVER_LIST[0][1]
+        conditon_ymd = (Date.today - 1.month).strftime('%Y%m%d').to_i
+        c = c.where('ymd_num > ?', conditon_ymd)
+      else
+        conditon_ymd = (Date.today - (self.visited_over.to_i).month).strftime('%Y%m%d').to_i
+        c = c.where('ymd_num < ?', conditon_ymd)
+      end
+    end
+
     c
   end
 
   def inputed?
-    self.name.present? || self.from_age.present? || self.to_age.present? || self.gender.present? || self.line_registed.present? || self.unread_line.present?
+    self.name.present? || self.from_age.present? || self.to_age.present? || self.gender.present? || self.line_registed.present? || self.unread_line.present? || self.visited_over.present?
   end
 
   private

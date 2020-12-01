@@ -87,6 +87,18 @@
 
           <div class="col-md-3 mb-2">
             <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-sign-out-alt"></i></span>
+              </div>
+              <%= f.select :visited_over, CustomerSearch::VISITED_OVER_LIST, { include_blank: '最終来店' }, class: 'custom-select', id: 'visitedOverSelect' %>
+              <div class="input-group-append">
+                <span class="input-group-text clear" data-target_id="visitedOverSelect">C</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3 mb-2">
+            <div class="input-group">
               <%= f.submit "検　索", { class: 'btn btn-primary rounded-pill' } %>
               <a href="javascript: void(0)" id="clear_button" class="ml-2 btn btn-outline-dark rounded-pill">クリア</a>
               <%= javascript_tag do %>

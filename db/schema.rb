@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_27_043729) do
+ActiveRecord::Schema.define(version: 2020_12_01_080713) do
 
   create_table "collection_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "collection_id"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 2020_11_27_043729) do
     t.string "city"
     t.string "address1"
     t.string "address2"
+    t.integer "ymd_num"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["company_id"], name: "index_customers_on_company_id"

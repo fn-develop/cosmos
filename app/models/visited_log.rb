@@ -24,7 +24,7 @@ class VisitedLog < ApplicationRecord
   belongs_to :customer
 
   before_create :set_visit_token
-  before_save :rjust_month_and_day
+  before_save :rjust_month_and_day, :save_customer_ymd_num
 
   attr_accessor :visit_confirmation_code
 
@@ -51,6 +51,11 @@ class VisitedLog < ApplicationRecord
     def rjust_month_and_day
       self.month = self.month.rjust(2, '0')
       self.day = self.day.rjust(2, '0')
+    end
+
+    def save_customer_ymd_num
+      self.customer.ymd_num = "#{self.year}#{self.month}#{self.day}".to_i
+      self.customer.save
     end
 
     def valid_date
