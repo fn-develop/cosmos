@@ -104,7 +104,7 @@
         <thead>
           <tr>
             <th style="width: 10px" class="text-nowrap"><%= @customers.total_count %> <small>名</small></th>
-            <th><%= Customer.human_attribute_name(:name) %></th>
+            <th class="align-items-center"><%= Customer.human_attribute_name(:name) %></th>
             <th><%= Customer.human_attribute_name(:name_kana) %></th>
             <th><%= Customer.human_attribute_name(:gender) %></th>
             <th><%= Customer.human_attribute_name(:age) %></th>
@@ -118,18 +118,12 @@
 
           <% @customers.each_with_index do |customer, i| %>
             <tr>
-              <td class="text-nowrap align-middle">
-                <%= link_to '詳細', customer_path(@company.code, customer), { class: 'btn btn-outline-info rounded-circle ' } %>
+              <td class="text-nowrap align-middle align-items-center">
+                <%= customer.id %>
               </td>
-              <% if customer.line? %>
-                <td class="align-middle">
-                  <%= link_to customer.name.to_s, new_line_message_customer_path(@company.code, customer), { class: 'text-success' } %>
-                </td>
-              <% else %>
-                <td class="align-middle">
-                  <%= customer.name.to_s %>
-                </td>
-              <% end %>
+              <td class="align-middle">
+                <%= link_to customer.name.to_s, customer_path(@company.code, customer), { class: 'text-info' } %>
+              </td>
               <td class="align-middle"><%= customer.name_kana.to_s %></td>
               <td class="align-middle"><%= Customer.human_attribute_name("gender.#{ customer.gender }") if customer.gender %></td>
               <td class="align-middle"><%= customer.age %></td>
@@ -138,7 +132,9 @@
               <td class="align-middle">
                 <% user = customer.user %>
                 <% if user.try(:unread_user_line_message?) %>
-                  <%= link_to user.unread_user_last_line_message_content, new_line_message_customer_path(@company.code, customer), class: 'btn btn-sm btn-success float-left' %>
+                  <%= link_to '未読', new_line_message_customer_path(@company.code, customer), class: 'btn btn-sm btn-success float-left' %>
+                <% elsif customer.line? %>
+                  <%= link_to 'LINE', new_line_message_customer_path(@company.code, customer), { class: 'btn btn-sm btn-outline-success float-left' } %>
                 <% end %>
               </td>
               <td class="align-middle"><%= customer.last_vist_date %></td>
