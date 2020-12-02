@@ -186,43 +186,43 @@
       <div class="card card-primary card-outline">
         <div class="card-header">
           <% page = params[:page].present? ? params[:page].to_i : 1 %>
-          <h3 class="card-title"><%= CustomerSearch::DEFAULT_PER * params[:page].to_i + 1 %>-<%= CustomerSearch::DEFAULT_PER * (params[:page].present? ? params[:page].to_i : 1) %>/<%= @customers.total_count %></h3>
-          <ul class="pagination pagination-sm m-0 float-right">
-            <li class="page-item"><a href="<%= new_customer_path(company_code: @company.code ) %>" class="page-link bg-primary">新規作成</a></li>
-            <li class="page-item"><a href="#" class="page-link bg-success">一斉送信</a></li>
-          </ul>
+          <h3 class="card-title"><%= CustomerSearch::DEFAULT_PER * (page - 1) + 1 %>-<%= CustomerSearch::DEFAULT_PER * (params[:page].present? ? params[:page].to_i : 1) %>/<%= @customers.total_count %></h3>
+          <%= paginate @customers %>
         </div>
 
         <div class="card-body p-0">
           <div class="mailbox-controls">
-            <%= paginate @customers %>
+            <a href="#" class="btn btn-sm float-right"><i class="fab fa-line fa-2x text-success"></i></a>
+            <a href="<%= new_customer_path(company_code: @company.code ) %>" class="btn btn-sm float-right"><i class="far fa-plus-square fa-2x text-primary"></i></a>
           </div>
+
           <div class="table-responsive">
             <table class="table table-hover table-striped">
               <tbody>
               <thead>
                 <tr>
-                  <th>未読</th>
+                  <th>#</th>
                   <th>名前</th>
                   <th>性別</th>
                   <th>年齢</th>
-                  <th>LINE?</th>
                   <th>最終来店</th>
                 </tr>
               </thead>
 
               <% @customers.each_with_index do |customer, i| %>
                 <tr>
-                  <% user = customer.user %>
-                  <% if user.try(:unread_user_line_message?) %>
-                    <td>
-                      <a href="<%= new_line_message_customer_path(@company.code, customer) %>">
-                        <i class="fas fa-star-o text-success"></i>
-                      </a>
-                    </td>
-                  <% else %>
-                    <td></td>
-                  <% end %>
+                  <td style="width: 10px; padding-left: 1.0rem;">
+                    <% user = customer.user %>
+                    <% if customer.line? %>
+                      <% if user.try(:unread_user_line_message?) %>
+                        <a href="<%= new_line_message_customer_path(@company.code, customer) %>">
+                          <i class="fab fa-line fa-2x text-warning"></i>
+                        </a>
+                      <% else %>
+                        <a href="<%= new_line_message_customer_path(@company.code, customer) %>"><i class="fab fa-line fa-2x text-success"></i></a>
+                      <% end %>
+                    <% end %>
+                  </td>
                   <td class="text-nowrap">
                     <%= link_to customer.name.to_s, customer_path(@company.code, customer), { class: 'text-info' } %>
                   </td>
@@ -234,12 +234,6 @@
                     <% end %>
                   </td>
                   <td class="align-middle"><%= customer.age %></td>
-                  <td class="align-middle">
-                    <% user = customer.user %>
-                    <% if customer.line? %>
-                      <%= link_to 'LINE', new_line_message_customer_path(@company.code, customer), { class: 'btn btn-sm btn-outline-success float-left' } %>
-                    <% end %>
-                  </td>
                   <td class="align-middle"><%= customer.last_vist_date %></td>
                 </tr>
               <% end %>
@@ -248,10 +242,10 @@
             </table>
           </div>
         </div>
-        <div class="card-footer p-0">
-          <div class="mailbox-controls">
-            <%= paginate @customers %>
-          </div>
+        <div class="mailbox-controls m-3">
+          <% page = params[:page].present? ? params[:page].to_i : 1 %>
+          <h3 class="card-title"><%= CustomerSearch::DEFAULT_PER * (page - 1) + 1 %>-<%= CustomerSearch::DEFAULT_PER * (params[:page].present? ? params[:page].to_i : 1) %>/<%= @customers.total_count %></h3>
+          <%= paginate @customers %>
         </div>
       </div>
     </div>
