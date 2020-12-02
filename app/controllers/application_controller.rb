@@ -64,4 +64,8 @@ class ApplicationController < ActionController::Base
     def is_public?
        false
     end
+
+    def store_current_location
+      store_location_for(:user, request.url)
+    end
 end
