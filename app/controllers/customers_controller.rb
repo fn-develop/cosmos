@@ -60,7 +60,8 @@ class CustomersController < ApplicationController
   def destroy
     ApplicationRecord.transaction do
       user = @customer.user
-      user.destroy!
+      @customer.destroy!
+      user.destroy! if user.present?
     end
 
     redirect_to customers_path(company_code), notice: "顧客:#{ @customer.name }を削除しました。"
