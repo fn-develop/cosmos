@@ -11,7 +11,7 @@
 
           <div class="info-box-content">
             <span class="info-box-text">顧客数</span>
-            <span class="info-box-number"><%= @company.users.where(role: :customer).size() %><small>人</small></span>
+            <span class="info-box-number"><%= @company.customers.size() %><small>人</small></span>
           </div>
         </div>
       </div>
