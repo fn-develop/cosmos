@@ -23,7 +23,7 @@
 
             <div class="card-footer">
               <%= form.submit class: 'btn btn-primary', data: { confirm: 'よろしいですか?' } %>
-              <%#= link_to('　削除　', customer_path(@company.code, customer), method: :delete, class: 'btn btn-sm btn-danger float-right', data: { confirm: "削除してよろしいですか？" }) if customer.persisted? %>
+              <%= link_to('　削除　', customer_visited_log_path(company_code: @company.code, customer_id: visited_log.customer_id, id: visited_log.id), method: :delete, class: 'btn btn-sm btn-danger float-right', data: { confirm: "削除してよろしいですか？" }) if visited_log.persisted? %>
             </div>
           <% end %>
         </div>

@@ -27,14 +27,17 @@ class Customer::VisitedLogsController < ApplicationController
     @visited_log.attributes = visited_log_params
 
     if @visited_log.save
-      redirect_to customer_path(company_code, @customer), notice: "訪問履歴更新が完了しました。"
+      redirect_to customer_path(company_code, @customer), notice: "来店履歴の更新が完了しました。"
     else
       render action: :edit
     end
   end
 
   def destroy
-    render plain: 'destroy'
+    @visited_log = company.visited_logs.find(params[:id])
+    @visited_log.destroy!
+
+    redirect_to customer_path(company_code, @customer), notice: "来店履歴の削除が完了しました。"
   end
 
   private
