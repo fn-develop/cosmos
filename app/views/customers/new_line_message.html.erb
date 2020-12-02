@@ -87,7 +87,7 @@
             <%= form.text_area :message, { class: 'form-control', placeholder: 'メッセージを入力してください。', maxlength: 240, rows: 4 } %>
           </div>
 
-          <button type="submit" class="btn btn-block btn-success">送信</button>
+          <%= form.submit class: 'btn btn-primary', value: '　送　信　', data: {disable_with: '　送信中...　'} %>
         <% end %>
       </div>
     </div>
