@@ -2,7 +2,7 @@
 
 <section class="content">
   <div class="card <%= 'collapsed-card' unless @search.inputed? %>">
-    <div class="card-header">
+    <div class="card-header" data-card-widget="collapse">
       <h3 class="card-title">詳細検索</h3>
 
       <div class="card-tools">
@@ -20,7 +20,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-smile"></i></span>
               </div>
-              <%= f.text_field :name, { autocomplete: "off", class: 'form-control', placeholder: '名前', maxlength: 20, id: 'searchNameText' } %>
+              <%= f.text_field :name, { autocomplete: "off", class: "form-control #{ 'is-valid' if @search.name.present? }", placeholder: '名前', maxlength: 20, id: 'searchNameText' } %>
               <div class="input-group-append">
                 <span class="input-group-text clear" data-target_id="searchNameText">C</span>
               </div>
@@ -32,7 +32,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
               </div>
-              <%= f.select :gender, Customer::gender_select_arr, { include_blank: '' }, class: 'custom-select', id: 'genderListSelect' %>
+              <%= f.select :gender, Customer::gender_select_arr, { include_blank: '' }, class: "custom-select #{ 'is-valid' if @search.gender.present? }", id: 'genderListSelect' %>
               <div class="input-group-append">
                 <span class="input-group-text clear" data-target_id="genderListSelect">C</span>
               </div>
@@ -44,7 +44,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt"></i></span>
               </div>
-              <%= f.text_field :from_age, { autocomplete: "off", class: 'form-control', placeholder: '年齢（以上）', maxlength: 3, id: 'searchAgeFromText', onKeyup: "this.value=this.value.replace(/[^0-9]+/i,'')" } %>
+              <%= f.text_field :from_age, { autocomplete: "off", class: "form-control #{ 'is-valid' if @search.from_age.present? }", placeholder: '年齢（以上）', maxlength: 3, id: 'searchAgeFromText', onKeyup: "this.value=this.value.replace(/[^0-9]+/i,'')" } %>
               <div class="input-group-append">
                 <span class="input-group-text clear" data-target_id="searchAgeFromText">C</span>
               </div>
@@ -56,7 +56,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-sort-numeric-down-alt"></i></span>
               </div>
-              <%= f.text_field :to_age, { autocomplete: "off", class: 'form-control', placeholder: '年齢（以下）', maxlength: 3, id: 'searchAgeToText', onKeyup: "this.value=this.value.replace(/[^0-9]+/i,'')" } %>
+              <%= f.text_field :to_age, { autocomplete: "off", class: "form-control #{ 'is-valid' if @search.to_age.present? }", placeholder: '年齢（以下）', maxlength: 3, id: 'searchAgeToText', onKeyup: "this.value=this.value.replace(/[^0-9]+/i,'')" } %>
               <div class="input-group-append">
                 <span class="input-group-text clear" data-target_id="searchAgeToText">C</span>
               </div>
@@ -70,7 +70,7 @@
                   <%= f.check_box(:line_registed, {}, checked_value = 'true', unchecked_value = '' ) %>
                 </span>
               </div>
-              <%= f.label :line_registed , class: 'form-control' do 'LINE登録済' end %>
+              <%= f.label :line_registed , class: "form-control #{ 'is-valid' if @search.line_registed.present? }" do 'LINE登録済' end %>
             </div>
           </div>
 
@@ -81,7 +81,7 @@
                   <%= f.check_box(:unread_line, {}, checked_value = 'true', unchecked_value = '' ) %>
                 </span>
               </div>
-              <%= f.label :unread_line , class: 'form-control' do 'LINE未読' end %>
+              <%= f.label :unread_line , class: "form-control #{ 'is-valid' if @search.unread_line.present? }" do 'LINE未読' end %>
             </div>
           </div>
 
@@ -90,7 +90,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-sign-out-alt"></i></span>
               </div>
-              <%= f.select :visited_over, CustomerSearch::VISITED_OVER_LIST, { include_blank: '最終来店' }, class: 'custom-select', id: 'visitedOverSelect' %>
+              <%= f.select :visited_over, CustomerSearch::VISITED_OVER_LIST, { include_blank: '最終来店' }, class: "custom-select #{ 'is-valid' if @search.visited_over.present? }", id: 'visitedOverSelect' %>
               <div class="input-group-append">
                 <span class="input-group-text clear" data-target_id="visitedOverSelect">C</span>
               </div>
@@ -99,8 +99,8 @@
 
           <div class="col-md-3 mb-2">
             <div class="input-group">
-              <%= f.submit "検　索", { class: 'btn btn-primary rounded-pill' } %>
-              <a href="javascript: void(0)" id="clear_button" class="ml-2 btn btn-outline-dark rounded-pill">クリア</a>
+              <%= f.submit "検　索", { class: 'btn btn-success rounded-pill' } %>
+              <a href="javascript: void(0)" id="clear_button" class="ml-2 btn btn-outline-primary rounded-pill">クリア</a>
               <%= javascript_tag do %>
                 $(function() {
                   $('#clear_button').on('click', function(){
@@ -121,7 +121,7 @@
     <div class="col-md-3">
 
       <div class="card">
-        <div class="card-header">
+        <div class="card-header" data-card-widget="collapse">
           <h3 class="card-title">年代</h3>
 
           <div class="card-tools">
