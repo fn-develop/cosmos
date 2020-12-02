@@ -27,7 +27,6 @@ Rails.application.routes.draw do
       get 'visit_user_qr_code/:visit_token', to: 'customers#visit_user_qr_code', on: :collection, as: :visit_user_qr_code
       get 'on_visited/:line_user_id', to: 'customers#on_visited', on: :collection
       get 'confirm_visited/:visit_token', to: 'customers#confirm_visited', on: :collection, as: :confirm_visited
-      patch 'complete_visited', to: 'customers#complete_visited', on: :collection, as: :complete_visited
 
       scope module: :customer do
         resources :visited_logs

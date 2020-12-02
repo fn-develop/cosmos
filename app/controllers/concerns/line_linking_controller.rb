@@ -3,7 +3,7 @@ module LineLinkingController
   extend ActiveSupport::Concern
 
   included do
-    layout 'line_regist', only: [:new_with_line, :new_with_line_non_tel_number, :create_with_line]
+    layout 'line_regist', only: [:new_with_line, :new_with_line_non_tel_number, :create_with_line, :confirm_visited]
   end
 
   def new_with_line
@@ -86,24 +86,7 @@ module LineLinkingController
       customer = @visited_log.customer
 
       if @visited_log.visited?
-        render layout: 'temporary', action: :confirm_visited, notice: "#{customer.name}さんの来店は受付済です。"
-        return
-      end
-    else
-      render plain: 'エラー'
-    end
-  end
-
-  def complete_visited
-    @visited_log = company.visited_logs.find_by(visit_token: visit_confirmation_params[:visit_token])
-
-    if @visited_log.present?
-      customer = @visited_log.customer
-
-      if @visited_log.visited?
         flash.now[:notice] = "#{ customer.name }さんの来店は受付済です。"
-      elsif visit_confirmation_params[:visit_confirmation_code] != company.visit_confirmation_code
-        flash.now[:alert] = "来店確認コードをご確認ください。"
       else
         @visited_log.enabled = true
 
@@ -116,8 +99,6 @@ module LineLinkingController
     else
       flash.now[:alert] = "エラー発生。"
     end
-
-    render layout: 'temporary', action: :confirm_visited
   end
 
   private def customer_with_phone_number
@@ -126,11 +107,6 @@ module LineLinkingController
   end
 
   private def is_public?
-    ['new_with_line', 'new_with_line_non_tel_number', 'create_with_line', 'visit_user_qr_code', 'complete_visited', 'confirm_visited'].include?(params[:action])
+    ['new_with_line', 'new_with_line_non_tel_number', 'create_with_line', 'visit_user_qr_code'].include?(params[:action])
   end
-
-  private def visit_confirmation_params
-    params.require(:visited_log).permit(:visit_token, :visit_confirmation_code)
-  end
-
 end
