@@ -33,7 +33,7 @@ module Const
       COMPANY_ITEMS_NEW    = 'システム項目登録'.freeze
       COMPANY_ITEMS_SHOW   = 'システム項目情報'.freeze
       COMPANY_ITEMS_EDIT   = 'システム項目編集'.freeze
-      VISITED_LOG_NEW      = '来店履歴'.freeze
+      VISITED_LOG          = '来店履歴'.freeze
     end
   end
 

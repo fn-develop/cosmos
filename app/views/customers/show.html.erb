@@ -83,7 +83,7 @@
 
         <div class="card-body">
           <% @visited_logs.each do |vl| %>
-            <p><%= vl.visited_day %></p>
+            <p><a href="<%= edit_customer_visited_log_path(company_code: @company.code, customer_id: @customer.id, id: vl.id) %>" ><%= vl.visited_day %></a></p>
           <% end %>
         </div>
 

@@ -18,6 +18,25 @@ class Customer::VisitedLogsController < ApplicationController
     end
   end
 
+  def edit
+    @visited_log = company.visited_logs.find(params[:id])
+  end
+
+  def update
+    @visited_log = company.visited_logs.find(params[:id])
+    @visited_log.attributes = visited_log_params
+
+    if @visited_log.save
+      redirect_to customer_path(company_code, @customer), notice: "訪問履歴更新が完了しました。"
+    else
+      render action: :edit
+    end
+  end
+
+  def destroy
+    render plain: 'destroy'
+  end
+
   private
     def get_customer
       @customer ||= company.customers.find(params[:customer_id])
