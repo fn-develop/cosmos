@@ -187,12 +187,10 @@
         <div class="card-header">
           <% page = params[:page].present? ? params[:page].to_i : 1 %>
           <h3 class="card-title"><%= CustomerSearch::DEFAULT_PER * params[:page].to_i + 1 %>-<%= CustomerSearch::DEFAULT_PER * (params[:page].present? ? params[:page].to_i : 1) %>/<%= @customers.total_count %></h3>
-
-          <div class="card-tools">
-            <div class="input-group input-group-sm">
-              <a href="#" class="btn btn-success btn-block mb-3">LINE一斉送信</a>
-            </div>
-          </div>
+          <ul class="pagination pagination-sm m-0 float-right">
+            <li class="page-item"><a href="<%= new_customer_path(company_code: @company.code ) %>" class="page-link bg-primary">新規作成</a></li>
+            <li class="page-item"><a href="#" class="page-link bg-success">一斉送信</a></li>
+          </ul>
         </div>
 
         <div class="card-body p-0">
