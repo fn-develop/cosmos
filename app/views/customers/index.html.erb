@@ -186,7 +186,13 @@
       <div class="card card-primary card-outline">
         <div class="card-header">
           <% page = params[:page].present? ? params[:page].to_i : 1 %>
-          <h3 class="card-title"><%= CustomerSearch::DEFAULT_PER * (page - 1) + 1 %>-<%= (CustomerSearch::DEFAULT_PER * (params[:page].present? ? params[:page].to_i : 1)).to_s + '/' if @customers.total_count > CustomerSearch::DEFAULT_PER %><%= @customers.total_count %></h3>
+          <h3 class="card-title">
+            <% if @customers.total_count != 0 %>
+            <%= CustomerSearch::DEFAULT_PER * (page - 1) + 1 %>-<%= (CustomerSearch::DEFAULT_PER * (params[:page].present? ? params[:page].to_i : 1)).to_s + '/' if @customers.total_count > CustomerSearch::DEFAULT_PER %><%= @customers.total_count %>
+            <% else %>
+              該当する顧客は存在しません。
+            <% end %>
+          </h3>
           <%= paginate @customers %>
         </div>
 
@@ -244,7 +250,13 @@
         </div>
         <div class="mailbox-controls m-3">
           <% page = params[:page].present? ? params[:page].to_i : 1 %>
-          <h3 class="card-title"><%= CustomerSearch::DEFAULT_PER * (page - 1) + 1 %>-<%= (CustomerSearch::DEFAULT_PER * (params[:page].present? ? params[:page].to_i : 1)).to_s + '/' if @customers.total_count > CustomerSearch::DEFAULT_PER %><%= @customers.total_count %></h3>
+          <h3 class="card-title">
+            <% if @customers.total_count != 0 %>
+            <%= CustomerSearch::DEFAULT_PER * (page - 1) + 1 %>-<%= (CustomerSearch::DEFAULT_PER * (params[:page].present? ? params[:page].to_i : 1)).to_s + '/' if @customers.total_count > CustomerSearch::DEFAULT_PER %><%= @customers.total_count %>
+            <% else %>
+              該当する顧客は存在しません。
+            <% end %>
+          </h3>
           <%= paginate @customers %>
         </div>
       </div>
