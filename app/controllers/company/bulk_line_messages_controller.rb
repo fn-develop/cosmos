@@ -16,7 +16,6 @@ class Company::BulkLineMessagesController < ApplicationController
 
       @line_message         = LineMessage.new(message: massage + num.to_s, user_id: user_id)
       @line_message.company = company
-      @line_message.checked = true
 
       if @line_message.valid?
         @line_message.send_text_message

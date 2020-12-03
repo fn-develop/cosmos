@@ -31,6 +31,7 @@ class LineMessage
       code:         Const::LineMessage::Code::PUSH,
       message:      self.message,
       staff:        RequestStore.store[:current_user],
+      checked:      true,
     )
 
     lml.success_or_failure = (response_code >= 200 && response_code < 300)

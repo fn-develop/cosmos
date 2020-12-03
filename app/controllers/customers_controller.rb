@@ -80,7 +80,6 @@ class CustomersController < ApplicationController
     if company.within_limit_line_message?
       @line_message         = LineMessage.new(line_message_params)
       @line_message.company = company
-      @line_message.checked = true
 
       if @line_message.valid?
         @line_message.send_text_message
