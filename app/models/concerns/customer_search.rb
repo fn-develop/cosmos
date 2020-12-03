@@ -52,7 +52,7 @@ class CustomerSearch
     end
 
     if self.to_age.present?
-      c = c.where('birthday >= ?', Date.today - self.to_age.to_i.year)
+      c = c.where('birthday > ?', Date.today - self.to_age.to_i.year - 1.year)
     end
 
     if self.name.present?
