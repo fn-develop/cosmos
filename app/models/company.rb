@@ -40,9 +40,8 @@ class Company < ApplicationRecord
       month: month,
       code: Const::LineMessage::Code::PUSH,
       success_or_failure: true,
-    ).size().to_s(:delimited)
+    ).size()
   end
-
 
   def within_limit_line_message?
     get_current_month_push_message_count < self.limit_line_message_count

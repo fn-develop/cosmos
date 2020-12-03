@@ -77,12 +77,16 @@ class CustomersController < ApplicationController
   end
 
   def send_line_message
-    @line_message         = LineMessage.new(line_message_params)
-    @line_message.company = company
-    @line_message.checked = true
+    if company.within_limit_line_message?
+      @line_message         = LineMessage.new(line_message_params)
+      @line_message.company = company
+      @line_message.checked = true
 
-    if @line_message.valid?
-      @line_message.send_text_message
+      if @line_message.valid?
+        @line_message.send_text_message
+      end
+    else
+      flash[:alert] = '送信可能上限に達した為、送信できません。'
     end
 
     redirect_to new_line_message_customer_path(company_code, @customer)

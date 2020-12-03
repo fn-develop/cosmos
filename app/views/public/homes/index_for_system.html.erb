@@ -23,7 +23,7 @@
           <div class="info-box-content">
             <span class="info-box-text">LINE通知</span>
             <span class="info-box-number">
-              <%= @company.get_current_month_push_message_count %>
+              <%= @company.get_current_month_push_message_count.to_s(:delimited) %>
               <small>/<%= @company.limit_line_message_count.to_s(:delimited) %></small>
             </span>
           </div>
