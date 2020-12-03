@@ -42,6 +42,7 @@ Rails.application.routes.draw do
     namespace 'company', path: 'store' do
       resource :setting, only: [:show, :edit, :update]
       resources :items
+      resources :bulk_line_messages
     end
 
     namespace 'api' do

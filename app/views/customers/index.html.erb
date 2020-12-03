@@ -198,7 +198,15 @@
 
         <div class="card-body p-0">
           <div class="mailbox-controls">
-            <a href="#" class="btn btn-sm float-right"><i class="fab fa-line fa-2x text-success"></i></a>
+            <a href="javascript: void(0)" class="btn btn-sm float-right" id="redirect_bulk_line_messages_button"><i class="fab fa-line fa-2x text-success"></i></a>
+            <%= javascript_tag do %>
+              $(function() {
+                $('#redirect_bulk_line_messages_button').on('click', function(){
+                  $('#bulk_line_messages_form').submit();
+                });
+              });
+            <% end %>
+
             <a href="<%= new_customer_path(company_code: @company.code ) %>" class="btn btn-sm float-right"><i class="far fa-plus-square fa-2x text-primary"></i></a>
           </div>
 
@@ -263,3 +271,13 @@
     </div>
   </div>
 </section>
+
+<%= form_with model: @search, url: company_bulk_line_messages_path, method: :get, id: :bulk_line_messages_form, local:true do |f| %>
+  <%= f.hidden_field :name %>
+  <%= f.hidden_field :gender %>
+  <%= f.hidden_field :from_age %>
+  <%= f.hidden_field :to_age %>
+  <%= f.hidden_field :line_registed %>
+  <%= f.hidden_field :unread_line %>
+  <%= f.hidden_field :visited_over %>
+<% end %>

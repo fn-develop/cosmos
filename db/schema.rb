@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_01_080713) do
+ActiveRecord::Schema.define(version: 2020_12_03_073629) do
 
   create_table "collection_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "collection_id"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2020_12_01_080713) do
     t.string "name"
     t.boolean "enabled"
     t.string "logo"
+    t.integer "limit_line_message_count", default: 1000
     t.string "visit_confirmation_code", default: "0000"
     t.string "line_qr_code"
     t.string "line_channel_secret"

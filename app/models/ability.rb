@@ -35,6 +35,7 @@ class Ability
       can :manage, User, company: user.company
       can :read, :setting
       can :read, :item, company: user.company
+      can :manage, :bulk_line_message
     end
 
     # 店舗オーナー
@@ -46,6 +47,7 @@ class Ability
       can :manage, User, company: user.company
       can :manage, :setting
       can :manage, :item, company: user.company
+      can :manage, :bulk_line_message
     end
 
     # システム管理者

@@ -71,7 +71,7 @@ class CustomersController < ApplicationController
     # 未閲覧を閲覧済に
     LineMessageLog.where(user_id: @customer.user_id, success_or_failure: true).update_all(checked: true)
 
-    @line_message_logs    = LineMessageLog.where(user_id: @customer.user_id, success_or_failure: true).limit(Const::LineMessage::DISPLAY_LIMIT)
+    @line_message_logs    = LineMessageLog.where(user_id: @customer.user_id, success_or_failure: true).last(Const::LineMessage::DISPLAY_LIMIT)
     @line_message         = LineMessage.new(user_id:      @customer.user_id)
     @line_message.company = company
   end
@@ -79,6 +79,7 @@ class CustomersController < ApplicationController
   def send_line_message
     @line_message         = LineMessage.new(line_message_params)
     @line_message.company = company
+    @line_message.checked = true
 
     if @line_message.valid?
       @line_message.send_text_message

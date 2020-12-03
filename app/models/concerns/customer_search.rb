@@ -39,6 +39,11 @@ class CustomerSearch
     return customers.order(id: 'DESC').page(self.page).per(self.per)
   end
 
+  def search_for_bulk_line_messages
+    user_ids = company.users.where("line_user_id IS NOT NULL AND line_user_id <> ''").pluck(:id)
+    customers.where(user_id: user_ids)
+  end
+
   def customers
     c = get_base_rel
 
