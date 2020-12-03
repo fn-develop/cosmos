@@ -14,7 +14,7 @@ class Company::BulkLineMessagesController < ApplicationController
     params[:user_ids].each do |user_id|
       break unless company.within_limit_line_message?
 
-      @line_message         = LineMessage.new(message: massage + num.to_s, user_id: user_id)
+      @line_message         = LineMessage.new(message: massage, user_id: user_id)
       @line_message.company = company
 
       if @line_message.valid?
