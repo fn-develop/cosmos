@@ -190,7 +190,7 @@
             <% if @customers.total_count != 0 %>
             <%= CustomerSearch::DEFAULT_PER * (page - 1) + 1 %>-<%= (CustomerSearch::DEFAULT_PER * (params[:page].present? ? params[:page].to_i : 1)).to_s + '/' if @customers.total_count > CustomerSearch::DEFAULT_PER %><%= @customers.total_count %>
             <% else %>
-              該当する顧客は存在しません。
+              条件に該当する顧客は存在しません。
             <% end %>
           </h3>
           <%= paginate @customers %>
@@ -261,8 +261,6 @@
           <h3 class="card-title">
             <% if @customers.total_count != 0 %>
             <%= CustomerSearch::DEFAULT_PER * (page - 1) + 1 %>-<%= (CustomerSearch::DEFAULT_PER * (params[:page].present? ? params[:page].to_i : 1)).to_s + '/' if @customers.total_count > CustomerSearch::DEFAULT_PER %><%= @customers.total_count %>
-            <% else %>
-              該当する顧客は存在しません。
             <% end %>
           </h3>
           <%= paginate @customers %>
