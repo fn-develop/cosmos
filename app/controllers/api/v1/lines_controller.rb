@@ -7,7 +7,7 @@ module Api
       protect_from_forgery with: :null_session
 
       IGNORE_REPLY_TOKEN = '00000000000000000000000000000000'.freeze
-      QR_CODE_IMAGE_REQUEST = '来店'.freeze
+      QR_CODE_IMAGE_REQUEST = '来店コード'.freeze
 
       def show
         head :ok
