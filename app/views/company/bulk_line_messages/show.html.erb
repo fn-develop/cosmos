@@ -37,7 +37,7 @@
             <th class="text-nowrap">送信対象</th>
             <td>
               <% @line_message_bulk_log.enabled_customers.each do |customer| %>
-                <a href="<%= customer_path(company_code: company_code, id: customer.id) %>" target="_blank"><%= customer.name.to_s %></a>
+                <a href="<%= customer_path(company_code: @company.code, id: customer.id) %>" target="_blank"><%= customer.name.to_s %></a>
               <% end %>
             </td>
           </tr>
