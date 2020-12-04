@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_04_000655) do
+ActiveRecord::Schema.define(version: 2020_12_04_051930) do
 
   create_table "collection_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "collection_id"
@@ -48,6 +48,8 @@ ActiveRecord::Schema.define(version: 2020_12_04_000655) do
   end
 
   create_table "customers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "introducer_id"
+    t.string "invite_code"
     t.integer "company_id", null: false
     t.integer "user_id"
     t.string "name"

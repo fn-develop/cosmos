@@ -2,22 +2,24 @@
 #
 # Table name: customers
 #
-#  id          :bigint           not null, primary key
-#  address1    :string(255)
-#  address2    :string(255)
-#  birthday    :date
-#  city        :string(255)
-#  gender      :integer
-#  name        :string(255)
-#  name_kana   :string(255)
-#  postal_code :string(255)
-#  prefecture  :string(255)
-#  tel_number  :string(255)
-#  ymd_num     :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  company_id  :integer          not null
-#  user_id     :integer
+#  id            :bigint           not null, primary key
+#  address1      :string(255)
+#  address2      :string(255)
+#  birthday      :date
+#  city          :string(255)
+#  gender        :integer
+#  invite_code   :string(255)
+#  name          :string(255)
+#  name_kana     :string(255)
+#  postal_code   :string(255)
+#  prefecture    :string(255)
+#  tel_number    :string(255)
+#  ymd_num       :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  company_id    :integer          not null
+#  introducer_id :integer
+#  user_id       :integer
 #
 # Indexes
 #
@@ -26,8 +28,9 @@
 class Customer < ApplicationRecord
   belongs_to :user, required: false
   belongs_to :company
-
   has_many :visited_logs, dependent: :destroy
+  belongs_to :introducer, class_name: 'Customer', required: false
+  has_many :invited_people, class_name: 'Customer', foreign_key: 'introducer_id'
 
   enum gender: { men: 0, women: 1 }
 
@@ -38,7 +41,7 @@ class Customer < ApplicationRecord
   attr_accessor :postal_code1
   attr_accessor :postal_code2
 
-  after_find :split_tel_number, :split_postal_code
+  after_find :split_tel_number, :split_postal_code, :set_random_invite_code
   before_validation :join_tel_numbers, :join_postal_codes
 
   validates :name, presence: true
@@ -100,5 +103,12 @@ class Customer < ApplicationRecord
     def join_postal_codes
       return if self.postal_code1.blank? && self.postal_code2.blank?
       self.postal_code = self.postal_code1.to_s + self.postal_code2.to_s
+    end
+
+    def set_random_invite_code
+      if self.invite_code.blank?
+        self.invite_code = (0...3).map{ (65 + rand(26)).chr }.join + self.id.to_s # ランダム英字3文字を生成 + customer.id
+        self.save
+      end
     end
 end

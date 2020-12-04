@@ -216,10 +216,11 @@
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>名前</th>
-                  <th>性別</th>
-                  <th>年齢</th>
-                  <th>最終来店</th>
+                  <th><%= Customer.human_attribute_name(:name) %></th>
+                  <th><%= Customer.human_attribute_name(:gender) %></th>
+                  <th><%= Customer.human_attribute_name(:age) %></th>
+                  <th><%= Customer.human_attribute_name(:last_vist_date) %></th>
+                  <th><%= Customer.human_attribute_name(:introducer) %></th>
                 </tr>
               </thead>
 
@@ -249,6 +250,7 @@
                   </td>
                   <td class="align-middle"><%= customer.age %></td>
                   <td class="align-middle"><%= customer.last_vist_date %></td>
+                  <td class="align-middle"><%= link_to customer.introducer.name.to_s, customer_path(@company.code, customer.introducer), { class: 'text-info' } if customer.introducer %></td>
                 </tr>
               <% end %>
 

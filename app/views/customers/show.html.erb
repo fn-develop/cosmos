@@ -60,6 +60,9 @@
               </tr><tr>
                 <th class="text-nowrap"><%= Customer.human_attribute_name(:address2) %></th>
                 <td><%= @customer.address2 %></td>
+              </tr><tr>
+                <th class="text-nowrap"><%= Customer.human_attribute_name(:introducer) %></th>
+                <td><%= link_to @customer.introducer.name.to_s, customer_path(@company.code, @customer.introducer), { class: 'text-info' } if @customer.introducer %>&nbsp;<a href="javascript:void(0)" class="btn btn-default float-right"><i class="fas fa-user-edit text-primary foloat-right"></i></a></td>
               </tr>
             </tbody>
           </table>
@@ -90,6 +93,18 @@
         <div class="card-footer clearfix">
           <%= paginate @visited_logs %>
           <a href="<%= new_customer_visited_log_path(company_code: @company.code, customer_id: @customer.id) %>" class="btn btn-sm btn-primary float-right mt-1">履歴作成</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title"><%= Customer.human_attribute_name(:invited_people) %><%= "（#{ @customer.invited_people.size() } 人）" %></h3>
+        </div>
+
+        <div class="card-body">
+          <% @customer.invited_people.each { |customer| %>
+            <p><%= link_to customer.name.to_s, customer_path(@company.code, customer), { class: 'text-info' } %></p>
+          <% } if @customer.invited_people.present? %>
         </div>
       </div>
     </div>
