@@ -45,7 +45,7 @@
             <th class="text-nowrap">送信無効</th>
             <td>
               <% @line_message_bulk_log.disabled_customers.each do |customer| %>
-                <a href="<%= customer_path(company_code: company_code, id: customer.id) %>" target="_blank"><%= customer.name.to_s %></a>
+                <a href="<%= customer_path(company_code: @company.code, id: customer.id) %>" target="_blank"><%= customer.name.to_s %></a>
               <% end %>
             </td>
           </tr>
