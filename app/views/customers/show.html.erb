@@ -117,6 +117,10 @@
       <%= form_with(id: 'modal_form', url: xhr_get_customers_customers_path, method: :get) do |form| %>
         <%= form.text_field :name, { id: 'modal_form_name_input',class: "form-control", placeholder: '名前' } %>
       <% end %>
+      <p id="customer_list"></p>
+      <%= form_with(id: 'modal_form_introducer_update', url: update_introducer_customer_path(@company.code, @customer.id), method: :post, local: true) do |form| %>
+        <%= form.hidden_field :introducer_id, id: :modal_introducer_id_hidden %>
+      <% end %>
     </div>
   </p>
 </div>
@@ -131,6 +135,13 @@
     $('#modal_form_name_input').on('input', function(){
       if($(this).val().trim() != '') {
         $.rails.fire($('#modal_form')[0], 'submit');
+      }
+    });
+
+    $(document).on('click', '.select_customer', function (){
+      $('#modal_introducer_id_hidden').val($(this).data('customer_id'));
+      if (window.confirm($(this).text() + ' さんに紹介者を変更してよろしいですか？')) {
+        $('#modal_form_introducer_update').submit();
       }
     });
   });

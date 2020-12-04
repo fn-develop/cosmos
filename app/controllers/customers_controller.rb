@@ -95,6 +95,16 @@ class CustomersController < ApplicationController
     @customers = company.customers.where('name LIKE ?', "%#{ params[:name] }%").or(company.customers.where('name_kana LIKE ?', "%#{ params[:name] }%"))
   end
 
+  def update_introducer
+    @customer = company.customers.find(params[:id])
+    intoroducer = company.customers.find(params[:introducer_id])
+
+    @customer.introducer = intoroducer
+    @customer.save
+
+    redirect_to customer_path(company_code, @customer), notice: "紹介者を変更しました。"
+  end
+
   private
     def set_customer
       @customer = Customer.find(params[:id])

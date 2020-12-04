@@ -1,1 +1,4 @@
-alert()
+$('#customer_list').html('');
+<% @customers.each_with_index do |customer, i| %>
+  $('#customer_list').append('<a href="javascript:void(0)" class="btn text-primary select_customer" data-customer_id="<%= customer.id %>">' + '<%= customer.name %>' + '</a>');
+<% end %>
