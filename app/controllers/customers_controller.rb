@@ -91,6 +91,10 @@ class CustomersController < ApplicationController
     redirect_to new_line_message_customer_path(company_code, @customer)
   end
 
+  def xhr_get_customers
+    @customers = company.customers.where('name LIKE ?', "%#{ params[:name] }%").or(company.customers.where('name_kana LIKE ?', "%#{ params[:name] }%"))
+  end
+
   private
     def set_customer
       @customer = Customer.find(params[:id])

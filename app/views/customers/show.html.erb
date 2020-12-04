@@ -62,7 +62,7 @@
                 <td><%= @customer.address2 %></td>
               </tr><tr>
                 <th class="text-nowrap"><%= Customer.human_attribute_name(:introducer) %></th>
-                <td><%= link_to @customer.introducer.name.to_s, customer_path(@company.code, @customer.introducer), { class: 'text-info' } if @customer.introducer %>&nbsp;<a href="javascript:void(0)" class="btn btn-default float-right"><i class="fas fa-user-edit text-primary foloat-right"></i></a></td>
+                <td><%= link_to @customer.introducer.name.to_s, customer_path(@company.code, @customer.introducer), { class: 'text-info' } if @customer.introducer %>&nbsp;<a href="javascript:void(0)" id="change_introducer_button", class="btn btn-default float-right"><i class="fas fa-user-edit text-primary foloat-right"></i></a></td>
               </tr>
             </tbody>
           </table>
@@ -110,3 +110,28 @@
     </div>
   </div>
 </section>
+
+<div id="notice_modal" data-izimodal-title="紹介者変更" data-izimodal-subtitle="紹介者：<%= @customer.try(:name) || 'なし' %>">
+  <p>
+    <div class="col p-3">
+      <%= form_with(id: 'modal_form', url: xhr_get_customers_customers_path, method: :get) do |form| %>
+        <%= form.text_field :name, { id: 'modal_form_name_input',class: "form-control", placeholder: '名前' } %>
+      <% end %>
+    </div>
+  </p>
+</div>
+
+<%= javascript_tag do %>
+  $(function() {
+    $('#notice_modal').iziModal();
+    $('#change_introducer_button').on('click', function() {
+      $('#notice_modal').iziModal('open');
+    });
+
+    $('#modal_form_name_input').on('input', function(){
+      if($(this).val().trim() != '') {
+        $.rails.fire($('#modal_form')[0], 'submit');
+      }
+    });
+  });
+<% end %>
