@@ -36,7 +36,8 @@
           <tr>
             <th class="text-nowrap">送信対象</th>
             <td>
-              <% @line_message_bulk_log.enabled_customers.each do |customer| %>
+              <% @line_message_bulk_log.enabled_customers.each_with_index do |customer, i| %>
+                <%= ', ' if i.between?(0, @line_message_bulk_log.enabled_customers.size() - 2) %>
                 <a href="<%= customer_path(company_code: @company.code, id: customer.id) %>" target="_blank"><%= customer.name.to_s %></a>
               <% end %>
             </td>
@@ -44,7 +45,8 @@
           <tr>
             <th class="text-nowrap">送信無効</th>
             <td>
-              <% @line_message_bulk_log.disabled_customers.each do |customer| %>
+              <% @line_message_bulk_log.disabled_customers.each_with_index do |customer, i| %>
+                <%= ', ' if i.between?(0, @line_message_bulk_log.disabled_customers.size() - 2) %>
                 <a href="<%= customer_path(company_code: @company.code, id: customer.id) %>" target="_blank"><%= customer.name.to_s %></a>
               <% end %>
             </td>
