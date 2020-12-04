@@ -25,6 +25,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'rqrcode'
 gem 'chunky_png'
+gem 'default_value_for'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

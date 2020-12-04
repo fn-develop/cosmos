@@ -1,0 +1,63 @@
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark"><%= Const::View::Name::BULK_LINE_MESSAGES %></h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="<%= homes_path %>"><%= Const::View::Name::HOME_INDEX %></a></li>
+          <li class="breadcrumb-item"><a href="<%= customers_path %>"><%= Const::View::Name::CUSTOMER_INDEX %></a></li>
+          <li class="breadcrumb-item"><a href="<%= company_bulk_line_messages_path %>"><%= Const::View::Name::BULK_LINE_MESSAGES %></a></li>
+          <li class="breadcrumb-item active"><%= Const::View::Name::BULK_LINE_MESSAGES_DETAIL %></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="content">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">情報</h3>
+    </div>
+
+    <div class="card-body">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <th class="text-nowrap" style="width: 20%;">送信日付</th>
+            <td><%= @line_message_bulk_log.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+          </tr>
+          <tr>
+            <th class="text-nowrap">メッセージ</th>
+            <td><%= @line_message_bulk_log.message %></td>
+          </tr>
+          <tr>
+            <th class="text-nowrap">送信対象</th>
+            <td>
+              <% @line_message_bulk_log.enabled_customers.each do |customer| %>
+                <a href="<%= customer_path(company_code: company_code, id: customer.id) %>" target="_blank"><%= customer.name.to_s %></a>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <th class="text-nowrap">送信無効</th>
+            <td>
+              <% @line_message_bulk_log.disabled_customers.each do |customer| %>
+                <a href="<%= customer_path(company_code: company_code, id: customer.id) %>" target="_blank"><%= customer.name.to_s %></a>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card-footer clearfix">
+      <a href="<%= company_bulk_line_messages_path %>" class="btn btn-default float-left">　戻る　</a>
+      <% if can? :manage, :setting %>
+        <%= link_to('　削除　', company_bulk_line_message_path(company_code: @company.code, id: @line_message_bulk_log.id), method: :delete, class: 'btn btn-sm btn-danger float-right', data: { confirm: "削除してよろしいですか？" }) if @line_message_bulk_log.persisted? %>
+      <% end %>
+    </div>
+  </div>
+</section>

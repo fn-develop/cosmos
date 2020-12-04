@@ -19,76 +19,115 @@
 <section class="content">
   <div class="container-fluid">
     <div class="row">
-        <div class="col-md-7">
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">メッセージ内容</h3>
+      <div class="col-md-7">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">メッセージ内容</h3>
+          </div>
+
+          <div class="card-footer">
+            <div class="form-group">
+              <%= f.text_area :message, { class: 'form-control', placeholder: 'メッセージを入力してください。', maxlength: 240, rows: 10, required: true } %>
             </div>
 
-            <div class="card-footer">
-              <div class="form-group">
-                <%= f.text_area :message, { class: 'form-control', placeholder: 'メッセージを入力してください。', maxlength: 240, rows: 10, required: true } %>
-              </div>
-
-              <%= f.submit class: 'btn btn-primary', value: '　送　信　', data: { confirm: '送信してよろしいですか?', disable_with: '　送信中...　' } %>
-            </div>
+            <%= f.submit class: 'btn btn-primary', value: '　送　信　', data: { confirm: '送信してよろしいですか?', disable_with: '　送信中...　' } %>
+            <a href="<%= customers_path %>" class="btn btn-default float-right">　戻る　</a>
           </div>
         </div>
+      </div>
 
-        <div class="col-md-5">
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">送信対象顧客</h3>
-              <div class="card-tools">
-                <span class="badge badge-success"><span id="customer_count"><%= @customers.size() %></span> 名</span>
-              </div>
+      <div class="col-md-5">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">送信対象顧客</h3>
+            <div class="card-tools">
+              <span class="badge badge-success"><span id="customer_count"><%= @customers.size() %></span> 名</span>
             </div>
+          </div>
 
-            <div class="card-body p-0">
-              <table class="table table-sm">
-                <thead>
-                  <tr>
-                    <th style="width: 10px"><input type="checkbox" id="all_check_button" checked /></th>
-                    <%= javascript_tag do %>
-                      $(function() {
-                        $('#all_check_button').on('click', function(){
-                          $(':checkbox').prop('checked', $(this).is(':checked'));
-                          $('#customer_count').text($('.select_customer:checked').length);
-                        });
-
-                        $('.select_customer').on('input', function(){
-                          $('#customer_count').text($('.select_customer:checked').length);
-                        });
+          <div class="card-body p-0">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th style="width: 10px"><input type="checkbox" id="all_check_button" checked /></th>
+                  <%= javascript_tag do %>
+                    $(function() {
+                      $('#all_check_button').on('click', function(){
+                        $(':checkbox').prop('checked', $(this).is(':checked'));
+                        $('#customer_count').text($('.select_customer:checked').length);
                       });
-                    <% end %>
 
-                    <th>名前</th>
-                    <th>性別</th>
-                    <th>年齢</th>
-                    <th>最終来店</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% @customers.each do |customer| %>
-                  <tr>
-                    <td><input type="checkbox" id="scales" name="user_ids[]" value="<%= customer.user.id %>" class="select_customer" checked /></td>
-                    <td><%= customer.name %></td>
-                    <td>
-                      <% if customer.women? %>
-                        <i class="fas fa-venus text-red"></i>
-                      <% elsif customer.men? %>
-                        <i class="fas fa-mars text-black"></i>
-                      <% end %>
-                    </td>
-                    <td><%= customer.age %></td>
-                    <td><%= customer.last_vist_date %></td>
-                  </tr>
+                      $('.select_customer').on('input', function(){
+                        $('#customer_count').text($('.select_customer:checked').length);
+                      });
+                    });
                   <% end %>
-                </tbody>
-              </table>
-            </div>
+
+                  <th>名前</th>
+                  <th>性別</th>
+                  <th>年齢</th>
+                  <th>最終来店</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @customers.each do |customer| %>
+                <tr>
+                  <td><input type="checkbox" id="scales" name="user_ids[]" value="<%= customer.user.id %>" class="select_customer" checked /></td>
+                  <td><%= customer.name %></td>
+                  <td>
+                    <% if customer.women? %>
+                      <i class="fas fa-venus text-red"></i>
+                    <% elsif customer.men? %>
+                      <i class="fas fa-mars text-black"></i>
+                    <% end %>
+                  </td>
+                  <td><%= customer.age %></td>
+                  <td><%= customer.last_vist_date %></td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
           </div>
         </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">履歴</h3>
+            <div class="card-tools">
+              <span class="badge badge-success"><span id="customer_count"><%= @line_message_bulk_logs.size() %></span> 件</span>
+            </div>
+          </div>
+
+          <div class="card-body p-0">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>日付</th>
+                  <th>メッセージ内容</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @line_message_bulk_logs.each do |log| %>
+                  <tr>
+                    <td>
+                      <a href="<%= company_bulk_line_message_path(company_code: @company.code, id: log.id) %>">
+                        <%= log.created_at.strftime("%Y/%m/%d %H:%M") %>
+                      </a>
+                    </td>
+                    <td><%= br log.message %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card-footer">
+            <small class="float-right">最大100件表示</small>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

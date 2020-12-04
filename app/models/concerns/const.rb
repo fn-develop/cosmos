@@ -35,6 +35,7 @@ module Const
       COMPANY_ITEMS_EDIT   = 'システム項目編集'.freeze
       VISITED_LOG          = '来店履歴'.freeze
       BULK_LINE_MESSAGES   = 'LINEメッセージ一括送信'.freeze
+      BULK_LINE_MESSAGES_DETAIL   = 'LINEメッセージ一括送信詳細'.freeze
     end
   end
 
