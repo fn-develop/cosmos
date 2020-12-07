@@ -4,6 +4,10 @@
     <span class="direct-chat-timestamp float-left"><%= message.created_at.strftime("%Y/%m/%d %H:%M") %></span>
   </div>
   <div class="w-10 direct-chat-text float-left text-left" style="margin-left: 0px;">
-    <%= br message.message.to_s %>
+    <% if message.message_type == Const::LineMessage::Type::TEXT %>
+      <%= br message.message.to_s %>
+    <% elsif message.message_type == Const::LineMessage::Type::IMAGE %>
+      <img src="<%= message.base64_image(:thumb_50) %>" class="message-image" data-message_id="<%= message.id %>"/>
+    <% end %>
   </div>
 </div>

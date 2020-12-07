@@ -94,8 +94,30 @@
   </div>
 </section>
 
+<div id="image_modal" data-izimodal-title="画像">
+  <img src='' id="modal-image" />
+</div>
+
 <%= javascript_tag do %>
   $(function() {
+    // LINEメッセージの表示部分を最新のコメントにスクロールする処理
     $("#message-log").scrollTop($("#message-log")[0].scrollHeight);
+
+    $('#image_modal').iziModal();
+    $('.message-image').on('click', function() {
+      let message_id = $(this).data('message_id');
+      get_base64_image(message_id);
+    });
+
+    let get_base64_image = function(message_id){
+      $.ajax({
+        url: '<%= xhr_get_base64_message_image_customer_path(@customer, company_code: @company.code) %>',
+        type: 'GET',
+        data: { message_id: message_id },
+        dataType : 'script',
+      }).done(function() {
+        $('#image_modal').iziModal('open');
+      });
+    }
   });
 <% end %>

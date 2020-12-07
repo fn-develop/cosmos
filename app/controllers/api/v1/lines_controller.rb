@@ -16,18 +16,10 @@ module Api
       def callback
         body = request.body.read
         signature = request.env['HTTP_X_LINE_SIGNATURE']
-        client = LineMessage.new(company: company).client
+
         unless client.validate_signature(body, signature) || company.blank?
           error 400 do 'Bad Request' end
         end
-
-        message = { type: 'text', text: '' }
-
-        image_message = {
-          type: 'image',
-          originalContentUrl: '',
-          previewImageUrl: '',
-        }
 
         events = client.parse_events_from(body)
 
@@ -39,6 +31,8 @@ module Api
             case event.try(:type)
             when Line::Bot::Event::MessageType::Text
               message_text(event)
+            when Line::Bot::Event::MessageType::Image
+              message_image(event)
             end
           end
         end
@@ -49,6 +43,7 @@ module Api
       private
         def follow(event)
           save_user(event)
+          message = { type: Const::LineMessage::Type::TEXT, text: '' }
           message[:text] = regit_url_message(event)
           client.reply_message(event['replyToken'], message) unless event['replyToken'] === IGNORE_REPLY_TOKEN # テスト応答時はメッセージを返信しない
         end
@@ -57,12 +52,15 @@ module Api
           user = get_user(event)
 
           if user.try(:customer).blank?
-            save_user(event)
-            message[:text] = regit_url_message(event)
-            user.reload
-            client.reply_message(event['replyToken'], message) unless event['replyToken'] === IGNORE_REPLY_TOKEN # テスト応答時はメッセージを返信しない
+            follow(event)
             return
           end
+
+          image_message = {
+            type: Const::LineMessage::Type::IMAGE,
+            originalContentUrl: '',
+            previewImageUrl: '',
+          }
 
           if event['message']['text'] == QR_CODE_IMAGE_REQUEST
             today       = Date.today
@@ -75,12 +73,27 @@ module Api
             image_message[:previewImageUrl] = image_url
             client.reply_message(event['replyToken'], image_message)
           else
-            save_user_message(event)
+            save_text_message(event)
           end
         end
 
+        def message_image(event)
+          user = get_user(event)
+
+          if user.try(:customer).blank?
+            follow(event)
+            return
+          else
+            save_image_message(event)
+          end
+        end
+
+        def client
+          LineMessage.new(company: company).client
+        end
+
         def company
-          company ||= Company.find_by(code: params[:company_code])
+          @company ||= Company.find_by(code: params[:company_code])
         end
 
         def save_user(event)
@@ -88,7 +101,7 @@ module Api
           user.save!(validate: false) if user.new_record?
         end
 
-        def save_user_message(event)
+        def save_text_message(event)
           user = get_user(event)
 
           lml = user.line_message_logs.new(
@@ -97,6 +110,7 @@ module Api
             line_user_id: event['source']['userId'],
             message:      event['message']['text'],
           )
+
           if user.customer.present?
             lml.code = Const::LineMessage::Code::ACCOUNT_USER_MESSAGE
           else
@@ -104,6 +118,31 @@ module Api
           end
 
           lml.save
+          lml
+        end
+
+        def save_image_message(event)
+          image_response = client.get_message_content(event['message']['id'])
+          tf = File.open("/tmp/#{SecureRandom.uuid}.jpg", "w+b")
+          tf.write(image_response.body)
+          user = get_user(event)
+
+          lml = user.line_message_logs.new(
+            company:          company,
+            message_id:       event['message']['id'],
+            line_user_id:     event['source']['userId'],
+            massage_type:     Const::LineMessage::Type::IMAGE,
+            image: tf,
+          )
+
+          if user.customer.present?
+            lml.code = Const::LineMessage::Code::ACCOUNT_USER_MESSAGE
+          else
+            lml.code = Const::LineMessage::Code::NON_ACCOUNT_MESSAGE
+          end
+
+          lml.save
+          lml
         end
 
         def regit_url_message(event)

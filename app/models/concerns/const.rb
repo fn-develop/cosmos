@@ -43,7 +43,8 @@ module Const
   module LineMessage
     # Const::LineMessage::Type
     module Type
-      TEXT = 'text'.freeze
+      TEXT  = 'text'.freeze
+      IMAGE = 'image'.freeze
     end
 
     # Const::LineMessage::Code

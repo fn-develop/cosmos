@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_04_051930) do
+ActiveRecord::Schema.define(version: 2020_12_07_004734) do
 
   create_table "collection_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "collection_id"
@@ -93,7 +93,9 @@ ActiveRecord::Schema.define(version: 2020_12_04_051930) do
     t.integer "company_id"
     t.string "user_id"
     t.string "line_user_id"
+    t.string "message_type", default: "text"
     t.string "message"
+    t.string "image"
     t.string "code"
     t.string "year"
     t.string "month"

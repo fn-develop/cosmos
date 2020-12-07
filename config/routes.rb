@@ -29,6 +29,7 @@ Rails.application.routes.draw do
       get 'confirm_visited/:visit_token', to: 'customers#confirm_visited', on: :collection, as: :confirm_visited
       get 'xhr_get_customers', to: 'customers#xhr_get_customers', on: :collection, as: :xhr_get_customers, defaults: { format: 'js' }
       post 'update_introducer', to: 'customers#update_introducer', on: :member, as: :update_introducer
+      get 'xhr_get_base64_message_image', to: 'customers#xhr_get_base64_message_image', on: :member, as: :xhr_get_base64_message_image
 
       scope module: :customer do
         resources :visited_logs

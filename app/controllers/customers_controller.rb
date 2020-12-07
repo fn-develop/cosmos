@@ -95,6 +95,11 @@ class CustomersController < ApplicationController
     @customers = company.customers.where('name LIKE ?', "%#{ params[:name] }%").or(company.customers.where('name_kana LIKE ?', "%#{ params[:name] }%"))
   end
 
+  def xhr_get_base64_message_image
+    @customer = company.customers.find(params[:id])
+    @line_message_log = @customer.user.line_message_logs.find(params[:message_id])
+  end
+
   def update_introducer
     @customer = company.customers.find(params[:id])
     intoroducer = company.customers.find(params[:introducer_id])
