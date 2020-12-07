@@ -94,8 +94,8 @@
   </div>
 </section>
 
-<div id="image_modal" data-izimodal-title="画像">
-  <img src='' id="modal-image" />
+<div id="image_modal" data-izimodal-title="画像" class="mx-auto" style="z-index: 99999;">
+  <img src='' id="modal-image" class="mx-auto d-block img-fluid"/>
 </div>
 
 <%= javascript_tag do %>
@@ -103,7 +103,15 @@
     // LINEメッセージの表示部分を最新のコメントにスクロールする処理
     $("#message-log").scrollTop($("#message-log")[0].scrollHeight);
 
-    $('#image_modal').iziModal();
+    $('#image_modal').iziModal({
+      headerColor: '#26A69A', //ヘッダー部分の色
+      width: 1024, //横幅
+      overlayColor: 'rgba(0, 0, 0, 0.5)', //モーダルの背景色
+      fullscreen: true, //全画面表示
+      transitionIn: 'fadeInUp', //表示される時のアニメーション
+      transitionOut: 'fadeOutDown' //非表示になる時のアニメーション
+    });
+
     $('.message-image').on('click', function() {
       let message_id = $(this).data('message_id');
       get_base64_image(message_id);
