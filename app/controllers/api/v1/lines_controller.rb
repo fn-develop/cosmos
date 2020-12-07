@@ -131,7 +131,7 @@ module Api
             company:          company,
             message_id:       event['message']['id'],
             line_user_id:     event['source']['userId'],
-            massage_type:     Const::LineMessage::Type::IMAGE,
+            message_type:     Const::LineMessage::Type::IMAGE,
             image: tf,
           )
 
