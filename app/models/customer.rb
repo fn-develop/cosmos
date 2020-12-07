@@ -26,7 +26,7 @@
 #  index_customers_on_company_id  (company_id)
 #
 class Customer < ApplicationRecord
-  belongs_to :user, required: false
+  belongs_to :user, required: false, dependent: :destroy
   belongs_to :company
   has_many :visited_logs, dependent: :destroy
   belongs_to :introducer, class_name: 'Customer', required: false
