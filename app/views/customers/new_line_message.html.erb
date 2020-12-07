@@ -94,7 +94,7 @@
   </div>
 </section>
 
-<div id="image_modal" data-izimodal-title="画像" class="mx-auto" style="z-index: 99999;">
+<div id="image_modal" data-izimodal-title="画像" class="mx-auto" style="position: fixd;">
   <img src='' id="modal-image" class="mx-auto d-block img-fluid"/>
 </div>
 
@@ -106,6 +106,7 @@
     $('#image_modal').iziModal({
       headerColor: '#26A69A', //ヘッダー部分の色
       width: 1024, //横幅
+      zindex: 999999,
       overlayColor: 'rgba(0, 0, 0, 0.5)', //モーダルの背景色
       fullscreen: true, //全画面表示
       transitionIn: 'fadeInUp', //表示される時のアニメーション
