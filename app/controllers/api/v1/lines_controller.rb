@@ -14,8 +14,6 @@ module Api
       end
 
       def callback
-        company = Company.find_by(code: params[:company_code])
-
         body = request.body.read
         signature = request.env['HTTP_X_LINE_SIGNATURE']
         client = LineMessage.new(company: company).client
@@ -36,35 +34,11 @@ module Api
         events.each do |event|
           case event
           when Line::Bot::Event::Follow
-            save_user(event, company)
-            message[:text] = regit_url_message(event, company)
-            client.reply_message(event['replyToken'], message) unless event['replyToken'] === IGNORE_REPLY_TOKEN # テスト応答時はメッセージを返信しない
+            follow(event)
           when Line::Bot::Event::Message
             case event.try(:type)
             when Line::Bot::Event::MessageType::Text
-              user = get_user(event, company)
-
-              if user.try(:customer).blank?
-                save_user(event, company)
-                message[:text] = regit_url_message(event, company)
-                user.reload
-                client.reply_message(event['replyToken'], message) unless event['replyToken'] === IGNORE_REPLY_TOKEN # テスト応答時はメッセージを返信しない
-                break
-              end
-
-              if event['message']['text'] == QR_CODE_IMAGE_REQUEST
-                today       = Date.today
-                year        = today.year.to_s
-                month       = today.month.to_s.rjust(2, '0')
-                day         = today.day.to_s.rjust(2, '0')
-                visited_log = company.visited_logs.where(customer: user.customer, year: year, month: month, day: day).first_or_create
-                image_url   = visit_user_qr_code_customers_url(company_code: company.code, visit_token: visited_log.visit_token) + '.png'
-                image_message[:originalContentUrl] = image_url
-                image_message[:previewImageUrl] = image_url
-                client.reply_message(event['replyToken'], image_message)
-              else
-                save_user_message(event, company)
-              end
+              message_text(event)
             end
           end
         end
@@ -73,13 +47,49 @@ module Api
       end
 
       private
-        def save_user(event, company)
+        def follow(event)
+          save_user(event)
+          message[:text] = regit_url_message(event)
+          client.reply_message(event['replyToken'], message) unless event['replyToken'] === IGNORE_REPLY_TOKEN # テスト応答時はメッセージを返信しない
+        end
+
+        def message_text(event)
+          user = get_user(event)
+
+          if user.try(:customer).blank?
+            save_user(event)
+            message[:text] = regit_url_message(event)
+            user.reload
+            client.reply_message(event['replyToken'], message) unless event['replyToken'] === IGNORE_REPLY_TOKEN # テスト応答時はメッセージを返信しない
+            return
+          end
+
+          if event['message']['text'] == QR_CODE_IMAGE_REQUEST
+            today       = Date.today
+            year        = today.year.to_s
+            month       = today.month.to_s.rjust(2, '0')
+            day         = today.day.to_s.rjust(2, '0')
+            visited_log = company.visited_logs.where(customer: user.customer, year: year, month: month, day: day).first_or_create
+            image_url   = visit_user_qr_code_customers_url(company_code: company.code, visit_token: visited_log.visit_token) + '.png'
+            image_message[:originalContentUrl] = image_url
+            image_message[:previewImageUrl] = image_url
+            client.reply_message(event['replyToken'], image_message)
+          else
+            save_user_message(event)
+          end
+        end
+
+        def company
+          company ||= Company.find_by(code: params[:company_code])
+        end
+
+        def save_user(event)
           user = User.find_or_initialize_by(role: :customer, company: company, line_user_id: event['source']['userId'])
           user.save!(validate: false) if user.new_record?
         end
 
-        def save_user_message(event, company)
-          user = get_user(event, company)
+        def save_user_message(event)
+          user = get_user(event)
 
           lml = user.line_message_logs.new(
             company:      company,
@@ -96,12 +106,12 @@ module Api
           lml.save
         end
 
-        def regit_url_message(event, company)
+        def regit_url_message(event)
            "【自動応答】登録URL\n#{ new_with_line_customers_url({ company_code: company.code, line_user_id: event['source']['userId'] }) }"
         end
 
-        def get_user(event, company)
-          User.find_by(company: company, line_user_id: event['source']['userId'])
+        def get_user(event)
+          @user ||= User.find_by(company: company, line_user_id: event['source']['userId'])
         end
     end
   end
