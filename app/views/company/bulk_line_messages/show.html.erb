@@ -30,6 +30,10 @@
             <td><%= @line_message_bulk_log.created_at.strftime("%Y/%m/%d %H:%M") %></td>
           </tr>
           <tr>
+            <th class="text-nowrap">送信ステータス</th>
+            <td><%= @line_message_bulk_log.success_or_failure? ? '成功' : '失敗' %></td>
+          </tr>
+          <tr>
             <th class="text-nowrap">メッセージ</th>
             <td><%= @line_message_bulk_log.message %></td>
           </tr>

@@ -4,8 +4,6 @@ class LineMessage
 
   # ユーザーID
   attr_accessor :user_id
-  # ユーザーID(複数)
-  attr_accessor :user_ids
   # 通知メッセージ
   attr_accessor :message
   # 会社
@@ -38,26 +36,17 @@ class LineMessage
 
     lml.success_or_failure = (response_code >= 200 && response_code < 300)
     lml.save
-  end
 
-  def send_multicast_text_message(user_ids, message)
-    enabled_user_ids = self.company.users.where(id: user_ids).where('line_user_id IS NOT NULL')
-    disabled_user_ids = self.company.users.where(id: user_ids).where('line_user_id IS NULL')
+    line_message_count_ar = self.company.line_message_counts.find_or_initialize_by(year: today.year.to_s, month: today.month.to_s)
 
-    response = client.multicast(enabled_user_ids, message)
-    response_code = response.code.to_i
+    if lml.success_or_failure
+      total_usage = client.get_message_quota_consumption.try(:body)
+      total = JSON.parse(total_usage)['totalUsage'] if total_usage.present?
+      line_message_count_ar.total = total || 99999
+      line_message_count_ar.save
+    end
 
-    today = Date.today
-    company.line_message_bulk_logs.create(
-      company:            RequestStore.store[:company],
-      year:               today.year.to_s,
-      month:              today.month.to_s,
-      message:            message,
-      enabled_user_ids:   enabled_user_ids,
-      disabled_user_ids:  disabled_user_ids,
-      staff:              RequestStore.store[:current_user],
-      success_or_failure: (response_code >= 200 && response_code < 300),
-    )
+    return lml.success_or_failure
   end
 
   # LINE Developers登録完了後に作成される環境変数の認証

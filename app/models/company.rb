@@ -26,26 +26,21 @@ class Company < ApplicationRecord
   has_many :line_message_logs, dependent: :destroy
   has_many :visited_logs, dependent: :destroy
   has_many :line_message_bulk_logs, dependent: :destroy
+  has_many :line_message_counts, dependent: :destroy
 
   validates :code, presence: true, uniqueness: true, length: { in: 2..10 }, format: { with: /\A[a-z]+\z/, message: "英文字のみが使用できます" }
   validates :name, presence: true, length: { in: 1..50 }
 
   after_find :auto_update_visit_confirmation_code
 
-  def get_current_month_push_message_count
-    today ||= Date.today
-    year ||= today.year.to_s
-    month ||= today.month.to_s
-    self.line_message_logs.where(
-      year: year,
-      month: month,
-      code: Const::LineMessage::Code::PUSH,
-      success_or_failure: true,
-    ).size()
+  def within_limit_line_message?
+    get_current_month_line_message_count < self.limit_line_message_count
   end
 
-  def within_limit_line_message?
-    get_current_month_push_message_count < self.limit_line_message_count
+  def get_current_month_line_message_count
+    today = Date.today
+    line_message_count = self.line_message_counts.find_by(year: today.year.to_s, month: today.month.to_s)
+    line_message_count.try(:total) || 0
   end
 
   private def auto_update_visit_confirmation_code

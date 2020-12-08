@@ -49,7 +49,7 @@
             <table class="table table-sm">
               <thead>
                 <tr>
-                  <th style="width: 10px"><input type="checkbox" id="all_check_button" checked /></th>
+                  <th style="width: 10px"><input type="checkbox" id="all_check_button" /></th>
                   <%= javascript_tag do %>
                     $(function() {
                       $('#all_check_button').on('click', function(){
@@ -72,7 +72,9 @@
               <tbody>
                 <% @customers.each do |customer| %>
                 <tr>
-                  <td><input type="checkbox" id="scales" name="user_ids[]" value="<%= customer.user.id %>" class="select_customer" checked /></td>
+                  <td>
+                    <input type="checkbox" id="scales" name="user_ids[]" value="<%= customer.user.id %>" class="select_customer" />
+                  </td>
                   <td><%= customer.name %></td>
                   <td>
                     <% if customer.women? %>
@@ -105,6 +107,7 @@
               <thead>
                 <tr>
                   <th>日付</th>
+                  <th>送信ステータス</th>
                   <th>メッセージ内容</th>
                 </tr>
               </thead>
@@ -112,10 +115,11 @@
                 <% @line_message_bulk_logs.each do |log| %>
                   <tr>
                     <td>
-                      <a href="<%= company_bulk_line_message_path(company_code: @company.code, id: log.id) %>">
+                      <a href="<%= company_bulk_line_message_path(log, company_code: @company.code) %>">
                         <%= log.created_at.strftime("%Y/%m/%d %H:%M") %>
                       </a>
                     </td>
+                    <td><%= log.success_or_failure? ? '成功' : '失敗' %></td>
                     <td><%= br log.message %></td>
                   </tr>
                 <% end %>

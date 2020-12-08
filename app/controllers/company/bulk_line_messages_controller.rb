@@ -1,17 +1,29 @@
 class Company::BulkLineMessagesController < ApplicationController
   def index
+    if request.referer.split('/').last(2) === customers_path.split('/').last(2)
+      session[:customer_search_params] = customer_search_params
+    end
     @search = CustomerSearch.new({
       company: company,
       current_ability: current_ability,
-    }.merge(customer_search_params))
+    }.merge(session[:customer_search_params]))
 
     @customers = @search.search_for_bulk_line_messages
     @line_message_bulk_logs = company.line_message_bulk_logs.order(id: :desc).last(100)
   end
 
   def create
-    @line_message = LineMessage.new(company: company, message: params[:message], user_ids: params[:user_ids])
-    redirect_to company_bulk_line_messages_path, notice: "送信が完了しました。"
+    if company.within_limit_line_message?
+      @line_message_bulk = LineMessageBulk.new(company: company, message: params[:message], user_ids: params[:user_ids])
+
+      if @line_message_bulk.valid? && @line_message_bulk.send_multicast_text_message
+        redirect_to company_bulk_line_message_path(company.line_message_bulk_logs.last, company_code: @company.code), notice: "送信が完了しました。"
+      else
+        redirect_to company_bulk_line_messages_path, alert: "送信エラー"
+      end
+    else
+      redirect_to company_bulk_line_messages_path, alert: '送信可能上限に達した為、送信できません。'
+    end
   end
 
   def show
