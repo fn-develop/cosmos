@@ -6,7 +6,7 @@ class Company::BulkLineMessagesController < ApplicationController
     @search = CustomerSearch.new({
       company: company,
       current_ability: current_ability,
-    }.merge(session[:customer_search_params]))
+    }.merge(session[:customer_search_params] || {}))
 
     @customers = @search.search_for_bulk_line_messages
     @line_message_bulk_logs = company.line_message_bulk_logs.order(id: :desc).last(100)
