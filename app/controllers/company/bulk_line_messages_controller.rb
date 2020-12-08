@@ -10,32 +10,7 @@ class Company::BulkLineMessagesController < ApplicationController
   end
 
   def create
-    message = params[:message]
-
-    enabled_user_ids = []
-    disabled_user_ids = []
-
-    params[:user_ids].each do |user_id|
-      break unless company.within_limit_line_message?
-
-      @line_message         = LineMessage.new(message: message, user_id: user_id)
-      @line_message.company = company
-
-      if @line_message.valid?
-        if @line_message.send_text_message
-          enabled_user_ids.push user_id
-        else
-          disabled_user_ids.push user_id
-        end
-      end
-    end
-
-    company.line_message_bulk_logs.create(
-      message: message,
-      enabled_user_ids: enabled_user_ids,
-      disabled_user_ids: disabled_user_ids,
-    )
-
+    @line_message = LineMessage.new(company: company, message: params[:message], user_ids: params[:user_ids])
     redirect_to company_bulk_line_messages_path, notice: "送信が完了しました。"
   end
 

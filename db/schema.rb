@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_07_004734) do
+ActiveRecord::Schema.define(version: 2020_12_08_005256) do
 
   create_table "collection_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "collection_id"
@@ -78,12 +78,19 @@ ActiveRecord::Schema.define(version: 2020_12_07_004734) do
   end
 
   create_table "line_message_bulk_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.boolean "success_or_failure", default: true
+    t.string "year", null: false
+    t.string "month", null: false
     t.integer "company_id", null: false
     t.string "message"
+    t.integer "staff_id"
     t.text "enabled_user_ids"
     t.text "disabled_user_ids"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_line_message_bulk_logs_on_company_id"
+    t.index ["month"], name: "index_line_message_bulk_logs_on_month"
+    t.index ["year"], name: "index_line_message_bulk_logs_on_year"
   end
 
   create_table "line_message_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|

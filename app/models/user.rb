@@ -31,6 +31,7 @@ class User < ApplicationRecord
 
   has_many :line_message_logs, dependent: :destroy
   has_many :staff_line_mseege_logs, class_name: 'LineMessageLog', foreign_key: 'staff_id', dependent: :destroy
+  has_many :staff_line_mseege_bulk_logs, class_name: 'LineMessageBulkLog', foreign_key: 'staff_id', dependent: :nullify
   has_one :customer, dependent: :nullify
 
   enum role: { guest: 0, customer: 1, staff: 2, owner: 3, system_admin: 9 }

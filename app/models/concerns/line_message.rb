@@ -4,6 +4,8 @@ class LineMessage
 
   # ユーザーID
   attr_accessor :user_id
+  # ユーザーID(複数)
+  attr_accessor :user_ids
   # 通知メッセージ
   attr_accessor :message
   # 会社
@@ -36,6 +38,26 @@ class LineMessage
 
     lml.success_or_failure = (response_code >= 200 && response_code < 300)
     lml.save
+  end
+
+  def send_multicast_text_message(user_ids, message)
+    enabled_user_ids = self.company.users.where(id: user_ids).where('line_user_id IS NOT NULL')
+    disabled_user_ids = self.company.users.where(id: user_ids).where('line_user_id IS NULL')
+
+    response = client.multicast(enabled_user_ids, message)
+    response_code = response.code.to_i
+
+    today = Date.today
+    company.line_message_bulk_logs.create(
+      company:            RequestStore.store[:company],
+      year:               today.year.to_s,
+      month:              today.month.to_s,
+      message:            message,
+      enabled_user_ids:   enabled_user_ids,
+      disabled_user_ids:  disabled_user_ids,
+      staff:              RequestStore.store[:current_user],
+      success_or_failure: (response_code >= 200 && response_code < 300),
+    )
   end
 
   # LINE Developers登録完了後に作成される環境変数の認証
