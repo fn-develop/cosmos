@@ -1,6 +1,7 @@
 class Company::BulkLineMessagesController < ApplicationController
   def index
-    if request.referer.split('/').last(2) === customers_path.split('/').last(2)
+    referer_path = Rails.application.routes.recognize_path(request.referer)
+    if referer_path[:controller] == 'customers' && referer_path[:action] == 'index'
       session[:customer_search_params] = customer_search_params
     end
     @search = CustomerSearch.new({
