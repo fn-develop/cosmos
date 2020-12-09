@@ -12,9 +12,9 @@
               <%= f.label :year do '来店日付' end %>
               <div class="form-group">
                 <% visited_date_err = true if visited_log.errors.include?(:visited_date) %>
-                <%= f.select :year, ((Date.today - 1.year).year.to_i..Date.today.year.to_i).each{|num| num.to_s.rjust(2, '0') }, { include_blank: '年' }, class: "form-control custom-select col-2 d-inline #{ visited_date_err ? 'is-invalid' : '' }" %>
-                <%= f.select :month, (1..12).map{|num| num.to_s.rjust(2, '0') }, { include_blank: '月' }, class: "form-control custom-select col-2 d-inline #{ visited_date_err ? 'is-invalid' : '' }" %>
-                <%= f.select :day, (1..31).map{|num| num.to_s.rjust(2, '0') }, { include_blank: '日' }, class: "form-control custom-select col-2 d-inline #{ visited_date_err ? 'is-invalid' : '' }" %>
+                <%= f.select :year, ((Date.today - 1.year).year.to_i..Date.today.year.to_i).each{|num| num.to_s.rjust(2, '0') }, { include_blank: false }, class: "form-control custom-select col-2 d-inline #{ visited_date_err ? 'is-invalid' : '' }" %>
+                年<%= f.select :month, (1..12).map{|num| num.to_s.rjust(2, '0') }, { include_blank: false }, class: "form-control custom-select col-2 d-inline #{ visited_date_err ? 'is-invalid' : '' }" %>
+                月<%= f.select :day, (1..31).map{|num| num.to_s.rjust(2, '0') }, { include_blank: false }, class: "form-control custom-select col-2 d-inline #{ visited_date_err ? 'is-invalid' : '' }" %>日
                 <% if visited_date_err %>
                   <span class="error invalid-feedback"><%= visited_log.errors.full_messages_for(:visited_date).first %></span>
                 <% end %>

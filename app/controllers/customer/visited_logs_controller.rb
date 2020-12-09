@@ -3,7 +3,12 @@ class Customer::VisitedLogsController < ApplicationController
   before_action :get_visited_log, only: [:show, :edit, :update, :delete]
 
   def new
-    @visited_log = @customer.visited_logs.new
+    today = Date.today
+    @visited_log = @customer.visited_logs.new(
+      year: today.year.to_s,
+      month: today.month.to_s.rjust(2, '0'),
+      day: today.day.to_s.rjust(2, '0')
+    )
   end
 
   def create
@@ -46,7 +51,7 @@ class Customer::VisitedLogsController < ApplicationController
     end
 
     def get_visited_log
-      @visited_log ||=get_customer.visited_logs.find(params[:id])
+      @visited_log ||= get_customer.visited_logs.find(params[:id])
     end
 
     def visited_log_params
