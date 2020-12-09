@@ -10,7 +10,7 @@ class Public::HomesController < ApplicationController
     # 未ログインユーザーの場合
     if current_user.blank?
       render action: :index_for_tenant_promotion
-    # 管理者、オーナー、店舗スタッフ
+    # 管理者、オーナー、スタッフ
     elsif current_user.system_admin? || current_user.owner? || current_user.staff?
       render action: :index_for_system
     # 顧客ユーザーの場合
