@@ -99,7 +99,7 @@
 
           <div class="col-md-3 mb-2">
             <div class="input-group">
-              <%= f.submit "検　索", { class: 'btn btn-success rounded-pill' } %>
+              <%= f.submit '検　索', class: 'btn btn-success rounded-pill', data: { disable_with: '検索中...' } %>
               <a href="javascript: void(0)" id="clear_button" class="ml-2 btn btn-outline-primary rounded-pill">クリア</a>
               <%= javascript_tag do %>
                 $(function() {
