@@ -135,3 +135,6 @@ ja:
   public:
     homes:
       to_login: To Login
+      index_for_system:
+        customer_count: 顧客数
+        line_notify: LINE通知

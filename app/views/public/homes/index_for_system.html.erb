@@ -10,7 +10,7 @@
           </span>
 
           <div class="info-box-content">
-            <span class="info-box-text">顧客数</span>
+            <span class="info-box-text"><%= t('.customer_count') %></span>
             <span class="info-box-number"><%= @company.customers.size() %><small>人</small></span>
           </div>
         </div>
@@ -21,7 +21,8 @@
           <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-cog"></i></span>
 
           <div class="info-box-content">
-            <span class="info-box-text">LINE通知</span>
+            <span class="info-box-text"><%= t('.line_notify') %></span>
+            <span class="info-box-number"><%= @company.customers.size() %></span>
             <span class="info-box-number">
               <%= @company.get_current_month_line_message_count.to_s(:delimited) %>
               <small>/<%= @company.limit_line_message_count.to_s(:delimited) %></small>
