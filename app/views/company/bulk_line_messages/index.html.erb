@@ -66,9 +66,18 @@
                     });
                   <% end %>
 
-                  <th><%= Customer.human_attribute_name(:name) %></th>
-                  <th><%= Customer.human_attribute_name(:gender) %></th>
-                  <th><%= Customer.human_attribute_name(:age) %></th>
+                  <% if @company.is_input_customer_name? %>
+                    <th><%= Customer.human_attribute_name(:name) %></th>
+                  <% end %>
+
+                  <% if @company.is_input_customer_gender? %>
+                    <th><%= Customer.human_attribute_name(:gender) %></th>
+                  <% end %>
+
+                  <% if @company.is_input_customer_birthday? %>
+                    <th><%= Customer.human_attribute_name(:age) %></th>
+                  <% end %>
+
                   <th><%= Customer.human_attribute_name(:last_vist_date) %></th>
                 </tr>
               </thead>
@@ -78,15 +87,25 @@
                   <td>
                     <input type="checkbox" id="scales" name="user_ids[]" value="<%= customer.user.id %>" class="select_customer" />
                   </td>
-                  <td><%= customer.name %></td>
-                  <td>
-                    <% if customer.women? %>
-                      <i class="fas fa-venus text-red"></i>
-                    <% elsif customer.men? %>
-                      <i class="fas fa-mars text-black"></i>
-                    <% end %>
-                  </td>
-                  <td><%= customer.age %></td>
+
+                  <% if @company.is_input_customer_name? %>
+                    <td><%= customer.name %></td>
+                  <% end %>
+
+                  <% if @company.is_input_customer_gender? %>
+                    <td>
+                      <% if customer.women? %>
+                        <i class="fas fa-venus text-red"></i>
+                      <% elsif customer.men? %>
+                        <i class="fas fa-mars text-black"></i>
+                      <% end %>
+                    </td>
+                  <% end %>
+
+                  <% if @company.is_input_customer_birthday? %>
+                    <td><%= customer.age %></td>
+                  <% end %>
+
                   <td><%= customer.last_vist_date %></td>
                 </tr>
                 <% end %>

@@ -10,137 +10,149 @@
           <%= form_with(model: customer, url: url, local: true) do |f| %>
             <div class="card-body">
 
-              <div class="form-group">
-                <% name_err = true if customer.errors.include?(:name) %>
-                <%= f.label :name %>
-                <%= f.text_field :name, { class: "form-control #{ name_err ? 'is-invalid' : '' }", placeholder: '名前' } %>
-                <% if name_err %>
-                  <span class="error invalid-feedback"><%= customer.errors.full_messages_for(:name).first %></span>
-                <% end %>
-              </div>
-
-              <div class="form-group">
-                <% name_kana_err = true if customer.errors.include?(:name_kana) %>
-                <%= f.label :name_kana %>
-                <%= f.text_field :name_kana, { class: "form-control #{ name_kana_err ? 'is-invalid' : '' }", placeholder: '名前（カナ）' } %>
-                <% if name_kana_err %>
-                  <span class="error invalid-feedback"><%= customer.errors.full_messages_for(:name_kana).first %></span>
-                <% end %>
-              </div>
-
-              <div class="form-group">
-                <% gender_err = true if customer.errors.include?(:gender) %>
-
-                <%= f.label :gender , { class: "#{ gender_err ? 'is-invalid' : '' }" } %><br />
-
-                <div class="form-check form-check-inline">
-                  <%= f.radio_button :gender, :men, class: 'form-check-input', checked: "#{ 'checked' if f.object.men? }" %>
-                  <%= f.label :gender, Customer.human_attribute_name("gender.men"), value: :men, class: 'form-check-label' %>
+              <% if @company.is_input_customer_name? %>
+                <div class="form-group">
+                  <% name_err = true if customer.errors.include?(:name) %>
+                  <%= f.label :name %>
+                  <%= f.text_field :name, { class: "form-control #{ name_err ? 'is-invalid' : '' }", placeholder: t('.name') } %>
+                  <% if name_err %>
+                    <span class="error invalid-feedback"><%= customer.errors.full_messages_for(:name).first %></span>
+                  <% end %>
                 </div>
+              <% end %>
 
-                <div class="form-check form-check-inline">
-                  <%= f.radio_button :gender, :women, class: 'form-check-input', checked: "#{ 'checked' if f.object.women? }" %>
-                  <%= f.label :gender, Customer.human_attribute_name("gender.women"), value: :women, class: 'form-check-label' %>
+              <% if @company.is_input_customer_name_kana? %>
+                <div class="form-group">
+                  <% name_kana_err = true if customer.errors.include?(:name_kana) %>
+                  <%= f.label :name_kana %>
+                  <%= f.text_field :name_kana, { class: "form-control #{ name_kana_err ? 'is-invalid' : '' }", placeholder: t('.name_kana') } %>
+                  <% if name_kana_err %>
+                    <span class="error invalid-feedback"><%= customer.errors.full_messages_for(:name_kana).first %></span>
+                  <% end %>
                 </div>
-                <% if gender_err %>
-                  <span class="error invalid-feedback"><%= customer.errors.full_messages_for(:gender).first %></span>
-                <% end %>
-              </div>
+              <% end %>
 
-              <div class="form-group">
-                <% tel_number_err = true if customer.errors.include?(:tel_number) %>
-                <%= f.label :tel_number, { class: "#{ tel_number_err ? 'is-invalid' : '' }" } %>
-                <div class="form-row align-items-center">
-                  <div class="col-3">
-                    <%= f.telephone_field :tel_number1, {
-                      maxlength:3,
-                      class: "form-control #{ tel_number_err ? 'is-invalid' : '' }",
-                      onKeyup: "this.value=this.value.replace(/[^0-9]+/i,''); nextField(this, 'customer_tel_number2', 3)"
-                    } %>
+              <% if @company.is_input_customer_gender? %>
+                <div class="form-group">
+                  <% gender_err = true if customer.errors.include?(:gender) %>
+
+                  <%= f.label :gender , { class: "#{ gender_err ? 'is-invalid' : '' }" } %><br />
+
+                  <div class="form-check form-check-inline">
+                    <%= f.radio_button :gender, :men, class: 'form-check-input', checked: "#{ 'checked' if f.object.men? }" %>
+                    <%= f.label :gender, Customer.human_attribute_name("gender.men"), value: :men, class: 'form-check-label' %>
                   </div>
-                  <div class="col-3">
-                    <%= f.telephone_field :tel_number2, {
-                      maxlength:4,
-                      class: "form-control #{ tel_number_err ? 'is-invalid' : '' }",
-                      onKeyup: "this.value=this.value.replace(/[^0-9]+/i,''); nextField(this, 'customer_tel_number3', 4)"
-                    } %>
+
+                  <div class="form-check form-check-inline">
+                    <%= f.radio_button :gender, :women, class: 'form-check-input', checked: "#{ 'checked' if f.object.women? }" %>
+                    <%= f.label :gender, Customer.human_attribute_name("gender.women"), value: :women, class: 'form-check-label' %>
                   </div>
-                  <div class="col-3">
-                    <%= f.telephone_field :tel_number3, {
-                      maxlength:4,
-                      class: "form-control #{ tel_number_err ? 'is-invalid' : '' }",
-                      onKeyup: "this.value=this.value.replace(/[^0-9]+/i,'')"
-                    } %>
-                  </div>
+                  <% if gender_err %>
+                    <span class="error invalid-feedback"><%= customer.errors.full_messages_for(:gender).first %></span>
+                  <% end %>
                 </div>
-                <span class="error invalid-feedback"><%= customer.errors.full_messages_for(:tel_number).first %></span>
-              </div>
+              <% end %>
 
-              <div class="form-group">
-                <%= f.label :birthday %>
-                <div >
-                <%= raw sprintf(f.date_select(
-                                  :birthday,
-                                  {
-                                    with_css_classes: true,
-                                    use_month_numbers: true,
-                                    start_year: 1940,
-                                    end_year: (Time.now.year),
-                                    default: Date.today - 20.years,
-                                    date_separator: '%s',
-                                    class: 'form-control',
-                                  }),
-                                '年 ', '月 ') + '日'
-                %>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <% postal_code_err = true if customer.errors.include?(:postal_code) %>
-                <%= f.label :postal_code, { class: "#{ postal_code_err ? 'is-invalid' : '' }" } %>
-                <div class="form-row align-items-center">
-                  <div class="col-3">
-                    <%= f.telephone_field :postal_code1, {
-                      maxlength:3,
-                      class: "form-control #{ postal_code_err ? 'is-invalid' : '' }",
-                      onKeyup: "this.value=this.value.replace(/[^0-9]+/i,''); nextField(this, 'customer_postal_code2', 3)"
-                    } %>
+              <% if @company.is_input_customer_tel_number? %>
+                <div class="form-group">
+                  <% tel_number_err = true if customer.errors.include?(:tel_number) %>
+                  <%= f.label :tel_number, { class: "#{ tel_number_err ? 'is-invalid' : '' }" } %>
+                  <div class="form-row align-items-center">
+                    <div class="col-3">
+                      <%= f.telephone_field :tel_number1, {
+                        maxlength:3,
+                        class: "form-control #{ tel_number_err ? 'is-invalid' : '' }",
+                        onKeyup: "this.value=this.value.replace(/[^0-9]+/i,''); nextField(this, 'customer_tel_number2', 3)"
+                      } %>
+                    </div>
+                    <div class="col-3">
+                      <%= f.telephone_field :tel_number2, {
+                        maxlength:4,
+                        class: "form-control #{ tel_number_err ? 'is-invalid' : '' }",
+                        onKeyup: "this.value=this.value.replace(/[^0-9]+/i,''); nextField(this, 'customer_tel_number3', 4)"
+                      } %>
+                    </div>
+                    <div class="col-3">
+                      <%= f.telephone_field :tel_number3, {
+                        maxlength:4,
+                        class: "form-control #{ tel_number_err ? 'is-invalid' : '' }",
+                        onKeyup: "this.value=this.value.replace(/[^0-9]+/i,'')"
+                      } %>
+                    </div>
                   </div>
-                  <div class="col-4">
-                    <%= f.telephone_field :postal_code2, {
-                      maxlength:4,
-                      class: "form-control #{ postal_code_err ? 'is-invalid' : '' }",
-                      onKeyup: "this.value=this.value.replace(/[^0-9]+/i,'');"
-                    } %>
+                  <span class="error invalid-feedback"><%= customer.errors.full_messages_for(:tel_number).first %></span>
+                </div>
+              <% end %>
+
+              <% if @company.is_input_customer_birthday? %>
+                <div class="form-group">
+                  <%= f.label :birthday %>
+                  <div >
+                  <%= raw sprintf(f.date_select(
+                                    :birthday,
+                                    {
+                                      with_css_classes: true,
+                                      use_month_numbers: true,
+                                      start_year: 1940,
+                                      end_year: (Time.now.year),
+                                      default: Date.today - 20.years,
+                                      date_separator: '%s',
+                                      class: 'form-control',
+                                    }),
+                                  '年 ', '月 ') + '日'
+                  %>
                   </div>
                 </div>
-                <span class="error invalid-feedback"><%= customer.errors.full_messages_for(:postal_code).first %></span>
-              </div>
+              <% end %>
 
-              <div class="form-group">
-                <%= f.label :prefecture %>
-                <%= f.text_field :prefecture, { class: 'form-control' } %>
-              </div>
+              <% if @company.is_input_customer_address? %>
+                <div class="form-group">
+                  <% postal_code_err = true if customer.errors.include?(:postal_code) %>
+                  <%= f.label :postal_code, { class: "#{ postal_code_err ? 'is-invalid' : '' }" } %>
+                  <div class="form-row align-items-center">
+                    <div class="col-3">
+                      <%= f.telephone_field :postal_code1, {
+                        maxlength:3,
+                        class: "form-control #{ postal_code_err ? 'is-invalid' : '' }",
+                        onKeyup: "this.value=this.value.replace(/[^0-9]+/i,''); nextField(this, 'customer_postal_code2', 3)"
+                      } %>
+                    </div>
+                    <div class="col-4">
+                      <%= f.telephone_field :postal_code2, {
+                        maxlength:4,
+                        class: "form-control #{ postal_code_err ? 'is-invalid' : '' }",
+                        onKeyup: "this.value=this.value.replace(/[^0-9]+/i,'');"
+                      } %>
+                    </div>
+                  </div>
+                  <span class="error invalid-feedback"><%= customer.errors.full_messages_for(:postal_code).first %></span>
+                </div>
 
-              <div class="form-group">
-                <%= f.label :city %>
-                <%= f.text_field :city, { class: 'form-control' } %>
-              </div>
+                <div class="form-group">
+                  <%= f.label :prefecture %>
+                  <%= f.text_field :prefecture, { class: 'form-control' } %>
+                </div>
 
-              <div class="form-group">
-                <%= f.label :address1 %>
-                <%= f.text_field :address1, { class: 'form-control' } %>
-              </div>
+                <div class="form-group">
+                  <%= f.label :city %>
+                  <%= f.text_field :city, { class: 'form-control' } %>
+                </div>
 
-              <div class="form-group">
-                <%= f.label :address2 %>
-                <%= f.text_field :address2, { class: 'form-control' } %>
-              </div>
+                <div class="form-group">
+                  <%= f.label :address1 %>
+                  <%= f.text_field :address1, { class: 'form-control' } %>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :address2 %>
+                  <%= f.text_field :address2, { class: 'form-control' } %>
+                </div>
+              <% end %>
             </div>
 
             <div class="card-footer">
-              <%= f.submit class: 'btn btn-primary', data: { confirm: '送信してよろしいですか?', disable_with: '　送信中...　' } %>
-              <%= link_to('　削除　', customer_path(@company.code, customer), method: :delete, class: 'btn btn-sm btn-danger float-right', data: { confirm: "削除してよろしいですか？" }) if customer.persisted? %>
+              <%= f.submit class: 'btn btn-primary', data: { confirm: t('.submit_confirm'), disable_with: t('.submit_disable_with') } %>
+              <%= link_to(t('.delete_link'), customer_path(@company.code, customer), method: :delete, class: 'btn btn-sm btn-danger float-right', data: { confirm: t('.delete_confirm') }) if customer.persisted? %>
             </div>
           <% end %>
         </div>

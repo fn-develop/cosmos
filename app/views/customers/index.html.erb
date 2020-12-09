@@ -216,9 +216,19 @@
               <thead>
                 <tr>
                   <th>#</th>
-                  <th><%= Customer.human_attribute_name(:name) %></th>
-                  <th><%= Customer.human_attribute_name(:gender) %></th>
-                  <th><%= Customer.human_attribute_name(:age) %></th>
+
+                  <% if @company.is_input_customer_name? %>
+                    <th><%= Customer.human_attribute_name(:name) %></th>
+                  <% end %>
+
+                  <% if @company.is_input_customer_gender? %>
+                    <th><%= Customer.human_attribute_name(:gender) %></th>
+                  <% end %>
+
+                  <% if @company.is_input_customer_birthday? %>
+                    <th><%= Customer.human_attribute_name(:age) %></th>
+                  <% end %>
+
                   <th><%= Customer.human_attribute_name(:last_vist_date) %></th>
                   <th><%= Customer.human_attribute_name(:introducer) %></th>
                 </tr>
@@ -238,17 +248,26 @@
                       <% end %>
                     <% end %>
                   </td>
-                  <td class="text-nowrap">
-                    <%= link_to customer.name.to_s, customer_path(@company.code, customer), { class: 'text-info' } %>
-                  </td>
-                  <td class="align-middle">
-                    <% if customer.women? %>
-                      <i class="fas fa-venus text-red"></i>
-                    <% elsif customer.men? %>
-                      <i class="fas fa-mars text-black"></i>
-                    <% end %>
-                  </td>
-                  <td class="align-middle"><%= customer.age %></td>
+
+                  <% if @company.is_input_customer_name? %>
+                    <td class="text-nowrap">
+                      <%= link_to customer.name.to_s, customer_path(@company.code, customer), { class: 'text-info' } %>
+                    </td>
+                  <% end %>
+
+                  <% if @company.is_input_customer_gender? %>
+                    <td class="align-middle">
+                      <% if customer.women? %>
+                        <i class="fas fa-venus text-red"></i>
+                      <% elsif customer.men? %>
+                        <i class="fas fa-mars text-black"></i>
+                      <% end %>
+                    </td>
+                  <% end %>
+
+                  <% if @company.is_input_customer_birthday? %>
+                    <td class="align-middle"><%= customer.age %></td>
+                  <% end %>
                   <td class="align-middle"><%= customer.last_vist_date %></td>
                   <td class="align-middle"><%= link_to customer.introducer.name.to_s, customer_path(@company.code, customer.introducer), { class: 'text-info' } if customer.introducer %></td>
                 </tr>

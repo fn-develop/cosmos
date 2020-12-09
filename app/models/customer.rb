@@ -44,11 +44,11 @@ class Customer < ApplicationRecord
   after_find :split_tel_number, :split_postal_code, :set_random_invite_code
   before_validation :join_tel_numbers, :join_postal_codes
 
-  validates :name, presence: true
-  validates :name_kana, presence: true
-  validates :gender, presence: true
-  validates :tel_number, presence: true, length: { is: 11 }, numericality: { only_integer: true }
-  validates :postal_code, presence: true, length: { is: 7 }, numericality: { only_integer: true }
+  validates :name, presence: true, if: -> { company.try(:is_input_customer_name?) }
+  validates :name_kana, presence: true, if: -> { company.try(:is_input_customer_name_kana?) }
+  validates :gender, presence: true, if: -> { company.try(:is_input_customer_gender?) }
+  validates :tel_number, presence: true, length: { is: 11 }, numericality: { only_integer: true }, if: -> { company.try(:is_input_customer_tel_number?) }
+  validates :postal_code, presence: true, length: { is: 7 }, numericality: { only_integer: true }, if: -> { company.try(:is_input_customer_address?) }
   validates_uniqueness_of :tel_number, scope: :company_id, if: -> { self.tel_number.present? }
 
   def line?
@@ -56,11 +56,11 @@ class Customer < ApplicationRecord
   end
 
   def formatted_tel_number
-    self[:tel_number].gsub(/(\d{3})(\d{4})(\d{4})/, '\1-\2-\3')
+    self[:tel_number].to_s.gsub(/(\d{3})(\d{4})(\d{4})/, '\1-\2-\3')
   end
 
   def formatted_postal_code
-    self[:postal_code].gsub(/(\d{3})(\d{4})/, '\1-\2')
+    self[:postal_code].to_s.gsub(/(\d{3})(\d{4})/, '\1-\2')
   end
 
   def all_address

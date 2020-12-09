@@ -33,7 +33,8 @@
         dataType : 'script',
       });
     }
-    <% if Rails.env != :development %>
+
+    <% if Rails.env != "development" %>
       setInterval(reloadNotifyArea, 5000);
     <% end %>
   });

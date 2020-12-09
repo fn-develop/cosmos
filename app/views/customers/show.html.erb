@@ -30,37 +30,63 @@
               <tr>
                 <th class="text-nowrap" style="width: 10px"><%= Customer.human_attribute_name(:id) %></th>
                 <td><%= @customer.id %></td>
-              </tr><tr>
-                <th class="text-nowrap"><%= Customer.human_attribute_name(:name) %></th>
-                <td><%= @customer.name.to_s %></td>
-              </tr><tr>
-                <th class="text-nowrap"><%= Customer.human_attribute_name(:name_kana) %></th>
-                <td><%= @customer.name_kana.to_s %></td>
-              </tr><tr>
-                <th class="text-nowrap"><%= Customer.human_attribute_name(:gender) %></th>
-                <td><%= Customer.human_attribute_name("gender.#{ @customer.gender }") %></td>
-              </tr><tr>
-                <th class="text-nowrap"><%= Customer.human_attribute_name(:tel_number) %></th>
-                <td><%= @customer.formatted_tel_number.to_s %></td>
-              </tr><tr>
-                <th class="text-nowrap"><%= Customer.human_attribute_name(:birthday) %></th>
-                <td><%= @customer.birthday.strftime("%Y年%m月%d日") if @customer.birthday %></td>
-              </tr><tr>
-                <th class="text-nowrap"><%= Customer.human_attribute_name(:postal_code) %></th>
-                <td><%= @customer.formatted_postal_code %></td>
-              </tr><tr>
-                <th class="text-nowrap"><%= Customer.human_attribute_name(:prefecture) %></th>
-                <td><%= @customer.prefecture %></td>
-              </tr><tr>
-                <th class="text-nowrap"><%= Customer.human_attribute_name(:city) %></th>
-                <td><%= @customer.city %></td>
-              </tr><tr>
-                <th class="text-nowrap"><%= Customer.human_attribute_name(:address1) %></th>
-                <td><%= @customer.address1 %></td>
-              </tr><tr>
-                <th class="text-nowrap"><%= Customer.human_attribute_name(:address2) %></th>
-                <td><%= @customer.address2 %></td>
-              </tr><tr>
+              </tr>
+
+              <% if @company.is_input_customer_name? %>
+                <tr>
+                  <th class="text-nowrap"><%= Customer.human_attribute_name(:name) %></th>
+                  <td><%= @customer.name.to_s %></td>
+                </tr>
+              <% end %>
+
+              <% if @company.is_input_customer_name_kana? %>
+                <tr>
+                  <th class="text-nowrap"><%= Customer.human_attribute_name(:name_kana) %></th>
+                  <td><%= @customer.name_kana.to_s %></td>
+                </tr>
+              <% end %>
+
+              <% if @company.is_input_customer_gender? %>
+                <tr>
+                  <th class="text-nowrap"><%= Customer.human_attribute_name(:gender) %></th>
+                  <td><%= Customer.human_attribute_name("gender.#{ @customer.gender }") %></td>
+                </tr>
+              <% end %>
+
+              <% if @company.is_input_customer_tel_number? %>
+                <tr>
+                  <th class="text-nowrap"><%= Customer.human_attribute_name(:tel_number) %></th>
+                  <td><%= @customer.formatted_tel_number.to_s %></td>
+                </tr>
+              <% end %>
+
+              <% if @company.is_input_customer_birthday? %>
+                <tr>
+                  <th class="text-nowrap"><%= Customer.human_attribute_name(:birthday) %></th>
+                  <td><%= @customer.birthday.strftime("%Y年%m月%d日") if @customer.birthday %></td>
+                </tr>
+              <% end %>
+
+              <% if @company.is_input_customer_address? %>
+                <tr>
+                  <th class="text-nowrap"><%= Customer.human_attribute_name(:postal_code) %></th>
+                  <td><%= @customer.formatted_postal_code %></td>
+                </tr><tr>
+                  <th class="text-nowrap"><%= Customer.human_attribute_name(:prefecture) %></th>
+                  <td><%= @customer.prefecture %></td>
+                </tr><tr>
+                  <th class="text-nowrap"><%= Customer.human_attribute_name(:city) %></th>
+                  <td><%= @customer.city %></td>
+                </tr><tr>
+                  <th class="text-nowrap"><%= Customer.human_attribute_name(:address1) %></th>
+                  <td><%= @customer.address1 %></td>
+                </tr><tr>
+                  <th class="text-nowrap"><%= Customer.human_attribute_name(:address2) %></th>
+                  <td><%= @customer.address2 %></td>
+                </tr>
+              <% end %>
+
+              <tr>
                 <th class="text-nowrap"><%= Customer.human_attribute_name(:introducer) %></th>
                 <td><%= link_to @customer.introducer.name.to_s, customer_path(@company.code, @customer.introducer), { class: 'text-info' } if @customer.introducer %>&nbsp;<a href="javascript:void(0)" id="change_introducer_button", class="btn btn-default float-right"><i class="fas fa-user-edit text-primary foloat-right"></i></a></td>
               </tr>
