@@ -7,13 +7,13 @@
             <h3 class="card-title">ログイン情報を入力してください。 <small></small></h3>
           </div>
 
-          <%= form_with(model: user, url: url, local: true) do |form| %>
+          <%= form_with(model: user, url: url, local: true) do |f| %>
             <div class="card-body">
 
               <div class="form-group">
                 <% email_err = true if user.errors.include?(:email) %>
-                <%= form.label :email %>
-                <%= form.text_field :email, { class: "form-control #{ email_err ? 'is-invalid' : '' }", placeholder: 'xxx@examole.com', maxlength: 100 } %>
+                <%= f.label :email %>
+                <%= f.text_field :email, { class: "form-control #{ email_err ? 'is-invalid' : '' }", placeholder: 'xxx@examole.com', maxlength: 100 } %>
                 <% if email_err %>
                   <span class="error invalid-feedback"><%= user.errors.full_messages_for(:email).first %></span>
                 <% end %>
@@ -21,8 +21,8 @@
 
               <div class="form-group">
                 <% password_err = true if user.errors.include?(:password) %>
-                <%= form.label :password %>
-                <%= form.password_field :password, { class: "form-control #{ password_err ? 'is-invalid' : '' }", placeholder: '********', maxlength: 20 } %>
+                <%= f.label :password %>
+                <%= f.password_field :password, { class: "form-control #{ password_err ? 'is-invalid' : '' }", placeholder: '********', maxlength: 20 } %>
                 <% if password_err %>
                   <span class="error invalid-feedback"><%= user.errors.full_messages_for(:password).first %></span>
                 <% end %>
@@ -30,7 +30,7 @@
             </div>
 
             <div class="card-footer">
-              <%= form.submit class: 'btn btn-primary', data: { confirm: 'よろしいですか?' } %>
+              <%= f.submit class: 'btn btn-primary', data: { confirm: 'よろしいですか?' } %>
             </div>
           <% end %>
         </div>

@@ -7,12 +7,12 @@
             <h3 class="card-title">システム項目を入力してください。 <small></small></h3>
           </div>
 
-          <%= form_with(model: item, url: url, local: true) do |form| %>
+          <%= form_with(model: item, url: url, local: true) do |f| %>
             <div class="card-body">
               <div class="form-group">
                 <% code_err = true if item.errors.include?(:code) %>
-                <%= form.label :code %>
-                <%= form.text_field :code, { class: "form-control #{ code_err ? 'is-invalid' : '' }" , placeholder: 'xxxx', maxlength: 20 } %>
+                <%= f.label :code %>
+                <%= f.text_field :code, { class: "form-control #{ code_err ? 'is-invalid' : '' }" , placeholder: 'xxxx', maxlength: 20 } %>
                 <% if code_err %>
                   <span class="error invalid-feedback"><%= item.errors.full_messages_for(:code).first %></span>
                 <% end %>
@@ -20,8 +20,8 @@
 
               <div class="form-group">
                 <% name_err = true if item.errors.include?(:name) %>
-                <%= form.label :name %>
-                <%= form.text_field :name, { class: "form-control #{ name_err ? 'is-invalid' : '' }", placeholder: 'コード名称', maxlength: 20 } %>
+                <%= f.label :name %>
+                <%= f.text_field :name, { class: "form-control #{ name_err ? 'is-invalid' : '' }", placeholder: 'コード名称', maxlength: 20 } %>
                 <% if name_err %>
                   <span class="error invalid-feedback"><%= item.errors.full_messages_for(:name).first %></span>
                 <% end %>
@@ -29,7 +29,7 @@
             </div>
 
             <div class="card-footer">
-              <%= form.submit class: 'btn btn-primary', data: { confirm: 'よろしいですか?' } %>
+              <%= f.submit class: 'btn btn-primary', data: { confirm: 'よろしいですか?' } %>
 
               <%= link_to('　削除　', company_item_path(@company.code, item), method: :delete, class: 'btn btn-sm btn-danger float-right', data: { confirm: "削除してよろしいですか？" }) if item.persisted? %>
             </div>

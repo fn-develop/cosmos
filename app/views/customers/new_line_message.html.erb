@@ -80,14 +80,14 @@
       </div>
 
       <div class="card-footer">
-        <%= form_with(model: @line_message, url: send_line_message_customer_path(@customer, company_code: @company.code),local: true) do |form| %>
-          <%= form.hidden_field :user_id %>
+        <%= form_with(model: @line_message, url: send_line_message_customer_path(@customer, company_code: @company.code),local: true) do |f| %>
+          <%= f.hidden_field :user_id %>
 
           <div class="form-group">
-            <%= form.text_area :message, { class: 'form-control', placeholder: 'メッセージを入力してください。', maxlength: 240, rows: 4, required: true } %>
+            <%= f.text_area :message, { class: 'form-control', placeholder: 'メッセージを入力してください。', maxlength: 240, rows: 4, required: true } %>
           </div>
 
-          <%= form.submit class: 'btn btn-primary', value: '　送　信　', data: {disable_with: '　送信中...　'} %>
+          <%= f.submit class: 'btn btn-primary', value: '　送　信　', data: {disable_with: '　送信中...　'} %>
         <% end %>
       </div>
     </div>

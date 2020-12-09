@@ -7,19 +7,19 @@
             <h3 class="card-title">店舗情報を入力してください。 <small></small></h3>
           </div>
 
-          <%= form_with(model: company, url: url, local: true) do |form| %>
+          <%= form_with(model: company, url: url, local: true) do |f| %>
             <div class="card-body">
               <div class="form-group">
-                <%= form.label :code %>
-                <%= form.text_field :code, { class: "form-control" , placeholder: '店舗コード', maxlength: 100, readonly: true } %>
+                <%= f.label :code %>
+                <%= f.text_field :code, { class: "form-control" , placeholder: '店舗コード', maxlength: 100, readonly: true } %>
                 <small>*店舗コードは変更できません。</small>
 
               </div>
 
               <div class="form-group">
                 <% name_err = true if company.errors.include?(:name) %>
-                <%= form.label :name %>
-                <%= form.text_field :name, { class: "form-control #{ name_err ? 'is-invalid' : '' }", placeholder: '店舗名', maxlength: 100 } %>
+                <%= f.label :name %>
+                <%= f.text_field :name, { class: "form-control #{ name_err ? 'is-invalid' : '' }", placeholder: '店舗名', maxlength: 100 } %>
                 <% if name_err %>
                   <span class="error invalid-feedback"><%= company.errors.full_messages_for(:name).first %></span>
                 <% end %>
@@ -27,12 +27,12 @@
 
               <div class="form-group">
                 <% logo_err = true if company.errors.include?(:logo) %>
-                <%= form.label :logo %>
+                <%= f.label :logo %>
 
                 <div class="input-group">
                   <div class="custom-file <%= logo_err ? 'is-invalid' : '' %>">
-                    <%= form.file_field :logo, { class: "custom-file-input #{ logo_err ? 'is-invalid' : '' }", accept: 'image/jpeg,image/gif,image/png' } %>
-                    <%= form.label :logo, { id: 'company_logo-label', class: 'custom-file-label', 'data-browse': '参照' }  do %>
+                    <%= f.file_field :logo, { class: "custom-file-input #{ logo_err ? 'is-invalid' : '' }", accept: 'image/jpeg,image/gif,image/png' } %>
+                    <%= f.label :logo, { id: 'company_logo-label', class: 'custom-file-label', 'data-browse': '参照' }  do %>
                       ロゴファイルを選択(ここにドロップすることもできます)
                     <% end %>
                   </div>
@@ -49,12 +49,12 @@
 
               <div class="form-group">
                 <% line_qr_code_err = true if company.errors.include?(:line_qr_code) %>
-                <%= form.label :line_qr_code %>
+                <%= f.label :line_qr_code %>
 
                 <div class="input-group">
                   <div class="custom-file <%= line_qr_code_err ? 'is-invalid' : '' %>">
-                    <%= form.file_field :line_qr_code, { class: "custom-file-input #{ line_qr_code_err ? 'is-invalid' : '' }", accept: 'image/jpeg,image/gif,image/png' } %>
-                    <%= form.label :line_qr_code, { id: 'company_line_qr_code-label', class: 'custom-file-label', 'data-browse': '参照' }  do %>
+                    <%= f.file_field :line_qr_code, { class: "custom-file-input #{ line_qr_code_err ? 'is-invalid' : '' }", accept: 'image/jpeg,image/gif,image/png' } %>
+                    <%= f.label :line_qr_code, { id: 'company_line_qr_code-label', class: 'custom-file-label', 'data-browse': '参照' }  do %>
                       LINE QRコードファイルを選択(ここにドロップすることもできます)
                     <% end %>
                   </div>
@@ -89,8 +89,8 @@
 
               <div class="form-group">
                 <% visit_confirmation_code_err = true if company.errors.include?(:visit_confirmation_code) %>
-                <%= form.label :visit_confirmation_code %>
-                <%= form.text_field :visit_confirmation_code, { class: "form-control #{ visit_confirmation_code_err ? 'is-invalid' : '' }", placeholder: 'チャネルシークレット', minlength: 4, maxlength: 4, required: true } %>
+                <%= f.label :visit_confirmation_code %>
+                <%= f.text_field :visit_confirmation_code, { class: "form-control #{ visit_confirmation_code_err ? 'is-invalid' : '' }", placeholder: 'チャネルシークレット', minlength: 4, maxlength: 4, required: true } %>
                 <small>*設定から24時間おきに変更されます。</small>
                 <% if visit_confirmation_code_err %>
                   <span class="error invalid-feedback"><%= company.errors.full_messages_for(:visit_confirmation_code).first %></span>
@@ -100,7 +100,7 @@
             </div>
 
             <div class="card-footer">
-              <%= form.submit class: 'btn btn-primary', data: { confirm: 'よろしいですか?' } %>
+              <%= f.submit class: 'btn btn-primary', data: { confirm: 'よろしいですか?' } %>
               <a href="<%= company_setting_path %>" class="btn btn-default float-right">　戻る　</a>
             </div>
           <% end %>

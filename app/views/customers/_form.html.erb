@@ -7,13 +7,13 @@
             <h3 class="card-title">登録情報を入力してください。 <small></small></h3>
           </div>
 
-          <%= form_with(model: customer, url: url, local: true) do |form| %>
+          <%= form_with(model: customer, url: url, local: true) do |f| %>
             <div class="card-body">
 
               <div class="form-group">
                 <% name_err = true if customer.errors.include?(:name) %>
-                <%= form.label :name %>
-                <%= form.text_field :name, { class: "form-control #{ name_err ? 'is-invalid' : '' }", placeholder: '名前' } %>
+                <%= f.label :name %>
+                <%= f.text_field :name, { class: "form-control #{ name_err ? 'is-invalid' : '' }", placeholder: '名前' } %>
                 <% if name_err %>
                   <span class="error invalid-feedback"><%= customer.errors.full_messages_for(:name).first %></span>
                 <% end %>
@@ -21,8 +21,8 @@
 
               <div class="form-group">
                 <% name_kana_err = true if customer.errors.include?(:name_kana) %>
-                <%= form.label :name_kana %>
-                <%= form.text_field :name_kana, { class: "form-control #{ name_kana_err ? 'is-invalid' : '' }", placeholder: '名前（カナ）' } %>
+                <%= f.label :name_kana %>
+                <%= f.text_field :name_kana, { class: "form-control #{ name_kana_err ? 'is-invalid' : '' }", placeholder: '名前（カナ）' } %>
                 <% if name_kana_err %>
                   <span class="error invalid-feedback"><%= customer.errors.full_messages_for(:name_kana).first %></span>
                 <% end %>
@@ -31,16 +31,16 @@
               <div class="form-group">
                 <% gender_err = true if customer.errors.include?(:gender) %>
 
-                <%= form.label :gender , { class: "#{ gender_err ? 'is-invalid' : '' }" } %><br />
+                <%= f.label :gender , { class: "#{ gender_err ? 'is-invalid' : '' }" } %><br />
 
                 <div class="form-check form-check-inline">
-                  <%= form.radio_button :gender, :men, class: 'form-check-input', checked: "#{ 'checked' if form.object.men? }" %>
-                  <%= form.label :gender, Customer.human_attribute_name("gender.men"), value: :men, class: 'form-check-label' %>
+                  <%= f.radio_button :gender, :men, class: 'form-check-input', checked: "#{ 'checked' if f.object.men? }" %>
+                  <%= f.label :gender, Customer.human_attribute_name("gender.men"), value: :men, class: 'form-check-label' %>
                 </div>
 
                 <div class="form-check form-check-inline">
-                  <%= form.radio_button :gender, :women, class: 'form-check-input', checked: "#{ 'checked' if form.object.women? }" %>
-                  <%= form.label :gender, Customer.human_attribute_name("gender.women"), value: :women, class: 'form-check-label' %>
+                  <%= f.radio_button :gender, :women, class: 'form-check-input', checked: "#{ 'checked' if f.object.women? }" %>
+                  <%= f.label :gender, Customer.human_attribute_name("gender.women"), value: :women, class: 'form-check-label' %>
                 </div>
                 <% if gender_err %>
                   <span class="error invalid-feedback"><%= customer.errors.full_messages_for(:gender).first %></span>
@@ -49,24 +49,24 @@
 
               <div class="form-group">
                 <% tel_number_err = true if customer.errors.include?(:tel_number) %>
-                <%= form.label :tel_number, { class: "#{ tel_number_err ? 'is-invalid' : '' }" } %>
+                <%= f.label :tel_number, { class: "#{ tel_number_err ? 'is-invalid' : '' }" } %>
                 <div class="form-row align-items-center">
                   <div class="col-3">
-                    <%= form.telephone_field :tel_number1, {
+                    <%= f.telephone_field :tel_number1, {
                       maxlength:3,
                       class: "form-control #{ tel_number_err ? 'is-invalid' : '' }",
                       onKeyup: "this.value=this.value.replace(/[^0-9]+/i,''); nextField(this, 'customer_tel_number2', 3)"
                     } %>
                   </div>
                   <div class="col-3">
-                    <%= form.telephone_field :tel_number2, {
+                    <%= f.telephone_field :tel_number2, {
                       maxlength:4,
                       class: "form-control #{ tel_number_err ? 'is-invalid' : '' }",
                       onKeyup: "this.value=this.value.replace(/[^0-9]+/i,''); nextField(this, 'customer_tel_number3', 4)"
                     } %>
                   </div>
                   <div class="col-3">
-                    <%= form.telephone_field :tel_number3, {
+                    <%= f.telephone_field :tel_number3, {
                       maxlength:4,
                       class: "form-control #{ tel_number_err ? 'is-invalid' : '' }",
                       onKeyup: "this.value=this.value.replace(/[^0-9]+/i,'')"
@@ -77,9 +77,9 @@
               </div>
 
               <div class="form-group">
-                <%= form.label :birthday %>
+                <%= f.label :birthday %>
                 <div >
-                <%= raw sprintf(form.date_select(
+                <%= raw sprintf(f.date_select(
                                   :birthday,
                                   {
                                     with_css_classes: true,
@@ -97,17 +97,17 @@
 
               <div class="form-group">
                 <% postal_code_err = true if customer.errors.include?(:postal_code) %>
-                <%= form.label :postal_code, { class: "#{ postal_code_err ? 'is-invalid' : '' }" } %>
+                <%= f.label :postal_code, { class: "#{ postal_code_err ? 'is-invalid' : '' }" } %>
                 <div class="form-row align-items-center">
                   <div class="col-3">
-                    <%= form.telephone_field :postal_code1, {
+                    <%= f.telephone_field :postal_code1, {
                       maxlength:3,
                       class: "form-control #{ postal_code_err ? 'is-invalid' : '' }",
                       onKeyup: "this.value=this.value.replace(/[^0-9]+/i,''); nextField(this, 'customer_postal_code2', 3)"
                     } %>
                   </div>
                   <div class="col-4">
-                    <%= form.telephone_field :postal_code2, {
+                    <%= f.telephone_field :postal_code2, {
                       maxlength:4,
                       class: "form-control #{ postal_code_err ? 'is-invalid' : '' }",
                       onKeyup: "this.value=this.value.replace(/[^0-9]+/i,'');"
@@ -118,28 +118,28 @@
               </div>
 
               <div class="form-group">
-                <%= form.label :prefecture %>
-                <%= form.text_field :prefecture, { class: 'form-control' } %>
+                <%= f.label :prefecture %>
+                <%= f.text_field :prefecture, { class: 'form-control' } %>
               </div>
 
               <div class="form-group">
-                <%= form.label :city %>
-                <%= form.text_field :city, { class: 'form-control' } %>
+                <%= f.label :city %>
+                <%= f.text_field :city, { class: 'form-control' } %>
               </div>
 
               <div class="form-group">
-                <%= form.label :address1 %>
-                <%= form.text_field :address1, { class: 'form-control' } %>
+                <%= f.label :address1 %>
+                <%= f.text_field :address1, { class: 'form-control' } %>
               </div>
 
               <div class="form-group">
-                <%= form.label :address2 %>
-                <%= form.text_field :address2, { class: 'form-control' } %>
+                <%= f.label :address2 %>
+                <%= f.text_field :address2, { class: 'form-control' } %>
               </div>
             </div>
 
             <div class="card-footer">
-              <%= form.submit class: 'btn btn-primary', data: { confirm: 'よろしいですか?' } %>
+              <%= f.submit class: 'btn btn-primary', data: { confirm: 'よろしいですか?' } %>
               <%= link_to('　削除　', customer_path(@company.code, customer), method: :delete, class: 'btn btn-sm btn-danger float-right', data: { confirm: "削除してよろしいですか？" }) if customer.persisted? %>
             </div>
           <% end %>
@@ -171,7 +171,7 @@
 
     function nextField(i, n, m) {
       if (i.value.length >= m) {
-        i.form.elements[n].focus();
+        i.f.elements[n].focus();
       }
     }
   <% end %>
