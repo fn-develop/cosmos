@@ -49,7 +49,7 @@ class Customer < ApplicationRecord
   validates :gender, presence: true, if: -> { company.try(:is_input_customer_gender?) }
   validates :tel_number, presence: true, length: { is: 11 }, numericality: { only_integer: true }, if: -> { company.try(:is_input_customer_tel_number?) }
   validates :postal_code, presence: true, length: { is: 7 }, numericality: { only_integer: true }, if: -> { company.try(:is_input_customer_address?) }
-  validates_uniqueness_of :tel_number, scope: :company_id, if: -> { self.tel_number.present? }
+  # validates_uniqueness_of :tel_number, scope: :company_id, if: -> { self.tel_number.present? }
 
   def line?
     self.user.try(:line_user_id).present?
