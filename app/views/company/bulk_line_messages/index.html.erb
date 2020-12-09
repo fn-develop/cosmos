@@ -25,11 +25,14 @@
             <h3 class="card-title">メッセージ内容</h3>
           </div>
 
-          <div class="card-footer">
+          <div class="card-body">
             <div class="form-group">
               <%= f.text_area :message, { class: 'form-control', placeholder: 'メッセージを入力してください。', maxlength: 240, rows: 10, required: true } %>
             </div>
+            <small>※ 顧客毎のLINEメッセージには履歴されません。</small>
+          </div>
 
+          <div class="card-footer">
             <%= f.submit class: 'btn btn-primary', value: '　送　信　', data: { confirm: '送信してよろしいですか?', disable_with: '　送信中...　' } %>
             <a href="<%= customers_path %>" class="btn btn-default float-right">　戻る　</a>
           </div>
