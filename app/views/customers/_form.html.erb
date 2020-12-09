@@ -150,6 +150,8 @@
               <% end %>
             </div>
 
+            <%= hidden_field_tag :introducer_invite_code, params[:introducer_invite_code] %>
+
             <div class="card-footer">
               <%= f.submit class: 'btn btn-primary', data: { confirm: t('.submit_confirm'), disable_with: t('.submit_disable_with') } %>
               <%= link_to(t('.delete_link'), customer_path(@company.code, customer), method: :delete, class: 'btn btn-sm btn-danger float-right', data: { confirm: t('.delete_confirm') }) if customer.persisted? %>

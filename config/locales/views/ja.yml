@@ -43,6 +43,8 @@ ja:
     failuere: 失敗
     see: 参照
     cancel: 取消
+    invite_code: 紹介コード
+    next: 次へ
   layouts: &layouts
     header:
       <<: *common

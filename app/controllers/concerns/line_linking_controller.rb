@@ -38,6 +38,7 @@ module LineLinkingController
       @customer = customer_with_phone_number
       if @customer.present?
         @customer.user = user
+        @customer.introducer = company.customers.find_by(invite_code: params[:introducer_invite_code])
         @customer.save
         session[:line_user_id] = nil
         render plain: 'ユーザー登録が完了しました。'
@@ -53,6 +54,7 @@ module LineLinkingController
 
     @customer = company.customers.new(customer_params)
     @customer.user = user
+    @customer.introducer = company.customers.find_by(invite_code: params[:introducer_invite_code])
 
     if @customer.save
       session[:line_user_id] = nil
