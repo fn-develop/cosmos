@@ -1,5 +1,137 @@
 ja:
+  common: &common
+    home: ホーム
+    customer: 顧客
+    home: ホーム
+    customer_index: 顧客一覧
+    customer_new: 顧客情報
+    customer_show: 顧客情報
+    customer_edit: 顧客編集
+    visited_log: 来店履歴
+    bulk_line_messages: LINEメッセージ一括送信
+    bulk_line_messages_detail: LINEメッセージ一括送信詳細
+    to_customers_link: 顧客一覧へ
+    to_customer_detail_link: 顧客詳細画面へ
+    year: 年
+    month: 月
+    day: 日
+    submit_button: '　送　信　'
+    submit_confirm: '送信してよろしいですか?'
+    submit_disable_with: '　送信中...　'
+    delete_link: '　削除　'
+    delete_confirm: 削除してよろしいですか？
+    user_show: アカウント
+    user_edit: アカウント
+    account: アカウント
+    logout: ログアウト
+    edit_link: '　編集　'
+    return_link: '　戻る　'
+    searting: '検索中...'
+    clear: クリア
+    line_notify: LINE通知
+    honorifics: 様
+    max_num: 最大%{max_num}件表示
+    info: 情報
+    name: 名前
+    introducer_changing: 紹介者変更
+    nothing: なし
+    history: 履歴
+    history_create: 履歴作成
+    input_message_prompt: メッセージを入力してください。
+    success: 成功
+    failuere: 失敗
+    see: 参照
+    cancel: 取消
+  layouts: &layouts
+    header:
+      <<: *common
+    breadcrumb:
+      <<: *common
+    main_footer:
+      confirmation_code: "本日の来訪確認コード：%{code}"
+      copyright_html: '<strong>Copyright &copy; 2020-2020 <a href="http://futurenet.co.jp"></a>Futurenet.co</strong> All rights reserved.'
+    sub_sidebar:
+      <<: *common
+  company:
+    bulk_line_messages:
+      index: &bulk_line_messages_index
+        <<: *common
+        message_content: メッセージ
+        annotation: ※ 顧客毎のLINEメッセージには履歴されません。
+        target_customers: 送信対象顧客
+        disabled_customers: 送信無効顧客
+        send_date: 日付
+        send_status: ステータス
+      show:
+        <<: *bulk_line_messages_index
+    settings:
+      form:
+        <<: *common
+        card_title: 店舗情報を入力してください。
+        annotation: '※ 店舗コードは変更できません。'
+        company_code: 店舗コード
+        company_name: 店舗名
+      edit:
+        <<: *common
+      show:
+        <<: *common
+  customers:
+    line_message:
+      form:
+        <<: *common
+      staff:
+        <<: *common
+      user:
+        <<: *common
+    index:
+      <<: *common
+      card_title: 詳細検索
+      last_visited: '最終来店'
+      age: 年代
+      more_age: 年齢（以上）
+      under_age: 年齢（以上）
+      done_regist_line: LINE登録済
+      unread_line:  LINE未読
+      not_exists: 条件に該当する顧客は存在しません。
+      under_19: 〜19才
+      under_29: 20〜29才
+      under_39: 30〜39才
+      under_49: 40〜49才
+      under_59: 50〜59才
+      under_69: 60〜69才
+      more_70: 70才〜
+    new:
+      <<: *common
+    new_line_message:
+      <<: *common
+      image: 画像
+    content_header:
+      <<: *common
+    edit:
+      <<: *common
+    form:
+      <<: *common
+      card_title: 登録情報を入力してください。
+    form_tel_number:
+      card_title: 電話番号を入力してください。
   customer:
     visited_logs:
       new:
+        <<: *common
+        <<: *layouts
         header_title: 来店履歴
+      form:
+        <<: *common
+        card_title: 履歴情報を入力してください。
+  users:
+    show:
+      <<: *common
+      card_title: 情報
+    edit:
+      <<: *common
+    form:
+      <<: *common
+      card_title: ログイン情報を入力してください。
+  public:
+    homes:
+      to_login: To Login

@@ -6,12 +6,12 @@
       <div class="card-body">
         <div class="form-group">
           <%= form.label :message %>
-          <%= form.text_area :message, { class: 'form-control', placeholder: 'メッセージを入力してください。', maxlength: 240, rows: 4 } %>
+          <%= form.text_area :message, { class: 'form-control', placeholder: t('.input_message_prompt'), maxlength: 240, rows: 4 } %>
         </div>
       </div>
 
       <div class="card-footer">
-        <button type="submit" class="btn btn-success">送信</button>
+        <button type="submit" class="btn btn-success"><%= t('.submit_button') %></button>
       </div>
     <% end %>
 

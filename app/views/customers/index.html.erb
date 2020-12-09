@@ -1,9 +1,9 @@
-<%= render 'content_header', active_breadcrumb_item: Const::View::Name::CUSTOMER_INDEX %>
+<%= render 'content_header', active_breadcrumb_item: t('.customer_index') %>
 
 <section class="content">
   <div class="card <%= 'collapsed-card' unless @search.inputed? %>">
     <div class="card-header" data-card-widget="collapse">
-      <h3 class="card-title">詳細検索</h3>
+      <h3 class="card-title"><%= t('.card_title') %></h3>
 
       <div class="card-tools">
         <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-<%= @search.inputed? ? 'minus' : 'plus' %>"></i>
@@ -20,7 +20,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-smile"></i></span>
               </div>
-              <%= f.text_field :name, { autocomplete: "off", class: "form-control #{ 'is-valid' if @search.name.present? }", placeholder: '名前', maxlength: 20, id: 'searchNameText' } %>
+              <%= f.text_field :name, { autocomplete: "off", class: "form-control #{ 'is-valid' if @search.name.present? }", placeholder:  t('.name'), maxlength: 20, id: 'searchNameText' } %>
               <div class="input-group-append">
                 <span class="input-group-text clear" data-target_id="searchNameText">C</span>
               </div>
@@ -44,7 +44,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt"></i></span>
               </div>
-              <%= f.text_field :from_age, { autocomplete: "off", class: "form-control #{ 'is-valid' if @search.from_age.present? }", placeholder: '年齢（以上）', maxlength: 3, id: 'searchAgeFromText', onKeyup: "this.value=this.value.replace(/[^0-9]+/i,'')" } %>
+              <%= f.text_field :from_age, { autocomplete: "off", class: "form-control #{ 'is-valid' if @search.from_age.present? }", placeholder: t('.more_age'), maxlength: 3, id: 'searchAgeFromText', onKeyup: "this.value=this.value.replace(/[^0-9]+/i,'')" } %>
               <div class="input-group-append">
                 <span class="input-group-text clear" data-target_id="searchAgeFromText">C</span>
               </div>
@@ -56,7 +56,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-sort-numeric-down-alt"></i></span>
               </div>
-              <%= f.text_field :to_age, { autocomplete: "off", class: "form-control #{ 'is-valid' if @search.to_age.present? }", placeholder: '年齢（以下）', maxlength: 3, id: 'searchAgeToText', onKeyup: "this.value=this.value.replace(/[^0-9]+/i,'')" } %>
+              <%= f.text_field :to_age, { autocomplete: "off", class: "form-control #{ 'is-valid' if @search.to_age.present? }", placeholder: t('.under_age'), maxlength: 3, id: 'searchAgeToText', onKeyup: "this.value=this.value.replace(/[^0-9]+/i,'')" } %>
               <div class="input-group-append">
                 <span class="input-group-text clear" data-target_id="searchAgeToText">C</span>
               </div>
@@ -70,7 +70,7 @@
                   <%= f.check_box(:line_registed, {}, checked_value = 'true', unchecked_value = '' ) %>
                 </span>
               </div>
-              <%= f.label :line_registed , class: "form-control #{ 'is-valid' if @search.line_registed.present? }" do 'LINE登録済' end %>
+              <%= f.label :line_registed , class: "form-control #{ 'is-valid' if @search.line_registed.present? }" do t('.done_regist_line') end %>
             </div>
           </div>
 
@@ -81,7 +81,7 @@
                   <%= f.check_box(:unread_line, {}, checked_value = 'true', unchecked_value = '' ) %>
                 </span>
               </div>
-              <%= f.label :unread_line , class: "form-control #{ 'is-valid' if @search.unread_line.present? }" do 'LINE未読' end %>
+              <%= f.label :unread_line , class: "form-control #{ 'is-valid' if @search.unread_line.present? }" do t('.unread_line') end %>
             </div>
           </div>
 
@@ -90,7 +90,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-sign-out-alt"></i></span>
               </div>
-              <%= f.select :visited_over, CustomerSearch::VISITED_OVER_LIST, { include_blank: '最終来店' }, class: "custom-select #{ 'is-valid' if @search.visited_over.present? }", id: 'visitedOverSelect' %>
+              <%= f.select :visited_over, CustomerSearch::VISITED_OVER_LIST, { include_blank: t('.last_visited') }, class: "custom-select #{ 'is-valid' if @search.visited_over.present? }", id: 'visitedOverSelect' %>
               <div class="input-group-append">
                 <span class="input-group-text clear" data-target_id="visitedOverSelect">C</span>
               </div>
@@ -99,8 +99,8 @@
 
           <div class="col-md-3 mb-2">
             <div class="input-group">
-              <%= f.submit '検　索', class: 'btn btn-success rounded-pill', data: { disable_with: '検索中...' } %>
-              <a href="javascript: void(0)" id="clear_button" class="ml-2 btn btn-outline-primary rounded-pill">クリア</a>
+              <%= f.submit '検　索', class: 'btn btn-success rounded-pill', data: { disable_with: t('.searting') } %>
+              <a href="javascript: void(0)" id="clear_button" class="ml-2 btn btn-outline-primary rounded-pill"><%= t('.clear') %></a>
               <%= javascript_tag do %>
                 $(function() {
                   $('#clear_button').on('click', function(){
@@ -122,7 +122,7 @@
 
       <div class="card">
         <div class="card-header" data-card-widget="collapse">
-          <h3 class="card-title">年代</h3>
+          <h3 class="card-title"><%= t('.age') %></h3>
 
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -134,37 +134,37 @@
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
               <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="" data-age_to="19">
-                〜19才
+                <%= t('.under_19') %>
               </a>
             </li>
             <li class="nav-item">
               <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="20" data-age_to="29">
-                20〜29才
+                <%= t('.under_29') %>
               </a>
             </li>
             <li class="nav-item">
               <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="30" data-age_to="39">
-                30〜39才
+                <%= t('.under_39') %>
               </a>
             </li>
             <li class="nav-item">
               <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="40" data-age_to="49">
-                40〜49才
+                <%= t('.under_49') %>
               </a>
             </li>
             <li class="nav-item">
               <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="50" data-age_to="59">
-                50〜59才
+                <%= t('.under_59') %>
               </a>
             </li>
             <li class="nav-item">
               <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="60" data-age_to="69">
-                60〜69才
+                <%= t('.under_69') %>
               </a>
             </li>
             <li class="nav-item">
               <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="70" data-age_to="">
-                70才〜
+                <%= t('.more_70') %>
               </a>
             </li>
           </ul>
@@ -190,7 +190,7 @@
             <% if @customers.total_count != 0 %>
             <%= CustomerSearch::DEFAULT_PER * (page - 1) + 1 %>-<%= (CustomerSearch::DEFAULT_PER * (params[:page].present? ? params[:page].to_i : 1)).to_s + '/' if @customers.total_count > CustomerSearch::DEFAULT_PER %><%= @customers.total_count %>
             <% else %>
-              条件に該当する顧客は存在しません。
+              <%= t('.not_exists') %>
             <% end %>
           </h3>
           <%= paginate @customers %>

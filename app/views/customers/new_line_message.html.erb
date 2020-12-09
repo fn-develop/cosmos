@@ -2,15 +2,15 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1 class="m-0 text-dark"><%= Const::View::Name::LINE_NOTIFY %></h1>
+        <h1 class="m-0 text-dark"><%= t('.line_notify') %></h1>
       </div>
 
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="<%= homes_path %>">ホーム</a></li>
-          <li class="breadcrumb-item"><a href="<%= customers_path %>"><%= Const::View::Name::CUSTOMER_INDEX %></a></li>
-          <li class="breadcrumb-item"><a href="<%= customer_path(@company.code, @customer) %>"><%= Const::View::Name::CUSTOMER_SHOW %></a></li>
-          <li class="breadcrumb-item active"><%= Const::View::Name::LINE_NOTIFY %></li>
+          <li class="breadcrumb-item"><a href="<%= homes_path %>"><%= t('.home') %></a></li>
+          <li class="breadcrumb-item"><a href="<%= customers_path %>"><%= t('.customer_index') %></a></li>
+          <li class="breadcrumb-item"><a href="<%= customer_path(@company.code, @customer) %>"><%= t('.customer_show') %></a></li>
+          <li class="breadcrumb-item active"><%= t('.line_notify') %></li>
         </ol>
       </div>
     </div>
@@ -21,7 +21,7 @@
   <div class="container-fluid">
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">TO: <%= @customer.name %> 様</h3>
+        <h3 class="card-title">TO: <%= @customer.name %> <%= t('.honorifics') %></h3>
       </div>
 
       <div class="card-body pt-1 pl-1 pr-1 pb-0">
@@ -45,7 +45,7 @@
                         <th class="text-nowrap"><%= Customer.human_attribute_name(:birthday) %></th>
                         <td><%= @customer.birthday.strftime("%Y年%m月%d日") if @customer.birthday %></td>
                       </tr><tr>
-                        <th class="text-nowrap">住所</th>
+                        <th class="text-nowrap"><%= Customer.human_attribute_name(:address) %></th>
                         <td><%= @customer.all_address  %></td>
                       </tr>
                     </tbody>
@@ -53,7 +53,7 @@
                 </div>
               </div>
               <div class="card-footer">
-                <small class="float-right"><%= link_to '顧客詳細画面へ', customer_path(@customer, company_code: @company.code), { class: '' } %></small>
+                <small class="float-right"><%= link_to t('.to_customer_detail_link'), customer_path(@customer, company_code: @company.code), { class: '' } %></small>
               </div>
             </div>
           </div>
@@ -72,7 +72,7 @@
                 </div>
               </div>
               <div class="card-footer">
-                <small class="float-right"><%= "最大#{ Const::LineMessage::DISPLAY_LIMIT }件表示" %></small>
+                <small class="float-right"><%= t('.max_num', max_num: Const::LineMessage::DISPLAY_LIMIT) %></small>
               </div>
             </div>
           </div>
@@ -84,17 +84,17 @@
           <%= f.hidden_field :user_id %>
 
           <div class="form-group">
-            <%= f.text_area :message, { class: 'form-control', placeholder: 'メッセージを入力してください。', maxlength: 240, rows: 4, required: true } %>
+            <%= f.text_area :message, { class: 'form-control', placeholder: t('.input_message_prompt'), maxlength: 240, rows: 4, required: true } %>
           </div>
 
-          <%= f.submit class: 'btn btn-primary', value: '　送　信　', data: { disable_with: '　送信中...　' } %>
+          <%= f.submit class: 'btn btn-primary', value: t('.submit_button'), data: { disable_with: t('.submit_disable_with') } %>
         <% end %>
       </div>
     </div>
   </div>
 </section>
 
-<div id="image_modal" data-izimodal-title="画像" class="mx-auto">
+<div id="image_modal" data-izimodal-title="<%= t('.image') %>" class="mx-auto">
   <img src='' id="modal-image" class="mx-auto d-block img-fluid"/>
 </div>
 

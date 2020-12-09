@@ -2,13 +2,13 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1 class="m-0 text-dark"><%= Const::View::Name::USER_SHOW %></h1>
+        <h1 class="m-0 text-dark"><%= t('.user_show') %></h1>
       </div>
 
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="<%= homes_path %>">ホーム</a></li>
-          <li class="breadcrumb-item active"><%= Const::View::Name::USER_SHOW %></li>
+          <li class="breadcrumb-item"><a href="<%= homes_path %>"><%= t('.home') %></a></li>
+          <li class="breadcrumb-item active"><%= t('.user_show') %></li>
         </ol>
       </div>
     </div>
@@ -18,7 +18,7 @@
 <section class="content">
   <div class="card">
     <div class="card-header">
-      <h3 class="card-title">情報</h3>
+      <h3 class="card-title"><%= t('.card_title') %></h3>
     </div>
 
     <div class="card-body">
@@ -33,8 +33,8 @@
     </div>
 
     <div class="card-footer clearfix">
-      <a href="<%= edit_user_path(@company.code, @user) %>" class="btn btn-info float-left mr-2">　編集　</a>
-      <a href="<%= homes_path %>" class="btn btn-default float-right">　戻る　</a>
+      <a href="<%= edit_user_path(@company.code, @user) %>" class="btn btn-info float-left mr-2"><%= t('.edit_link') %></a>
+      <a href="<%= homes_path %>" class="btn btn-default float-right"><%= t('.return_link') %></a>
     </div>
   </div>
 </section>

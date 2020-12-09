@@ -2,14 +2,14 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1 class="m-0 text-dark"><%= Const::View::Name::CUSTOMER_SHOW %></h1>
+        <h1 class="m-0 text-dark"><%= t('common.customer_show') %></h1>
       </div>
 
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="<%= homes_path %>">ホーム</a></li>
-          <li class="breadcrumb-item"><a href="<%= customers_path %>"><%= Const::View::Name::CUSTOMER_INDEX %></a></li>
-          <li class="breadcrumb-item active"><%= Const::View::Name::CUSTOMER_SHOW %></li>
+          <li class="breadcrumb-item"><a href="<%= customers_path %>"><%= t('common.customer_index') %></a></li>
+          <li class="breadcrumb-item active"><%= t('common.customer_show') %></li>
         </ol>
       </div>
     </div>
@@ -21,7 +21,7 @@
     <div class="col-md-6">
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">情報</h3>
+          <h3 class="card-title"><%= t('common.info') %></h3>
         </div>
 
         <div class="card-body">
@@ -73,7 +73,7 @@
           <% if @customer.line? %>
             <%= link_to 'LINE通知', new_line_message_customer_path(@company.code, @customer), class: 'btn btn-success float-left' %>
           <% end %>
-          <a href="<%= customers_path(company_code: @company.code) %>" class="btn btn-default float-right">　戻る　</a>
+          <a href="<%= customers_path(company_code: @company.code) %>" class="btn btn-default float-right"><%= t('common.return_link') %></a>
         </div>
       </div>
     </div>
@@ -92,7 +92,7 @@
 
         <div class="card-footer clearfix">
           <%= paginate @visited_logs %>
-          <a href="<%= new_customer_visited_log_path(company_code: @company.code, customer_id: @customer.id) %>" class="btn btn-sm btn-primary float-right mt-1">履歴作成</a>
+          <a href="<%= new_customer_visited_log_path(company_code: @company.code, customer_id: @customer.id) %>" class="btn btn-sm btn-primary float-right mt-1"><%= t('common.history_create') %></a>
         </div>
       </div>
 
@@ -111,11 +111,11 @@
   </div>
 </section>
 
-<div id="notice_modal" data-izimodal-title="紹介者変更" data-izimodal-subtitle="紹介者：<%= @customer.try(:name) || 'なし' %>">
+<div id="notice_modal" data-izimodal-title="<%= t('common.introducer_changing') %>" data-izimodal-subtitle="紹介者：<%= @customer.try(:name) || t('common.nothing') %>">
   <p>
     <div class="col p-3">
       <%= form_with(id: 'modal_form', url: xhr_get_customers_customers_path, method: :get) do |form| %>
-        <%= form.text_field :name, { id: 'modal_form_name_input',class: "form-control", placeholder: '名前' } %>
+        <%= form.text_field :name, { id: 'modal_form_name_input',class: "form-control", placeholder: t('common.name') } %>
       <% end %>
       <p id="customer_list"></p>
       <%= form_with(id: 'modal_form_introducer_update', url: update_introducer_customer_path(@company.code, @customer.id), method: :post, local: true) do |form| %>

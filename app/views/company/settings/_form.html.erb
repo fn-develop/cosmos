@@ -4,22 +4,22 @@
       <div class="col-md-12">
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">店舗情報を入力してください。 <small></small></h3>
+            <h3 class="card-title"><%= t('.card_title') %><small></small></h3>
           </div>
 
           <%= form_with(model: company, url: url, local: true) do |f| %>
             <div class="card-body">
               <div class="form-group">
                 <%= f.label :code %>
-                <%= f.text_field :code, { class: "form-control" , placeholder: '店舗コード', maxlength: 100, readonly: true } %>
-                <small>*店舗コードは変更できません。</small>
+                <%= f.text_field :code, { class: "form-control" , placeholder: t('.company_code'), maxlength: 100, readonly: true } %>
+                <small><%= t('.annotation') %></small>
 
               </div>
 
               <div class="form-group">
                 <% name_err = true if company.errors.include?(:name) %>
                 <%= f.label :name %>
-                <%= f.text_field :name, { class: "form-control #{ name_err ? 'is-invalid' : '' }", placeholder: '店舗名', maxlength: 100 } %>
+                <%= f.text_field :name, { class: "form-control #{ name_err ? 'is-invalid' : '' }", placeholder: t('.company_name'), maxlength: 100 } %>
                 <% if name_err %>
                   <span class="error invalid-feedback"><%= company.errors.full_messages_for(:name).first %></span>
                 <% end %>
@@ -32,13 +32,13 @@
                 <div class="input-group">
                   <div class="custom-file <%= logo_err ? 'is-invalid' : '' %>">
                     <%= f.file_field :logo, { class: "custom-file-input #{ logo_err ? 'is-invalid' : '' }", accept: 'image/jpeg,image/gif,image/png' } %>
-                    <%= f.label :logo, { id: 'company_logo-label', class: 'custom-file-label', 'data-browse': '参照' }  do %>
+                    <%= f.label :logo, { id: 'company_logo-label', class: 'custom-file-label', 'data-browse': t('.see') }  do %>
                       ロゴファイルを選択(ここにドロップすることもできます)
                     <% end %>
                   </div>
 
                   <div class="input-group-append">
-                    <button type="button" class="btn btn-outline-secondary company_logo-reset">取消</button>
+                    <button type="button" class="btn btn-outline-secondary company_logo-reset"><%= t('.cancel') %></button>
                   </div>
 
                   <% if logo_err %>
@@ -54,13 +54,13 @@
                 <div class="input-group">
                   <div class="custom-file <%= line_qr_code_err ? 'is-invalid' : '' %>">
                     <%= f.file_field :line_qr_code, { class: "custom-file-input #{ line_qr_code_err ? 'is-invalid' : '' }", accept: 'image/jpeg,image/gif,image/png' } %>
-                    <%= f.label :line_qr_code, { id: 'company_line_qr_code-label', class: 'custom-file-label', 'data-browse': '参照' }  do %>
+                    <%= f.label :line_qr_code, { id: 'company_line_qr_code-label', class: 'custom-file-label', 'data-browse': t('.see') }  do %>
                       LINE QRコードファイルを選択(ここにドロップすることもできます)
                     <% end %>
                   </div>
 
                   <div class="input-group-append">
-                    <button type="button" class="btn btn-outline-secondary company_line_qr_code-reset">取消</button>
+                    <button type="button" class="btn btn-outline-secondary company_line_qr_code-reset"><%= t('.cancel') %></button>
                   </div>
 
                   <% if line_qr_code_err %>
@@ -100,8 +100,8 @@
             </div>
 
             <div class="card-footer">
-              <%= f.submit class: 'btn btn-primary', data: { confirm: '送信してよろしいですか?', disable_with: '　送信中...　' } %>
-              <a href="<%= company_setting_path %>" class="btn btn-default float-right">　戻る　</a>
+              <%= f.submit class: 'btn btn-primary', data: { confirm: t('.submit_confirm'), disable_with: t('.submit_disable_with') } %>
+              <a href="<%= company_setting_path %>" class="btn btn-default float-right"><%= t('.return_link') %></a>
             </div>
           <% end %>
         </div>

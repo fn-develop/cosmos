@@ -4,7 +4,7 @@
       <div class="col-md-12">
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">ログイン情報を入力してください。 <small></small></h3>
+            <h3 class="card-title"><%= t('.card_title') %><small></small></h3>
           </div>
 
           <%= form_with(model: user, url: url, local: true) do |f| %>
@@ -30,7 +30,7 @@
             </div>
 
             <div class="card-footer">
-              <%= f.submit class: 'btn btn-primary', data: { confirm: '送信してよろしいですか?', disable_with: '　送信中...　' } %>
+              <%= f.submit class: 'btn btn-primary', data: { confirm: t('.submit_confirm'), disable_with: t('.submit_disable_with') } %>
             </div>
           <% end %>
         </div>

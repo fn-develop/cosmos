@@ -2,14 +2,14 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1 class="m-0 text-dark"><%= Const::View::Name::BULK_LINE_MESSAGES %></h1>
+        <h1 class="m-0 text-dark"><%= t('.bulk_line_messages') %></h1>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="<%= homes_path %>"><%= Const::View::Name::HOME_INDEX %></a></li>
-          <li class="breadcrumb-item"><a href="<%= customers_path %>"><%= Const::View::Name::CUSTOMER_INDEX %></a></li>
-          <li class="breadcrumb-item"><a href="<%= company_bulk_line_messages_path %>"><%= Const::View::Name::BULK_LINE_MESSAGES %></a></li>
-          <li class="breadcrumb-item active"><%= Const::View::Name::BULK_LINE_MESSAGES_DETAIL %></li>
+          <li class="breadcrumb-item"><a href="<%= homes_path %>"><%= t('.home') %></a></li>
+          <li class="breadcrumb-item"><a href="<%= customers_path %>"><%= t('.customer_index') %></a></li>
+          <li class="breadcrumb-item"><a href="<%= company_bulk_line_messages_path %>"><%= t('.bulk_line_messages') %></a></li>
+          <li class="breadcrumb-item active"><%= t('.bulk_line_messages_detail') %></li>
         </ol>
       </div>
     </div>
@@ -19,26 +19,26 @@
 <section class="content">
   <div class="card">
     <div class="card-header">
-      <h3 class="card-title">情報</h3>
+      <h3 class="card-title"><%= t('.info') %></h3>
     </div>
 
     <div class="card-body">
       <table class="table table-bordered">
         <tbody>
           <tr>
-            <th class="text-nowrap" style="width: 20%;">送信日付</th>
+            <th class="text-nowrap" style="width: 20%;"><%= t('.send_date') %></th>
             <td><%= @line_message_bulk_log.created_at.strftime("%Y/%m/%d %H:%M") %></td>
           </tr>
           <tr>
-            <th class="text-nowrap">送信ステータス</th>
-            <td><%= @line_message_bulk_log.success_or_failure? ? '成功' : '失敗' %></td>
+            <th class="text-nowrap"><%= t('.send_status') %></th>
+            <td><%= @line_message_bulk_log.success_or_failure? ? t('.success') : t('.failuere') %></td>
           </tr>
           <tr>
-            <th class="text-nowrap">メッセージ</th>
+            <th class="text-nowrap"><%= t('.message_content') %></th>
             <td><%= @line_message_bulk_log.message %></td>
           </tr>
           <tr>
-            <th class="text-nowrap">送信対象</th>
+            <th class="text-nowrap"><%= t('.target_customers') %></th>
             <td>
               <% @line_message_bulk_log.enabled_customers.each_with_index do |customer, i| %>
                 <%= ', ' if i.between?(1, @line_message_bulk_log.enabled_customers.size() - 1) %>
@@ -47,7 +47,7 @@
             </td>
           </tr>
           <tr>
-            <th class="text-nowrap">送信無効</th>
+            <th class="text-nowrap"><%= t('.disabled_customers') %></th>
             <td>
               <% @line_message_bulk_log.disabled_customers.each_with_index do |customer, i| %>
                 <%= ', ' if i.between?(1, @line_message_bulk_log.disabled_customers.size() - 1) %>
@@ -60,9 +60,9 @@
     </div>
 
     <div class="card-footer clearfix">
-      <a href="<%= company_bulk_line_messages_path %>" class="btn btn-default float-left">　戻る　</a>
+      <a href="<%= company_bulk_line_messages_path %>" class="btn btn-default float-left"><%= t('.return_link') %></a>
       <% if can? :manage, :setting %>
-        <%= link_to('　削除　', company_bulk_line_message_path(company_code: @company.code, id: @line_message_bulk_log.id), method: :delete, class: 'btn btn-sm btn-danger float-right', data: { confirm: "削除してよろしいですか？" }) if @line_message_bulk_log.persisted? %>
+        <%= link_to(t('.delete_link'), company_bulk_line_message_path(company_code: @company.code, id: @line_message_bulk_log.id), method: :delete, class: 'btn btn-sm btn-danger float-right', data: { confirm: t('.delete_confirm') }) if @line_message_bulk_log.persisted? %>
       <% end %>
     </div>
   </div>

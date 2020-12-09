@@ -2,13 +2,13 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1 class="m-0 text-dark"><%= Const::View::Name::BULK_LINE_MESSAGES %></h1>
+        <h1 class="m-0 text-dark"><%= t('.bulk_line_messages') %></h1>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="<%= homes_path %>"><%= Const::View::Name::HOME_INDEX %></a></li>
-          <li class="breadcrumb-item"><a href="<%= customers_path %>"><%= Const::View::Name::CUSTOMER_INDEX %></a></li>
-          <li class="breadcrumb-item active"><%= Const::View::Name::BULK_LINE_MESSAGES %></li>
+          <li class="breadcrumb-item"><a href="<%= homes_path %>"><%= t('.home') %></a></li>
+          <li class="breadcrumb-item"><a href="<%= customers_path %>"><%= t('.customer_index') %></a></li>
+          <li class="breadcrumb-item active"><%= t('.bulk_line_messages') %></li>
         </ol>
       </div>
     </div>
@@ -22,19 +22,19 @@
       <div class="col-md-7">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">メッセージ内容</h3>
+            <h3 class="card-title"><%= t('.message_content') %></h3>
           </div>
 
           <div class="card-body">
             <div class="form-group">
-              <%= f.text_area :message, { class: 'form-control', placeholder: 'メッセージを入力してください。', maxlength: 240, rows: 10, required: true } %>
+              <%= f.text_area :message, { class: 'form-control', placeholder: t('.input_message_prompt'), maxlength: 240, rows: 10, required: true } %>
             </div>
-            <small>※ 顧客毎のLINEメッセージには履歴されません。</small>
+            <small><%= t('.annotation') %></small>
           </div>
 
           <div class="card-footer">
-            <%= f.submit class: 'btn btn-primary', value: '　送　信　', data: { confirm: '送信してよろしいですか?', disable_with: '　送信中...　' } %>
-            <a href="<%= customers_path %>" class="btn btn-default float-right">　戻る　</a>
+            <%= f.submit class: 'btn btn-primary', value: t('.submit_button'), data: { confirm: t('.submit_confirm'), disable_with: t('.submit_disable_with') } %>
+            <a href="<%= customers_path %>" class="btn btn-default float-right"><%= t('.return_link') %></a>
           </div>
         </div>
       </div>
@@ -42,7 +42,7 @@
       <div class="col-md-5">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">送信対象顧客</h3>
+            <h3 class="card-title"><%= t('.target_customers') %></h3>
             <div class="card-tools">
               <span class="badge badge-success"><span id="customer_count"><%= @customers.size() %></span> 名</span>
             </div>
@@ -66,10 +66,10 @@
                     });
                   <% end %>
 
-                  <th>名前</th>
-                  <th>性別</th>
-                  <th>年齢</th>
-                  <th>最終来店</th>
+                  <th><%= Customer.human_attribute_name(:name) %></th>
+                  <th><%= Customer.human_attribute_name(:gender) %></th>
+                  <th><%= Customer.human_attribute_name(:age) %></th>
+                  <th><%= Customer.human_attribute_name(:last_vist_date) %></th>
                 </tr>
               </thead>
               <tbody>
@@ -99,7 +99,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">履歴</h3>
+            <h3 class="card-title"><%= t('.history') %></h3>
             <div class="card-tools">
               <span class="badge badge-success"><span id="customer_count"><%= @line_message_bulk_logs.size() %></span> 件</span>
             </div>
@@ -109,9 +109,9 @@
             <table class="table table-sm">
               <thead>
                 <tr>
-                  <th>日付</th>
-                  <th>送信ステータス</th>
-                  <th>メッセージ内容</th>
+                  <th><%= t('.send_date') %></th>
+                  <th><%= t('.send_status') %></th>
+                  <th><%= t('.message_content') %></th>
                 </tr>
               </thead>
               <tbody>
@@ -122,7 +122,7 @@
                         <%= log.created_at.strftime("%Y/%m/%d %H:%M") %>
                       </a>
                     </td>
-                    <td><%= log.success_or_failure? ? '成功' : '失敗' %></td>
+                    <td><%= log.success_or_failure? ? t('.success') : t('.failuere') %></td>
                     <td><%= br log.message %></td>
                   </tr>
                 <% end %>
@@ -131,7 +131,7 @@
           </div>
 
           <div class="card-footer">
-            <small class="float-right">最大100件表示</small>
+            <small class="float-right"><%= t('.max_num', max_num: Const::LineMessage::DISPLAY_LIMIT) %></small>
           </div>
         </div>
       </div>

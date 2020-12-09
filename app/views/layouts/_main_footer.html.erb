@@ -2,9 +2,9 @@
 
   <div class="float-right d-none d-sm-inline">
     <% if current_user.try(:over_staff_or_more?) %>
-      本日の来訪確認コード：<%= @company.visit_confirmation_code %>
+      <%= t('.confirmation_code', code: @company.visit_confirmation_code) %>
     <% end %>
   </div>
 
-  <strong>Copyright &copy; 2020-2020 <a href="http://futurenet.co.jp"></a>Futurenet.co</strong> All rights reserved.
+  <%= t('.copyright_html') %>
 </footer>
