@@ -36,7 +36,7 @@ module LineLinkingController
     else
       # 既に入力された電話番号の顧客が存在する場合紐付けて終了
       @customer = customer_with_phone_number
-      if @customer.present?
+      if @customer.present? && @customer.user.blank?
         @customer.user = user
         @customer.introducer = company.customers.find_by(invite_code: params[:introducer_invite_code])
         @customer.save
