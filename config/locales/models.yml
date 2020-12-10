@@ -30,6 +30,7 @@ ja:
         postal_code:    '郵便番号'
         prefecture:     '都道府県'
         city:           '市区町村'
+        address:        '住所'
         address1:       '番地'
         address2:       '建物名・号室'
         line_receiving: 'LINE'
