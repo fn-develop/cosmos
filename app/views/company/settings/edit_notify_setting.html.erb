@@ -1,0 +1,130 @@
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark"><%= t('.company_setting_line_notify_setting') %></h1>
+      </div>
+
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="<%= homes_path %>"><%= t('.home') %></a></li>
+          <li class="breadcrumb-item"><a href="<%= company_setting_path %>"><%= t('.company_setting_show') %></a></li>
+          <li class="breadcrumb-item active"><%= t('.company_setting_line_notify_setting') %></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title"><%= t('.card_title') %><small></small></h3>
+          </div>
+
+          <%= form_with(model: @line_message_notify_setting, url: update_notify_setting_company_setting_path, method: :put, local: true) do |f| %>
+
+            <div class="card-body">
+
+              <div class="form-group row">
+                <div class="col-2">
+                  <%= f.label :notify_enabled, t('.notify_enabled'), {class: 'form-label'} %>
+                </div>
+                <div class="col-10 btn-group" data-toggle="buttons">
+                  <label class="btn btn-outline-primary <%= 'active' if @line_message_notify_setting.notify_enabled? %>" style="width:50%">
+                    <%= f.radio_button :notify_enabled, 1, { class: 'invisible', checked: (@line_message_notify_setting.notify_enabled?) } %><%= t('.enabled') %>
+                  </label>
+                  <label class="btn btn-outline-primary <%= 'active' if !@line_message_notify_setting.notify_enabled? %>" style="width:50%">
+                    <%= f.radio_button :notify_enabled, 0, { class: 'invisible', checked: (!@line_message_notify_setting.notify_enabled?) } %><%= t('.disabled') %>
+                  </label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-2">
+                  <%= f.label :notify_enabled, t('.notify_time'), {class: 'form-label'} %>
+                </div>
+
+                <div class="col-10 row">
+                  <div class="form-group col-5">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><%=t('.time_start') %></span>
+                      </div>
+                      <%= f.select :norify_time_from, (0..23).to_a, { include_blank: false }, class: "custom-select" %>
+                      <div class="input-group-append">
+                        <span class="input-group-text">時</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-1 text-center pt-2">〜</div>
+
+                  <div class="form-group col-5">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><%=t('.time_end') %></span>
+                      </div>
+                      <%= f.select :norify_time_to, (0..23).to_a, { include_blank: false }, class: "custom-select" %>
+                      <div class="input-group-append">
+                        <span class="input-group-text">時</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-2">
+                  <%= f.label :notify_cycle, t('.notify_cycle'), {class: 'form-label'} %>
+                </div>
+
+                <div class="form-group col-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">間隔</span>
+                    </div>
+                    <%= f.select :notify_cycle, LineMessageNotifySetting::NOTIFY_CYCLE, { include_blank: false }, class: "custom-select" %>
+                    <div class="input-group-append">
+                      <span class="input-group-text">毎</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-2">
+                  <%= f.label :notify_target, t('.notify_target'), {class: 'form-label'} %>
+                </div>
+
+                <div class="form-group col-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">対象</span>
+                    </div>
+                    <%= f.select :notify_target, LineMessageNotifySetting::NOTIFY_TAEGET, { include_blank: false }, class: "custom-select" %>
+                    <div class="input-group-append">
+                      <span class="input-group-text">毎</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="card-footer">
+              <%= f.submit class: 'btn btn-primary', data: { confirm: t('.submit_confirm'), disable_with: t('.submit_disable_with') } %>
+              <a href="<%= company_setting_path %>" class="btn btn-default float-right"><%= t('.return_link') %></a>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+      </div>
+    </div>
+  </div>
+</section>

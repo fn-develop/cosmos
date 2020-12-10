@@ -20,8 +20,33 @@ class Company::SettingsController < ApplicationController
     end
   end
 
+  def edit_notify_setting
+    @line_message_notify_setting = company.line_message_notify_setting || company.create_line_message_notify_setting
+  end
+
+  def update_notify_setting
+    @line_message_notify_setting = company.line_message_notify_setting
+    @line_message_notify_setting.attributes = line_message_notify_setting_params
+
+    if @line_message_notify_setting.save
+      redirect_to company_setting_path(company_code), notice: "更新が完了しました。"
+    else
+      render :edit, notice: '入力内容にエラーがあります。'
+    end
+  end
+
   private
     def company_params
       params.require(:company).permit(:name, :logo, :line_qr_code, :line_channel_secret, :line_channel_token)
+    end
+
+    def line_message_notify_setting_params
+      params.require(:line_message_notify_setting).permit(
+        :notify_enabled,
+        :norify_time_from,
+        :norify_time_to,
+        :notify_cycle,
+        :notify_target,
+      )
     end
 end

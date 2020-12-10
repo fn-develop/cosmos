@@ -2,25 +2,26 @@
 #
 # Table name: companies
 #
-#  id                           :bigint           not null, primary key
-#  code                         :string(255)
-#  enabled                      :boolean
-#  is_input_customer_address    :boolean          default(TRUE)
-#  is_input_customer_birthday   :boolean          default(TRUE)
-#  is_input_customer_gender     :boolean          default(TRUE)
-#  is_input_customer_name       :boolean          default(TRUE)
-#  is_input_customer_name_kana  :boolean          default(TRUE)
-#  is_input_customer_tel_number :boolean          default(TRUE)
-#  is_inviting_feature          :boolean          default(TRUE)
-#  limit_line_message_count     :integer          default(1000)
-#  line_channel_secret          :string(255)
-#  line_channel_token           :string(255)
-#  line_qr_code                 :string(255)
-#  logo                         :string(255)
-#  name                         :string(255)
-#  visit_confirmation_code      :string(255)      default("0000")
-#  created_at                   :datetime         not null
-#  updated_at                   :datetime         not null
+#  id                                      :bigint           not null, primary key
+#  code                                    :string(255)
+#  enabled                                 :boolean
+#  is_input_customer_address               :boolean          default(TRUE)
+#  is_input_customer_birthday              :boolean          default(TRUE)
+#  is_input_customer_gender                :boolean          default(TRUE)
+#  is_input_customer_name                  :boolean          default(TRUE)
+#  is_input_customer_name_kana             :boolean          default(TRUE)
+#  is_input_customer_tel_number            :boolean          default(TRUE)
+#  is_inviting_feature                     :boolean          default(TRUE)
+#  is_notify_unread_line_message_existance :boolean          default(TRUE)
+#  limit_line_message_count                :integer          default(1000)
+#  line_channel_secret                     :string(255)
+#  line_channel_token                      :string(255)
+#  line_qr_code                            :string(255)
+#  logo                                    :string(255)
+#  name                                    :string(255)
+#  visit_confirmation_code                 :string(255)      default("0000")
+#  created_at                              :datetime         not null
+#  updated_at                              :datetime         not null
 #
 class Company < ApplicationRecord
   mount_uploader :logo, PublicImageUploader
@@ -34,6 +35,7 @@ class Company < ApplicationRecord
   has_many :visited_logs, dependent: :destroy
   has_many :line_message_bulk_logs, dependent: :destroy
   has_many :line_message_counts, dependent: :destroy
+  has_one :line_message_notify_setting, dependent: :destroy
 
   validates :code, presence: true, uniqueness: true, length: { in: 2..10 }, format: { with: /\A[a-z]+\z/, message: "英文字のみが使用できます" }
   validates :name, presence: true, length: { in: 1..50 }

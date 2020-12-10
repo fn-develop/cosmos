@@ -10,6 +10,9 @@ ja:
     visited_log: 来店履歴
     bulk_line_messages: LINEメッセージ一括送信
     bulk_line_messages_detail: LINEメッセージ一括送信詳細
+    company_setting_show: 店舗設定
+    company_setting_edit: 店舗設定
+    company_setting_line_notify_setting: LINEメッセージ通知設定
     to_customers_link: 顧客一覧へ
     to_customer_detail_link: 顧客詳細画面へ
     year: 年
@@ -45,6 +48,8 @@ ja:
     cancel: 取消
     invite_code: 紹介コード
     next: 次へ
+    enabled: 有効
+    disabled: 無効
   layouts: &layouts
     header:
       <<: *common
@@ -78,6 +83,16 @@ ja:
         <<: *common
       show:
         <<: *common
+        line_message_notify_setting_link: 通知設定
+      edit_notify_setting:
+        <<: *common
+        card_title: 項目
+        notify_enabled: 通知機能
+        notify_time: 範囲時間
+        time_start: 開始
+        time_end: 終了
+        notify_cycle: サイクル
+        notify_target: 受け取り
   customers:
     line_message:
       form:

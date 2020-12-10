@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_10_022307) do
+ActiveRecord::Schema.define(version: 2020_12_10_040203) do
 
   create_table "collection_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "collection_id"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2020_12_10_022307) do
     t.string "line_qr_code"
     t.string "line_channel_secret"
     t.string "line_channel_token"
+    t.boolean "is_notify_unread_line_message_existance", default: true
     t.boolean "is_inviting_feature", default: true
     t.boolean "is_input_customer_name", default: true
     t.boolean "is_input_customer_name_kana", default: true
@@ -129,6 +130,17 @@ ActiveRecord::Schema.define(version: 2020_12_10_022307) do
     t.index ["company_id", "user_id"], name: "index_line_message_logs_on_company_id_and_user_id"
     t.index ["line_user_id"], name: "index_line_message_logs_on_line_user_id"
     t.index ["year", "month"], name: "index_line_message_logs_on_year_and_month"
+  end
+
+  create_table "line_message_notify_settings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "company_id", null: false
+    t.boolean "notify_enabled", default: true
+    t.integer "norify_time_from", default: 0
+    t.integer "norify_time_to", default: 0
+    t.integer "notify_cycle", default: 0
+    t.string "notify_target"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "option_for_collection_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|

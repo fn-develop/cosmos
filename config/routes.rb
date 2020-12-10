@@ -43,7 +43,10 @@ Rails.application.routes.draw do
     end
 
     namespace 'company', path: 'store' do
-      resource :setting, only: [:show, :edit, :update]
+      resource :setting, only: [:show, :edit, :update] do
+        get 'edit_notify_setting', to: 'settings#edit_notify_setting'
+        put 'update_notify_setting', to: 'settings#update_notify_setting'
+      end
       resources :items
       resources :bulk_line_messages
     end

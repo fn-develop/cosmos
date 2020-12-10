@@ -50,7 +50,10 @@
 
     <div class="card-footer clearfix">
       <% if can? :manage, :setting %>
-        <a href="<%= edit_company_setting_path(@company.code) %>" class="btn btn-info float-left mr-2">　編集　</a>
+        <a href="<%= edit_company_setting_path(@company.code) %>" class="btn btn-info float-left mr-2"><%= t('.edit_link') %></a>
+        <% if @company.is_notify_unread_line_message_existance? %>
+          <a href="<%= edit_notify_setting_company_setting_path(@company.code) %>" class="btn btn-success float-left mr-2"><%= t('.line_message_notify_setting_link') %></a>
+        <% end %>
       <% end %>
       <a href="<%= homes_path %>" class="btn btn-default float-right">　戻る　</a>
     </div>
