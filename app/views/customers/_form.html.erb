@@ -58,21 +58,21 @@
                   <% tel_number_err = true if customer.errors.include?(:tel_number) %>
                   <%= f.label :tel_number, { class: "#{ tel_number_err ? 'is-invalid' : '' }" } %>
                   <div class="form-row align-items-center">
-                    <div class="col-3">
+                    <div class="col-4">
                       <%= f.telephone_field :tel_number1, {
                         maxlength:3,
                         class: "form-control #{ tel_number_err ? 'is-invalid' : '' }",
                         onKeyup: "this.value=this.value.replace(/[^0-9]+/i,''); nextField(this, 'customer_tel_number2', 3)"
                       } %>
                     </div>
-                    <div class="col-3">
+                    <div class="col-4">
                       <%= f.telephone_field :tel_number2, {
                         maxlength:4,
                         class: "form-control #{ tel_number_err ? 'is-invalid' : '' }",
                         onKeyup: "this.value=this.value.replace(/[^0-9]+/i,''); nextField(this, 'customer_tel_number3', 4)"
                       } %>
                     </div>
-                    <div class="col-3">
+                    <div class="col-4">
                       <%= f.telephone_field :tel_number3, {
                         maxlength:4,
                         class: "form-control #{ tel_number_err ? 'is-invalid' : '' }",
