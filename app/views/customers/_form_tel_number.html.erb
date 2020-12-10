@@ -37,10 +37,12 @@
                 </div>
                 <span class="error invalid-feedback"><%= customer.errors.full_messages_for(:tel_number).first %></span>
 
-                <div class="form-group pt-3">
-                  <%= text_field_tag :introducer_invite_code, '', { class: 'form-control', placeholder: t('common.invite_code'), maxlength: 10 } %>
-                  <small><%= t('.annotation') %></small>
-                </div>
+                <% if @company.is_inviting_feature? %>
+                  <div class="form-group pt-3">
+                    <%= text_field_tag :introducer_invite_code, '', { class: 'form-control', placeholder: t('common.invite_code'), maxlength: 10 } %>
+                    <small><%= t('.annotation') %></small>
+                  </div>
+                <% end %>
               </div>
             </div>
 
@@ -61,7 +63,6 @@
   <%= javascript_tag do %>
     $(function() {
       $('.year, .month, .day').addClass('form-control d-inline col-3');
-
     });
 
     function nextField(i, n, m) {

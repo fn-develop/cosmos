@@ -73,7 +73,7 @@ module Api
             image_message[:originalContentUrl] = image_url
             image_message[:previewImageUrl] = image_url
             client.reply_message(event['replyToken'], image_message)
-          elsif event['message']['text'] == GET_INVITE_CODE_MESSAGE
+          elsif company.is_inviting_feature? && event['message']['text'] == GET_INVITE_CODE_MESSAGE
             client.reply_message(event['replyToken'], { type: Const::LineMessage::Type::TEXT, text: user.customer.invite_code })
           else
             save_text_message(event)

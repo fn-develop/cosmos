@@ -230,7 +230,9 @@
                   <% end %>
 
                   <th><%= Customer.human_attribute_name(:last_vist_date) %></th>
-                  <th><%= Customer.human_attribute_name(:introducer) %></th>
+                  <% if @company.is_inviting_feature? %>
+                    <th><%= Customer.human_attribute_name(:introducer) %></th>
+                  <% end %>
                 </tr>
               </thead>
 
@@ -269,7 +271,11 @@
                     <td class="align-middle"><%= customer.age %></td>
                   <% end %>
                   <td class="align-middle"><%= customer.last_vist_date %></td>
-                  <td class="align-middle"><%= link_to customer.introducer.name.to_s, customer_path(@company.code, customer.introducer), { class: 'text-info' } if customer.introducer %></td>
+                  <% if @company.is_inviting_feature? %>
+                    <td class="align-middle">
+                      <%= link_to customer.introducer.name.to_s, customer_path(@company.code, customer.introducer), { class: 'text-info' } if customer.introducer %>
+                    </td>
+                  <% end %>
                 </tr>
               <% end %>
 

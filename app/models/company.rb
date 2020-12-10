@@ -11,6 +11,7 @@
 #  is_input_customer_name       :boolean          default(TRUE)
 #  is_input_customer_name_kana  :boolean          default(TRUE)
 #  is_input_customer_tel_number :boolean          default(TRUE)
+#  is_inviting_feature          :boolean          default(TRUE)
 #  limit_line_message_count     :integer          default(1000)
 #  line_channel_secret          :string(255)
 #  line_channel_token           :string(255)
