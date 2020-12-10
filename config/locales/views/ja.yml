@@ -117,6 +117,7 @@ ja:
       card_title: 登録情報を入力してください。
     form_tel_number:
       card_title: 電話番号を入力してください。
+      annotation: ※ 紹介コードは必須ではありません。
   customer:
     visited_logs:
       new:
