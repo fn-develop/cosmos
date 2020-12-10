@@ -121,6 +121,8 @@ module Api
           end
 
           lml.save
+          notify_unread_line_message
+
           lml
         end
 
@@ -154,6 +156,10 @@ module Api
 
         def get_user(event)
           @user ||= User.find_by(company: company, line_user_id: event['source']['userId'])
+        end
+
+        def notify_unread_line_message
+          company.try(:line_message_notify_setting).try(:notify_new_line_message, homes_url(company_code: company.code))
         end
     end
   end
