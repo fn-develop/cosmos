@@ -8,6 +8,7 @@ module Api
 
       IGNORE_REPLY_TOKEN = '00000000000000000000000000000000'.freeze
       QR_CODE_IMAGE_REQUEST = 'スタッフにQRコードをご提示ください。'.freeze
+      GET_INVITE_CODE_MESSAGE = '下記コードをご紹介者にお知らせください。'.freeze
 
       def show
         head :ok
@@ -72,6 +73,8 @@ module Api
             image_message[:originalContentUrl] = image_url
             image_message[:previewImageUrl] = image_url
             client.reply_message(event['replyToken'], image_message)
+          elsif event['message']['text'] == GET_INVITE_CODE_MESSAGE
+            client.reply_message(event['replyToken'], { type: Const::LineMessage::Type::TEXT, text: user.customer.invite_code })
           else
             save_text_message(event)
           end
