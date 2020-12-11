@@ -18,6 +18,9 @@ module LineLinkingController
 
     if user.customer
       render plain: '既にユーザー登録が完了しています。'
+    elsif !company.is_input_customer_tel_number? && !@company.is_inviting_feature?
+      @customer = Customer.new
+      render action: :new_with_line_non_tel_number
     else
       @customer = Customer.new
     end

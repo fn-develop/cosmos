@@ -8,4 +8,79 @@
   </div>
 </div>
 
-<%= render 'form_tel_number', customer: @customer, url: { action: :new_with_line_non_tel_number } %>
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title"><%= t('.card_title') %><small></small></h3>
+          </div>
+
+          <%= form_with(model: @customer, url: { action: :new_with_line_non_tel_number }, local: true) do |f| %>
+            <div class="card-body">
+              <div class="form-group">
+                <% if @company.is_input_customer_tel_number? %>
+                  <% tel_number_err = true if @customer.errors.include?(:tel_number) %>
+                  <%= f.label :tel_number, { class: "#{ tel_number_err ? 'is-invalid' : '' }" } %>
+                  <div class="form-row align-items-center">
+                    <div class="col-4">
+                      <%= f.telephone_field :tel_number1, {
+                        maxlength:3,
+                        class: "form-control #{ tel_number_err ? 'is-invalid' : '' }",
+                        onKeyup: "this.value=this.value.replace(/[^0-9]+/i,''); nextField(this, 'customer_tel_number2', 3)"
+                      } %>
+                    </div>
+                    <div class="col-4">
+                      <%= f.telephone_field :tel_number2, {
+                        maxlength:4,
+                        class: "form-control #{ tel_number_err ? 'is-invalid' : '' }",
+                        onKeyup: "this.value=this.value.replace(/[^0-9]+/i,''); nextField(this, 'customer_tel_number3', 4)"
+                      } %>
+                    </div>
+                    <div class="col-4">
+                      <%= f.telephone_field :tel_number3, {
+                        maxlength:4,
+                        class: "form-control #{ tel_number_err ? 'is-invalid' : '' }",
+                        onKeyup: "this.value=this.value.replace(/[^0-9]+/i,'')"
+                      } %>
+                    </div>
+                  </div>
+                  <span class="error invalid-feedback"><%= @customer.errors.full_messages_for(:tel_number).first %></span>
+                <% end %>
+
+                <% if @company.is_inviting_feature? %>
+                  <div class="form-group pt-3">
+                    <%= text_field_tag :introducer_invite_code, '', { class: 'form-control', placeholder: t('common.invite_code'), maxlength: 10 } %>
+                    <small><%= t('.annotation') %></small>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <%= f.submit class: 'btn btn-primary', value: t('common.next'), data: { disable_with: t('common.submit_disable_with') } %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+      </div>
+    </div>
+  </div>
+</section>
+
+<% content_for :page_javascript do %>
+  <%= javascript_tag do %>
+    $(function() {
+      $('.year, .month, .day').addClass('form-control d-inline col-3');
+    });
+
+    function nextField(i, n, m) {
+      if (i.value.length >= m) {
+        i.form.elements[n].focus();
+      }
+    }
+  <% end %>
+<% end %>
