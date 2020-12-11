@@ -19,11 +19,7 @@ class LineMessageNotifySetting < ApplicationRecord
   NOTIFY_TAEGET = { 'オーナー': 'owner', 'スタッフ': 'staff', '両方': 'all' }
 
   def notify_new_line_message(system_url)
-    return unless self.company.is_notify_unread_line_message_existance? && self.notify_enabled?
-
-    now = DateTime.now
-    return unless now.hour >= self.norify_time_from && now.hour <= self.norify_time_to
-    return if (now.to_i - self.updated_at.to_i) < self.notify_cycle.minute.to_i
+    return unless active_time?
 
     self.updated_at = now
     self.save
@@ -55,6 +51,14 @@ class LineMessageNotifySetting < ApplicationRecord
     }
 
     client.multicast(line_user_ids, send_message) if line_user_ids.present?
+  end
+
+  def active_time?
+    return false unless self.company.is_notify_unread_line_message_existance? && self.notify_enabled?
+    now = DateTime.now
+    return false unless now.hour >= self.norify_time_from && now.hour <= self.norify_time_to
+    return false if (now.to_i - self.updated_at.to_i) < self.notify_cycle.minute.to_i
+    true
   end
 
   private def client
