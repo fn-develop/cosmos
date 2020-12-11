@@ -15,6 +15,8 @@ class CustomersController < ApplicationController
   end
 
   def show
+    # 権限チェック：see: Ability.rb
+    authorize! :read, @customer
     @visited_logs = @customer.visited_logs.where(enabled: true)
                              .order(year: :desc)
                              .order(month: :desc)
@@ -45,9 +47,13 @@ class CustomersController < ApplicationController
   end
 
   def edit
+    # 権限チェック：see: Ability.rb
+    authorize! :manage, @customer
   end
 
   def update
+    # 権限チェック：see: Ability.rb
+    authorize! :manage, @customer
     @customer.attributes = customer_params
 
     if @customer.save
