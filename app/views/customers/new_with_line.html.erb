@@ -18,6 +18,8 @@
           </div>
 
           <%= form_with(model: @customer, url: { action: :new_with_line_non_tel_number }, local: true) do |f| %>
+            <% # permitエラー回避 %>
+            <%= f.hidden_field :hoge %>
             <div class="card-body">
               <div class="form-group">
                 <% if @company.is_input_customer_tel_number? %>
