@@ -19,6 +19,7 @@ import '@fortawesome/fontawesome-free/js/all';
 
 // ADD
 require("jquery");
+require("jquery-ui-dist/jquery-ui");
 require("admin-lte");
 require("izimodal");
 require("jquery-jpostal-ja");
