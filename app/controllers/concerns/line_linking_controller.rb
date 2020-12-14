@@ -69,6 +69,7 @@ module LineLinkingController
 
   # xhr
   def reload_notify_area
+    notify_unread_line_message
   end
 
   def visit_user_qr_code

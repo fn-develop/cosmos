@@ -68,4 +68,8 @@ class ApplicationController < ActionController::Base
     def store_current_location
       store_location_for(:user, request.url)
     end
+
+    def notify_unread_line_message
+      company.try(:line_message_notify_setting).try(:notify_new_line_message, homes_url(company_code: company.code))
+    end
 end

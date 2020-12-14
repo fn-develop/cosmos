@@ -79,7 +79,7 @@ module Api
           else
             save_text_message(event)
             setting = company.line_message_notify_setting
-            if setting.present? && !setting.active_time?
+            if setting.present? && !setting.active_time?(DateTime.now)
               client.reply_message(event['replyToken'], { type: Const::LineMessage::Type::TEXT, text: OFF_HOURS_MESSAGE })
             end
           end
