@@ -49,6 +49,7 @@ Rails.application.routes.draw do
       end
       resources :items
       resources :bulk_line_messages
+      resources :calendars
     end
 
     namespace 'api' do

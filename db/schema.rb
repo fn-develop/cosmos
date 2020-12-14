@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_10_040203) do
+ActiveRecord::Schema.define(version: 2020_12_14_021125) do
+
+  create_table "calendars", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "company_id", null: false
+    t.string "year", null: false
+    t.string "month", null: false
+    t.string "day", null: false
+    t.integer "ymd_num", null: false
+    t.integer "type", null: false
+    t.datetime "start_datetime"
+    t.datetime "end_datetime"
+    t.integer "staff_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "collection_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "collection_id"

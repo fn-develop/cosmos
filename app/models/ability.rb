@@ -18,12 +18,14 @@ class Ability
     def guest_ability(user)
       can [:new_with_line, :new_with_line_non_tel_number, :create_with_line, :visit_user_qr_code], :customer
       can :read, Company
+      can :read, :calendars
     end
 
     # 顧客
     def customer_ability(user)
       can [:new_with_line, :new_with_line_non_tel_number, :create_with_line], :customer
       can :read, Company
+      can :read, :calendars
     end
 
     # スタッフ
@@ -36,6 +38,7 @@ class Ability
       can :read, :setting
       can :read, :item, company: user.company
       can :manage, :bulk_line_message
+      can :manage, :calendars
     end
 
     # 店舗オーナー
@@ -48,6 +51,7 @@ class Ability
       can :manage, :setting
       can :manage, :item, company: user.company
       can :manage, :bulk_line_message
+      can :manage, :calendars
     end
 
     # システム管理者
