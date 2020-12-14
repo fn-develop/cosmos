@@ -1,6 +1,6 @@
 class Company::CalendarsController < ApplicationController
   def index
-    render plain: params[:action]
+
   end
 
   def create

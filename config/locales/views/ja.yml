@@ -50,6 +50,7 @@ ja:
     next: 次へ
     enabled: 有効
     disabled: 無効
+    calendar: カレンダー
   layouts: &layouts
     header:
       <<: *common
