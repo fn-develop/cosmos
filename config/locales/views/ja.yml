@@ -94,6 +94,10 @@ ja:
         time_end: 終了
         notify_cycle: サイクル
         notify_target: 受け取り
+    calendars:
+      index:
+        edit_calendar: 予定登録
+        allday: 全日
   customers:
     line_message:
       form:

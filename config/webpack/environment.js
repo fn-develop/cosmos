@@ -9,6 +9,7 @@ environment.plugins.append('Provide',
     iziModal: 'izimodal',
     jpostal: 'jpostal',
     Swal : 'sweetalert2',
+    Calendar: 'fullcalendar'
   })
 )
 
