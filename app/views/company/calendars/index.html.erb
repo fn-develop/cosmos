@@ -37,115 +37,80 @@
     <p>
       <div class="col p-3">
         <p id="customer_list"></p>
-        <%= form_with(model: CalendarEvent.new, url: company_calendars_path(@company.code), method: :post, local: true) do |f| %>
+        <%= form_with(model: Calendar.new, url: save_company_calendars_path(@company.code), method: :post, local: false) do |f| %>
+
           <div class="form-group row">
-            <div class="col-sm-3">
+            <div class="col-sm-6">
+              <div class="input-group">
+                <%= f.select :event_type, Calendar::event_type_arr, { include_blank: '選択してください。' }, { class: 'custom-select', required: true } %>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-12">
+              <div class="input-group">
+                <%= f.text_field :title, { autocomplete: "off", class: "form-control", placeholder:  t('.title'), maxlength: 200, required: true } %>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-12">
+              <div class="input-group">
+                <%= f.text_field :url, { autocomplete: "off", class: "form-control", placeholder:  t('.url'), maxlength: 240, required: false } %>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-4">
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <span class="input-group-text text-red">
-                    <%= f.check_box(:allday, {}, checked_value = 'true', unchecked_value = 'false' ) %>
+                  <span class="input-group-text">
+                    <%= f.check_box(:allday, {}, checked_value = 'false', unchecked_value = 'true' ) %>
                   </span>
                 </div>
                 <%= f.label :allday , class: "form-control text-nowrap" do t('.allday') end %>
               </div>
             </div>
           </div>
+          <%= javascript_tag do %>
+            $(function() {
+              $('#calendar_allday').on('input', function() {
+                if($(this).is(':checked')){
+                  $('#time_specification').removeClass('d-none');
+                } else {
+                  $('#time_specification').addClass('d-none');
+                }
+              });
+            });
+          <% end %>
 
-          <div class="form-group row">
+          <div class="form-group row d-none" id="time_specification">
             <div class="col-sm-4">
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <span class="input-group-text bg-primary border-primary">開始</span>
+                  <span class="input-group-text border-primary">開始</span>
                 </div>
-                <%= f.select :start_year, (Date.today.year..(Date.today.year + 1)).to_a, { include_blank: false }, class: 'custom-select form-controll' %>
-                <div class="input-group-append">
-                  <span class="input-group-text bg-primary border-primary">年</span>
-                </div>
+                <%= f.time_select :start, { time_separator: '', minute_step: 10 }, { class: 'custom-select form-controll border-primary' } %>
               </div>
             </div>
 
-            <div class="col-sm-2">
+            <div class="col-sm-4">
               <div class="input-group">
-                <%= f.select :start_month, (1..12).to_a, { include_blank: false }, class: 'custom-select form-controll' %>
-                <div class="input-group-append">
-                  <span class="input-group-text bg-primary border-primary">月</span>
+                <div class="input-group-prepend">
+                  <span class="input-group-text border-danger">終了</span>
                 </div>
-              </div>
-            </div>
-
-            <div class="col-sm-2">
-              <div class="input-group">
-                <%= f.select :start_day, (1..31).to_a, { include_blank: false }, class: 'custom-select form-controll' %>
-                <div class="input-group-append">
-                  <span class="input-group-text bg-primary border-primary">日</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-2">
-              <div class="input-group">
-                <%= f.select :start_hour, (1..12).to_a, { include_blank: true }, class: 'custom-select form-controll' %>
-                <div class="input-group-append">
-                  <span class="input-group-text bg-primary border-primary">時</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-2">
-              <div class="input-group">
-                <%= f.select :start_minute, [0, 10, 20, 30, 40, 50], { include_blank: true }, class: 'custom-select form-controll' %>
-                <div class="input-group-append">
-                  <span class="input-group-text bg-primary border-primary">分</span>
-                </div>
+                <%= f.time_select :end, { time_separator: '', minute_step: 10 }, { class: 'custom-select form-controll border-danger' } %>
               </div>
             </div>
           </div>
 
-
           <div class="form-group row">
             <div class="col-sm-4">
               <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">終了</span>
-                </div>
-                <%= f.select :end_year, (Date.today.year..(Date.today.year + 1)).to_a, { include_blank: false }, class: 'custom-select form-controll' %>
-                <div class="input-group-append">
-                  <span class="input-group-text">年</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-2">
-              <div class="input-group">
-                <%= f.select :end_month, (1..12).to_a, { include_blank: false }, class: 'custom-select form-controll' %>
-                <div class="input-group-append">
-                  <span class="input-group-text">月</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-2">
-              <div class="input-group">
-                <%= f.select :end_day, (1..31).to_a, { include_blank: false }, class: 'custom-select form-controll' %>
-                <div class="input-group-append">
-                  <span class="input-group-text">日</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-2">
-              <div class="input-group">
-                <%= f.select :end_hour, (1..12).to_a, { include_blank: true }, class: 'custom-select form-controll' %>
-                <div class="input-group-append">
-                  <span class="input-group-text">時</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-2">
-              <div class="input-group">
-                <%= f.select :end_minute, [0, 10, 20, 30, 40, 50], { include_blank: true }, class: 'custom-select form-controll' %>
-                <div class="input-group-append">
-                  <span class="input-group-text">分</span>
-                </div>
+                <%= f.submit class: 'btn btn-primary', value: t('.submit_button'), data: { confirm: t('.submit_confirm'), disable_with: t('.submit_disable_with') } %>
               </div>
             </div>
           </div>

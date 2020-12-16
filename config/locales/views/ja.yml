@@ -51,6 +51,12 @@ ja:
     enabled: 有効
     disabled: 無効
     calendar: カレンダー
+    title: タイトル
+    event_types:
+      store_holiday: 店休日
+      holiday: 祭日
+      event: イベント
+    url: URL
   layouts: &layouts
     header:
       <<: *common
@@ -96,8 +102,9 @@ ja:
         notify_target: 受け取り
     calendars:
       index:
+        <<: *common
         edit_calendar: 予定登録
-        allday: 全日
+        allday: 時刻を指定する
   customers:
     line_message:
       form:

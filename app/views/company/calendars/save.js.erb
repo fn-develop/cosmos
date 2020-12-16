@@ -1,0 +1,2 @@
+document.dispatchEvent(new CustomEvent('add_event', { detail: JSON.parse('<%= @calendar.json_calendar_event.html_safe %>') }));
+$('[data-izimodal-close]')[0].click();

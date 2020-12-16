@@ -49,7 +49,9 @@ Rails.application.routes.draw do
       end
       resources :items
       resources :bulk_line_messages
-      resources :calendars
+      resources :calendars, only: [:index] do
+        post 'save', to: 'calendars#save', on: :collection
+      end
     end
 
     namespace 'api' do

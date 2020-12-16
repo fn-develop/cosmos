@@ -12,7 +12,7 @@ $.fn.iziModal = iziModal;
 
 $(function () {
   $('#calendar_modal').iziModal({
-    headerColor: '#26A69A', //ヘッダー部分の色
+    headerColor: '#007BFF', //ヘッダー部分の色
     width: 768, //横幅
     zindex: 9999,
     fullscreen: true, //全画面表示
@@ -42,7 +42,7 @@ $(function () {
       {
         id             : 1,
         title          : 'All Day Event',
-        start          : new Date(y, m, 1),
+        start          : new Date(y, m, 1, 0, 0),
         backgroundcolor: '#f56954', //red
         bordercolor    : '#f56954', //red
         allday         : true
@@ -95,24 +95,62 @@ $(function () {
     editable  : false,
     droppable : false, // ドラッグ変更
     dateClick: function(info) {
+      $('#calendar_event_type').val('');
+      $('#calendar_title').val('');
+      $('#calendar_url').val('');
+      let [year, month, day] = info.dateStr.split('-');
+      $('#calendar_start_1i').val(year);
+      $('#calendar_start_2i').val(month);
+      $('#calendar_start_3i').val(day);
+      $('#calendar_allday').prop('checked', false);
+      $('.iziModal-header-title').text(info.dateStr);
+
+      $('#calendar_event_allday').prop('checked', false);
+      $('#time_specification').addClass('d-none');
+
       $('#calendar_modal').iziModal('open');
       // alert('Clicked on: ' + info.dateStr);
       // alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
       // alert('Current view: ' + info.view.type);
       // change the day's background color just for fun
-      info.dayEl.style.backgroundcolor = 'red';
+      // info.dayEl.style.backgroundcolor = 'red';
     },
     eventClick: function(info) {
-      alert('Clicked on: ' + info.event.id);
       $('#calendar_modal').iziModal('open');
-      alert('Event: ' + info.event.title);
-      alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-      alert('View: ' + info.view.type);
+      // alert('Clicked on: ' + info.event.id);
+      // alert('Event: ' + info.event.title);
+      // alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+      // alert('View: ' + info.view.type);
 
       // change the border color just for fun
-      info.el.style.bordercolor = 'red';
+      // info.el.style.bordercolor = 'red';
     },
   });
+
+  let event = new CustomEvent('add_event');
+  document.addEventListener('add_event', function (e){
+    //** format **//
+    // calendar.addEvent({
+    //   id             : 100000,
+    //   title          : 'All Day Event',
+    //   start          : '2020-12-01',
+    //   backgroundcolor: '#f56954', //red
+    //   bordercolor    : '#f56954', //red
+    //   allday         : true
+    // });
+    calendar.addEvent(e.detail);
+  }, true);
+
+
+
+  // calendar.addEvent({
+  //       id             : 100000,
+  //       title          : 'All Day Event',
+  //       start          : new Date(y, m, 2, 0, 0),
+  //       backgroundcolor: '#f56954', //red
+  //       bordercolor    : '#f56954', //red
+  //       allday         : true
+  //     });
 
   calendar.render();
 })
