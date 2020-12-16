@@ -120,6 +120,14 @@
   </div>
 </div>
 
+<%= javascript_tag do %>
+  var calendar_events = [
+    <% @calendar_events.each do |e| %>
+      <%= e.json_calendar_event.html_safe + ',' %>
+    <% end %>
+    ];
+<% end %>
+
 
 <% content_for :page_style do %>
 <style>

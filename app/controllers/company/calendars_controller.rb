@@ -1,5 +1,6 @@
 class Company::CalendarsController < ApplicationController
   def index
+    @calendar_events = company.calendars.where('start > ?', Date.today - 3.month)
   end
 
   # xhr
