@@ -45,10 +45,13 @@ $(function () {
       var date = new Date(info.dateStr);
       var d    = date.getDate(),
           m    = date.getMonth(),
-          y    = date.getFullYear(),
+          y    = date.getFullYear()
       $('#calendar_start_1i').val(y);
       $('#calendar_start_2i').val(m+1);
       $('#calendar_start_3i').val(d+1);
+      $('#calendar_end_1i').val(y);
+      $('#calendar_end_2i').val(m+1);
+      $('#calendar_end_3i').val(d+1);
       $('#calendar_allday').prop('checked', false);
       $('.iziModal-header-title').text(info.dateStr);
 
