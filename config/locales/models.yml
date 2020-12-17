@@ -5,6 +5,7 @@ ja:
       customer:    '顧客'
       item:        '項目アイテム'
       visited_log: '来店履歴'
+      calendar: 'カレンダー'
     attributes:
       attr_common: &attr_common
         id: 'ID'
@@ -47,6 +48,8 @@ ja:
       visited_log:
         <<: *attr_common
         visited_date: '来店日'
+      calendar:
+        date_range: '期間指定エラー：'
   activemodel:
     models:
       line_message: 'LINEメッセージ'

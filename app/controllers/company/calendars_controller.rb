@@ -14,9 +14,7 @@ class Company::CalendarsController < ApplicationController
 
     @calendar.staff = current_user
 
-    if @calendar.save
-    else
-    end
+    @calendar.save
   end
 
   def destroy

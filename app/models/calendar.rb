@@ -20,6 +20,8 @@ class Calendar < ApplicationRecord
 
   EVENT_TYPES = [:store_holiday, :holiday, :event].freeze
 
+  validate :valid_date
+
   def self.event_type_arr
     EVENT_TYPES.map{ |v| [I18n.t("common.event_types.#{v}"), v] }
   end
@@ -37,5 +39,11 @@ class Calendar < ApplicationRecord
     j[:backgroundcolor] = '#f56954'
     j[:bordercolor]     = '#f56954'
     j.to_json
+  end
+
+  private def valid_date
+    if self.start >= self.end
+      errors.add(:date_range, '終了時刻が開始時刻より前になっています。')
+    end
   end
 end
