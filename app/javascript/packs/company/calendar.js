@@ -42,6 +42,7 @@ $(function () {
       $('#calendar_url').val('');
       $('#calendar_allday').prop('checked', false);
       $('#time_specification').addClass('d-none');
+      $('#delete_button').addClass('d-none');
 
       var date = info.date;
       var d    = date.getDate(),
@@ -63,6 +64,7 @@ $(function () {
       $('#calendar_event_type').val(info.event.extendedProps.event_type);
       $('#calendar_title').val(info.event.title);
       $('#calendar_url').val(info.event.url);
+      $('#delete_button').removeClass('d-none');
       // 画面側ではチェックしている場合に「false」を指定している。
       $('#calendar_allday').prop('checked', info.event.allDay == false);
 
