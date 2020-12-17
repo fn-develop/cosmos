@@ -56,7 +56,7 @@ ja:
       store_holiday: 店休日
       holiday: 祭日
       event: イベント
-    url: URL
+    site_url: URL
   layouts: &layouts
     header:
       <<: *common

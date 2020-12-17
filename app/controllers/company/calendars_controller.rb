@@ -29,7 +29,7 @@ class Company::CalendarsController < ApplicationController
       'id',
       'event_type',
       'title',
-      'url',
+      'site_url',
       'allday',
       'start(1i)',
       'start(2i)',
@@ -41,14 +41,13 @@ class Company::CalendarsController < ApplicationController
       'end(3i)',
       'end(4i)',
       'end(5i)',
-      'url',
     )
 
     @calendar_params = {
       id: p['id'],
       event_type: p['event_type'],
       title: p['title'],
-      url: p['url'],
+      site_url: p['site_url'],
       allday: p['allday'],
       start: DateTime.new(
         p['start(1i)'].to_i,
@@ -64,7 +63,6 @@ class Company::CalendarsController < ApplicationController
         p['end(4i)'].to_i,
         p['end(5i)'].to_i,
       ),
-      url: p['url'],
     }
   end
 end

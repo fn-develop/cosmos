@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2020_12_14_021125) do
     t.datetime "start"
     t.datetime "end"
     t.string "allday", default: "false"
-    t.string "url"
+    t.string "site_url"
     t.string "event_type"
     t.integer "staff_id"
     t.datetime "created_at", precision: 6, null: false

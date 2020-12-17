@@ -39,7 +39,7 @@ $(function () {
       $('#calendar_event_type').val('');
       $('#calendar_title').val('');
       $('#calendar_url').val('');
-      $('#calendar_event_allday').prop('checked', false);
+      $('#calendar_allday').prop('checked', false);
       $('#time_specification').addClass('d-none');
 
       let [year, month, day] = info.dateStr.split('-');
@@ -52,6 +52,18 @@ $(function () {
       $('#calendar_modal').iziModal('open');
     },
     eventClick: function(info) {
+      $('#calendar_event_type').val(info.event.extendedProps.event_type);
+      $('#calendar_title').val(info.event.title);
+      $('#calendar_url').val(info.event.url);
+      // 画面側ではチェックしている場合に「false」を指定している。
+      $('#calendar_allday').prop('checked', info.event.allDay == false);
+
+      if(info.event.allDay == false ){
+        $('#time_specification').removeClass('d-none');
+      } else {
+        $('#time_specification').addClass('d-none');
+      }
+
       $('#calendar_modal').iziModal('open');
       // alert('Clicked on: ' + info.event.id);
       // alert('Event: ' + info.event.title);

@@ -6,9 +6,9 @@
 #  allday     :string(255)      default("false")
 #  end        :datetime
 #  event_type :string(255)
+#  site_url   :string(255)
 #  start      :datetime
 #  title      :string(255)
-#  url        :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  company_id :integer          not null

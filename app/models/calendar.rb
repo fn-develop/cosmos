@@ -6,9 +6,9 @@
 #  allday     :string(255)      default("false")
 #  end        :datetime
 #  event_type :string(255)
+#  site_url   :string(255)
 #  start      :datetime
 #  title      :string(255)
-#  url        :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  company_id :integer          not null
@@ -25,14 +25,15 @@ class Calendar < ApplicationRecord
   end
 
   def json_calendar_event
-    j = {}
-    j[:id]      = self.id
-    j[:title]   = self.title
-    j[:all_day] = self.allday
+    j                   = {}
+    j[:id]              = self.id
+    j[:event_type]      = self.event_type
+    j[:title]           = self.title
+    j[:all_day]         = self.allday
     # JSでは1日目が「0」となるので「-1.day」している
-    j[:start]   = self.allday == 'true' ? (self.start - 1.day).strftime("%Y-%m-%d") : (self.start - 1.day).strftime("%Y-%m-%d %H:%M")
-    j[:end]     = (self.end - 1.day).strftime("%Y-%m-%d %H:%M") if self.allday == 'false'
-    j[:url]     = self.url.to_s if self.url.present?
+    j[:start]           = self.allday == 'true' ? (self.start - 1.day).strftime("%Y-%m-%d") : (self.start - 1.day).strftime("%Y-%m-%d %H:%M")
+    j[:end]             = (self.end - 1.day).strftime("%Y-%m-%d %H:%M") if self.allday == 'false'
+    j[:site_url]        = self.site_url.to_s if self.site_url.present?
     j[:backgroundcolor] = '#f56954'
     j[:bordercolor]     = '#f56954'
     j.to_json

@@ -6,7 +6,7 @@ class CreateCalendars < ActiveRecord::Migration[6.0]
       t.datetime :start
       t.datetime :end
       t.string   :allday,     default: 'false'
-      t.string   :url
+      t.string   :site_url
       t.string   :event_type
 
       t.integer  :staff_id
