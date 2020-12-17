@@ -38,17 +38,4 @@ class Calendar < ApplicationRecord
     j[:bordercolor]     = '#f56954'
     j.to_json
   end
-
-  # private def get_start
-  #   start_dt = "#{ self.start_year.to_s }-#{ self.start_month.to_s }-#{ self.start_day.to_s }"
-  #   start_dt += " #{ self.start_hour.to_s }:#{ self.start_minute.to_s }" if self.start_hour.present? && self.start_minute.present?
-  #   start_dt
-  # end
-
-  # private def get_end
-  #   return '' if self.end_year.blank? || self.end_month.blank? || self.end_day.blank?
-  #   end_dt = "#{ self.end_year.to_s }-#{ self.end_month.to_s }-#{ self.end_day.to_s }"
-  #   end_dt += " #{ self.end_hour.to_s }:#{ self.end_minute.to_s }" if self.end_hour.present? && self.end_minute.present?
-  #   end_dt
-  # end
 end
