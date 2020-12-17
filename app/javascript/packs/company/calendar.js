@@ -42,10 +42,13 @@ $(function () {
       $('#calendar_allday').prop('checked', false);
       $('#time_specification').addClass('d-none');
 
-      let [year, month, day] = info.dateStr.split('-');
-      $('#calendar_start_1i').val(year);
-      $('#calendar_start_2i').val(month);
-      $('#calendar_start_3i').val(day);
+      var date = new Date(info.dateStr);
+      var d    = date.getDate(),
+          m    = date.getMonth(),
+          y    = date.getFullYear(),
+      $('#calendar_start_1i').val(y);
+      $('#calendar_start_2i').val(m+1);
+      $('#calendar_start_3i').val(d+1);
       $('#calendar_allday').prop('checked', false);
       $('.iziModal-header-title').text(info.dateStr);
 
