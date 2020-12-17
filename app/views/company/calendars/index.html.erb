@@ -37,7 +37,7 @@
     <p>
       <div class="col p-3">
         <p id="customer_list"></p>
-        <%= form_with(model: Calendar.new, url: save_company_calendars_path(@company.code), method: :post, local: false) do |f| %>
+        <%= form_with(model: Calendar.new, url: save_company_calendars_path, method: :post, local: false) do |f| %>
           <%= hidden_field_tag :id, '', { id: 'calendar_id' } %>
 
           <div class="form-group row">

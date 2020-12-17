@@ -36,6 +36,7 @@ $(function () {
     editable  : false,
     droppable : false, // ドラッグ変更
     dateClick: function(info) {
+      $('#calendar_id').val('');
       $('#calendar_event_type').val('');
       $('#calendar_title').val('');
       $('#calendar_url').val('');
@@ -87,6 +88,11 @@ $(function () {
       $('#calendar_start_5i').val(smi);
 
       var edate = info.event.end;
+
+      if(edate == null) {
+        edate = sdate;
+      }
+
       var ed    = edate.getDate(),
           em    = edate.getMonth(),
           ey    = edate.getFullYear(),
