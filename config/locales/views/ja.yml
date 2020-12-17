@@ -57,6 +57,7 @@ ja:
       holiday: 祭日
       event: イベント
     site_url: URL
+    destroied: 削除しました。
   layouts: &layouts
     header:
       <<: *common

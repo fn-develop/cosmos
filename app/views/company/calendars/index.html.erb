@@ -109,10 +109,9 @@
           </div>
 
           <div class="form-group row">
-            <div class="col-sm-4">
-              <div class="input-group">
-                <%= f.submit class: 'btn btn-primary', value: t('.submit_button'), data: { confirm: t('.submit_confirm'), disable_with: t('.submit_disable_with') } %>
-              </div>
+            <div class="col-sm-12">
+              <%= f.submit class: 'btn btn-primary', value: t('.submit_button'), data: { confirm: t('.submit_confirm'), disable_with: t('.submit_disable_with') } %>
+              <%= f.submit class: 'btn btn-danger', value: t('common.delete_link'), data: { confirm: t('common.delete_confirm') } %>
             </div>
           </div>
         <% end %>

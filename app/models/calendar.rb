@@ -42,7 +42,7 @@ class Calendar < ApplicationRecord
   end
 
   private def valid_date
-    if self.start >= self.end
+    if self.allday == 'false' && self.start >= self.end
       errors.add(:date_range, '終了時刻が開始時刻より前になっています。')
     end
   end

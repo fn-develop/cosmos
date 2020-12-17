@@ -1,9 +1,17 @@
-<% if @calendar.valid? %>
-  <% if params[:id].present? %>
-    document.dispatchEvent(new CustomEvent('remove_event', { detail: '<%= params[:id] %>' }));
-  <% end %>
-  document.dispatchEvent(new CustomEvent('add_event', { detail: JSON.parse('<%= @calendar.json_calendar_event.html_safe %>') }));
+<% if @destroy_flg %>
+  document.dispatchEvent(new CustomEvent('remove_event', { detail: '<%= params[:id] %>' }));
+  alert('<%= t('common.destroied') %>');
   $('[data-izimodal-close]')[0].click();
 <% else %>
-  alert('<%= @calendar.errors.full_messages.first %>');
+
+  <% if @calendar.valid? %>
+    <% if params[:id].present? %>
+      document.dispatchEvent(new CustomEvent('remove_event', { detail: '<%= params[:id] %>' }));
+    <% end %>
+    document.dispatchEvent(new CustomEvent('add_event', { detail: JSON.parse('<%= @calendar.json_calendar_event.html_safe %>') }));
+    $('[data-izimodal-close]')[0].click();
+  <% else %>
+    alert('<%= @calendar.errors.full_messages.first %>');
+  <% end %>
+
 <% end %>

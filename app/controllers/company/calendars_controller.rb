@@ -7,7 +7,14 @@ class Company::CalendarsController < ApplicationController
   def save
     if params[:id].present?
       @calendar = company.calendars.find(params[:id])
-      @calendar.attributes = calendar_params
+
+      if params[:commit] == I18n.t('common.delete_link')
+        @calendar.destroy()
+        @destroy_flg = true
+        return
+      else
+        @calendar.attributes = calendar_params
+      end
     else
       @calendar = company.calendars.new(calendar_params)
     end
@@ -15,10 +22,6 @@ class Company::CalendarsController < ApplicationController
     @calendar.staff = current_user
 
     @calendar.save
-  end
-
-  def destroy
-    render plain: params[:action]
   end
 
   private def calendar_params
