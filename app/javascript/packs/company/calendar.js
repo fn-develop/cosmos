@@ -42,7 +42,7 @@ $(function () {
       $('#calendar_allday').prop('checked', false);
       $('#time_specification').addClass('d-none');
 
-      var date = new Date(info.dateStr);
+      var date = info.date;
       var d    = date.getDate(),
           m    = date.getMonth(),
           y    = date.getFullYear()
@@ -58,6 +58,7 @@ $(function () {
       $('#calendar_modal').iziModal('open');
     },
     eventClick: function(info) {
+      $('#calendar_id').val(info.event.id);
       $('#calendar_event_type').val(info.event.extendedProps.event_type);
       $('#calendar_title').val(info.event.title);
       $('#calendar_url').val(info.event.url);
@@ -70,6 +71,36 @@ $(function () {
         $('#time_specification').addClass('d-none');
       }
 
+      var sdate = info.event.start;
+      var sd    = sdate.getDate(),
+          sm    = sdate.getMonth(),
+          sy    = sdate.getFullYear(),
+          sh    = sdate.getHours(),
+          smi   = sdate.getMinutes()
+
+      sh  = ('0' + sh).slice(-2);
+      smi = ('0' + smi).slice(-2);
+      $('#calendar_start_1i').val(sy);
+      $('#calendar_start_2i').val(sm+1);
+      $('#calendar_start_3i').val(sd+1);
+      $('#calendar_start_4i').val(sh);
+      $('#calendar_start_5i').val(smi);
+
+      var edate = info.event.end;
+      var ed    = edate.getDate(),
+          em    = edate.getMonth(),
+          ey    = edate.getFullYear(),
+          eh    = edate.getHours(),
+          emi   = edate.getMinutes()
+
+      eh  = ('0' + eh).slice(-2);
+      emi = ('0' + emi).slice(-2);
+      $('#calendar_end_1i').val(ey);
+      $('#calendar_end_2i').val(em+1);
+      $('#calendar_end_3i').val(ed+1);
+      $('#calendar_end_4i').val(eh);
+      $('#calendar_end_5i').val(emi);
+
       $('#calendar_modal').iziModal('open');
       // alert('Clicked on: ' + info.event.id);
       // alert('Event: ' + info.event.title);
@@ -81,7 +112,6 @@ $(function () {
     },
   });
 
-  let event = new CustomEvent('add_event');
   document.addEventListener('add_event', function (e){
     //** format **//
     // calendar.addEvent({
@@ -95,6 +125,18 @@ $(function () {
     calendar.addEvent(e.detail);
   }, true);
 
+  document.addEventListener('remove_event', function (e){
+    //** format **//
+    // calendar.addEvent({
+    //   id             : 100000,
+    //   title          : 'All Day Event',
+    //   start          : '2020-12-01',
+    //   backgroundcolor: '#f56954', //red
+    //   bordercolor    : '#f56954', //red
+    //   allday         : true
+    // });
+    calendar.getEventById(e.detail).remove();
+  }, true);
   calendar.render();
 
   // Date for the calendar events (dummy data)

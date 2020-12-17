@@ -5,8 +5,8 @@ class Company::CalendarsController < ApplicationController
 
   # xhr
   def save
-    if calendar_params['id'].present?
-      @calendar = company.calendars.find(calendar_params['id'])
+    if params[:id].present?
+      @calendar = company.calendars.find(params[:id])
       @calendar.attributes = calendar_params
     else
       @calendar = company.calendars.new(calendar_params)
@@ -26,7 +26,6 @@ class Company::CalendarsController < ApplicationController
   private def calendar_params
     return @calendar_params if @calendar_params.present?
     p = params.require(:calendar).permit(
-      'id',
       'event_type',
       'title',
       'site_url',
@@ -44,7 +43,6 @@ class Company::CalendarsController < ApplicationController
     )
 
     @calendar_params = {
-      id: p['id'],
       event_type: p['event_type'],
       title: p['title'],
       site_url: p['site_url'],

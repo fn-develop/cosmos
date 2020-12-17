@@ -31,8 +31,8 @@ class Calendar < ApplicationRecord
     j[:title]           = self.title
     j[:all_day]         = self.allday
     # JSでは1日目が「0」となるので「-1.day」している
-    j[:start]           = self.allday == 'true' ? (self.start - 1.day).strftime("%Y-%m-%d") : (self.start - 1.day).strftime("%Y-%m-%d %H:%M")
-    j[:end]             = (self.end - 1.day).strftime("%Y-%m-%d %H:%M") if self.allday == 'false'
+    j[:start]           = self.allday == 'true' ? (self.start - 1.day - 9.hour).strftime("%Y-%m-%d") : (self.start - 1.day - 9.hour).strftime("%Y-%m-%d %H:%M")
+    j[:end]             = (self.end - 1.day - 9.hour).strftime("%Y-%m-%d %H:%M") if self.allday == 'false'
     j[:site_url]        = self.site_url.to_s if self.site_url.present?
     j[:backgroundcolor] = '#f56954'
     j[:bordercolor]     = '#f56954'
