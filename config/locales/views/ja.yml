@@ -61,6 +61,7 @@ ja:
     destroied: 削除しました。
     item_code_name: コード名称
     placeholder_select: 選択してください。
+    item_edit_announce: 項目を入力してください。
   layouts: &layouts
     header:
       <<: *common

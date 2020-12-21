@@ -4,7 +4,7 @@
       <div class="col-md-12">
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">システム項目を入力してください。<small></small></h3>
+            <h3 class="card-title"><%= t('common.item_edit_announce') %><small></small></h3>
           </div>
 
           <%= form_with(model: item, url: url, local: true) do |f| %>
@@ -38,9 +38,9 @@
             </div>
 
             <div class="card-footer">
-              <%= f.submit class: 'btn btn-primary', data: { confirm: '送信してよろしいですか?', disable_with: '　送信中...　' } %>
+              <%= f.submit class: 'btn btn-primary', data: { confirm: t('common.submit_confirm'), disable_with: t('common.submit_disable_with') } %>
 
-              <%= link_to('　削除　', company_item_path(@company.code, item), method: :delete, class: 'btn btn-sm btn-danger float-right', data: { confirm: "削除してよろしいですか？" }) if item.persisted? %>
+              <%= link_to(t('common.delete_link'), company_item_path(@company.code, item), method: :delete, class: 'btn btn-sm btn-danger float-right', data: { confirm: t('common.delete_confirm') }) if item.persisted? %>
             </div>
           <% end %>
         </div>
