@@ -7,7 +7,7 @@ require("@rails/ujs").start()
 require("@rails/activestorage").start()
 require("channels")
 import 'bootstrap'
-import '../stylesheets/application.scss'
+import '../stylesheets/application'
 import '@fortawesome/fontawesome-free/js/all';
 
 // Uncomment to copy all static images under ../images to the output folder and reference
@@ -19,6 +19,7 @@ import '@fortawesome/fontawesome-free/js/all';
 
 // ADD
 require("jquery");
+require("jquery-ui-dist/jquery-ui");
 require("admin-lte");
 require("izimodal");
 require("jquery-jpostal-ja");

@@ -21,7 +21,7 @@ ja:
     submit_button: '　送　信　'
     submit_confirm: '送信してよろしいですか?'
     submit_disable_with: '　送信中...　'
-    delete_link: '　削除　'
+    delete_link: '　削　除　'
     delete_confirm: 削除してよろしいですか？
     user_show: アカウント
     user_edit: アカウント
@@ -50,6 +50,14 @@ ja:
     next: 次へ
     enabled: 有効
     disabled: 無効
+    calendar: カレンダー
+    title: タイトル
+    event_types:
+      store_holiday: 店休日
+      holiday: 祭日
+      event: イベント
+    site_url: URL
+    destroied: 削除しました。
   layouts: &layouts
     header:
       <<: *common
@@ -93,6 +101,13 @@ ja:
         time_end: 終了
         notify_cycle: サイクル
         notify_target: 受け取り
+        auto_message_on_time: 【時間内】自動応答メッセージ
+        auto_message_off_time: 【時間内】自動応答メッセージ
+    calendars:
+      index:
+        <<: *common
+        edit_calendar: 予定登録
+        allday: 時刻を指定する
   customers:
     line_message:
       form:

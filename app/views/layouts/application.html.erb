@@ -11,6 +11,7 @@
   <%= stylesheet_pack_tag 'application', media: 'all' %>
   <%= javascript_pack_tag 'application' %>
   <%= yield(:page_javascript) if content_for?(:page_javascript) %>
+  <%= yield(:page_style) if content_for?(:page_style) %>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>

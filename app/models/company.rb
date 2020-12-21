@@ -36,6 +36,7 @@ class Company < ApplicationRecord
   has_many :line_message_bulk_logs, dependent: :destroy
   has_many :line_message_counts, dependent: :destroy
   has_one :line_message_notify_setting, dependent: :destroy
+  has_many :calendars, dependent: :destroy
 
   validates :code, presence: true, uniqueness: true, length: { in: 2..10 }, format: { with: /\A[a-z]+\z/, message: "英文字のみが使用できます" }
   validates :name, presence: true, length: { in: 1..50 }

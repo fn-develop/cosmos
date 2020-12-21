@@ -1,0 +1,142 @@
+<%= javascript_pack_tag 'company/calendar' %>
+<%= stylesheet_pack_tag 'company/calendar' %>
+
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark"><%= t('common.calendar') %></h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="<%= homes_path %>"><%= t('common.home') %></a></li>
+          <li class="breadcrumb-item active"><%= t('common.calendar') %></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-primary">
+          <div class="card-body p-0">
+            <!-- THE CALENDAR -->
+            <div id="calendar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="d-none">
+  <div id="calendar_modal" data-izimodal-title="<%= t('.edit_calendar') %>" class="mx-auto">
+    <p>
+      <div class="col p-3">
+        <p id="customer_list"></p>
+        <%= form_with(model: Calendar.new, url: save_company_calendars_path, method: :post, local: false) do |f| %>
+          <%= hidden_field_tag :id, '', { id: 'calendar_id' } %>
+
+          <div class="form-group row">
+            <div class="col-sm-6">
+              <div class="input-group">
+                <%= f.select :event_type, Calendar::event_type_arr, { include_blank: '選択してください。' }, { class: 'custom-select', required: true } %>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-12">
+              <div class="input-group">
+                <%= f.text_field :title, { autocomplete: "off", class: "form-control", placeholder:  t('.title'), maxlength: 200, required: true } %>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-12">
+              <div class="input-group">
+                <%= f.text_field :site_url, { autocomplete: "off", class: "form-control", placeholder:  t('.site_url'), maxlength: 240, required: false } %>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <%= f.check_box(:allday, {}, checked_value = 'false', unchecked_value = 'true' ) %>
+                  </span>
+                </div>
+                <%= f.label :allday , class: "form-control text-nowrap" do t('.allday') end %>
+              </div>
+            </div>
+          </div>
+          <%= javascript_tag do %>
+            $(function() {
+              $('#calendar_allday').on('input', function() {
+                if($(this).is(':checked')){
+                  $('#time_specification').removeClass('d-none');
+                } else {
+                  $('#time_specification').addClass('d-none');
+                }
+              });
+            });
+          <% end %>
+
+          <div class="form-group row d-none" id="time_specification">
+            <div class="col-sm-4">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text border-primary">開始</span>
+                </div>
+                <%= f.time_select :start, { time_separator: '', minute_step: 10 }, { class: 'custom-select form-controll border-primary' } %>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text border-danger">終了</span>
+                </div>
+                <%= f.time_select :end, { time_separator: '', minute_step: 10 }, { class: 'custom-select form-controll border-danger' } %>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-12">
+              <%= f.submit class: 'btn btn-primary', value: t('.submit_button'), data: { confirm: t('.submit_confirm'), disable_with: t('.submit_disable_with') } %>
+              <%= f.submit id: :delete_button, class: 'btn btn-danger', value: t('common.delete_link'), data: { confirm: t('common.delete_confirm'), disable_with: t('.submit_disable_with') } %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </p>
+  </div>
+</div>
+
+<%= javascript_tag do %>
+  var calendar_events = [
+    <% @calendar_events.each do |e| %>
+      <%= e.json_calendar_event.html_safe + ',' %>
+    <% end %>
+    ];
+<% end %>
+
+
+<% content_for :page_style do %>
+<style>
+td.fc-day-sat {
+  background-color: #eaf4ff;
+}
+td.fc-day-sun {
+  background-color: #ffeaea;
+}
+</style>
+<% end %>
+

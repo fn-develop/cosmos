@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_10_040203) do
+ActiveRecord::Schema.define(version: 2020_12_21_003952) do
+
+  create_table "calendars", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "company_id", null: false
+    t.string "title"
+    t.datetime "start"
+    t.datetime "end"
+    t.string "allday", default: "false"
+    t.string "site_url"
+    t.string "event_type"
+    t.integer "staff_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "collection_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "collection_id"
@@ -139,6 +152,8 @@ ActiveRecord::Schema.define(version: 2020_12_10_040203) do
     t.integer "norify_time_to", default: 0
     t.integer "notify_cycle", default: 0
     t.string "notify_target"
+    t.string "auto_message_on_time", default: ""
+    t.string "auto_message_off_time", default: ""
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
