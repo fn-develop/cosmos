@@ -32,17 +32,17 @@ collection = demo_company.collections.create(code: 'customer', name: '顧客情�
 CollectionItem.delete_all
 ActiveRecord::Base.connection.execute('ALTER TABLE collection_items AUTO_INCREMENT = 1')
 [
-  { item: item_name_kanji          , item_type: Const::CollectionItem::ItemType::TEXT, sort_order: 0, enabled: true },
-  { item: item_name_kana           , item_type: Const::CollectionItem::ItemType::TEXT, sort_order: 1, enabled: true },
-  { item: item_phone_number        , item_type: Const::CollectionItem::ItemType::TEXT, sort_order: 2, enabled: true },
-  { item: item_mobile_phone_number , item_type: Const::CollectionItem::ItemType::TEXT, sort_order: 3, enabled: true },
-  { item: item_gender              , item_type: Const::CollectionItem::ItemType::RADIO, sort_order: 4, enabled: true },
-  { item: item_birthday            , item_type: Const::CollectionItem::ItemType::DATE, sort_order: 5, enabled: true },
-  { item: item_postal_code         , item_type: Const::CollectionItem::ItemType::TEXT, sort_order: 6, enabled: true },
-  { item: item_prefecture          , item_type: Const::CollectionItem::ItemType::TEXT, sort_order: 7, enabled: true },
-  { item: item_city                , item_type: Const::CollectionItem::ItemType::TEXT, sort_order: 8, enabled: true },
-  { item: item_address1            , item_type: Const::CollectionItem::ItemType::TEXT, sort_order: 9, enabled: true },
-  { item: item_address2            , item_type: Const::CollectionItem::ItemType::TEXT, sort_order: 10, enabled: true },
+  # { item: item_name_kanji          , item_type: Const::CollectionItem::ItemType::TEXT, sort_order: 0, enabled: true },
+  # { item: item_name_kana           , item_type: Const::CollectionItem::ItemType::TEXT, sort_order: 1, enabled: true },
+  # { item: item_phone_number        , item_type: Const::CollectionItem::ItemType::TEXT, sort_order: 2, enabled: true },
+  # { item: item_mobile_phone_number , item_type: Const::CollectionItem::ItemType::TEXT, sort_order: 3, enabled: true },
+  # { item: item_gender              , item_type: Const::CollectionItem::ItemType::RADIO, sort_order: 4, enabled: true },
+  # { item: item_birthday            , item_type: Const::CollectionItem::ItemType::DATE, sort_order: 5, enabled: true },
+  # { item: item_postal_code         , item_type: Const::CollectionItem::ItemType::TEXT, sort_order: 6, enabled: true },
+  # { item: item_prefecture          , item_type: Const::CollectionItem::ItemType::TEXT, sort_order: 7, enabled: true },
+  # { item: item_city                , item_type: Const::CollectionItem::ItemType::TEXT, sort_order: 8, enabled: true },
+  # { item: item_address1            , item_type: Const::CollectionItem::ItemType::TEXT, sort_order: 9, enabled: true },
+  # { item: item_address2            , item_type: Const::CollectionItem::ItemType::TEXT, sort_order: 10, enabled: true },
 ].each { |rel| collection.collection_items.create(rel) }
 
 OptionForCollectionItem.delete_all

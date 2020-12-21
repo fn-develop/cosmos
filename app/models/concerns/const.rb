@@ -1,12 +1,26 @@
 module Const
+  # Const::Item
+  module Item
+    # Const::Item::Code
+    module Code
+      CALENDAR = 'calendar'.freeze
+    end
+
+    # Const::Item::SubCode
+    module SubCode
+      INPUT = 'input'.freeze
+      DISP  = 'disp'.freeze
+    end
+  end
+
   module CollectionItem
     # Const::CollectionItem::ItemType
     module ItemType
-      TEXT     = 'text'.freeze
-      SELECT   = 'select'.freeze
-      RADIO    = 'radio'.freeze
-      CHECKBOX = 'checkbox'.freeze
-      DATE     = 'date'.freeze
+      TEXT          = 'text'.freeze
+      SELECT_OPTION = 'select_option'.freeze
+      RADIO         = 'radio'.freeze
+      CHECKBOX      = 'checkbox'.freeze
+      DATE          = 'date'.freeze
     end
   end
 
