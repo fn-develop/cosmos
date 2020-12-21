@@ -59,6 +59,7 @@ ja:
       event: イベント
     site_url: URL
     destroied: 削除しました。
+    item: 項目管理
     item_code_name: コード名称
     placeholder_select: 選択してください。
     item_edit_announce: 項目を入力してください。
