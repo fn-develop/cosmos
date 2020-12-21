@@ -16,13 +16,11 @@
 </div>
 
 <section class="content">
-
   <div class="card">
     <div class="card-header">
       <a href="<%= new_company_item_path %>" class="btn btn-info float-left mt-1">新規作成</a>
     </div>
     <div class="card-body">
-
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -34,7 +32,6 @@
           </tr>
         </thead>
         <tbody>
-
           <% @items.each_with_index do |item, i| %>
             <tr>
               <td><a href="<%= company_item_path(@company.code ,item) %>"><%= item.id.to_s %>.</a></td>
@@ -44,7 +41,6 @@
               <td><a href="<%= edit_company_item_path(@company.code ,item) %>" class="btn btn-block btn-info float-left mt-1">編集</a></td>
             </tr>
           <% end %>
-
         </tbody>
       </table>
     </div>
