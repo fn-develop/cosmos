@@ -44,6 +44,7 @@ ja:
       item:
         <<: *attr_common
         code: 'コード'
+        sub_code : 'サブコード'
         name: '名称'
       visited_log:
         <<: *attr_common

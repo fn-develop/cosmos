@@ -30,6 +30,10 @@
             <td><%= @item.code.to_s %></td>
           </tr>
           <tr>
+            <th class="text-nowrap"><%= Item.human_attribute_name(:sub_code) %></th>
+            <td><%= @item.sub_code.to_s %></td>
+          </tr>
+          <tr>
             <th class="text-nowrap"><%= Item.human_attribute_name(:name) %></th>
             <td><%= @item.name.to_s %></td>
           </tr>

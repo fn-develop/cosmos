@@ -26,8 +26,9 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th style="width: 10px"><%= Item.human_attribute_name(:id) %></th>
-            <th style="width: 10%"><%= Item.human_attribute_name(:code) %></th>
+            <th style="width: 10px" class="text-nowrap"><%= Item.human_attribute_name(:id) %></th>
+            <th style="width: 10%" class="text-nowrap"><%= Item.human_attribute_name(:code) %></th>
+            <th style="width: 10%" class="text-nowrap"><%= Item.human_attribute_name(:sub_code) %></th>
             <th><%= Item.human_attribute_name(:name) %></th>
             <th style="width: 100px">編集</th>
           </tr>
@@ -36,8 +37,9 @@
 
           <% @items.each_with_index do |item, i| %>
             <tr>
-              <td><a href="#"><%= item.id.to_s %>.</a></td>
+              <td><a href="<%= company_item_path(@company.code ,item) %>"><%= item.id.to_s %>.</a></td>
               <td><%= item.code.to_s %></td>
+              <td><%= item.sub_code.to_s %></td>
               <td><%= item.name.to_s %></td>
               <td><a href="<%= edit_company_item_path(@company.code ,item) %>" class="btn btn-block btn-info float-left mt-1">編集</a></td>
             </tr>

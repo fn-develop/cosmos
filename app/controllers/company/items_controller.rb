@@ -2,7 +2,7 @@ class Company::ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   def index
-    @items = Item.all
+    @items = company.items
   end
 
   def show
@@ -19,12 +19,11 @@ class Company::ItemsController < ApplicationController
 
   def create
     @item = company.items.new(item_params)
-
-    if @item.update(item_params)
+    if @item.save
       redirect_to company_item_path(company_code, @item), notice: "登録完了。"
     else
       flash.now[:alert] = '入力内容にエラーがあります。'
-      render :edit
+      render :new
     end
   end
 
@@ -56,10 +55,10 @@ class Company::ItemsController < ApplicationController
 
   private
     def set_item
-      @item = Item.find(params[:id])
+      @item ||= company.items.find(params[:id])
     end
 
     def item_params
-      params.require(:item).permit(:code, :name)
+      params.require(:item).permit(:code, :sub_code, :name)
     end
 end

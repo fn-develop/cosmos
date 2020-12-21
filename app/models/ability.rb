@@ -40,7 +40,6 @@ class Ability
       can :manage, :user
       can :manage, User, company: user.company
       can :read, :setting
-      can :read, :item, company: user.company
       can :manage, :bulk_line_message
       can :manage, :calendar
       can :manage, :visited_log
@@ -54,7 +53,6 @@ class Ability
       can :manage, :user
       can :manage, User, company: user.company
       can :manage, :setting
-      can :manage, :item, company: user.company
       can :manage, :bulk_line_message
       if user.company.try(:is_calendar_feature?)
         can :manage, :calendar

@@ -20,6 +20,7 @@ class Item < ApplicationRecord
 
   VALID_CODE_REGEX = /\A[a-z\_]+\z/ # 半角英字
   validates :code, presence: true, length: { in: 1..20 }, format: { with: VALID_CODE_REGEX, message: 'は半角英文字と「_」のみが使えます' }
+  validates :sub_code, presence: true
   validates :name, presence: true, length: { in: 1..20 }
 
   before_destroy :should_not_destroy_if_collection_items

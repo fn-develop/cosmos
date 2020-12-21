@@ -4,7 +4,7 @@
       <div class="col-md-12">
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">システム項目を入力してください。 <small></small></h3>
+            <h3 class="card-title">システム項目を入力してください。<small></small></h3>
           </div>
 
           <%= form_with(model: item, url: url, local: true) do |f| %>
@@ -12,16 +12,25 @@
               <div class="form-group">
                 <% code_err = true if item.errors.include?(:code) %>
                 <%= f.label :code %>
-                <%= f.text_field :code, { class: "form-control #{ code_err ? 'is-invalid' : '' }" , placeholder: 'xxxx', maxlength: 20 } %>
+                <%= f.text_field :code, { class: "form-control #{ code_err ? 'is-invalid' : '' }" , placeholder: 'xxxx', maxlength: 10 } %>
                 <% if code_err %>
                   <span class="error invalid-feedback"><%= item.errors.full_messages_for(:code).first %></span>
                 <% end %>
               </div>
 
               <div class="form-group">
+                <% sub_code_err = true if item.errors.include?(:sub_code) %>
+                <%= f.label :sub_code %>
+                <%= f.select :sub_code, Const::Item::SubCode.constants.map{ |c| Const::Item::SubCode.const_get(c) }, { include_blank: t('common.placeholder_select') }, class: "form-control custom-select #{ sub_code_err ? 'is-invalid' : '' }" %>
+                <% if sub_code_err %>
+                  <span class="error invalid-feedback"><%= item.errors.full_messages_for(:sub_code).first %></span>
+                <% end %>
+              </div>
+
+              <div class="form-group">
                 <% name_err = true if item.errors.include?(:name) %>
                 <%= f.label :name %>
-                <%= f.text_field :name, { class: "form-control #{ name_err ? 'is-invalid' : '' }", placeholder: 'コード名称', maxlength: 20 } %>
+                <%= f.text_field :name, { class: "form-control #{ name_err ? 'is-invalid' : '' }", placeholder: t('common.item_code_name'), maxlength: 20 } %>
                 <% if name_err %>
                   <span class="error invalid-feedback"><%= item.errors.full_messages_for(:name).first %></span>
                 <% end %>
@@ -31,7 +40,7 @@
             <div class="card-footer">
               <%= f.submit class: 'btn btn-primary', data: { confirm: '送信してよろしいですか?', disable_with: '　送信中...　' } %>
 
-              <%= link_to('　削除　', company_item_path(@company.code, item), method: :delete, class: 'btn btn-sm btn-danger float-right', data: { confirm: "削除してよろしいですか？" }) if item.persisted? %>
+              <%= link_to('　削除　', company_item_path(item), method: :delete, class: 'btn btn-sm btn-danger float-right', data: { confirm: "削除してよろしいですか？" }) if item.persisted? %>
             </div>
           <% end %>
         </div>

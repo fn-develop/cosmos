@@ -59,6 +59,8 @@ ja:
       event: イベント
     site_url: URL
     destroied: 削除しました。
+    item_code_name: コード名称
+    placeholder_select: 選択してください。
   layouts: &layouts
     header:
       <<: *common
