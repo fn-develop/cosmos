@@ -55,6 +55,9 @@
           <a href="<%= edit_notify_setting_company_setting_path(@company.code) %>" class="btn btn-success float-left mr-2"><%= t('.line_message_notify_setting_link') %></a>
         <% end %>
       <% end %>
+      <% if can? :manage, :calendar %>
+        <a href="<%= edit_calnedar_setting_company_setting_path %>" class="btn btn-success float-left mr-2"><%= t('.calendar_setting_link') %></a>
+      <% end %>
       <a href="<%= homes_path %>" class="btn btn-default float-right">　戻る　</a>
     </div>
   </div>
