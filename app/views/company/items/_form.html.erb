@@ -40,7 +40,7 @@
             <div class="card-footer">
               <%= f.submit class: 'btn btn-primary', data: { confirm: '送信してよろしいですか?', disable_with: '　送信中...　' } %>
 
-              <%= link_to('　削除　', company_item_path(item), method: :delete, class: 'btn btn-sm btn-danger float-right', data: { confirm: "削除してよろしいですか？" }) if item.persisted? %>
+              <%= link_to('　削除　', company_item_path(@company.code, item), method: :delete, class: 'btn btn-sm btn-danger float-right', data: { confirm: "削除してよろしいですか？" }) if item.persisted? %>
             </div>
           <% end %>
         </div>

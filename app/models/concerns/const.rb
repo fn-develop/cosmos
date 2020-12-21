@@ -8,20 +8,23 @@ module Const
 
     # Const::Item::SubCode
     module SubCode
-      INPUT = 'input'.freeze
-      DISP  = 'disp'.freeze
-    end
-  end
-
-  module CollectionItem
-    # Const::CollectionItem::ItemType
-    module ItemType
-      TEXT          = 'text'.freeze
+      TEXT_INPUT    = 'text_input'.freeze
+      TEXT_AREA     = 'text_area'.freeze
       SELECT_OPTION = 'select_option'.freeze
       RADIO         = 'radio'.freeze
       CHECKBOX      = 'checkbox'.freeze
-      DATE          = 'date'.freeze
+      DISP          = 'disp'.freeze
     end
+  end
+
+  # Const::CollectionItem
+  module CollectionItem
+    ITEM_TYPE = [
+      Item::SubCode::SELECT_OPTION,
+      Item::SubCode::RADIO,
+      Item::SubCode::CHECKBOX,
+      Item::SubCode::DISP,
+    ].freeze
   end
 
   # Const::Controller

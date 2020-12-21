@@ -46,7 +46,7 @@ class Company::ItemsController < ApplicationController
     @item.destroy
 
     if @item.destroyed?
-      redirect_to company_item_path(company_code, @item), notice: "#{@item.code} 削除完了。"
+      redirect_to company_items_path, notice: "ID:#{@item.id} の削除完了。"
     else
       flash.now[:alert] = '関連情報がある為削除できません。'
       render :edit
