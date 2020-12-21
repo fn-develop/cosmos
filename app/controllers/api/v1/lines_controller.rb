@@ -9,7 +9,7 @@ module Api
       IGNORE_REPLY_TOKEN = '00000000000000000000000000000000'.freeze
       QR_CODE_IMAGE_REQUEST = 'スタッフにQRコードをご提示ください。'.freeze
       GET_INVITE_CODE_MESSAGE = '下記コードをご紹介者にお知らせください。'.freeze
-      ON_TIME_MESSAGE  = "【自動応答メッセージ】\nメッセージを承りました。\n店舗スタッフへ転送中の為、返信はしばらくお待ちください。"
+      ON_TIME_MESSAGE  = "【自動応答メッセージ】\nメッセージを承りました。\n店舗スタッフへ転送中の為、返信はしばらくお待ちください。".freeze
       OFF_TIME_MESSAGE = "【自動応答メッセージ】\n営業時間外の為、返信はしばらくお待ちください。".freeze
 
       def show
@@ -81,9 +81,11 @@ module Api
             save_text_message(event)
             setting = company.line_message_notify_setting
             if setting.present? && !setting.active_time?(DateTime.now)
-              client.reply_message(event['replyToken'], { type: Const::LineMessage::Type::TEXT, text: OFF_TIME_MESSAGE })
+              auto_message = setting.auto_message_off_time.present? ? setting.auto_message_off_time : OFF_TIME_MESSAGE
+              client.reply_message(event['replyToken'], { type: Const::LineMessage::Type::TEXT, text: auto_message })
             else
-              client.reply_message(event['replyToken'], { type: Const::LineMessage::Type::TEXT, text: ON_TIME_MESSAGE })
+              auto_message = setting.auto_message_on_time.present? ? setting.auto_message_on_time : ON_TIME_MESSAGE
+              client.reply_message(event['replyToken'], { type: Const::LineMessage::Type::TEXT, text: auto_message })
             end
           end
         end

@@ -101,6 +101,8 @@ ja:
         time_end: 終了
         notify_cycle: サイクル
         notify_target: 受け取り
+        auto_message_on_time: 【時間内】自動応答メッセージ
+        auto_message_off_time: 【時間内】自動応答メッセージ
     calendars:
       index:
         <<: *common

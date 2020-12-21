@@ -47,6 +47,8 @@ class Company::SettingsController < ApplicationController
         :norify_time_to,
         :notify_cycle,
         :notify_target,
+        :auto_message_on_time,
+        :auto_message_off_time,
       )
     end
 end
