@@ -9,7 +9,7 @@ module Api
       IGNORE_REPLY_TOKEN = '00000000000000000000000000000000'.freeze
       QR_CODE_IMAGE_REQUEST = 'スタッフにQRコードをご提示ください。'.freeze
       GET_INVITE_CODE_MESSAGE = '下記コードをご紹介者にお知らせください。'.freeze
-      ON_TIME_MESSAGE  = "【自動応答メッセージ】メッセージを承りました。店舗スタッフへ転送中の為、返信はしばらくお待ちください。"
+      ON_TIME_MESSAGE  = "【自動応答メッセージ】\nメッセージを承りました。\n店舗スタッフへ転送中の為、返信はしばらくお待ちください。"
       OFF_TIME_MESSAGE = "【自動応答メッセージ】\n営業時間外の為、返信はしばらくお待ちください。".freeze
 
       def show
