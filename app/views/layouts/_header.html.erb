@@ -10,7 +10,7 @@
     <li class="nav-item d-none d-sm-inline-block">
       <a href="<%= customers_path %>" class="nav-link"><%= t('common.customer') %></a>
     </li>
-    <% if can? :read, :calendar %>
+    <% if @company.try(:is_calendar_feature?) && can?(:read, :calendar) %>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="<%= company_calendars_path %>" class="nav-link"><%= t('common.calendar') %></a>
       </li>

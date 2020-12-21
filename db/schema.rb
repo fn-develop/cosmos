@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_21_003952) do
+ActiveRecord::Schema.define(version: 2020_12_21_013831) do
 
   create_table "calendars", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "company_id", null: false
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 2020_12_21_003952) do
     t.string "line_qr_code"
     t.string "line_channel_secret"
     t.string "line_channel_token"
+    t.boolean "is_calendar_feature", default: false
     t.boolean "is_notify_unread_line_message_existance", default: true
     t.boolean "is_inviting_feature", default: true
     t.boolean "is_input_customer_name", default: true
