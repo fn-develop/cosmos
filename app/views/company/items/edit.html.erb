@@ -2,14 +2,14 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1 class="m-0 text-dark"><%= Const::View::Name::COMPANY_ITEMS_INDEX %></h1>
+        <h1 class="m-0 text-dark"><%= t('common.hoge') %></h1>
       </div>
 
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="<%= homes_path %>">ホーム</a></li>
-          <li class="breadcrumb-item"><a href="<%= company_items_path %>"><%= Const::View::Name::COMPANY_ITEMS_INDEX %></a></li>
-          <li class="breadcrumb-item active"><%= Const::View::Name::COMPANY_ITEMS_EDIT %></li>
+          <li class="breadcrumb-item"><a href="<%= homes_path %>"><%= t('common.home') %></a></li>
+          <li class="breadcrumb-item"><a href="<%= company_items_path %>"><%= t('common.hoge') %></a></li>
+          <li class="breadcrumb-item active"><%= t('common.hoge') %></li>
         </ol>
       </div>
     </div>

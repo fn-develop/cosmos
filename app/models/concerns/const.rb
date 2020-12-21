@@ -15,30 +15,6 @@ module Const
     CUSTOMER = 'customers'.freeze
   end
 
-  # Const::View
-  module View
-    # Const::View::Name
-    module Name
-      HOME_INDEX           = 'ホーム'.freeze
-      CUSTOMER_INDEX       = '顧客一覧'.freeze
-      CUSTOMER_NEW         = '顧客登録'.freeze
-      CUSTOMER_SHOW        = '顧客情報'.freeze
-      CUSTOMER_EDIT        = '顧客編集'.freeze
-      LINE_NOTIFY          = 'LINE通知'.freeze
-      USER_SHOW            = 'アカウント'.freeze
-      USER_EDIT            = 'アカウント'.freeze
-      COMPANY_SETTING_SHOW = '店舗情報'.freeze
-      COMPANY_SETTING_EDIT = '店舗編集'.freeze
-      COMPANY_ITEMS_INDEX  = 'システム項目一覧'.freeze
-      COMPANY_ITEMS_NEW    = 'システム項目登録'.freeze
-      COMPANY_ITEMS_SHOW   = 'システム項目情報'.freeze
-      COMPANY_ITEMS_EDIT   = 'システム項目編集'.freeze
-      VISITED_LOG          = '来店履歴'.freeze
-      BULK_LINE_MESSAGES   = 'LINEメッセージ一括送信'.freeze
-      BULK_LINE_MESSAGES_DETAIL   = 'LINEメッセージ一括送信詳細'.freeze
-    end
-  end
-
   # Const::LineMessage
   module LineMessage
     # Const::LineMessage::Type
