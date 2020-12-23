@@ -53,10 +53,6 @@ class Company::ItemsController < ApplicationController
     end
   end
 
-  def calendar_item
-    render plain: 'calendar_item'
-  end
-
   private
     def set_item
       @item ||= company.items.find(params[:id])
