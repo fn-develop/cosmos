@@ -36,6 +36,10 @@
                 <% end %>
               </div>
             </div>
+
+            <div class="card-footer">
+              <a href="<%= company_items_path %>" class="btn btn-default float-right"><%= t('common.return_link') %></a>
+            </div>
           </div>
 
           <%= render 'collection_items_form', f: f %>

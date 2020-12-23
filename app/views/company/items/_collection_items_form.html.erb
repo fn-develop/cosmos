@@ -45,7 +45,6 @@
 
   <div class="card-footer">
     <%= f.submit class: 'btn btn-primary', data: { confirm: t('common.submit_confirm'), disable_with: t('common.submit_disable_with') } %>
-
     <%= link_to(t('common.delete_link'), company_item_path(@company.code, @item), method: :delete, class: 'btn btn-sm btn-danger float-right', data: { confirm: t('common.delete_confirm') }) if @item.persisted? %>
   </div>
 </div>

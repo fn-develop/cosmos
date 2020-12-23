@@ -28,9 +28,9 @@
 
     <div class="card-footer clearfix">
       <% if can? :manage, :setting %>
-        <a href="<%= edit_company_item_path(@company.code, @item) %>" class="btn btn-info float-left mr-2">　編集　</a>
+        <a href="<%= edit_company_item_path(@company.code, @item) %>" class="btn btn-info float-left mr-2"><%= t('common.edit_link') %></a>
       <% end %>
-      <a href="<%= company_items_path %>" class="btn btn-default float-right">　戻る　</a>
+      <a href="<%= company_items_path %>" class="btn btn-default float-right"><%= t('common.return_link') %></a>
     </div>
   </div>
 
