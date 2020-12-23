@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
-  # resources :companies
-  # resources :collection_items
   # resources :collections
-  # resources :items
 
   root to: 'public/homes#index'
 
