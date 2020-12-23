@@ -16,14 +16,26 @@
 #
 class Item < ApplicationRecord
   belongs_to :company
-  has_many :collection_items
+  has_many :collection_items, dependent: :destroy
+  accepts_nested_attributes_for :collection_items, allow_destroy: true
 
-  VALID_CODE_REGEX = /\A[a-z\_]+\z/ # 半角英字
+  VALID_CODE_REGEX = /\A[a-z\_]+\z/ # 半角英字とアンダーバー
   validates :code, presence: true, length: { in: 1..20 }, format: { with: VALID_CODE_REGEX, message: 'は半角英文字と「_」のみが使えます' }
   validates :sub_code, presence: true
   validates :name, presence: true, length: { in: 1..20 }
 
   before_destroy :should_not_destroy_if_collection_items
+
+  def collection?
+    case self.sub_code
+    when Const::Item::SubCode::SELECT_OPTION,
+         Const::Item::SubCode::RADIO,
+         Const::Item::SubCode::CHECKBOX
+      true
+    else
+      false
+    end
+  end
 
   private
 

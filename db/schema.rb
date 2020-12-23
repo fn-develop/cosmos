@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_21_083439) do
+ActiveRecord::Schema.define(version: 2020_12_22_080100) do
 
   create_table "calendars", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "company_id", null: false
@@ -27,7 +27,8 @@ ActiveRecord::Schema.define(version: 2020_12_21_083439) do
 
   create_table "collection_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "item_id"
-    t.integer "item_type"
+    t.string "key"
+    t.string "value"
     t.integer "sort_order", limit: 3
     t.boolean "enabled"
     t.datetime "created_at", precision: 6, null: false
@@ -167,6 +168,7 @@ ActiveRecord::Schema.define(version: 2020_12_21_083439) do
     t.boolean "enabled"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "item_type"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|

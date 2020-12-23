@@ -53,12 +53,32 @@ class Company::ItemsController < ApplicationController
     end
   end
 
+  def calendar_item
+    render plain: 'calendar_item'
+  end
+
+  def save_collection_items
+    render plain: 'save_collection_items'
+  end
+
   private
     def set_item
       @item ||= company.items.find(params[:id])
     end
 
     def item_params
-      params.require(:item).permit(:code, :sub_code, :name)
+      params.require(:item).permit(
+        :code,
+        :sub_code,
+        :name,
+        collection_items_attributes: [
+          :key,
+          :value,
+          :sort_order,
+          :enabled,
+          :'_destroy',
+          :id,
+        ],
+      )
     end
 end

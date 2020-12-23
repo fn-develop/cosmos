@@ -2,17 +2,17 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-        <div class="card card-primary">
-          <div class="card-header">
-            <h3 class="card-title"><%= t('common.item_edit_announce') %><small></small></h3>
-          </div>
+        <%= nested_form_for(item, url: url, local: true) do |f| %>
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title"><%= t('common.item_edit_announce') %><small></small></h3>
+            </div>
 
-          <%= form_with(model: item, url: url, local: true) do |f| %>
             <div class="card-body">
               <div class="form-group">
                 <% code_err = true if item.errors.include?(:code) %>
                 <%= f.label :code %>
-                <%= f.text_field :code, { class: "form-control #{ code_err ? 'is-invalid' : '' }" , placeholder: 'xxxx', maxlength: 10 } %>
+                <%= f.text_field :code, { class: "form-control #{ code_err ? 'is-invalid' : '' }" , placeholder: '半角英字と「_」', maxlength: 10 } %>
                 <% if code_err %>
                   <span class="error invalid-feedback"><%= item.errors.full_messages_for(:code).first %></span>
                 <% end %>
@@ -36,14 +36,10 @@
                 <% end %>
               </div>
             </div>
+          </div>
 
-            <div class="card-footer">
-              <%= f.submit class: 'btn btn-primary', data: { confirm: t('common.submit_confirm'), disable_with: t('common.submit_disable_with') } %>
-
-              <%= link_to(t('common.delete_link'), company_item_path(@company.code, item), method: :delete, class: 'btn btn-sm btn-danger float-right', data: { confirm: t('common.delete_confirm') }) if item.persisted? %>
-            </div>
-          <% end %>
-        </div>
+          <%= render 'collection_items_form', f: f %>
+        <% end %>
       </div>
 
       <div class="col-md-6">

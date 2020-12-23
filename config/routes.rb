@@ -49,7 +49,10 @@ Rails.application.routes.draw do
         get 'edit_calnedar_setting', to: 'settings#edit_calendar_setting'
         put 'update_calendar_setting', to: 'settings#update_calendar_setting'
       end
-      resources :items
+      resources :items do
+        get 'calendar', to: 'items#calendar_item', on: :collection
+        post 'save_collection_items', to: 'items#save_collection_items'
+      end
       resources :bulk_line_messages
       resources :calendars, only: [:index] do
         post 'save', to: 'calendars#save', on: :collection

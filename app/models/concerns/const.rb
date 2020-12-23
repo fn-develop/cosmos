@@ -23,7 +23,6 @@ module Const
       Item::SubCode::SELECT_OPTION,
       Item::SubCode::RADIO,
       Item::SubCode::CHECKBOX,
-      Item::SubCode::DISP,
     ].freeze
   end
 

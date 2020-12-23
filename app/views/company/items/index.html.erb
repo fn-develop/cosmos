@@ -4,7 +4,12 @@
 <section class="content">
   <div class="card">
     <div class="card-header">
-      <a href="<%= new_company_item_path %>" class="btn btn-info float-left mt-1">新規作成</a>
+      <a href="<%= new_company_item_path %>" class="btn btn-primary float-right mt-1">
+        <%= t('common.new_create') %>
+      </a>
+      <a href="<%= calendar_company_items_path %>" class="btn btn-info float-left mt-1">
+        <%= t('common.calendar_item') %>
+      </a>
     </div>
     <div class="card-body">
       <table class="table table-bordered">
@@ -14,7 +19,6 @@
             <th style="width: 10%" class="text-nowrap"><%= Item.human_attribute_name(:code) %></th>
             <th style="width: 10%" class="text-nowrap"><%= Item.human_attribute_name(:sub_code) %></th>
             <th><%= Item.human_attribute_name(:name) %></th>
-            <th style="width: 100px">編集</th>
           </tr>
         </thead>
         <tbody>
@@ -24,7 +28,6 @@
               <td><%= item.code.to_s %></td>
               <td><%= item.sub_code.to_s %></td>
               <td><%= item.name.to_s %></td>
-              <td><a href="<%= edit_company_item_path(@company.code ,item) %>" class="btn btn-block btn-info float-left mt-1">編集</a></td>
             </tr>
           <% end %>
         </tbody>

@@ -5,6 +5,7 @@
 #  id                 :bigint           not null, primary key
 #  code               :string(255)
 #  enabled            :boolean
+#  item_type          :integer
 #  name               :string(255)
 #  sort_order         :integer
 #  created_at         :datetime         not null

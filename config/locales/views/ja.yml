@@ -27,6 +27,7 @@ ja:
     user_edit: アカウント
     account: アカウント
     logout: ログアウト
+    edit: 編集
     edit_link: '　編集　'
     return_link: '　戻る　'
     searting: '検索中...'
@@ -63,6 +64,10 @@ ja:
     item_code_name: コード名称
     placeholder_select: 選択してください。
     item_edit_announce: 項目を入力してください。
+    calendar_item: カレンダー項目設定
+    new_create: 新規作成
+    collection_item: コレクション項目
+    save: 保存
   layouts: &layouts
     header:
       <<: *common
