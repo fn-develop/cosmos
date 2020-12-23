@@ -17,15 +17,6 @@ module Const
     end
   end
 
-  # Const::CollectionItem
-  module CollectionItem
-    ITEM_TYPE = [
-      Item::SubCode::SELECT_OPTION,
-      Item::SubCode::RADIO,
-      Item::SubCode::CHECKBOX,
-    ].freeze
-  end
-
   # Const::Controller
   module Controller
     CUSTOMER = 'customers'.freeze
