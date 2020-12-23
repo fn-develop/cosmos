@@ -29,6 +29,7 @@ class Company::CalendarsController < ApplicationController
     p = params.require(:calendar).permit(
       'event_type',
       'title',
+      'color',
       'site_url',
       'allday',
       'start(1i)',
@@ -46,6 +47,7 @@ class Company::CalendarsController < ApplicationController
     @calendar_params = {
       event_type: p['event_type'],
       title: p['title'],
+      color: p['color'],
       site_url: p['site_url'],
       allday: p['allday'],
       start: DateTime.new(

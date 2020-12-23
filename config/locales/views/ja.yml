@@ -67,6 +67,7 @@ ja:
     new_create: 新規作成
     collection_item: コレクション項目
     save: 保存
+    color: 色
   layouts: &layouts
     header:
       <<: *common

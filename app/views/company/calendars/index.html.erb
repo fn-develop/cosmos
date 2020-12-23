@@ -46,7 +46,30 @@
                 <%= f.select :event_type, @company.calendar_event_types, { include_blank: '選択してください。' }, { class: 'custom-select', required: true } %>
               </div>
             </div>
+
+            <div class="col-sm-6">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <%= t('common.color') %>
+                  </span>
+                </div>
+                <%= f.text_field :color, { class: 'form-control' } %>
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <input type="color" name="hoge" id="disp_color" readonly="true" />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+          <%= javascript_tag do %>
+            $(function() {
+              $('#disp_color').on('input', function() {
+                $('#calendar_color').val($(this).val());
+              }).trigger('input');
+            });
+          <% end %>
 
           <div class="form-group row">
             <div class="col-sm-12">

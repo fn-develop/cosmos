@@ -4,6 +4,7 @@
 #
 #  id         :bigint           not null, primary key
 #  allday     :string(255)      default("false")
+#  color      :string(255)
 #  end        :datetime
 #  event_type :string(255)
 #  site_url   :string(255)

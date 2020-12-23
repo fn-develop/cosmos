@@ -4,6 +4,7 @@
 #
 #  id         :bigint           not null, primary key
 #  allday     :string(255)      default("false")
+#  color      :string(255)
 #  end        :datetime
 #  event_type :string(255)
 #  site_url   :string(255)
@@ -30,8 +31,8 @@ class Calendar < ApplicationRecord
     j[:start]           = self.allday == 'true' ? (self.start - 1.day - 9.hour).strftime("%Y-%m-%d") : (self.start - 1.day - 9.hour).strftime("%Y-%m-%d %H:%M")
     j[:end]             = (self.end - 1.day - 9.hour).strftime("%Y-%m-%d %H:%M") if self.allday == 'false'
     j[:site_url]        = self.site_url.to_s if self.site_url.present?
-    j[:backgroundcolor] = '#f56954'
-    j[:bordercolor]     = '#f56954'
+    j[:color]           = self.color || '#f56954'
+    j[:textColor]       = 'white'
     j.to_json
   end
 
