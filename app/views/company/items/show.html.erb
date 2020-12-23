@@ -34,30 +34,32 @@
     </div>
   </div>
 
-  <div class="card">
-    <div class="card-header">
-      <h3 class="card-title"><%= t('common.collection_item') %></h3>
-    </div>
+  <% @item.collection_items.present? %>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><%= t('common.collection_item') %></h3>
+      </div>
 
-    <div class="card-body">
-      <table class="table table-bordered">
-        <tbody>
-          <tr>
-            <th class="text-nowrap"><%= CollectionItem.human_attribute_name(:key) %></th>
-            <th class="text-nowrap"><%= CollectionItem.human_attribute_name(:value) %></th>
-            <th class="text-nowrap"><%= CollectionItem.human_attribute_name(:sort_order) %></th>
-            <th class="text-nowrap"><%= CollectionItem.human_attribute_name(:enabled) %></th>
-          </tr>
-          <% @item.collection_items.each do |ci| %>
+      <div class="card-body">
+        <table class="table table-bordered">
+          <tbody>
             <tr>
-              <td><%= ci.key %></td>
-              <td><%= ci.value %></td>
-              <td><%= ci.sort_order %></td>
-              <td><%= ci.enabled? ? t('common.enabled') : t('common.disabled') %></td>
+              <th class="text-nowrap"><%= CollectionItem.human_attribute_name(:key) %></th>
+              <th class="text-nowrap"><%= CollectionItem.human_attribute_name(:value) %></th>
+              <th class="text-nowrap"><%= CollectionItem.human_attribute_name(:sort_order) %></th>
+              <th class="text-nowrap"><%= CollectionItem.human_attribute_name(:enabled) %></th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+            <% @item.collection_items.each do |ci| %>
+              <tr>
+                <td><%= ci.key %></td>
+                <td><%= ci.value %></td>
+                <td><%= ci.sort_order %></td>
+                <td><%= ci.enabled? ? t('common.enabled') : t('common.disabled') %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
+  <% end %>
 </section>

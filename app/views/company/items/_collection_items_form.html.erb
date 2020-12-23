@@ -1,4 +1,4 @@
-<div class="card card-primary card-outline">
+<div class="card card-primary card-outline" id="collection_item_area">
   <div class="card-header">
     <h3 class="card-title"><%= t('common.collection_item') %></h3>
   </div>
@@ -41,10 +41,5 @@
       </div>
     <% end %>
     <%= f.link_to_add '<i class="far fa-plus-square fa-2x text-primary"></i>'.html_safe, :collection_items, class: 'btn btn-sm float-right' %>
-  </div>
-
-  <div class="card-footer">
-    <%= f.submit class: 'btn btn-primary', data: { confirm: t('common.submit_confirm'), disable_with: t('common.submit_disable_with') } %>
-    <%= link_to(t('common.delete_link'), company_item_path(@company.code, @item), method: :delete, class: 'btn btn-sm btn-danger float-right', data: { confirm: t('common.delete_confirm') }) if @item.persisted? %>
   </div>
 </div>

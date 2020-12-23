@@ -27,6 +27,23 @@
                 <% end %>
               </div>
 
+              <%= javascript_tag do %>
+                $(function() {
+                  $('#item_sub_code').on('input', function(){
+                    let select_code = $(this).val();
+                    switch (select_code){
+                      case 'select_option':
+                      case 'radio':
+                      case 'checkbox':
+                        $('#collection_item_area').removeClass('d-none');
+                        break;
+                      default:
+                        $('#collection_item_area').addClass('d-none');
+                    }
+                  }).trigger('input');
+                });
+              <% end %>
+
               <div class="form-group">
                 <% name_err = true if item.errors.include?(:name) %>
                 <%= f.label :name %>
@@ -38,7 +55,9 @@
             </div>
 
             <div class="card-footer">
-              <a href="<%= company_items_path %>" class="btn btn-default float-right"><%= t('common.return_link') %></a>
+              <%= f.submit class: 'btn btn-primary', data: { confirm: t('common.submit_confirm'), disable_with: t('common.submit_disable_with') } %>
+              <%= link_to(t('common.delete_link'), company_item_path(@company.code, @item), method: :delete, class: 'btn btn-sm btn-danger float-right', data: { confirm: t('common.delete_confirm') }) if @item.persisted? %>
+              <a href="<%= company_items_path %>" class="btn btn-default float-right mr-2"><%= t('common.return_link') %></a>
             </div>
           </div>
 

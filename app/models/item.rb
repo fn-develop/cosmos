@@ -23,9 +23,9 @@ class Item < ApplicationRecord
   validates :code, presence: true, length: { in: 1..20 }, format: { with: VALID_CODE_REGEX, message: 'は半角英文字と「_」のみが使えます' }, uniqueness: { scope: [:company_id, :sub_code] }
   validates :sub_code, presence: true, length: { in: 1..20 }, uniqueness: { scope: [:company_id, :code] }
   validates :name, presence: true
-  validates :code, presence: true, uniqueness: { scope: :user }
 
   before_destroy :should_not_destroy_if_collection_items
+  after_save :delete_collection_items
 
   def collection?
     case self.sub_code
@@ -45,6 +45,10 @@ class Item < ApplicationRecord
         # 公開済みのブログは削除できない
         throw :abort
       end
+    end
+
+    def delete_collection_items
+      self.collection_items.delete_all unless self.collection?
     end
 
 end
