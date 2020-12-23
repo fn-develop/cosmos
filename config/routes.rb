@@ -51,7 +51,6 @@ Rails.application.routes.draw do
       end
       resources :items do
         get 'calendar', to: 'items#calendar_item', on: :collection
-        post 'save_collection_items', to: 'items#save_collection_items'
       end
       resources :bulk_line_messages
       resources :calendars, only: [:index] do

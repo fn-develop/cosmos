@@ -57,10 +57,6 @@ class Company::ItemsController < ApplicationController
     render plain: 'calendar_item'
   end
 
-  def save_collection_items
-    render plain: 'save_collection_items'
-  end
-
   private
     def set_item
       @item ||= company.items.find(params[:id])
