@@ -20,9 +20,9 @@ class Item < ApplicationRecord
   accepts_nested_attributes_for :collection_items, allow_destroy: true
 
   VALID_CODE_REGEX = /\A[a-z\_]+\z/ # 半角英字とアンダーバー
-  validates :code, presence: true, length: { in: 1..20 }, format: { with: VALID_CODE_REGEX, message: 'は半角英文字と「_」のみが使えます' }, uniqueness: { scope: [:company_id, :sub_code] }
-  validates :sub_code, presence: true, length: { in: 1..20 }, uniqueness: { scope: [:company_id, :code] }
-  validates :name, presence: true
+  validates :code, presence: true, length: { in: 1..20 }, format: { with: VALID_CODE_REGEX, message: 'は半角英文字と「_」のみが使えます' }, uniqueness: { scope: [:company_id, :sub_code, :name] }
+  validates :sub_code, presence: true, length: { in: 1..20 }, uniqueness: { scope: [:company_id, :code, :name] }
+  validates :name, presence: true, length: { in: 1..20 }, format: { with: VALID_CODE_REGEX, message: 'は半角英文字と「_」のみが使えます' }, uniqueness: { scope: [:company_id, :code, :sub_code] }
 
   before_destroy :should_not_destroy_if_collection_items
   after_save :delete_collection_items
