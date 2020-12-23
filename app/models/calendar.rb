@@ -18,13 +18,7 @@ class Calendar < ApplicationRecord
   belongs_to :company
   belongs_to :staff, class_name: 'User', required: false
 
-  EVENT_TYPES = [:store_holiday, :holiday, :event].freeze
-
   validate :valid_date
-
-  def self.event_type_arr
-    EVENT_TYPES.map{ |v| [I18n.t("common.event_types.#{v}"), v] }
-  end
 
   def json_calendar_event
     j                   = {}

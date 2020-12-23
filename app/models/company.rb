@@ -54,6 +54,15 @@ class Company < ApplicationRecord
     line_message_count.try(:total) || 0
   end
 
+  def calendar_event_types
+    item = self.items.find_by(code: Const::Item::Code::CALENDAR, sub_code: Const::Item::SubCode::SELECT_OPTION)
+    if item && item.collection_items
+      return item.collection_items.map{ |ci| [ci.key, ci.value] }
+    else
+      return []
+    end
+  end
+
   private def auto_update_visit_confirmation_code
     if (DateTime.now.to_i - self.updated_at.to_i) > 24.hour.to_i
       self.visit_confirmation_code = rand(9999).to_s.rjust(4, '0') # 4桁数値文字列を自動生成
