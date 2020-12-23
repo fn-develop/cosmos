@@ -34,7 +34,7 @@
     </div>
   </div>
 
-  <% @item.collection_items.present? %>
+  <% if @item.collection_items.present? %>
     <div class="card">
       <div class="card-header">
         <h3 class="card-title"><%= t('common.collection_item') %></h3>

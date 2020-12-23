@@ -16,8 +16,8 @@ class CollectionItem < ApplicationRecord
   has_many :option_for_collection_items, dependent: :destroy
 
   VALID_CODE_REGEX = /\A[a-z\_]+\z/ # 半角英字とアンダーバー
-  validates :key, presence: true, length: { in: 1..20 }, format: { with: VALID_CODE_REGEX, message: 'は半角英文字と「_」のみが使えます' }
-  validates :value, presence: true, length: { in: 1..20 }
+  validates :key, presence: true, length: { in: 1..20 }
+  validates :value, presence: true, length: { in: 1..20 }, format: { with: VALID_CODE_REGEX, message: 'は半角英文字と「_」のみが使えます' }, uniqueness: { scope: :item_id }
   validates :sort_order, presence: true
   validates :enabled, inclusion: [true, false]
 end
