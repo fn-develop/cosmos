@@ -17,6 +17,7 @@ class Customer::VisitedLogsController < ApplicationController
     @visited_log.enabled = true
 
     if @visited_log.save
+      @customer.reset_ymd_num
       redirect_to customer_path(company_code, @customer), notice: "#{ @visited_log.visited_day }の登録が完了しました。"
     else
       render :new, notice: '入力内容にエラーがあります。'
@@ -32,6 +33,7 @@ class Customer::VisitedLogsController < ApplicationController
     @visited_log.attributes = visited_log_params
 
     if @visited_log.save
+      @customer.reset_ymd_num
       redirect_to customer_path(company_code, @customer), notice: "来店履歴の更新が完了しました。"
     else
       render action: :edit
@@ -39,8 +41,10 @@ class Customer::VisitedLogsController < ApplicationController
   end
 
   def destroy
-    @visited_log = company.visited_logs.find(params[:id])
+    @visited_log = @customer.visited_logs.find(params[:id])
     @visited_log.destroy!
+    @customer.reload
+    @customer.reset_ymd_num
 
     redirect_to customer_path(company_code, @customer), notice: "来店履歴の削除が完了しました。"
   end
