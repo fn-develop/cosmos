@@ -34,9 +34,10 @@ class Ability
 
     # スタッフ
     def staff_ability(user)
+      can :read, :company
       can :manage, :customer
       can :manage, Customer, company: user.company
-      can :read, Company, company: user.company
+      can :read, Company, id: user.company.id
       can :manage, :user
       can :manage, User, company: user.company
       can :read, :setting
@@ -47,6 +48,7 @@ class Ability
 
     # 店舗オーナー
     def owner_ability(user)
+      can :magage, :company
       can :manage, :customer
       can :manage, Customer, company: user.company
       can :manage, Company, id: user.company.id
