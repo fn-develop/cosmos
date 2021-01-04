@@ -43,6 +43,11 @@ class Company::StaffsController < ApplicationController
     end
   end
 
+  def destroy
+    @user.destroy!
+    redirect_to company_staffs_path, notice: "ID:#{ @user.id }のスタッフを削除しました。"
+  end
+
   private
     def set_staff
       @user = company.users.find(params[:id])
