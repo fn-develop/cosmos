@@ -58,6 +58,7 @@ class Ability
         can :manage, :calendar
       end
       can :manage, :visited_log
+      can :manage, :staff
     end
 
     # システム管理者

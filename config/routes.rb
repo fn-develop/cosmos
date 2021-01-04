@@ -51,6 +51,7 @@ Rails.application.routes.draw do
       resources :calendars, only: [:index] do
         post 'save', to: 'calendars#save', on: :collection
       end
+      resources :staffs
     end
 
     namespace 'api' do

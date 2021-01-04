@@ -20,6 +20,11 @@
         <a href="<%= company_items_path %>" class="nav-link"><%= t('common.item') %></a>
       </li>
     <% end %>
+    <% if can?(:manage, :staff) %>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="<%= company_staffs_path %>" class="nav-link"><%= t('common.staff') %></a>
+      </li>
+    <% end %>
   </ul>
 
   <ul class="navbar-nav ml-auto">

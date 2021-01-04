@@ -68,6 +68,10 @@ ja:
     collection_item: コレクション項目
     save: 保存
     color: 色
+    staff: スタッフ
+    staffs: スタッフ一覧
+    staff_new: スタッフ登録
+    staff_edit: スタッフ編集
   layouts: &layouts
     header:
       <<: *common
@@ -118,6 +122,22 @@ ja:
         <<: *common
         edit_calendar: 予定登録
         allday: 時刻を指定する
+    staffs:
+      index:
+        <<: *common
+        card_title: スタッフ
+        not_exists: スタッフは存在しません。
+        id: ID
+        email: ログインID（E-Mail）
+      show:
+        <<: *common
+        detail: スタッフ詳細
+      new:
+        <<: *common
+      edit:
+        <<: *common
+      form:
+        <<: *common
   customers:
     line_message:
       form:
