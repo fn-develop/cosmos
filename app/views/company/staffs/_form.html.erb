@@ -1,0 +1,44 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title"><%= t('.info') %><small></small></h3>
+          </div>
+
+          <%= form_with(model: user, url: url, method: method, local: true) do |f| %>
+            <div class="card-body">
+
+              <div class="form-group">
+                <% email_err = true if user.errors.include?(:email) %>
+                <%= f.label :email %>
+                <%= f.text_field :email, { class: "form-control #{ email_err ? 'is-invalid' : '' }", placeholder: 'xxx@examole.com', maxlength: 100 } %>
+                <% if email_err %>
+                  <span class="error invalid-feedback"><%= user.errors.full_messages_for(:email).first %></span>
+                <% end %>
+              </div>
+
+              <div class="form-group">
+                <% password_err = true if user.errors.include?(:password) %>
+                <%= f.label :password %>
+                <%= f.password_field :password, { class: "form-control #{ password_err ? 'is-invalid' : '' }", placeholder: '********', maxlength: 20 } %>
+                <% if password_err %>
+                  <span class="error invalid-feedback"><%= user.errors.full_messages_for(:password).first %></span>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <%= f.submit class: 'btn btn-primary', data: { confirm: t('.submit_confirm'), disable_with: t('.submit_disable_with') } %>
+              <%= link_to(t('.delete_link'), company_staff_path(@company.code, user), method: :delete, class: 'btn btn-sm btn-danger float-right', data: { confirm: t('.delete_confirm') }) if user.persisted? %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+      </div>
+    </div>
+  </div>
+</section>

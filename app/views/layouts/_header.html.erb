@@ -10,9 +10,19 @@
     <li class="nav-item d-none d-sm-inline-block">
       <a href="<%= customers_path %>" class="nav-link"><%= t('common.customer') %></a>
     </li>
-    <% if can? :read, :calendar %>
+    <% if @company.try(:is_calendar_feature?) && can?(:read, :calendar) %>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="<%= company_calendars_path %>" class="nav-link"><%= t('common.calendar') %></a>
+      </li>
+    <% end %>
+    <% if can?(:manage, :item) %>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="<%= company_items_path %>" class="nav-link"><%= t('common.item') %></a>
+      </li>
+    <% end %>
+    <% if can?(:manage, :staff) %>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="<%= company_staffs_path %>" class="nav-link"><%= t('common.staff') %></a>
       </li>
     <% end %>
   </ul>

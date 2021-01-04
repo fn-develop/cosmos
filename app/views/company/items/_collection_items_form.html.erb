@@ -1,0 +1,45 @@
+<div class="card card-primary card-outline" id="collection_item_area">
+  <div class="card-header">
+    <h3 class="card-title"><%= t('common.collection_item') %></h3>
+  </div>
+
+  <div class="card-body">
+    <%= f.fields_for :collection_items do |ci| %>
+      <div class="form-row">
+        <div class="form-group col-sm-3">
+          <%= ci.label :key %>
+          <%= ci.text_field :key, { class: 'form-control d-inline', maxlength: '20' } %>
+        </div>
+        <div class="form-group col-sm-3">
+          <%= ci.label :value %>
+          <%= ci.text_field :value, { class: 'form-control d-inline', placeholder: '半角英字と「_」', maxlength: '20' } %>
+        </div>
+        <div class="form-group col-sm-3">
+          <%= ci.label :sort_order %>
+          <%= ci.select :sort_order, (0..10).to_a, { selected: ci.object.sort_order.to_i }, { class: 'custom-select', required: true } %>
+        </div>
+        <div class="form-group col-sm-3 d-flex align-items-end">
+          <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-outline-warning mb-0 #{ !ci.object.enabled? ? 'active' : '' }" style="width:50%">
+              <%= ci.radio_button :enabled, 0, { checked: !ci.object.enabled?, class: 'd-none' } %>無効
+            </label>
+            <label class="btn btn-outline-warning mb-0 #{ ci.object.enabled? ? 'active' : '' }" style="width:50%">
+              <%= ci.radio_button :enabled, 1, { checked: ci.object.enabled?, class: 'd-none' } %>有効
+            </label>
+          </div>
+        </div>
+        <div class="form-group col-sm-3 d-flex align-items-end">
+          <%= ci.link_to_remove :削除, class: 'btn btn-danger' %>
+        </div>
+        <%= ci.hidden_field :id %>
+      </div>
+
+      <div class="text-danger pb-4">
+        <span>
+          <%= ci.object.errors.full_messages.first if ci.object.errors %>
+        </span>
+      </div>
+    <% end %>
+    <%= f.link_to_add '<i class="far fa-plus-square fa-2x text-primary"></i>'.html_safe, :collection_items, class: 'btn btn-sm float-right' %>
+  </div>
+</div>

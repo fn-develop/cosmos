@@ -5,6 +5,7 @@
 #  id                                      :bigint           not null, primary key
 #  code                                    :string(255)
 #  enabled                                 :boolean
+#  is_calendar_feature                     :boolean          default(FALSE)
 #  is_input_customer_address               :boolean          default(TRUE)
 #  is_input_customer_birthday              :boolean          default(TRUE)
 #  is_input_customer_gender                :boolean          default(TRUE)
@@ -51,6 +52,15 @@ class Company < ApplicationRecord
     today = Date.today
     line_message_count = self.line_message_counts.find_by(year: today.year.to_s, month: today.month.to_s)
     line_message_count.try(:total) || 0
+  end
+
+  def calendar_event_types
+    item = self.items.find_by(code: Const::Item::Code::CALENDAR, sub_code: Const::Item::SubCode::SELECT_OPTION)
+    if item && item.collection_items
+      return item.collection_items.map{ |ci| [ci.key, ci.value] }
+    else
+      return []
+    end
   end
 
   private def auto_update_visit_confirmation_code

@@ -1,0 +1,74 @@
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark"><%= t('.staffs') %></h1>
+      </div>
+
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="<%= homes_path %>"><%= t('.home') %></a></li>
+          <li class="breadcrumb-item active"><%= t('.staffs') %></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="card card-primary card-outline">
+      <div class="card-header">
+        <% page = params[:page].present? ? params[:page].to_i : 1 %>
+        <h3 class="card-title">
+          <% if @staffs.total_count != 0 %>
+          <%= Company::StaffsController::PER * (page - 1) + 1 %>-<%= (Company::StaffsController::PER * (params[:page].present? ? params[:page].to_i : 1)).to_s + '/' if @staffs.total_count > Company::StaffsController::PER %><%= @staffs.total_count %>
+          <% else %>
+            <%= t('.not_exists') %>
+          <% end %>
+        </h3>
+        <%= paginate @staffs %>
+      </div>
+
+      <div class="card-body p-0">
+        <div class="mailbox-controls">
+          <a href="<%= new_company_staff_path %>" class="btn btn-sm float-right"><i class="far fa-plus-square fa-2x text-primary"></i></a>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-hover table-striped">
+            <tbody>
+            <thead>
+              <tr>
+                <th><%= t('.id') %></th>
+                <th><%= t('.email') %></th>
+              </tr>
+            </thead>
+
+            <% @staffs.each_with_index do |staff, i| %>
+              <tr>
+                <td>
+                  <%= link_to staff.id, company_staff_path(@company.code, staff), { class: 'text-info' } %>
+                </td>
+                <td class="align-middle">
+                  <%= staff.email.to_s %>
+                </td>
+              </tr>
+            <% end %>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="mailbox-controls m-3">
+        <% page = params[:page].present? ? params[:page].to_i : 1 %>
+        <h3 class="card-title">
+          <% if @staffs.total_count != 0 %>
+          <%= Company::StaffsController::PER * (page - 1) + 1 %>-<%= (Company::StaffsController::PER * (params[:page].present? ? params[:page].to_i : 1)).to_s + '/' if @staffs.total_count > Company::StaffsController::PER %><%= @staffs.total_count %>
+          <% end %>
+        </h3>
+        <%= paginate @staffs %>
+      </div>
+    </div>
+  </div>
+</section>

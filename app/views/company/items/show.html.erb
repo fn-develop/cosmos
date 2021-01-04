@@ -1,25 +1,10 @@
 <div class="content-header">
-  <div class="container-fluid">
-    <div class="row mb-2">
-      <div class="col-sm-6">
-        <h1 class="m-0 text-dark"><%= Const::View::Name::COMPANY_ITEMS_SHOW %></h1>
-      </div>
-
-      <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="<%= homes_path %>">ホーム</a></li>
-          <li class="breadcrumb-item"><a href="<%= company_items_path %>"><%= Const::View::Name::COMPANY_ITEMS_INDEX %></a></li>
-          <li class="breadcrumb-item active"><%= Const::View::Name::COMPANY_ITEMS_SHOW %></li>
-        </ol>
-      </div>
-    </div>
-  </div>
 </div>
 
 <section class="content">
   <div class="card">
     <div class="card-header">
-      <h3 class="card-title">情報</h3>
+      <h3 class="card-title"><%= t('common.info') %></h3>
     </div>
 
     <div class="card-body">
@@ -28,6 +13,10 @@
           <tr>
             <th class="text-nowrap"><%= Item.human_attribute_name(:code) %></th>
             <td><%= @item.code.to_s %></td>
+          </tr>
+          <tr>
+            <th class="text-nowrap"><%= Item.human_attribute_name(:sub_code) %></th>
+            <td><%= @item.sub_code.to_s %></td>
           </tr>
           <tr>
             <th class="text-nowrap"><%= Item.human_attribute_name(:name) %></th>
@@ -39,9 +28,38 @@
 
     <div class="card-footer clearfix">
       <% if can? :manage, :setting %>
-        <a href="<%= edit_company_item_path(@company.code, @item) %>" class="btn btn-info float-left mr-2">　編集　</a>
+        <a href="<%= edit_company_item_path(@company.code, @item) %>" class="btn btn-info float-left mr-2"><%= t('common.edit_link') %></a>
       <% end %>
-      <a href="<%= company_items_path %>" class="btn btn-default float-right">　戻る　</a>
+      <a href="<%= company_items_path %>" class="btn btn-default float-right"><%= t('common.return_link') %></a>
     </div>
   </div>
+
+  <% if @item.collection_items.present? %>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><%= t('common.collection_item') %></h3>
+      </div>
+
+      <div class="card-body">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <th class="text-nowrap"><%= CollectionItem.human_attribute_name(:key) %></th>
+              <th class="text-nowrap"><%= CollectionItem.human_attribute_name(:value) %></th>
+              <th class="text-nowrap"><%= CollectionItem.human_attribute_name(:sort_order) %></th>
+              <th class="text-nowrap"><%= CollectionItem.human_attribute_name(:enabled) %></th>
+            </tr>
+            <% @item.collection_items.each do |ci| %>
+              <tr>
+                <td><%= ci.key %></td>
+                <td><%= ci.value %></td>
+                <td><%= ci.sort_order %></td>
+                <td><%= ci.enabled? ? t('common.enabled') : t('common.disabled') %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
 </section>

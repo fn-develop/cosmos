@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
-  # resources :companies
-  # resources :collection_items
   # resources :collections
-  # resources :items
 
   root to: 'public/homes#index'
 
@@ -46,12 +43,15 @@ Rails.application.routes.draw do
       resource :setting, only: [:show, :edit, :update] do
         get 'edit_notify_setting', to: 'settings#edit_notify_setting'
         put 'update_notify_setting', to: 'settings#update_notify_setting'
+        get 'edit_calnedar_setting', to: 'settings#edit_calendar_setting'
+        put 'update_calendar_setting', to: 'settings#update_calendar_setting'
       end
       resources :items
       resources :bulk_line_messages
       resources :calendars, only: [:index] do
         post 'save', to: 'calendars#save', on: :collection
       end
+      resources :staffs
     end
 
     namespace 'api' do

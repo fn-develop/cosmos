@@ -10,11 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_21_003952) do
+ActiveRecord::Schema.define(version: 2020_12_23_065442) do
 
   create_table "calendars", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "company_id", null: false
     t.string "title"
+    t.string "color"
     t.datetime "start"
     t.datetime "end"
     t.string "allday", default: "false"
@@ -26,9 +27,9 @@ ActiveRecord::Schema.define(version: 2020_12_21_003952) do
   end
 
   create_table "collection_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.integer "collection_id"
     t.integer "item_id"
-    t.integer "item_type"
+    t.string "key"
+    t.string "value"
     t.integer "sort_order", limit: 3
     t.boolean "enabled"
     t.datetime "created_at", precision: 6, null: false
@@ -56,6 +57,7 @@ ActiveRecord::Schema.define(version: 2020_12_21_003952) do
     t.string "line_qr_code"
     t.string "line_channel_secret"
     t.string "line_channel_token"
+    t.boolean "is_calendar_feature", default: false
     t.boolean "is_notify_unread_line_message_existance", default: true
     t.boolean "is_inviting_feature", default: true
     t.boolean "is_input_customer_name", default: true
@@ -92,6 +94,7 @@ ActiveRecord::Schema.define(version: 2020_12_21_003952) do
   create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "company_id"
     t.string "code"
+    t.string "sub_code"
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -166,6 +169,7 @@ ActiveRecord::Schema.define(version: 2020_12_21_003952) do
     t.boolean "enabled"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "item_type"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|

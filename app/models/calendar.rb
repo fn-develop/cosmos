@@ -4,6 +4,7 @@
 #
 #  id         :bigint           not null, primary key
 #  allday     :string(255)      default("false")
+#  color      :string(255)
 #  end        :datetime
 #  event_type :string(255)
 #  site_url   :string(255)
@@ -18,13 +19,7 @@ class Calendar < ApplicationRecord
   belongs_to :company
   belongs_to :staff, class_name: 'User', required: false
 
-  EVENT_TYPES = [:store_holiday, :holiday, :event].freeze
-
   validate :valid_date
-
-  def self.event_type_arr
-    EVENT_TYPES.map{ |v| [I18n.t("common.event_types.#{v}"), v] }
-  end
 
   def json_calendar_event
     j                   = {}
@@ -36,8 +31,8 @@ class Calendar < ApplicationRecord
     j[:start]           = self.allday == 'true' ? (self.start - 1.day - 9.hour).strftime("%Y-%m-%d") : (self.start - 1.day - 9.hour).strftime("%Y-%m-%d %H:%M")
     j[:end]             = (self.end - 1.day - 9.hour).strftime("%Y-%m-%d %H:%M") if self.allday == 'false'
     j[:site_url]        = self.site_url.to_s if self.site_url.present?
-    j[:backgroundcolor] = '#f56954'
-    j[:bordercolor]     = '#f56954'
+    j[:color]           = self.color || '#f56954'
+    j[:textColor]       = 'white'
     j.to_json
   end
 

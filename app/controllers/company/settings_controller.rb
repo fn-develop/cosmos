@@ -35,6 +35,14 @@ class Company::SettingsController < ApplicationController
     end
   end
 
+  def edit_calendar_setting
+    render plain: 'edit_calendar_setting'
+  end
+
+  def update_calendar_setting
+    render plain: 'update_calendar_setting'
+  end
+
   private
     def company_params
       params.require(:company).permit(:name, :logo, :line_qr_code, :line_channel_secret, :line_channel_token)
@@ -50,5 +58,9 @@ class Company::SettingsController < ApplicationController
         :auto_message_on_time,
         :auto_message_off_time,
       )
+    end
+
+    def calendar_setting_params
+      params.require(:calendar_setting).permit()
     end
 end

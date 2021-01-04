@@ -6,6 +6,7 @@ ja:
       item:        '項目アイテム'
       visited_log: '来店履歴'
       calendar: 'カレンダー'
+      collection_item: 'コレクション項目'
     attributes:
       attr_common: &attr_common
         id: 'ID'
@@ -44,19 +45,26 @@ ja:
       item:
         <<: *attr_common
         code: 'コード'
+        sub_code : 'サブコード'
         name: '名称'
       visited_log:
         <<: *attr_common
         visited_date: '来店日'
       calendar:
+        <<: *attr_common
         date_range: '期間指定エラー：'
+      collection_item:
+        <<: *attr_common
+        key: '項目キー(表示名)'
+        value: '項目値'
+        sort_order: '並び順'
+        enabled: '有効/無効'
   activemodel:
     models:
       line_message: 'LINEメッセージ'
     attributes:
       line_message:
         message: 'メッセージ'
-
   devise:
     sessions:
       user:

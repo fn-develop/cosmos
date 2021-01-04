@@ -27,6 +27,7 @@ ja:
     user_edit: アカウント
     account: アカウント
     logout: ログアウト
+    edit: 編集
     edit_link: '　編集　'
     return_link: '　戻る　'
     searting: '検索中...'
@@ -51,6 +52,7 @@ ja:
     enabled: 有効
     disabled: 無効
     calendar: カレンダー
+    calendar_setting_link: カレンダー設定
     title: タイトル
     event_types:
       store_holiday: 店休日
@@ -58,6 +60,18 @@ ja:
       event: イベント
     site_url: URL
     destroied: 削除しました。
+    item: 項目管理
+    item_code_name: コード名称
+    placeholder_select: 選択してください。
+    item_edit_announce: 項目を入力してください。
+    new_create: 新規作成
+    collection_item: コレクション項目
+    save: 保存
+    color: 色
+    staff: スタッフ
+    staffs: スタッフ一覧
+    staff_new: スタッフ登録
+    staff_edit: スタッフ編集
   layouts: &layouts
     header:
       <<: *common
@@ -108,6 +122,22 @@ ja:
         <<: *common
         edit_calendar: 予定登録
         allday: 時刻を指定する
+    staffs:
+      index:
+        <<: *common
+        card_title: スタッフ
+        not_exists: スタッフは存在しません。
+        id: ID
+        email: ログインID（E-Mail）
+      show:
+        <<: *common
+        detail: スタッフ詳細
+      new:
+        <<: *common
+      edit:
+        <<: *common
+      form:
+        <<: *common
   customers:
     line_message:
       form:

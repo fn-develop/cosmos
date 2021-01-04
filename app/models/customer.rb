@@ -86,6 +86,18 @@ class Customer < ApplicationRecord
     "#{last_visit.year}/#{last_visit.month}/#{last_visit.day}"
   end
 
+  def reset_ymd_num
+    visited_log = self.visited_logs.where(enabled: true).order(:year).order(:month).order(:day).last
+
+    if visited_log.present?
+      self.ymd_num = "#{visited_log.year}#{visited_log.month}#{visited_log.day}".to_i
+    else
+      self.ymd_num = nil
+    end
+
+    self.save
+  end
+
   private
     def split_tel_number
       self.tel_number1, self.tel_number2, self.tel_number3 = self.formatted_tel_number.split('-')
