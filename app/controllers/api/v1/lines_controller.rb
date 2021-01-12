@@ -6,6 +6,8 @@ module Api
       # CSRF保護を無効
       protect_from_forgery with: :null_session
 
+      before_action :validate_signature
+
       IGNORE_REPLY_TOKEN = '00000000000000000000000000000000'.freeze
       QR_CODE_IMAGE_REQUEST = 'スタッフにQRコードをご提示ください。'.freeze
       GET_INVITE_CODE_MESSAGE = '下記コードをご紹介者にお知らせください。'.freeze
@@ -17,14 +19,7 @@ module Api
       end
 
       def callback
-        body = request.body.read
-        signature = request.env['HTTP_X_LINE_SIGNATURE']
-
-        unless client.validate_signature(body, signature) || company.blank?
-          error 400 do 'Bad Request' end
-        end
-
-        events = client.parse_events_from(body)
+        events = client.parse_events_from(request.body.read)
 
         events.each do |event|
           case event
@@ -41,6 +36,14 @@ module Api
         end
 
         head :ok
+      end
+
+      def validate_signature
+        body = request.body.read
+        signature = request.env['HTTP_X_LINE_SIGNATURE']
+        if !client.validate_signature(body, signature) || company.blank?
+          head 400 do 'Bad Request' end
+        end
       end
 
       private
