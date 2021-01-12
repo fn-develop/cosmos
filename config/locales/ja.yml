@@ -9,8 +9,7 @@ ja:
     visited_log: 来店履歴
     bulk_line_messages: LINEメッセージ一括送信
     bulk_line_messages_detail: LINEメッセージ一括送信詳細
-    company_setting_show: 店舗設定
-    company_setting_edit: 店舗設定
+    company_setting: 店舗設定
     company_setting_line_notify_setting: LINEメッセージ通知設定
     to_customers_link: 顧客一覧へ
     to_customer_detail_link: 顧客詳細画面へ

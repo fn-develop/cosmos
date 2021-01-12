@@ -9,8 +9,7 @@ tm:
     visited_log: 参加履歴
     bulk_line_messages: LINEメッセージ一括送信
     bulk_line_messages_detail: LINEメッセージ一括送信詳細
-    company_setting_show: チーム設定
-    company_setting_edit: チーム設定
+    company_setting: チーム設定
     company_setting_line_notify_setting: LINEメッセージ通知設定
     to_customers_link: メンバーリストへ
     to_customer_detail_link: メンバー詳細画面へ
