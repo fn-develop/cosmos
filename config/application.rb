@@ -49,6 +49,7 @@ module Cosmos
     # Railsが自動で挿入するエラータグを非表示とする
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag }
 
+    I18n.available_locales = %i(ja en tm)
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
   end
 end

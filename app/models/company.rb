@@ -20,6 +20,7 @@
 #  line_qr_code                            :string(255)
 #  logo                                    :string(255)
 #  name                                    :string(255)
+#  type_for                                :string(255)      default("")
 #  visit_confirmation_code                 :string(255)      default("0000")
 #  created_at                              :datetime         not null
 #  updated_at                              :datetime         not null
