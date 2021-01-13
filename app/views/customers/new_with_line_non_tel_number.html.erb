@@ -9,3 +9,30 @@
 </div>
 
 <%= render 'form', customer: @customer, url: { action: :create_with_line } %>
+
+<div class="d-none">
+  <div id="agreement_modal" data-izimodal-title="<%= t('common.agreement_link') %>" class="mx-auto">
+    <p>
+      <div class="col p-3">
+        <%= br AppSetting.first.try(:privacy_policy).to_s %>
+      </div>
+    </p>
+  </div>
+</div>
+
+<% content_for :page_javascript do %>
+  <%= javascript_tag do %>
+  $(function () {
+    $('#agreement_modal').iziModal({
+      headerColor: '#007BFF', //ヘッダー部分の色
+      width: 768, //横幅
+      zindex: 9999,
+      fullscreen: true, //全画面表示
+    });
+
+    $('#agreement_link').on('click', function(){
+      $('#agreement_modal').iziModal('open');
+    });
+  });
+  <% end %>
+<% end %>

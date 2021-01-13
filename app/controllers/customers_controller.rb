@@ -123,6 +123,7 @@ class CustomersController < ApplicationController
 
     def customer_params
       params.require(:customer).permit(
+        :agreement,
         :name,
         :name_kana,
         :gender,

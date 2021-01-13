@@ -148,6 +148,38 @@
                   <%= f.text_field :address2, { class: 'form-control' } %>
                 </div>
               <% end %>
+
+              <% if @company.is_for_profit? %>
+                <div class="form-group">
+                  <a href="javascript: void(0);" id="agreement_link">
+                    <%= t('.agreement_link') %>
+                  </a>
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-4">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <%= f.check_box(:agreement, { required: true }) %>
+                        </span>
+                      </div>
+                      <%= f.label :agreement , class: 'form-control text-nowrap' do t('.agreement') end %>
+                    </div>
+                  </div>
+                  <span class="error invalid-feedback"><%= customer.errors.full_messages_for(:agreement).first %></span>
+                </div>
+
+                <%= javascript_tag do %>
+                  $(function() {
+                    $('#customer_agreement').on('invalid', function(e) {
+                      if(this.validity.valueMissing){
+                        //要素が入力必須のフィールドであるのに値がない場合
+                        e.target.setCustomValidity('利用規約の同意をお願いします。');
+                      }
+                    });
+                  });
+                <% end %>
+              <% end %>
             </div>
 
             <%= hidden_field_tag :introducer_invite_code, params[:introducer_invite_code] %>

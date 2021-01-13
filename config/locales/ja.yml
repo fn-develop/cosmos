@@ -70,6 +70,8 @@ ja:
     staffs: スタッフ一覧
     staff_new: スタッフ登録
     staff_edit: スタッフ編集
+    agreement_link: 利用規約
+    agreement: 利用規約に同意する。
   layouts: &layouts
     header:
       <<: *common

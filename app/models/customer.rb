@@ -5,6 +5,7 @@
 #  id            :bigint           not null, primary key
 #  address1      :string(255)
 #  address2      :string(255)
+#  agreement     :boolean          default(FALSE)
 #  birthday      :date
 #  city          :string(255)
 #  gender        :integer

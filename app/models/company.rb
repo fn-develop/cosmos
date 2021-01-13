@@ -6,6 +6,7 @@
 #  code                                    :string(255)
 #  enabled                                 :boolean
 #  is_calendar_feature                     :boolean          default(FALSE)
+#  is_for_profit                           :boolean          default(TRUE)
 #  is_input_customer_address               :boolean          default(TRUE)
 #  is_input_customer_birthday              :boolean          default(TRUE)
 #  is_input_customer_gender                :boolean          default(TRUE)
