@@ -50,11 +50,10 @@ ja:
     enabled: 有効
     disabled: 無効
     calendar: カレンダー
-    calendar_setting_link: カレンダー設定
+    calendar_setting: カレンダー設定
     title: タイトル
     event_types:
       store_holiday: 店休日
-      holiday: 祭日
       event: イベント
     site_url: URL
     destroied: 削除しました。
@@ -117,6 +116,11 @@ ja:
         notify_target: 受け取り
         auto_message_on_time: 【時間内】自動応答メッセージ
         auto_message_off_time: 【時間内】自動応答メッセージ
+      edit_calendar_setting:
+        <<: *common
+        card_title: 項目
+        is_open: 公開可否
+        open_item: 公開項目
     calendars:
       index:
         <<: *common
@@ -212,6 +216,7 @@ ja:
       visited_log: '来店履歴'
       calendar: 'カレンダー'
       collection_item: 'コレクション項目'
+      calendar_setting: 'カレンダー設定'
     attributes:
       attr_common: &attr_common
         id: 'ID'
@@ -263,6 +268,8 @@ ja:
         value: '項目値'
         sort_order: '並び順'
         enabled: '有効/無効'
+      calendar_setting:
+        is_open: 公開可否
   activemodel:
     models:
       line_message: 'LINEメッセージ'

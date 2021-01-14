@@ -50,7 +50,7 @@ tm:
     enabled: 有効
     disabled: 無効
     calendar: カレンダー
-    calendar_setting_link: カレンダー設定
+    calendar_setting: カレンダー設定
     title: タイトル
     event_types:
       store_holiday: 試合
@@ -116,6 +116,11 @@ tm:
         notify_target: 受け取り
         auto_message_on_time: 【時間内】自動応答メッセージ
         auto_message_off_time: 【時間内】自動応答メッセージ
+      edit_calendar_setting:
+        <<: *common
+        card_title: 項目
+        is_open: 公開可否
+        open_item: 公開項目
     calendars:
       index:
         <<: *common
@@ -262,6 +267,8 @@ tm:
         value: '項目値'
         sort_order: '並び順'
         enabled: '有効/無効'
+      calendar_setting:
+        is_open: 公開可否
   activemodel:
     models:
       line_message: 'LINEメッセージ'

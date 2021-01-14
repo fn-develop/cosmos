@@ -9,13 +9,8 @@
 #  updated_at               :datetime         not null
 #  company_id               :integer          not null
 #
-class CalendarSetting < ApplicationRecord
-  serialize :open_collection_item_ids, Array
+require 'rails_helper'
 
-  belongs_to :company
-
-  def open_collection_items
-    item = self.company.items.find_by(code: 'calendar', sub_code: 'select_option', name: 'event_type')
-    item.try(:collection_items)
-  end
+RSpec.describe CalendarSetting, type: :model do
+  pending "add some examples to (or delete) #{__FILE__}"
 end
