@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_13_005821) do
+ActiveRecord::Schema.define(version: 2021_01_13_072214) do
 
   create_table "app_settings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "management_company_name", default: ""
@@ -191,6 +191,9 @@ ActiveRecord::Schema.define(version: 2021_01_13_005821) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.string "line_user_id"
+    t.string "line_display_name"
+    t.string "line_image_url"
+    t.string "line_status_message"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email"
