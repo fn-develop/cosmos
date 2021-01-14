@@ -86,17 +86,6 @@
                   })
                 });
               <% end %>
-
-              <div class="form-group">
-                <% visit_confirmation_code_err = true if company.errors.include?(:visit_confirmation_code) %>
-                <%= f.label :visit_confirmation_code %>
-                <%= f.text_field :visit_confirmation_code, { class: "form-control #{ visit_confirmation_code_err ? 'is-invalid' : '' }", placeholder: 'チャネルシークレット', minlength: 4, maxlength: 4, required: true } %>
-                <small>*設定から24時間おきに変更されます。</small>
-                <% if visit_confirmation_code_err %>
-                  <span class="error invalid-feedback"><%= company.errors.full_messages_for(:visit_confirmation_code).first %></span>
-                <% end %>
-              </div>
-
             </div>
 
             <div class="card-footer">

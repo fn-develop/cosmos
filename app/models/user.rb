@@ -5,6 +5,9 @@
 #  id                     :bigint           not null, primary key
 #  email                  :string(255)      default(""), not null
 #  encrypted_password     :string(255)      default(""), not null
+#  line_display_name      :string(255)
+#  line_image_url         :string(255)
+#  line_status_message    :string(255)
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string(255)
@@ -54,6 +57,20 @@ class User < ApplicationRecord
     return if unread_user_last_line_message.blank?
     sended_time = unread_user_last_line_message.created_at
     sended_time.strftime("%m/%d %H:%M")
+  end
+
+  def reset_line_info
+    return if self.line_user_id.blank?
+    client = LineMessage.new(company: company).client
+    profile = client.get_profile(self.line_user_id)
+    profile_body = profile.try(:body)
+    if profile_body.present?
+      profile_has = JSON.parse(profile.body)
+      self.line_display_name = profile_has['displayName']
+      self.line_image_url = profile_has['pictureUrl']
+      self.line_status_message = profile_has['statusMessage']
+      self.save(validate: false)
+    end
   end
 
   #### START EMAIL 重複OK ######

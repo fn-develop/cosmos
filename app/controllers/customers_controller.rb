@@ -23,6 +23,7 @@ class CustomersController < ApplicationController
                              .order(day: :desc)
                              .page(params[:page])
                              .per(VISITED_LOGS_PER)
+    @customer.user.try(:reset_line_info)
   end
 
   def new
@@ -123,6 +124,7 @@ class CustomersController < ApplicationController
 
     def customer_params
       params.require(:customer).permit(
+        :agreement,
         :name,
         :name_kana,
         :gender,

@@ -6,6 +6,7 @@
 #  code                                    :string(255)
 #  enabled                                 :boolean
 #  is_calendar_feature                     :boolean          default(FALSE)
+#  is_for_profit                           :boolean          default(TRUE)
 #  is_input_customer_address               :boolean          default(TRUE)
 #  is_input_customer_birthday              :boolean          default(TRUE)
 #  is_input_customer_gender                :boolean          default(TRUE)
@@ -20,6 +21,7 @@
 #  line_qr_code                            :string(255)
 #  logo                                    :string(255)
 #  name                                    :string(255)
+#  type_for                                :string(255)      default("")
 #  visit_confirmation_code                 :string(255)      default("0000")
 #  created_at                              :datetime         not null
 #  updated_at                              :datetime         not null
@@ -42,8 +44,6 @@ class Company < ApplicationRecord
   validates :code, presence: true, uniqueness: true, length: { in: 2..10 }, format: { with: /\A[a-z]+\z/, message: "英文字のみが使用できます" }
   validates :name, presence: true, length: { in: 1..50 }
 
-  after_find :auto_update_visit_confirmation_code
-
   def within_limit_line_message?
     get_current_month_line_message_count < self.limit_line_message_count
   end
@@ -60,13 +60,6 @@ class Company < ApplicationRecord
       return item.collection_items.map{ |ci| [ci.key, ci.value] }
     else
       return []
-    end
-  end
-
-  private def auto_update_visit_confirmation_code
-    if (DateTime.now.to_i - self.updated_at.to_i) > 24.hour.to_i
-      self.visit_confirmation_code = rand(9999).to_s.rjust(4, '0') # 4桁数値文字列を自動生成
-      self.save
     end
   end
 end

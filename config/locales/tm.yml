@@ -1,0 +1,286 @@
+tm:
+  common: &common
+    home: ホーム
+    customer: メンバー
+    customer_index: メンバーリスト
+    customer_new: メンバー情報
+    customer_show: メンバー情報
+    customer_edit: メンバー編集
+    visited_log: 参加履歴
+    bulk_line_messages: LINEメッセージ一括送信
+    bulk_line_messages_detail: LINEメッセージ一括送信詳細
+    company_setting: チーム設定
+    company_setting_line_notify_setting: LINEメッセージ通知設定
+    to_customers_link: メンバーリストへ
+    to_customer_detail_link: メンバー詳細画面へ
+    year: 年
+    month: 月
+    day: 日
+    submit_button: '　送　信　'
+    submit_confirm: '送信してよろしいですか?'
+    submit_disable_with: '　送信中...　'
+    delete_link: '　削　除　'
+    delete_confirm: 削除してよろしいですか？
+    user_show: アカウント
+    user_edit: アカウント
+    account: アカウント
+    logout: ログアウト
+    edit: 編集
+    edit_link: '　編集　'
+    return_link: '　戻る　'
+    searting: '検索中...'
+    clear: クリア
+    line_notify: LINE通知
+    honorifics: 様
+    max_num: 最大%{max_num}件表示
+    info: 情報
+    name: 名前
+    name_kana: 名前（カナ）
+    introducer_changing: 紹介者変更
+    nothing: なし
+    history: 履歴
+    history_create: 履歴作成
+    input_message_prompt: メッセージを入力してください。
+    success: 成功
+    failuere: 失敗
+    see: 参照
+    cancel: 取消
+    invite_code: 紹介コード
+    next: 次へ
+    enabled: 有効
+    disabled: 無効
+    calendar: カレンダー
+    calendar_setting_link: カレンダー設定
+    title: タイトル
+    event_types:
+      store_holiday: 試合
+      event: イベント
+    site_url: URL
+    destroied: 削除しました。
+    item: 項目管理
+    item_code_name: コード名称
+    placeholder_select: 選択してください。
+    item_edit_announce: 項目を入力してください。
+    new_create: 新規作成
+    collection_item: コレクション項目
+    save: 保存
+    color: 色
+    staff: スタッフ
+    staffs: スタッフリスト
+    staff_new: スタッフ登録
+    staff_edit: スタッフ編集
+    agreement_link: 利用規約
+    agreement: 利用規約に同意する。
+  layouts: &layouts
+    header:
+      <<: *common
+    breadcrumb:
+      <<: *common
+    main_footer:
+      confirmation_code: "本日の参加確認コード：%{code}"
+      copyright_html: '<strong>Copyright &copy; 2020-2020 <a href="http://futurenet.co.jp"></a>Futurenet.co</strong> All rights reserved.'
+    sub_sidebar:
+      <<: *common
+  company:
+    bulk_line_messages:
+      index: &bulk_line_messages_index
+        <<: *common
+        message_content: メッセージ
+        annotation: ※ メンバー毎のLINEメッセージには履歴されません。
+        target_customers: 送信対象メンバー
+        disabled_customers: 送信無効メンバー
+        send_date: 日付
+        send_status: ステータス
+      show:
+        <<: *bulk_line_messages_index
+    settings:
+      form:
+        <<: *common
+        card_title: チーム情報を入力してください。
+        annotation: '※ チームコードは変更できません。'
+        company_code: チームコード
+        company_name: チーム名
+      edit:
+        <<: *common
+      show:
+        <<: *common
+        line_message_notify_setting_link: 通知設定
+      edit_notify_setting:
+        <<: *common
+        card_title: 項目
+        notify_enabled: 通知機能
+        notify_time: 範囲時間
+        time_start: 開始
+        time_end: 終了
+        notify_cycle: サイクル
+        notify_target: 受け取り
+        auto_message_on_time: 【時間内】自動応答メッセージ
+        auto_message_off_time: 【時間内】自動応答メッセージ
+    calendars:
+      index:
+        <<: *common
+        edit_calendar: 予定登録
+        allday: 時刻を指定する
+    staffs:
+      index:
+        <<: *common
+        card_title: スタッフ
+        not_exists: スタッフは存在しません。
+        id: ID
+        email: ログインID（E-Mail）
+      show:
+        <<: *common
+        detail: スタッフ詳細
+      new:
+        <<: *common
+      edit:
+        <<: *common
+      form:
+        <<: *common
+  customers:
+    line_message:
+      form:
+        <<: *common
+      staff:
+        <<: *common
+      user:
+        <<: *common
+    index:
+      <<: *common
+      card_title: 詳細検索
+      last_visited: '最終参加'
+      age: 年代
+      more_age: 年齢（以上）
+      under_age: 年齢（以上）
+      done_regist_line: LINE登録済
+      unread_line:  LINE未読
+      not_exists: 条件に該当するメンバーは存在しません。
+      under_19: 〜19才
+      under_29: 20〜29才
+      under_39: 30〜39才
+      under_49: 40〜49才
+      under_59: 50〜59才
+      under_69: 60〜69才
+      more_70: 70才〜
+    new:
+      <<: *common
+    new_line_message:
+      <<: *common
+      image: 画像
+    content_header:
+      <<: *common
+    edit:
+      <<: *common
+    form:
+      <<: *common
+      card_title: 登録情報を入力してください。
+    new_with_line:
+      <<: *common
+      card_title: 登録情報を入力してください。
+      annotation: ※ 紹介コードは必須ではありません。
+  customer:
+    visited_logs:
+      new:
+        <<: *common
+        <<: *layouts
+        header_title: 参加履歴
+      form:
+        <<: *common
+        card_title: 履歴情報を入力してください。
+  users:
+    show:
+      <<: *common
+      card_title: 情報
+    edit:
+      <<: *common
+    form:
+      <<: *common
+      card_title: ログイン情報を入力してください。
+  public:
+    homes:
+      to_login: To Login
+      index_for_system:
+        customer_count: メンバー数
+        line_notify: LINE通知
+
+  activerecord:
+    models:
+      company:     'チーム'
+      customer:    'メンバー'
+      item:        '項目アイテム'
+      visited_log: '参加履歴'
+      calendar: 'カレンダー'
+      collection_item: 'コレクション項目'
+    attributes:
+      attr_common: &attr_common
+        id: 'ID'
+        created_at: '作成日時'
+        updated_at: '更新日時'
+      company:
+        <<: *attr_common
+        code: 'チームコード'
+        name: '名称'
+        logo: 'ロゴイメージ'
+        line_qr_code: 'LINE QRコード'
+        line_channel_secret: 'チャネルシークレット'
+        line_channel_token: 'チャネルアクセストークン'
+      customer:
+        <<: *attr_common
+        name:           '名前'
+        name_kana:      '名前（カナ）'
+        gender:         '性別'
+        age:            '年齢'
+        tel_number:     '電話番号（携帯）'
+        birthday:       '生年月日'
+        postal_code:    '郵便番号'
+        prefecture:     '都道府県'
+        city:           '市区町村'
+        address:        '住所'
+        address1:       '番地'
+        address2:       '建物名・号室'
+        line_receiving: 'LINE'
+        last_vist_date: '最終参加'
+        introducer:     '紹介者'
+        invited_people: '招待したメンバー達'
+      customer/gender:
+        men: '男性'
+        women: '女性'
+      item:
+        <<: *attr_common
+        code: 'コード'
+        sub_code : 'サブコード'
+        name: '名称'
+      visited_log:
+        <<: *attr_common
+        visited_date: '参加日'
+      calendar:
+        <<: *attr_common
+        date_range: '期間指定エラー：'
+      collection_item:
+        <<: *attr_common
+        key: '項目キー(表示名)'
+        value: '項目値'
+        sort_order: '並び順'
+        enabled: '有効/無効'
+  activemodel:
+    models:
+      line_message: 'LINEメッセージ'
+    attributes:
+      line_message:
+        message: 'メッセージ'
+  devise:
+    sessions:
+      user:
+        signed_in: 'ログインしました。'
+
+  errors:
+    messages:
+      rmagick_processing_error: "ファイルを処理できませんでした。画像を確認してください。エラーメッセージ: %{e}"
+      mini_magick_processing_error: "ファイルを処理できませんでした。画像を確認してください。エラーメッセージ: %{e}"
+      min_size_error: "ファイルを%{min_size}バイト以上のサイズにしてください"
+      max_size_error: "ファイルを%{max_size}バイト以下のサイズにしてください"
+      record_invalid: 'バリデーションに失敗しました: %{errors}'
+      restrict_dependent_destroy:
+        has_one: "%{record}が存在しているので削除できません"
+        has_many: "%{record}が存在しているので削除できません"
+      extension_whitelist_error: 'ファイルは「png」「jpg」「 jpeg」「pdf」「gif」の拡張子のみ受付ます。 '

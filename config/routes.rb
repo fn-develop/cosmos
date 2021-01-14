@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   }
 
   scope '/:company_code/', constraints: { company_code: /[a-z]+/ } do
-    resources :customers do
+    resources :customers, path: 'members' do
       get  'new_with_line/:line_user_id', to: 'customers#new_with_line', as: :new_with_line, on: :collection
       post 'new_with_line_non_tel_number', to: 'customers#new_with_line_non_tel_number', as: :new_with_line_non_tel_number, on: :collection
       get  'new_line_message', to: 'customers#new_line_message', on: :member
@@ -39,7 +39,7 @@ Rails.application.routes.draw do
       resources :homes, path: ''
     end
 
-    namespace 'company', path: 'store' do
+    namespace 'company', path: 'setting' do
       resource :setting, only: [:show, :edit, :update] do
         get 'edit_notify_setting', to: 'settings#edit_notify_setting'
         put 'update_notify_setting', to: 'settings#update_notify_setting'

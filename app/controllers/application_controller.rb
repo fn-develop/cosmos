@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :check_company!
+  before_action :set_locale
   before_action :authenticate_user!, unless: :is_public?
   before_action :store_company
   before_action :store_current_user
@@ -36,6 +37,16 @@ class ApplicationController < ActionController::Base
         # 権限チェック：see: Ability.rb
         authorize! :read, company
       end
+    end
+
+    def set_locale
+      I18n.locale = extract_locale_from_company_type_for
+    end
+
+    def extract_locale_from_company_type_for
+      parsed_locale = company.try(:type_for)
+      return I18n.default_locale if parsed_locale.blank?
+      I18n.available_locales.include?(parsed_locale.to_sym) ? parsed_locale : I18n.default_locale
     end
 
     def company_code

@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_23_065442) do
+ActiveRecord::Schema.define(version: 2021_01_13_072214) do
+
+  create_table "app_settings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "management_company_name", default: ""
+    t.text "privacy_policy"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "calendars", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "company_id", null: false
@@ -48,6 +55,7 @@ ActiveRecord::Schema.define(version: 2020_12_23_065442) do
   end
 
   create_table "companies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "type_for", default: ""
     t.string "code"
     t.string "name"
     t.boolean "enabled"
@@ -57,6 +65,7 @@ ActiveRecord::Schema.define(version: 2020_12_23_065442) do
     t.string "line_qr_code"
     t.string "line_channel_secret"
     t.string "line_channel_token"
+    t.boolean "is_for_profit", default: true
     t.boolean "is_calendar_feature", default: false
     t.boolean "is_notify_unread_line_message_existance", default: true
     t.boolean "is_inviting_feature", default: true
@@ -71,6 +80,7 @@ ActiveRecord::Schema.define(version: 2020_12_23_065442) do
   end
 
   create_table "customers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.boolean "agreement", default: false
     t.integer "introducer_id"
     t.string "invite_code"
     t.integer "company_id", null: false
@@ -181,6 +191,9 @@ ActiveRecord::Schema.define(version: 2020_12_23_065442) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.string "line_user_id"
+    t.string "line_display_name"
+    t.string "line_image_url"
+    t.string "line_status_message"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email"

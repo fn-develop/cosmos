@@ -2,13 +2,13 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1 class="m-0 text-dark"><%= t('common.company_setting_show') %></h1>
+        <h1 class="m-0 text-dark"><%= t('common.company_setting') %></h1>
       </div>
 
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="<%= homes_path %>">ホーム</a></li>
-          <li class="breadcrumb-item active"><%= t('common.company_setting_show') %></li>
+          <li class="breadcrumb-item active"><%= t('common.company_setting') %></li>
         </ol>
       </div>
     </div>
@@ -39,10 +39,6 @@
           <tr>
             <th class="text-nowrap"><%= Company.human_attribute_name(:line_qr_code) %></th>
             <td><%= image_tag @company.line_qr_code.try(:thumb_220).try(:url) if @company.line_qr_code.present? %></td>
-          </tr>
-          <tr>
-            <th class="text-nowrap"><%= Company.human_attribute_name(:visit_confirmation_code) %></th>
-            <td><%= @company.visit_confirmation_code.to_s %></td>
           </tr>
         </tbody>
       </table>

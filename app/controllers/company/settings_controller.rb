@@ -45,7 +45,13 @@ class Company::SettingsController < ApplicationController
 
   private
     def company_params
-      params.require(:company).permit(:name, :logo, :line_qr_code, :line_channel_secret, :line_channel_token)
+      params.require(:company).permit(
+        :name,
+        :logo,
+        :line_qr_code,
+        :line_channel_secret,
+        :line_channel_token,
+      )
     end
 
     def line_message_notify_setting_params
