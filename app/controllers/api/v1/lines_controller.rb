@@ -115,6 +115,7 @@ module Api
         def save_user(event)
           user = User.find_or_initialize_by(role: :customer, company: company, line_user_id: event['source']['userId'])
           user.save!(validate: false) if user.new_record?
+          user.reset_line_info
         end
 
         def save_text_message(event)
