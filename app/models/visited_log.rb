@@ -26,8 +26,6 @@ class VisitedLog < ApplicationRecord
   before_create :set_visit_token
   before_save :rjust_month_and_day
 
-  attr_accessor :visit_confirmation_code
-
   validate :valid_date
 
   def route

@@ -40,10 +40,6 @@
             <th class="text-nowrap"><%= Company.human_attribute_name(:line_qr_code) %></th>
             <td><%= image_tag @company.line_qr_code.try(:thumb_220).try(:url) if @company.line_qr_code.present? %></td>
           </tr>
-          <tr>
-            <th class="text-nowrap"><%= Company.human_attribute_name(:visit_confirmation_code) %></th>
-            <td><%= @company.visit_confirmation_code.to_s %></td>
-          </tr>
         </tbody>
       </table>
     </div>

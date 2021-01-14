@@ -222,7 +222,6 @@ tm:
         name: '名称'
         logo: 'ロゴイメージ'
         line_qr_code: 'LINE QRコード'
-        visit_confirmation_code: '参加確認コード'
         line_channel_secret: 'チャネルシークレット'
         line_channel_token: 'チャネルアクセストークン'
       customer:
