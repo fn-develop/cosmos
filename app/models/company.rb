@@ -55,6 +55,10 @@ class Company < ApplicationRecord
     line_message_count.try(:total) || 0
   end
 
+  def calendar_open_event_types
+    @calendar_open_event_types ||= CollectionItem.where(id: self.calendar_setting.open_collection_item_ids.to_a).pluck(:value)
+  end
+
   def calendar_event_types
     item = self.items.find_by(code: Const::Item::Code::CALENDAR, sub_code: Const::Item::SubCode::SELECT_OPTION)
     if item && item.collection_items

@@ -40,7 +40,7 @@ $(function () {
       $('#calendar_event_type').val('');
       $('#calendar_title').val('');
       $('#calendar_color').val('');
-      $('#calendar_url').val('');
+      $('#calendar_site_url').val('');
       $('#calendar_allday').prop('checked', false);
       $('#time_specification').addClass('d-none');
       $('#delete_button').addClass('d-none');
@@ -65,7 +65,7 @@ $(function () {
       $('#calendar_event_type').val(info.event.extendedProps.event_type);
       $('#calendar_title').val(info.event.title);
       $('#calendar_color, #disp_color').val(info.event.backgroundColor);
-      $('#calendar_url').val(info.event.url);
+      $('#calendar_site_url').val(info.event.extendedProps.site_url);
       $('#delete_button').removeClass('d-none');
       // 画面側ではチェックしている場合に「false」を指定している。
       $('#calendar_allday').prop('checked', info.event.allDay == false);

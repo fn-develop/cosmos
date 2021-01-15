@@ -1,0 +1,70 @@
+<%= javascript_pack_tag 'company/open_calendar' %>
+<%= stylesheet_pack_tag 'company/open_calendar' %>
+
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark"><%= t('common.calendar') %></h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-primary">
+          <div class="card-body p-0">
+            <!-- THE CALENDAR -->
+            <div id="calendar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="d-none">
+  <div id="calendar_modal" data-izimodal-title="<%= t('common.calendar') %>" class="mx-auto">
+    <div>
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <div class="input-group">
+            <b id="calendar_title" class="p-2">HOGE</b>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <div class="input-group">
+            <a href="javascript: void(0)" id="calendar_url" class="p-2">HOGE</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_tag do %>
+  var calendar_events = [
+    <% @calendar_events.each do |e| %>
+      <%= e.json_calendar_event.html_safe + ',' %>
+    <% end %>
+    ];
+<% end %>
+
+
+<% content_for :page_style do %>
+<style>
+td.fc-day-sat {
+  background-color: #eaf4ff;
+}
+td.fc-day-sun {
+  background-color: #ffeaea;
+}
+</style>
+<% end %>
+

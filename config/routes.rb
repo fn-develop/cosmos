@@ -36,7 +36,9 @@ Rails.application.routes.draw do
     resources :users
 
     scope module: :public do
-      resources :homes, path: ''
+      resources :homes, path: '', only: [:index] do
+        get 'calendar', to: 'homes#calendar', on: :collection, as: :calendar
+      end
     end
 
     namespace 'company', path: 'setting' do

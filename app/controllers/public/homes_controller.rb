@@ -19,6 +19,19 @@ class Public::HomesController < ApplicationController
     end
   end
 
+  def calendar
+    if company.blank?
+      render action: :index_for_public
+      return
+    end
+
+    @calendar_events = company.calendars.where(
+        'start > ?', Date.today - 3.month
+      ).where(
+        event_type: company.calendar_open_event_types.to_a
+      )
+  end
+
   private
     # レイアウトの指定
     def specification_layout

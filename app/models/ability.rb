@@ -18,8 +18,10 @@ class Ability
     def guest_ability(user)
       can [:new_with_line, :new_with_line_non_tel_number, :create_with_line, :visit_user_qr_code], :customer
       can :read, Company
-      if user.company.try(:is_calendar_feature?)
-        can :read, :calendar
+
+      company = RequestStore.store[:company]
+      if company.try(:is_calendar_feature?) && company.calendar_setting.is_open?
+        can :calendar, :home
       end
     end
 
