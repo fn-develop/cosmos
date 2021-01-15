@@ -82,6 +82,14 @@
           <div class="form-group row">
             <div class="col-sm-12">
               <div class="input-group">
+                <%= f.text_area :memo, { autocomplete: "off", class: "form-control", placeholder:  t('.memo'), maxlength: 2048, rows: 5, } %>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-12">
+              <div class="input-group">
                 <%= f.text_field :site_url, { autocomplete: "off", class: "form-control", placeholder:  t('.site_url'), maxlength: 240, required: false } %>
               </div>
             </div>

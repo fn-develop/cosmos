@@ -71,6 +71,7 @@ ja:
     staff_edit: スタッフ編集
     agreement_link: 利用規約
     agreement: 利用規約に同意する。
+    memo: メモ
   layouts: &layouts
     header:
       <<: *common

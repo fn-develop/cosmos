@@ -7,6 +7,7 @@
 #  color      :string(255)
 #  end        :datetime
 #  event_type :string(255)
+#  memo       :text(65535)
 #  site_url   :string(255)
 #  start      :datetime
 #  title      :string(255)

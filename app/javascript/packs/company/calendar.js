@@ -39,6 +39,7 @@ $(function () {
       $('#calendar_id').val('');
       $('#calendar_event_type').val('');
       $('#calendar_title').val('');
+      $('#calendar_memo').val('');
       $('#calendar_color').val('');
       $('#calendar_site_url').val('');
       $('#calendar_allday').prop('checked', false);
@@ -64,8 +65,17 @@ $(function () {
       $('#calendar_id').val(info.event.id);
       $('#calendar_event_type').val(info.event.extendedProps.event_type);
       $('#calendar_title').val(info.event.title);
+      if(info.event.extendedProps.memo != undefined){
+        $('#calendar_memo').val(info.event.extendedProps.memo);
+      } else {
+        $('#calendar_memo').val('');
+      }
       $('#calendar_color, #disp_color').val(info.event.backgroundColor);
-      $('#calendar_site_url').val(info.event.extendedProps.site_url);
+      if(info.event.extendedProps.site_url != undefined){
+        $('#calendar_site_url').val(info.event.extendedProps.site_url);
+      } else {
+        $('#calendar_site_url').val('');
+      }
       $('#delete_button').removeClass('d-none');
       // 画面側ではチェックしている場合に「false」を指定している。
       $('#calendar_allday').prop('checked', info.event.allDay == false);

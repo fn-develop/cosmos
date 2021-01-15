@@ -7,6 +7,7 @@
 #  color      :string(255)
 #  end        :datetime
 #  event_type :string(255)
+#  memo       :text(65535)
 #  site_url   :string(255)
 #  start      :datetime
 #  title      :string(255)
@@ -26,6 +27,7 @@ class Calendar < ApplicationRecord
     j[:id]              = self.id
     j[:event_type]      = self.event_type
     j[:title]           = self.title
+    j[:memo]            = self.memo.to_s if self.memo.present?
     j[:all_day]         = self.allday
     # JSでは1日目が「0」となるので「-1.day」している
     j[:start]           = self.allday == 'true' ? (self.start - 1.day - 9.hour).strftime("%Y-%m-%d") : (self.start - 1.day - 9.hour).strftime("%Y-%m-%d %H:%M")

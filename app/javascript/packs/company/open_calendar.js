@@ -37,6 +37,13 @@ $(function () {
     droppable : false, // ドラッグ変更
     eventClick: function(info) {
       $('#calendar_title').text(info.event.title);
+
+      if(info.event.extendedProps.memo != undefined){
+        $('#calendar_memo').html(info.event.extendedProps.memo.replace(/\r?\n/g, '<br />'));
+      } else {
+        $('#calendar_memo').text('');
+      }
+
       if(info.event.extendedProps.site_url != undefined){
         $('#calendar_url').attr('href', info.event.extendedProps.site_url);
         $('#calendar_url').text('サイト');

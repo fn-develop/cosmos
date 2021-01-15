@@ -42,6 +42,7 @@ class Company::CalendarsController < ApplicationController
       'end(3i)',
       'end(4i)',
       'end(5i)',
+      'memo',
     )
 
     @calendar_params = {
@@ -64,6 +65,7 @@ class Company::CalendarsController < ApplicationController
         p['end(4i)'].to_i,
         p['end(5i)'].to_i,
       ),
+      memo: p['memo'],
     }
   end
 end
