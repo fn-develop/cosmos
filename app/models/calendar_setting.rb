@@ -16,6 +16,6 @@ class CalendarSetting < ApplicationRecord
 
   def open_collection_items
     item = self.company.items.find_by(code: 'calendar', sub_code: 'select_option', name: 'event_type')
-    item.try(:collection_items)
+    item.try(:collection_items).to_a
   end
 end
