@@ -20,7 +20,7 @@ class Ability
       can :read, Company
 
       company = RequestStore.store[:company]
-      if company.try(:is_calendar_feature?) && company.calendar_setting.is_open?
+      if company.try(:is_calendar_feature?) && company.calendar_setting.try(:is_open?)
         can :calendar, :home
       end
     end
