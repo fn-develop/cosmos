@@ -37,7 +37,7 @@ $(function () {
     droppable : false, // ドラッグ変更
     eventClick: function(info) {
       $('#calendar_title').text(info.event.title);
-      if(info.event.extendedProps.site_url != ''){
+      if(info.event.extendedProps.site_url != undefined){
         $('#calendar_url').attr('href', info.event.extendedProps.site_url);
         $('#calendar_url').text('サイト');
       } else {
