@@ -1,8 +1,5 @@
 import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid'
-import listPlugin from '@fullcalendar/list';
-import interactionPlugin, { Draggable } from '@fullcalendar/interaction';
 import jaLocale from '@fullcalendar/core/locales/ja';
 import '@fullcalendar/common/main.css';
 
@@ -24,18 +21,15 @@ $(function () {
     locale: jaLocale,
     height: 'auto',
     width: 'auto',
-    slotMinTime: '07:00:00',
-    slotMaxTime: '22:00:00',
     slotDuration: '00:10:00', // 表示する時間軸の細かさ
     snapDuration: '00:10:00', // 選択する時間間隔
-    plugins: [ dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin],
+    plugins: [ dayGridPlugin ],
     headerToolbar: {
-      left  : 'prev,next today',
+      left  : 'prev',
       center: 'title',
-      right : 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+      right : 'next'
     },
-    //曜日のテキストを書き換えます（日〜土）
-    initialView: 'listMonth',
+    initialView: 'dayGridMonth',
     events: calendar_events,
     weekends  : true, // 土曜、日曜を表示
     editable  : false,

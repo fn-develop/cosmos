@@ -30,7 +30,7 @@ class Ability
       can [:new_with_line, :new_with_line_non_tel_number, :create_with_line], :customer
       can :read, Company
       if user.company.try(:is_calendar_feature?)
-        can :read, :calendar
+        can :calendar, :home
       end
     end
 
