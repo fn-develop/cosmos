@@ -22,6 +22,9 @@ class UsersController < ApplicationController
     @user.attributes = user_params
 
     if @user.save
+      if @user.id == current_user.id
+        bypass_sign_in(@user)
+      end
       redirect_to user_url(company_code, @user), notice: '更新完了'
     else
       render :edit
