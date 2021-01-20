@@ -29,9 +29,9 @@ $(function () {
     snapDuration: '00:10:00', // 選択する時間間隔
     plugins: [ dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin],
     headerToolbar: {
-      left  : 'prev,next',
+      left  : 'prev',
       center: 'title',
-      right : 'dayGridMonth,listMonth'
+      right : 'next'
     },
     //曜日のテキストを書き換えます（日〜土）
     initialView: 'listMonth',
