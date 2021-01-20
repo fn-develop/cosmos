@@ -32,6 +32,8 @@ class Ability
       if user.company.try(:is_calendar_feature?)
         can :calendar, :home
       end
+      can :manage, :user
+      can :manage, User, id: user.id
     end
 
     # スタッフ

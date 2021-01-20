@@ -1,7 +1,10 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update]
+  layout :specification_layout
 
   def show
+    # 権限チェック：see: Ability.rb
+    authorize! :manage, @user
   end
 
   def new
@@ -10,12 +13,12 @@ class UsersController < ApplicationController
 
   def edit
     # 権限チェック：see: Ability.rb
-    authorize! :update, @user
+    authorize! :manage, @user
   end
 
   def update
     # 権限チェック：see: Ability.rb
-    authorize! :update, @user
+    authorize! :manage, @user
     @user.attributes = user_params
 
     if @user.save

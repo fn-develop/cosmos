@@ -30,17 +30,6 @@ class Public::HomesController < ApplicationController
   end
 
   private
-    # レイアウトの指定
-    def specification_layout
-      if company.blank? || current_user.blank?
-        return 'public'
-      elsif current_user.customer?
-        return 'customer'
-      else
-        return 'application'
-      end
-    end
-
     def is_public?
        true
     end
