@@ -50,6 +50,7 @@ tm:
     enabled: 有効
     disabled: 無効
     calendar: カレンダー
+    calendar_event_list: 予定一覧
     calendar_setting: カレンダー設定
     title: タイトル
     event_types:
