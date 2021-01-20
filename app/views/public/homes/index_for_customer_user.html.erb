@@ -6,16 +6,14 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-12 col-md-6">
-        <div class="col-12">
-          <div class="info-box mb-3">
-            <span class="info-box-icon bg-info elevation-1">
-              <a href="<%= calendar_homes_path(params[:company_code]) %>"><i class="fas fa-calendar-alt"></i></a>
-            </span>
+        <div class="info-box mb-3">
+          <span class="info-box-icon bg-info elevation-1">
+            <a href="<%= calendar_homes_path(params[:company_code]) %>"><i class="fas fa-calendar-alt"></i></a>
+          </span>
 
-            <div class="info-box-content">
-              <span class="info-box-text"><%= t('common.calendar') %></span>
-              <span class="info-box-number"><%= @calendar_events.size() %><small>件</small></span>
-            </div>
+          <div class="info-box-content">
+            <span class="info-box-text"><%= t('common.calendar') %></span>
+            <span class="info-box-number"><%= @calendar_events.size() %><small>件</small></span>
           </div>
         </div>
       </div>

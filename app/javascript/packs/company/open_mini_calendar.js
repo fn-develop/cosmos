@@ -20,7 +20,6 @@ $(function () {
   var calendar = new Calendar(calendarEl, {
     locale: jaLocale,
     height: 'auto',
-    width: 'auto',
     slotDuration: '00:10:00', // 表示する時間軸の細かさ
     snapDuration: '00:10:00', // 選択する時間間隔
     plugins: [ dayGridPlugin ],

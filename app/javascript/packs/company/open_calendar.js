@@ -23,16 +23,15 @@ $(function () {
   var calendar = new Calendar(calendarEl, {
     locale: jaLocale,
     height: 'auto',
-    width: 'auto',
     slotMinTime: '07:00:00',
     slotMaxTime: '22:00:00',
     slotDuration: '00:10:00', // 表示する時間軸の細かさ
     snapDuration: '00:10:00', // 選択する時間間隔
     plugins: [ dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin],
     headerToolbar: {
-      left  : 'prev,next today',
+      left  : 'prev,next',
       center: 'title',
-      right : 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+      right : 'dayGridMonth,listMonth'
     },
     //曜日のテキストを書き換えます（日〜土）
     initialView: 'listMonth',
