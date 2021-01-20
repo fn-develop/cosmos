@@ -10,6 +10,9 @@ class Public::HomesController < ApplicationController
     # 未ログインユーザーの場合
     if current_user.blank?
       render action: :index_for_tenant_promotion
+    # ログイン情報の登録が無い場合
+    elsif current_user.email.blank?
+      redirect_to edit_user_path(company_code, current_user)
     # 管理者、オーナー、スタッフ
     elsif current_user.system_admin? || current_user.owner? || current_user.staff?
       render action: :index_for_system
