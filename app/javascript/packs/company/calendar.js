@@ -38,6 +38,7 @@ $(function () {
     dateClick: function(info) {
       $('#calendar_id').val('');
       $('#calendar_event_type').val('');
+      $('#calendar_is_entry').prop('checked', false);
       $('#calendar_title').val('');
       $('#calendar_memo').val('');
       $('#calendar_color').val('');
@@ -63,6 +64,8 @@ $(function () {
     },
     eventClick: function(info) {
       $('#calendar_id').val(info.event.id);
+      $('#calendar_event_type').val(info.event.extendedProps.event_type);
+      $('#calendar_is_entry').prop('checked', (info.event.extendedProps.is_entry != undefined));
       $('#calendar_event_type').val(info.event.extendedProps.event_type);
       $('#calendar_title').val(info.event.title);
       if(info.event.extendedProps.memo != undefined){

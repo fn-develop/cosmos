@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_15_054804) do
+ActiveRecord::Schema.define(version: 2021_01_20_072100) do
 
   create_table "app_settings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "management_company_name", default: ""
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 2021_01_15_054804) do
     t.string "allday", default: "false"
     t.string "site_url"
     t.string "event_type"
+    t.boolean "is_entry", default: false
     t.text "memo"
     t.integer "staff_id"
     t.datetime "created_at", precision: 6, null: false

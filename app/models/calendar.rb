@@ -7,6 +7,7 @@
 #  color      :string(255)
 #  end        :datetime
 #  event_type :string(255)
+#  is_entry   :boolean          default(FALSE)
 #  memo       :text(65535)
 #  site_url   :string(255)
 #  start      :datetime
@@ -26,6 +27,7 @@ class Calendar < ApplicationRecord
     j                   = {}
     j[:id]              = self.id
     j[:event_type]      = self.event_type
+    j[:is_entry]        = 'true' if self.is_entry?
     j[:title]           = self.title
     j[:memo]            = self.memo.to_s if self.memo.present?
     j[:all_day]         = self.allday

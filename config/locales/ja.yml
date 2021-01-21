@@ -264,6 +264,7 @@ ja:
       calendar:
         <<: *attr_common
         date_range: '期間指定エラー：'
+        is_entry: 顧客参加型
       collection_item:
         <<: *attr_common
         key: '項目キー(表示名)'

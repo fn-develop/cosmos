@@ -41,13 +41,24 @@
           <%= hidden_field_tag :id, '', { id: 'calendar_id' } %>
 
           <div class="form-group row">
-            <div class="col-sm-6">
+            <div class="col-sm-4">
               <div class="input-group">
                 <%= f.select :event_type, @company.calendar_event_types, { include_blank: '選択してください。' }, { class: 'custom-select', required: true } %>
               </div>
             </div>
 
-            <div class="col-sm-6">
+            <div class="col-sm-4">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <%= f.check_box(:is_entry, {}, checked_value = 'true', unchecked_value = 'false' ) %>
+                  </span>
+                </div>
+                <%= f.label :is_entry , class: "form-control text-nowrap" do Calendar::human_attribute_name(:is_entry) end %>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
