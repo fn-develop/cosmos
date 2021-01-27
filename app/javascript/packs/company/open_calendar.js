@@ -40,6 +40,15 @@ $(function () {
     editable  : false,
     droppable : false, // ドラッグ変更
     eventClick: function(info) {
+      // カレンダー参加ユーザー情報を取得する為のイベントに着火
+      document.dispatchEvent(new CustomEvent('show_event', { detail: info.event.id }));
+      $('#calendar_joined_user_calendar_id').val(info.event.id);
+      if(info.event.extendedProps.is_entry != undefined){
+        $('#join_form').removeClass('d-none');
+      } else {
+        $('#join_form').addClass('d-none');
+      }
+
       $('#calendar_title').text(info.event.title);
 
       if(info.event.extendedProps.memo != undefined){

@@ -73,6 +73,8 @@ tm:
     agreement_link: 利用規約
     agreement: 利用規約に同意する。
     memo: メモ
+    join: 参加
+    unjoin: 不参加
   layouts: &layouts
     header:
       <<: *common

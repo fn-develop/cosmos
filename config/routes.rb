@@ -41,6 +41,8 @@ Rails.application.routes.draw do
     scope module: :public do
       resources :homes, path: '', only: [:index] do
         get 'calendar', to: 'homes#calendar', on: :collection, as: :calendar
+        get 'join_calendar_info', to: 'homes#join_calendar_info', on: :collection, as: :join_calendar_info
+        post 'join_calendar', to: 'homes#join_calendar', on: :collection, as: :join_calendar
       end
     end
 

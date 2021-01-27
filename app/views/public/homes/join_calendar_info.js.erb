@@ -1,0 +1,11 @@
+<% if @calendar_joined_user.present? %>
+  <% if @calendar_joined_user.is_join? %>
+    $('#calendar_joined_user_is_join_1').prop('checked', true);
+  <% elsif @calendar_joined_user.is_join? === false %>
+    $('#calendar_joined_user_is_join_0').prop('checked', true);
+  <% end %>
+  $('#calendar_joined_user_comment').val('<%= @calendar_joined_user.comment.to_s %>');
+<% else %>
+  $('input:radio:checked').prop('checked', false).parent().removeClass('active');
+  $('#calendar_joined_user_comment').val('');
+<% end %>

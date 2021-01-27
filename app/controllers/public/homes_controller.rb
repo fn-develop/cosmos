@@ -32,6 +32,28 @@ class Public::HomesController < ApplicationController
     calendar_events
   end
 
+  # xhr
+  def join_calendar_info
+    @calendar_joined_user = current_user
+      .calendar_joined_users
+      .find_by(calendar_id: params[:calendar_id])
+  end
+
+  # xhr
+  def join_calendar
+    @calendar_joined_user = current_user
+      .calendar_joined_users
+      .find_by(calendar_id: calendar_joined_user_params[:calendar_id])
+    if @calendar_joined_user.blank?
+      @calendar_joined_user = current_user
+        .calendar_joined_users
+        .create(calendar_joined_user_params)
+    else
+      @calendar_joined_user.attributes = calendar_joined_user_params
+      @calendar_joined_user.save
+    end
+  end
+
   private
     def is_public?
        true
@@ -43,5 +65,9 @@ class Public::HomesController < ApplicationController
         ).where(
           event_type: company.calendar_open_event_types.to_a
         )
+    end
+
+    def calendar_joined_user_params
+      params.require(:calendar_joined_user).permit(:calendar_id, :is_join, :comment)
     end
 end

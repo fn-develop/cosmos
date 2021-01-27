@@ -30,7 +30,7 @@ class Ability
       can [:new_with_line, :new_with_line_non_tel_number, :create_with_line], :customer
       can :read, Company
       if user.company.try(:is_calendar_feature?)
-        can :calendar, :home
+        can [:calendar, :join_calendar], :home
       end
       can :manage, :user
       can :manage, User, id: user.id
@@ -48,6 +48,7 @@ class Ability
       can :manage, :bulk_line_message
       can :manage, :calendar
       can :manage, :visited_log
+      can :manage, :home
     end
 
     # 店舗オーナー
@@ -65,6 +66,7 @@ class Ability
       end
       can :manage, :visited_log
       can :manage, :staff
+      can :manage, :home
     end
 
     # システム管理者

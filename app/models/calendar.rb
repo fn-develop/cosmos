@@ -20,6 +20,8 @@
 class Calendar < ApplicationRecord
   belongs_to :company
   belongs_to :staff, class_name: 'User', required: false
+  has_many :calendar_joined_users, dependent: :destroy
+  has_many :users, through: :calendar_joined_users
 
   validate :valid_date
 

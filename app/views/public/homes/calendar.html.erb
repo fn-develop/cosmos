@@ -32,10 +32,34 @@
           </div>
         </div>
       </div>
+
+      <%= form_with(model: CalendarJoinedUser.new, url: join_calendar_homes_path, method: :post, id: :join_form, local: false) do |f| %>
+        <%= f.hidden_field :calendar_id %>
+        <div class="form-group row p-2">
+          <div class="col-12 btn-group" data-toggle="buttons">
+            <label class="btn btn-outline-warning" style="width:50%">
+              <%= f.radio_button :is_join, 1, { class: 'invisible d-none' } %><%= t('common.join') %>
+            </label>
+            <label class="btn btn-outline-warning" style="width:50%">
+              <%= f.radio_button :is_join, 0, { class: 'invisible d-none' } %><%= t('common.unjoin') %>
+            </label>
+          </div>
+
+          <div class="col-12 pb-2">
+            <%= f.text_field :comment, { class: 'form-control', placeholder: 'コメント' } %>
+          </div>
+
+          <div class="col-12 pb-2">
+            <%= f.submit class: 'btn btn-primary float-right', value: t('common.submit_button'), data: { confirm: t('common.submit_confirm'), disable_with: t('common.submit_disable_with') } %>
+          </div>
+        </div>
+      <% end %>
+
     </div>
   </div>
 </div>
 
+<% # カレンダーイベントJSON %>
 <%= javascript_tag do %>
   var calendar_events = [
     <% @calendar_events.each do |e| %>
@@ -44,6 +68,22 @@
     ];
 <% end %>
 
+<% content_for :page_javascript do %>
+  <%= javascript_tag do %>
+    $(function() {
+      // see: open_calendar.js
+      document.addEventListener('show_event', function (e){
+        // 参加情報取得
+        $.ajax({
+          url: '<%= join_calendar_info_homes_path %>',
+          data: { calendar_id: e.detail },
+          type: 'GET',
+          dataType : 'script',
+        });
+      }, true);
+    });
+  <% end %>
+<% end %>
 
 <% content_for :page_style do %>
 <style>
