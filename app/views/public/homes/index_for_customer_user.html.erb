@@ -1,84 +1,24 @@
-<% if @company.is_calendar_feature? %>
-  <%= javascript_pack_tag 'company/open_mini_calendar' %>
-  <%= stylesheet_pack_tag 'company/open_mini_calendar' %>
-<% end %>
 <section class="content pt-3">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-12 col-md-6">
-        <div class="info-box mb-3">
-          <span class="info-box-icon bg-info elevation-1">
-            <a href="<%= calendar_homes_path(params[:company_code]) %>"><i class="fas fa-calendar-alt"></i></a>
-          </span>
-
-          <div class="info-box-content">
-            <span class="info-box-text"><%= t('common.calendar_event_list') %></span>
-            <span class="info-box-number"><%= @calendar_events.size() %><small>件</small></span>
-          </div>
-        </div>
-      </div>
-
       <% if @company.is_calendar_feature? %>
         <div class="col-sm-12 col-md-6">
-          <!-- THE CALENDAR -->
-          <div id="calendar"></div>
+          <div class="info-box mb-3">
+            <span class="info-box-icon bg-info elevation-1">
+              <a href="<%= calendar_homes_path(params[:company_code]) %>"><i class="fas fa-calendar-alt"></i></a>
+            </span>
+
+            <div class="info-box-content">
+              <span class="info-box-text"><%= t('common.calendar_event_list') %></span>
+              <%
+                prev_month = (DateTime.now - 1.month).at_end_of_month
+                event_count = @calendar_events.select{ |c| c.start > prev_month }.size()
+              %>
+              <span class="info-box-number"><%= event_count %><small>件</small></span>
+            </div>
+          </div>
         </div>
       <% end %>
     </div>
   </div>
 </section>
-
-<div class="d-none">
-  <div id="calendar_modal" data-izimodal-title="<%= t('common.calendar') %>" class="mx-auto">
-    <div>
-      <div class="form-group row">
-        <div class="col-sm-12">
-          <h4 id="calendar_title" class="p-2">HOGE</h4>
-        </div>
-
-        <div class="col-sm-12">
-          <div id="calendar_memo" class="p-2">HOGE</div>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <div class="col-sm-12">
-          <div class="input-group">
-            <a href="javascript: void(0)" id="calendar_url" class="p-2">HOGE</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<%= javascript_tag do %>
-  <% if @company.is_calendar_feature? %>
-  var calendar_events = [
-    <% @calendar_events.each do |e| %>
-      <%= e.json_calendar_event.html_safe + ',' %>
-    <% end %>
-    ];
-  <% end %>
-<% end %>
-
-<% content_for :page_style do %>
-<style>
-td.fc-day-sat {
-  background-color: #eaf4ff;
-}
-td.fc-day-sun {
-  background-color: #ffeaea;
-}
-.fc-toolbar, .fc-toolbar.fc-header-toolbar {
-  margin: 0;
-  padding: 0rem;
-}
-.fc-toolbar {
-  flex-direction: row;
-}
-.fc .fc-toolbar.fc-header-toolbar {
-  margin-bottom: 0.5em !important;
-}
-</style>
-<% end %>

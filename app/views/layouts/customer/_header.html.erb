@@ -9,7 +9,7 @@
     </li>
     <% if @company.try(:is_calendar_feature?) && can?(:calendar, :home) %>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="<%= calendar_homes_path %>" class="nav-link"><%= t('common.calendar') %></a>
+        <a href="<%= calendar_homes_path %>" class="nav-link"><%= t('common.calendar_event_list') %></a>
       </li>
     <% end %>
   </ul>

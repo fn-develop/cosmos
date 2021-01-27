@@ -8,11 +8,14 @@
       <a href="<%= homes_path %>" class="nav-link"><%= t('common.home') %></a>
     </li>
     <li class="nav-item d-none d-sm-inline-block">
-      <a href="<%= customers_path %>" class="nav-link"><%= t('common.customer') %></a>
+      <a href="<%= customers_path %>" class="nav-link"><%= t('common.customer_index') %></a>
     </li>
     <% if @company.try(:is_calendar_feature?) && can?(:read, :calendar) %>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="<%= company_calendars_path %>" class="nav-link"><%= t('common.calendar') %></a>
+        <a href="<%= company_calendars_path %>" class="nav-link"><%= t('common.calendar_regist') %></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="<%= calendar_homes_path %>" class="nav-link"><%= t('common.calendar_event_list') %></a>
       </li>
     <% end %>
     <% if can?(:manage, :item) %>

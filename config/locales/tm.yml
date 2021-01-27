@@ -52,6 +52,7 @@ tm:
     calendar: カレンダー
     calendar_event_list: 予定一覧
     calendar_setting: カレンダー設定
+    calendar_regist: 予定登録
     title: タイトル
     event_types:
       store_holiday: 試合
