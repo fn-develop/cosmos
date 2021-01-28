@@ -27,13 +27,16 @@ Rails.application.routes.draw do
       get 'xhr_get_customers', to: 'customers#xhr_get_customers', on: :collection, as: :xhr_get_customers, defaults: { format: 'js' }
       post 'update_introducer', to: 'customers#update_introducer', on: :member, as: :update_introducer
       get 'xhr_get_base64_message_image', to: 'customers#xhr_get_base64_message_image', on: :member, as: :xhr_get_base64_message_image
+      post 'reset_line_info', to: 'customers#reset_line_info', on: :member, as: :reset_line_info
 
       scope module: :customer do
         resources :visited_logs
       end
     end
 
-    resources :users
+    resources :users do
+      post 'reset_line_info', to: 'users#reset_line_info', on: :member
+    end
 
     scope module: :public do
       resources :homes, path: '', only: [:index] do

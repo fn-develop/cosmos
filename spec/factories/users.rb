@@ -5,6 +5,7 @@
 #  id                     :bigint           not null, primary key
 #  email                  :string(255)      default(""), not null
 #  encrypted_password     :string(255)      default(""), not null
+#  image                  :string(255)
 #  line_display_name      :string(255)
 #  line_image_url         :string(255)
 #  line_status_message    :string(255)

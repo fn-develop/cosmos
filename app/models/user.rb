@@ -5,6 +5,7 @@
 #  id                     :bigint           not null, primary key
 #  email                  :string(255)      default(""), not null
 #  encrypted_password     :string(255)      default(""), not null
+#  image                  :string(255)
 #  line_display_name      :string(255)
 #  line_image_url         :string(255)
 #  line_status_message    :string(255)
@@ -23,6 +24,8 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
+  mount_uploader :image, InsiteImageUploader
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   # devise :database_authenticatable, :registerable,
@@ -69,9 +72,15 @@ class User < ApplicationRecord
       profile_has = JSON.parse(profile.body)
       self.line_display_name = profile_has['displayName']
       self.line_image_url = profile_has['pictureUrl']
+      self.remote_image_url = profile_has['pictureUrl'] if profile_has['pictureUrl'].present?
       self.line_status_message = profile_has['statusMessage']
       self.save(validate: false)
     end
+  end
+
+  def base64_image(size)
+    file = self.image.try(size)
+    "data:#{ file.content_type };base64,#{ Base64.strict_encode64(file.read) }"
   end
 
   #### START EMAIL 重複OK ######

@@ -19,6 +19,7 @@ ja:
     submit_button: '　送　信　'
     submit_confirm: '送信してよろしいですか?'
     submit_disable_with: '　送信中...　'
+    updating: '更新中...'
     delete_link: '　削　除　'
     delete_confirm: 削除してよろしいですか？
     user_show: アカウント

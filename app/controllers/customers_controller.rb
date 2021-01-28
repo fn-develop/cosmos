@@ -1,5 +1,5 @@
 class CustomersController < ApplicationController
-  before_action :set_customer, only: [:show, :edit, :update, :destroy, :new_line_message, :send_line_message]
+  before_action :set_customer, only: [:show, :reset_line_info, :edit, :update, :destroy, :new_line_message, :send_line_message]
   include LineLinkingController
 
   VISITED_LOGS_PER = '10'
@@ -23,7 +23,12 @@ class CustomersController < ApplicationController
                              .order(day: :desc)
                              .page(params[:page])
                              .per(VISITED_LOGS_PER)
-    @customer.user.try(:reset_line_info)
+  end
+
+  # xhr
+  def reset_line_info
+    @user = @customer.user
+    @user.reset_line_info
   end
 
   def new

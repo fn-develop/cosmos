@@ -1,10 +1,14 @@
 <aside class="main-sidebar sidebar-light-lightblue elevation-4" <%= "style='background-color:aqua'".html_safe if ENV['MODE'].nil? %>>
 
-  <a href="#" class="brand-link">
-    <img src="<%= asset_pack_path 'media/images/logo.png'%>" alt="COSMOS Logo" class="brand-image img-circle elevation-3"
+  <a href="<%= user_path(@company.code, current_user) %>" class="brand-link">
+    <% if current_user.image.present? %>
+      <img src="<%= current_user.base64_image(:thumb_50) %>" style="max-height: 33px;border-radius: 50%;" />
+    <% else %>
+      <img src="<%= asset_pack_path 'media/images/logo.png'%>" alt="Logo" class="brand-image img-circle elevation-3"
          style="opacity: .8">
+    <% end %>
     <span class="brand-text font-weight-light">
-      <%= @company.name %>
+      <%= current_user.line_display_name %>
     </span>
   </a>
 

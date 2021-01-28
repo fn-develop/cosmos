@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_user, only: [:show, :edit, :update, :reset_line_info]
   layout :specification_layout
 
   def show
@@ -29,6 +29,11 @@ class UsersController < ApplicationController
     else
       render :edit
     end
+  end
+
+  # xhr
+  def reset_line_info
+    @user.reset_line_info
   end
 
   private
