@@ -28,6 +28,20 @@
             <th class="text-nowrap"><%= User.human_attribute_name(:email) %></th>
             <td><%= @user.email.to_s %></td>
           </tr>
+
+          <tr>
+            <th class="text-nowrap"><%= User.human_attribute_name(:line_display_name) %></th>
+            <td><%= @user.line_display_name.to_s %></td>
+          </tr>
+
+          <tr>
+            <th class="text-nowrap"><%= User.human_attribute_name(:image) %></th>
+            <td>
+              <% if @user.image.present? %>
+                <img src="<%= current_user.base64_image(:thumb_50) %>" style="border-radius: 50%;" />
+              <% end %>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>

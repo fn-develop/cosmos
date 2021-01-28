@@ -275,6 +275,10 @@ tm:
         enabled: '有効/無効'
       calendar_setting:
         is_open: 公開可否
+      user:
+        email: メール
+        line_display_name: LINEプロフィール名
+        image: LINEプロフィール画像
   activemodel:
     models:
       line_message: 'LINEメッセージ'
