@@ -72,7 +72,9 @@ class User < ApplicationRecord
       profile_has = JSON.parse(profile.body)
       self.line_display_name = profile_has['displayName']
       self.line_image_url = profile_has['pictureUrl']
-      self.remote_image_url = profile_has['pictureUrl'] if profile_has['pictureUrl'].present?
+      if profile_has['pictureUrl'].present? && (self.line_image_url != profile_has['pictureUrl'])
+        self.remote_image_url = profile_has['pictureUrl']
+      end
       self.line_status_message = profile_has['statusMessage']
       self.save(validate: false)
     end

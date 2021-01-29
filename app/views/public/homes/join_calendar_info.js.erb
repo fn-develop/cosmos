@@ -1,11 +1,20 @@
 <% if @calendar_joined_user.present? %>
   <% if @calendar_joined_user.is_join? %>
-    $('#calendar_joined_user_is_join_1').prop('checked', true);
+    $('#calendar_joined_user_is_join_1').prop('checked', true).parent().addClass('active');
   <% elsif @calendar_joined_user.is_join? === false %>
-    $('#calendar_joined_user_is_join_0').prop('checked', true);
+    $('#calendar_joined_user_is_join_0').prop('checked', true).parent().addClass('active');
   <% end %>
   $('#calendar_joined_user_comment').val('<%= @calendar_joined_user.comment.to_s %>');
 <% else %>
   $('input:radio:checked').prop('checked', false).parent().removeClass('active');
   $('#calendar_joined_user_comment').val('');
 <% end %>
+
+$('#joined_user_list').html('');
+<% joined_count = 0 %>
+<% @calendar_joined_users.each do |cju|
+  joined_count += 1 if cju.is_join?
+%>
+  $('#joined_user_list').append('<%= escape_javascript(render('/public/homes/joined_user_list', cju: cju)) %>');
+<% end %>
+$('#joined_count').text('<%= joined_count %>');

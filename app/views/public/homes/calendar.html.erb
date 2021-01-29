@@ -52,6 +52,11 @@
           <div class="col-12 pb-2">
             <%= f.submit class: 'btn btn-primary float-right', value: t('common.submit_button'), data: { confirm: t('common.submit_confirm'), disable_with: t('common.submit_disable_with') } %>
           </div>
+          <div class="col-12 pb-2">
+            参加者：<span id="joined_count"></span>人
+          </div>
+          <div class="col-12 pb-2" id="joined_user_list">
+          </div>
         </div>
       <% end %>
 

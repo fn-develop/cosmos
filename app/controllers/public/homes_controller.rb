@@ -34,15 +34,16 @@ class Public::HomesController < ApplicationController
 
   # xhr
   def join_calendar_info
-    @calendar_joined_user = current_user
-      .calendar_joined_users
-      .find_by(calendar_id: params[:calendar_id])
+    @calendar = company.calendars.find(params[:calendar_id])
+    @calendar_joined_users = @calendar.calendar_joined_users.includes(user: :customer)
+    @calendar_joined_user = @calendar.calendar_joined_users.find_by(user: current_user)
   end
 
   # xhr
   def join_calendar
     @calendar_joined_user = current_user
       .calendar_joined_users
+      .includes(user: :customer)
       .find_by(calendar_id: calendar_joined_user_params[:calendar_id])
     if @calendar_joined_user.blank?
       @calendar_joined_user = current_user
