@@ -29,7 +29,8 @@ ja:
     edit: 編集
     edit_link: '　編集　'
     return_link: '　戻る　'
-    searting: '検索中...'
+    search: 検索
+    in_search: '検索中...'
     clear: クリア
     line_notify: LINE通知
     honorifics: 様
