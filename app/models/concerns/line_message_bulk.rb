@@ -39,6 +39,20 @@ class LineMessageBulk
 
     lmbl.save
 
+    enabled_users.each do | user |
+      LineMessageLog.new(
+        company:      RequestStore.store[:company],
+        user_id:      user.id,
+        line_user_id: user.line_user_id,
+        year:         today.year.to_s,
+        month:        today.month.to_s,
+        code:         Const::LineMessage::Code::PUSH,
+        message:      message,
+        staff:        RequestStore.store[:current_user],
+        checked:      true,
+      ).save
+    end
+
     line_message_count_ar = self.company.line_message_counts.find_or_initialize_by(year: today.year.to_s, month: today.month.to_s)
 
     if lmbl.success_or_failure
