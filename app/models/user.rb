@@ -83,6 +83,10 @@ class User < ApplicationRecord
     "data:#{ file.content_type };base64,#{ Base64.strict_encode64(file.read) }"
   end
 
+  def name
+    (self.customer.try(:name) || self.line_display_name || self.company.try(:name)).to_s
+  end
+
   #### START EMAIL 重複OK ######
   # Deviseを使うと、問答無用でemailがユニーク扱いになる。
   # それだと論理削除した際に再登録できないので、一旦emailに関する検証を削除する

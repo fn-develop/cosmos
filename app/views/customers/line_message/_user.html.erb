@@ -3,12 +3,14 @@
     <span class="direct-chat-name float-left"><%= customer.name %>&nbsp;</span>
     <span class="direct-chat-timestamp float-left"><%= message.created_at.strftime("%Y/%m/%d %H:%M") %></span>
   </div>
+
   <% if message.try(:user).try(:image).present? %>
     <img src="<%= message.user.base64_image(:thumb_50) %>" class="direct-chat-img" />
   <% else %>
     <img src="<%= asset_pack_path 'media/images/user.png'%>" class="direct-chat-img" />
   <% end %>
-  <div class="w-10 direct-chat-text float-left text-left" style="margin-left: 0px;">
+
+  <div class="direct-chat-text float-left text-left ml-2">
     <% if message.message_type == Const::LineMessage::Type::TEXT %>
       <%= br message.message.to_s %>
     <% elsif message.message_type == Const::LineMessage::Type::IMAGE %>
