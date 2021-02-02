@@ -1,0 +1,45 @@
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark"><%= t('common.line_notify') %></h1>
+      </div>
+
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="<%= homes_path %>"><%= t('common.home') %></a></li>
+          <li class="breadcrumb-item active"><%= t('common.line_notify') %></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="card card-primary">
+      <div class="card-body" style="height:550px">
+        <div id="message-log" class="direct-chat-messages">
+          <% @line_message_logs.each do |message_log| %>
+            <% if message_log.staff_id.present? # スタッフのメッセージは無視 %>
+            <% elsif message_log.user_id.present? %>
+              <a href="<%= new_line_message_customer_path(@company.code, message_log.user.customer) %>">
+                <%= render '/customers/line_message/user', message: message_log %>
+              </a>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <div class="card-footer">
+        <small class="float-right"><%= t('common.max_num', max_num: Const::LineMessage::DISPLAY_LIMIT) %></small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%= javascript_tag do %>
+  $(function() {
+    // LINEメッセージの表示部分を最新のコメントにスクロールする処理
+    $("#message-log").scrollTop($("#message-log")[0].scrollHeight);
+  });
+<% end %>

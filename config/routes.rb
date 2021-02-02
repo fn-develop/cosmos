@@ -28,6 +28,7 @@ Rails.application.routes.draw do
       post 'update_introducer', to: 'customers#update_introducer', on: :member, as: :update_introducer
       get 'xhr_get_base64_message_image', to: 'customers#xhr_get_base64_message_image', on: :member, as: :xhr_get_base64_message_image
       post 'reset_line_info', to: 'customers#reset_line_info', on: :member, as: :reset_line_info
+      get 'recent_message_index', to: 'customers#recent_message_index', on: :collection
 
       scope module: :customer do
         resources :visited_logs
