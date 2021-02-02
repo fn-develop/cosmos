@@ -18,8 +18,8 @@
 <section class="content">
   <div class="container-fluid">
     <div class="card card-primary">
-      <div class="card-body" style="height:550px">
-        <div id="message-log" class="direct-chat-messages">
+      <div class="card-body">
+        <div id="message-log" class="direct-chat-messages" style="height: 550px;">
           <% @line_message_logs.each do |message_log| %>
             <% if message_log.staff_id.present? # スタッフのメッセージは無視 %>
             <% elsif message_log.user_id.present? %>
