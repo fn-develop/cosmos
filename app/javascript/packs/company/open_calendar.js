@@ -69,7 +69,7 @@ $(function () {
 
       var sdate = info.event.start;
       var sd    = sdate.getDate(),
-          sm    = sdate.getMonth(),
+          sm    = sdate.getMonth() + 1,
           sy    = sdate.getFullYear(),
           sh    = sdate.getHours(),
           smi   = sdate.getMinutes()

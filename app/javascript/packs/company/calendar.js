@@ -124,6 +124,7 @@ $(function () {
       $('#calendar_end_4i').val(eh);
       $('#calendar_end_5i').val(emi);
 
+      $('.iziModal-header-title').text(info.dateStr);
       $('#calendar_modal').iziModal('open');
       // alert('Clicked on: ' + info.event.id);
       // alert('Event: ' + info.event.title);
