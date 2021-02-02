@@ -90,16 +90,19 @@ $(function () {
           range_str += ' 開始';
         } else {
           var ed    = edate.getDate(),
-              em    = edate.getMonth(),
+              em    = edate.getMonth() + 1,
               ey    = edate.getFullYear(),
               eh    = edate.getHours(),
               emi   = edate.getMinutes()
 
           eh  = ('0' + eh).slice(-2);
           emi = ('0' + emi).slice(-2);
-          range_str += ' 〜 ' + ey + '年';
-          range_str += em + '月';
-          range_str += ed + '日 ';
+          range_str += ' 〜 ';
+          if (ed != sd || em != sm || ey != sy) {
+            range_str += ey + '年';
+            range_str += em + '月';
+            range_str += ed + '日 ';
+          }
           range_str += eh + ':';
           range_str += emi;
         }
