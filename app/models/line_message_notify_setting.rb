@@ -29,6 +29,8 @@ class LineMessageNotifySetting < ApplicationRecord
 
     unread_line_message_count = self.company.line_message_logs.where(checked: false).count
 
+    return if unread_line_message_count.zero?
+
     line_user_ids = []
     case self.notify_target
     when 'owner'
