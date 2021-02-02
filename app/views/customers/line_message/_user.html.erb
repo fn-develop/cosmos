@@ -8,7 +8,6 @@
   <% else %>
     <img src="<%= asset_pack_path 'media/images/user.png'%>" class="direct-chat-img" />
   <% end %>
-  <img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt="Message User Image">
   <div class="w-10 direct-chat-text float-left text-left" style="margin-left: 0px;">
     <% if message.message_type == Const::LineMessage::Type::TEXT %>
       <%= br message.message.to_s %>
