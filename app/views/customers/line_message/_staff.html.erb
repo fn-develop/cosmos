@@ -3,6 +3,11 @@
     <span class="direct-chat-timestamp float-right"><%= message.created_at.strftime("%Y/%m/%d %H:%M") %></span>
     <span class="direct-chat-name float-right"><%= @company.name %>&nbsp;</span>
   </div>
+  <% if message.try(:staff).try(:image).present? %>
+    <img src="<%= message.staff.base64_image(:thumb_50) %>" class="direct-chat-img" />
+  <% else %>
+    <img src="<%= asset_pack_path 'media/images/staff.jpg'%>" class="direct-chat-img" />
+  <% end %>
   <div class="w-10 direct-chat-text float-right text-left bg-white" style="margin-right: 0px;">
     <%= br message.message.to_s %>
   </div>
