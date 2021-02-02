@@ -7,6 +7,8 @@
 #  color      :string(255)
 #  end        :datetime
 #  event_type :string(255)
+#  is_entry   :boolean          default(FALSE)
+#  memo       :text(65535)
 #  site_url   :string(255)
 #  start      :datetime
 #  title      :string(255)
@@ -18,6 +20,8 @@
 class Calendar < ApplicationRecord
   belongs_to :company
   belongs_to :staff, class_name: 'User', required: false
+  has_many :calendar_joined_users, dependent: :destroy
+  has_many :users, through: :calendar_joined_users
 
   validate :valid_date
 
@@ -25,7 +29,9 @@ class Calendar < ApplicationRecord
     j                   = {}
     j[:id]              = self.id
     j[:event_type]      = self.event_type
+    j[:is_entry]        = 'true' if self.is_entry?
     j[:title]           = self.title
+    j[:memo]            = self.memo.to_s if self.memo.present?
     j[:all_day]         = self.allday
     # JSでは1日目が「0」となるので「-1.day」している
     j[:start]           = self.allday == 'true' ? (self.start - 1.day - 9.hour).strftime("%Y-%m-%d") : (self.start - 1.day - 9.hour).strftime("%Y-%m-%d %H:%M")

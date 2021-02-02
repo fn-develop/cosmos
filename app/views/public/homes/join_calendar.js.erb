@@ -1,0 +1,5 @@
+<% if @calendar_joined_user.valid? %>
+  alert('登録・更新完了。');
+<% else %>
+  alert('<%= @calendar_joined_user.errors.full_messages.join(',').to_s %>');
+<% end %>

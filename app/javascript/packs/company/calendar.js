@@ -38,9 +38,11 @@ $(function () {
     dateClick: function(info) {
       $('#calendar_id').val('');
       $('#calendar_event_type').val('');
+      $('#calendar_is_entry').prop('checked', false);
       $('#calendar_title').val('');
+      $('#calendar_memo').val('');
       $('#calendar_color').val('');
-      $('#calendar_url').val('');
+      $('#calendar_site_url').val('');
       $('#calendar_allday').prop('checked', false);
       $('#time_specification').addClass('d-none');
       $('#delete_button').addClass('d-none');
@@ -63,9 +65,20 @@ $(function () {
     eventClick: function(info) {
       $('#calendar_id').val(info.event.id);
       $('#calendar_event_type').val(info.event.extendedProps.event_type);
+      $('#calendar_is_entry').prop('checked', (info.event.extendedProps.is_entry != undefined));
+      $('#calendar_event_type').val(info.event.extendedProps.event_type);
       $('#calendar_title').val(info.event.title);
+      if(info.event.extendedProps.memo != undefined){
+        $('#calendar_memo').val(info.event.extendedProps.memo);
+      } else {
+        $('#calendar_memo').val('');
+      }
       $('#calendar_color, #disp_color').val(info.event.backgroundColor);
-      $('#calendar_url').val(info.event.url);
+      if(info.event.extendedProps.site_url != undefined){
+        $('#calendar_site_url').val(info.event.extendedProps.site_url);
+      } else {
+        $('#calendar_site_url').val('');
+      }
       $('#delete_button').removeClass('d-none');
       // 画面側ではチェックしている場合に「false」を指定している。
       $('#calendar_allday').prop('checked', info.event.allDay == false);
@@ -111,6 +124,7 @@ $(function () {
       $('#calendar_end_4i').val(eh);
       $('#calendar_end_5i').val(emi);
 
+      $('.iziModal-header-title').text(info.dateStr);
       $('#calendar_modal').iziModal('open');
       // alert('Clicked on: ' + info.event.id);
       // alert('Event: ' + info.event.title);

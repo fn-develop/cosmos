@@ -99,7 +99,7 @@
 
           <div class="col-md-3 mb-2">
             <div class="input-group">
-              <%= f.submit '検　索', class: 'btn btn-success rounded-pill', data: { disable_with: t('.searting') } %>
+              <%= f.submit t('common.search'), class: 'btn btn-success rounded-pill', data: { disable_with: t('common.in_search') } %>
               <a href="javascript: void(0)" id="clear_button" class="ml-2 btn btn-outline-primary rounded-pill"><%= t('.clear') %></a>
               <%= javascript_tag do %>
                 $(function() {
@@ -118,71 +118,73 @@
   </div>
 
   <div class="row">
-    <div class="col-md-3">
+    <% if @company.is_for_profit? %>
+      <div class="col-md-3">
 
-      <div class="card">
-        <div class="card-header" data-card-widget="collapse">
-          <h3 class="card-title"><%= t('.age') %></h3>
+        <div class="card">
+          <div class="card-header" data-card-widget="collapse">
+            <h3 class="card-title"><%= t('.age') %></h3>
 
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-            </button>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="card-body p-0" style="display: block;">
+            <ul class="nav nav-pills flex-column">
+              <li class="nav-item">
+                <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="" data-age_to="19">
+                  <%= t('.under_19') %>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="20" data-age_to="29">
+                  <%= t('.under_29') %>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="30" data-age_to="39">
+                  <%= t('.under_39') %>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="40" data-age_to="49">
+                  <%= t('.under_49') %>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="50" data-age_to="59">
+                  <%= t('.under_59') %>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="60" data-age_to="69">
+                  <%= t('.under_69') %>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="70" data-age_to="">
+                  <%= t('.more_70') %>
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
-        <div class="card-body p-0" style="display: block;">
-          <ul class="nav nav-pills flex-column">
-            <li class="nav-item">
-              <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="" data-age_to="19">
-                <%= t('.under_19') %>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="20" data-age_to="29">
-                <%= t('.under_29') %>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="30" data-age_to="39">
-                <%= t('.under_39') %>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="40" data-age_to="49">
-                <%= t('.under_49') %>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="50" data-age_to="59">
-                <%= t('.under_59') %>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="60" data-age_to="69">
-                <%= t('.under_69') %>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="javascript: void(0)" class="nav-link simple_age" data-age_from="70" data-age_to="">
-                <%= t('.more_70') %>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <%= javascript_tag do %>
-        $(function() {
-          $('.simple_age').on('click', function(){
-            $('#searchAgeFromText').val($(this).data('age_from'));
-            $('#searchAgeToText').val($(this).data('age_to'));
-            $('#search_form').submit();
+        <%= javascript_tag do %>
+          $(function() {
+            $('.simple_age').on('click', function(){
+              $('#searchAgeFromText').val($(this).data('age_from'));
+              $('#searchAgeToText').val($(this).data('age_to'));
+              $('#search_form').submit();
+            });
           });
-        });
-      <% end %>
-    </div>
+        <% end %>
+      </div>
+    <% end %>
 
-    <div class="col-md-9">
+    <div class="col-md-<%= @company.is_for_profit? ? '9' : '12' %>">
       <div class="card card-primary card-outline">
         <div class="card-header">
           <% page = params[:page].present? ? params[:page].to_i : 1 %>
@@ -233,6 +235,8 @@
                   <% if @company.is_inviting_feature? %>
                     <th><%= Customer.human_attribute_name(:introducer) %></th>
                   <% end %>
+
+                  <th>操作</th>
                 </tr>
               </thead>
 
@@ -246,7 +250,13 @@
                           <i class="fab fa-line fa-2x text-warning"></i>
                         </a>
                       <% else %>
-                        <a href="<%= new_line_message_customer_path(@company.code, customer) %>"><i class="fab fa-line fa-2x text-success"></i></a>
+                        <a href="<%= new_line_message_customer_path(@company.code, customer) %>">
+                          <% if customer.user.image.present? %>
+                            <img src="<%= customer.user.base64_image(:thumb_50) %>" style="max-height: 33px;border-radius: 50%;" />
+                          <% else %>
+                            <i class="fab fa-line fa-2x text-success"></i>
+                          <% end %>
+                        </a>
                       <% end %>
                     <% end %>
                   </td>
@@ -270,12 +280,22 @@
                   <% if @company.is_input_customer_birthday? %>
                     <td class="align-middle"><%= customer.age %></td>
                   <% end %>
+
                   <td class="align-middle"><%= customer.last_vist_date %></td>
+
                   <% if @company.is_inviting_feature? %>
                     <td class="align-middle">
                       <%= link_to customer.introducer.name.to_s, customer_path(@company.code, customer.introducer), { class: 'text-info' } if customer.introducer %>
                     </td>
                   <% end %>
+
+                  <td>
+                    <% if customer.line? %>
+                      <%= form_with(url: reset_line_info_customer_path(@company.code, customer.id), method: :post, local: false) do |f| %>
+                        <%= f.submit 'LINE情報更新', class: 'btn btn-sm btn-success rounded-pill', data: { disable_with: t('.updating') } %>
+                      <% end %>
+                    <% end %>
+                  </td>
                 </tr>
               <% end %>
 

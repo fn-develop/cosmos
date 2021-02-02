@@ -11,15 +11,64 @@
   <div class="sidebar">
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
         <li class="nav-item">
-          <a href="<%= can?(:manage, :setting) ? customers_path(params[:company_code]) : '#' %>" class="nav-link <%= activate_css(Const::Controller::CUSTOMER) %>">
-            <i class="nav-icon fas fa-users"></i>
+          <a href="<%= homes_path %>" class="nav-link">
+            <i class="nav-icon fas fa-home"></i>
             <p>
-              顧客
+              <%= t('common.home') %>
             </p>
           </a>
         </li>
+
+        <li class="nav-item">
+          <a href="<%= can?(:manage, :setting) ? customers_path(params[:company_code]) : '#' %>" class="nav-link">
+            <i class="nav-icon fas fa-users"></i>
+            <p>
+              <%= t('common.customer_index') %>
+            </p>
+          </a>
+        </li>
+
+        <% if @company.try(:is_calendar_feature?) && can?(:read, :calendar) %>
+          <li class="nav-item">
+            <a href="<%= can?(:manage, :setting) ? company_calendars_path : '#' %>" class="nav-link">
+              <i class="nav-icon fas fa-calendar-plus"></i>
+              <p>
+                <%= t('common.calendar_regist') %>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<%= can?(:read, :calendar) ? calendar_homes_path : '#' %>" class="nav-link">
+              <i class="nav-icon fas fa-calendar-alt"></i>
+              <p>
+                <%= t('common.calendar_event_list') %>
+              </p>
+            </a>
+          </li>
+        <% end %>
+
+        <% if can?(:manage, :item) %>
+          <li class="nav-item">
+            <a href="<%= can?(:manage, :item) ? company_items_path : '#' %>" class="nav-link">
+              <i class="nav-icon fas fa-list"></i>
+              <p>
+                <%= t('common.item') %>
+              </p>
+            </a>
+          </li>
+        <% end %>
+
+        <% if can?(:manage, :staff) %>
+          <li class="nav-item d-none d-sm-inline-block">
+            <a href="<%= can?(:manage, :item) ? company_staffs_path : '#' %>" class="nav-link">
+              <i class="nav-icon fas fa-user-friends"></i>
+              <p>
+                <%= t('common.staff') %>
+              </p>
+            </a>
+          </li>
+        <% end %>
       </ul>
     </nav>
   </div>

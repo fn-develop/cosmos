@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title><%= @company.name %></title>
+
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_pack_tag 'application', media: 'all' %>
+  <%= javascript_pack_tag 'application' %>
+  <%= yield(:page_javascript) if content_for?(:page_javascript) %>
+  <%= yield(:page_style) if content_for?(:page_style) %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="sidebar-collapse">
+
+<div class="wrapper">
+
+  <%= render '/layouts/customer/header' %>
+
+  <%= render '/layouts/customer/main_sidebar' %>
+
+  <div class="content-wrapper">
+    <%= yield %>
+  </div>
+
+  <%= render '/layouts/customer/sub_sidebar' %>
+
+  <%= render '/layouts/customer/main_footer' %>
+</div>
+</body>
+
+<%= render '/layouts/notice_and_alert_js' %>
+
+</html>

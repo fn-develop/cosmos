@@ -1,0 +1,88 @@
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark"><%= t('.calendar_setting') %></h1>
+      </div>
+
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="<%= homes_path %>"><%= t('.home') %></a></li>
+          <li class="breadcrumb-item"><a href="<%= company_setting_path %>"><%= t('.company_setting') %></a></li>
+          <li class="breadcrumb-item active"><%= t('.calendar_setting') %></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title"><%= t('.card_title') %><small></small></h3>
+          </div>
+
+          <%= form_with(
+            model: @calendar_setting,
+            url: save_calendar_setting_company_setting_path,
+            method: :post,
+            local: true) do |f|
+          %>
+            <div class="card-body">
+
+              <div class="form-group row">
+                <div class="col-2">
+                  <%= f.label :is_open, t('.is_open'), { class: 'form-label' } %>
+                </div>
+                <div class="col-10 btn-group" data-toggle="buttons">
+                  <label class="btn btn-outline-primary <%= 'active' if @calendar_setting.is_open? %>" style="width:50%">
+                    <%= f.radio_button :is_open, 1, { class: 'invisible', checked: (@calendar_setting.is_open?) } %><%= t('common.enabled') %>
+                  </label>
+                  <label class="btn btn-outline-primary <%= 'active' if !@calendar_setting.is_open? %>" style="width:50%">
+                    <%= f.radio_button :is_open, 0, { class: 'invisible', checked: (!@calendar_setting.is_open?) } %><%= t('common.disabled') %>
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-2">
+                  <%= f.label :open_collection_item_ids, t('.open_item'), { class: 'form-label' } %>
+                </div>
+                <div class="input-group col-10">
+                  <% @calendar_setting.open_collection_items.each do |ci| %>
+                    <label class="btn btn-outline-primary m-1">
+                      <input type="checkbox" name="calendar_setting[open_collection_item_ids][]" value="<%= ci.id %>" <%= @calendar_setting.open_collection_item_ids.include?(ci.id.to_s) ? 'checked' : '' %>>
+                      <%= ci.key %>
+                    </label>
+                  <% end %>
+                  <%= javascript_tag do %>
+                    $(function() {
+                      $('input:checkbox').on('input', function(){
+                        if($(this).prop('checked')) {
+                          $(this).parent().addClass('active');
+                        } else {
+                          $(this).parent().removeClass('active');
+                        }
+                      }).trigger('input');
+                    });
+                  <% end %>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <%= f.submit class: 'btn btn-primary', data: { confirm: t('.submit_confirm'), disable_with: t('.submit_disable_with') } %>
+              <a href="<%= company_setting_path %>" class="btn btn-default float-right"><%= t('.return_link') %></a>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+      </div>
+    </div>
+  </div>
+</section>

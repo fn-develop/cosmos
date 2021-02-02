@@ -9,8 +9,9 @@ module Api
       before_action :validate_signature
 
       IGNORE_REPLY_TOKEN = '00000000000000000000000000000000'.freeze
-      QR_CODE_IMAGE_REQUEST = 'スタッフにQRコードをご提示ください。'.freeze
-      GET_INVITE_CODE_MESSAGE = '下記コードをご紹介者にお知らせください。'.freeze
+      QR_CODE_IMAGE_REQUEST = '>QRコード'.freeze
+      GET_INVITE_CODE_MESSAGE = '>紹介コード'.freeze
+      FLEX＿MENU_MESSAGE = '>メニュー'.freeze
       ON_TIME_MESSAGE  = "【自動応答メッセージ】\nメッセージを承りました。\n店舗スタッフへ転送中の為、返信はしばらくお待ちください。".freeze
       OFF_TIME_MESSAGE = "【自動応答メッセージ】\n営業時間外の為、返信はしばらくお待ちください。".freeze
 
@@ -78,6 +79,14 @@ module Api
             image_message[:originalContentUrl] = image_url
             image_message[:previewImageUrl] = image_url
             client.reply_message(event['replyToken'], image_message)
+          elsif event['message']['text'] == FLEX＿MENU_MESSAGE
+            flex_menu_message = LineFlexMenu::site_menu(
+              line_in_url({
+                company_code: company.code,
+                line_user_id: event['source']['userId']
+              })
+            )
+            client.push_message(event['source']['userId'], flex_menu_message, headers: { 'Content-Type' => 'application/json' })
           elsif company.is_inviting_feature? && event['message']['text'] == GET_INVITE_CODE_MESSAGE
             client.reply_message(event['replyToken'], { type: Const::LineMessage::Type::TEXT, text: user.customer.invite_code })
           else

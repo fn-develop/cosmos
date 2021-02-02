@@ -28,6 +28,7 @@ class Company::CalendarsController < ApplicationController
     return @calendar_params if @calendar_params.present?
     p = params.require(:calendar).permit(
       'event_type',
+      'is_entry',
       'title',
       'color',
       'site_url',
@@ -42,10 +43,12 @@ class Company::CalendarsController < ApplicationController
       'end(3i)',
       'end(4i)',
       'end(5i)',
+      'memo',
     )
 
     @calendar_params = {
       event_type: p['event_type'],
+      is_entry: p['is_entry'],
       title: p['title'],
       color: p['color'],
       site_url: p['site_url'],
@@ -64,6 +67,7 @@ class Company::CalendarsController < ApplicationController
         p['end(4i)'].to_i,
         p['end(5i)'].to_i,
       ),
+      memo: p['memo'],
     }
   end
 end

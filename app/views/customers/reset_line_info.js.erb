@@ -1,0 +1,6 @@
+<% if @user.saved_changes? %>
+  alert('更新しました。');
+  location.reload();
+<% else %>
+  alert('変更はありませんでした。');
+<% end %>

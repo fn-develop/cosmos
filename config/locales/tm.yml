@@ -28,7 +28,8 @@ tm:
     edit: 編集
     edit_link: '　編集　'
     return_link: '　戻る　'
-    searting: '検索中...'
+    search: '検　索'
+    in_search: '検索中...'
     clear: クリア
     line_notify: LINE通知
     honorifics: 様
@@ -50,7 +51,9 @@ tm:
     enabled: 有効
     disabled: 無効
     calendar: カレンダー
-    calendar_setting_link: カレンダー設定
+    calendar_event_list: 予定一覧
+    calendar_setting: カレンダー設定
+    calendar_regist: 予定登録
     title: タイトル
     event_types:
       store_holiday: 試合
@@ -71,6 +74,9 @@ tm:
     staff_edit: スタッフ編集
     agreement_link: 利用規約
     agreement: 利用規約に同意する。
+    memo: メモ
+    join: 参加
+    unjoin: 不参加
   layouts: &layouts
     header:
       <<: *common
@@ -116,6 +122,11 @@ tm:
         notify_target: 受け取り
         auto_message_on_time: 【時間内】自動応答メッセージ
         auto_message_off_time: 【時間内】自動応答メッセージ
+      edit_calendar_setting:
+        <<: *common
+        card_title: 項目
+        is_open: 公開可否
+        open_item: 公開項目
     calendars:
       index:
         <<: *common
@@ -256,12 +267,19 @@ tm:
       calendar:
         <<: *attr_common
         date_range: '期間指定エラー：'
+        is_entry: メンバー参加型
       collection_item:
         <<: *attr_common
         key: '項目キー(表示名)'
         value: '項目値'
         sort_order: '並び順'
         enabled: '有効/無効'
+      calendar_setting:
+        is_open: 公開可否
+      user:
+        email: メール
+        line_display_name: LINEプロフィール名
+        image: LINEプロフィール画像
   activemodel:
     models:
       line_message: 'LINEメッセージ'

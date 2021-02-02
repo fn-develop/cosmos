@@ -14,7 +14,7 @@ class Company::SettingsController < ApplicationController
     authorize! :manage, @company
 
     if @company.update(company_params)
-      redirect_to company_setting_path(company_code), notice: "更新完了。"
+      redirect_to company_setting_path, notice: "更新完了。"
     else
       render :edit, notice: '入力内容にエラーがあります。'
     end
@@ -29,18 +29,31 @@ class Company::SettingsController < ApplicationController
     @line_message_notify_setting.attributes = line_message_notify_setting_params
 
     if @line_message_notify_setting.save
-      redirect_to company_setting_path(company_code), notice: "更新が完了しました。"
+      redirect_to company_setting_path, notice: "更新が完了しました。"
     else
       render :edit, notice: '入力内容にエラーがあります。'
     end
   end
 
   def edit_calendar_setting
-    render plain: 'edit_calendar_setting'
+    # 権限チェック：see: Ability.rb
+    authorize! :manage, @company
+
+    @calendar_setting = company.calendar_setting || company.create_calendar_setting
   end
 
-  def update_calendar_setting
-    render plain: 'update_calendar_setting'
+  def save_calendar_setting
+    # 権限チェック：see: Ability.rb
+    authorize! :manage, @company
+
+    @calendar_setting = company.calendar_setting
+    @calendar_setting.attributes = calendar_setting_params
+
+    if @calendar_setting.save
+      redirect_to edit_calnedar_setting_company_setting_path, notice: '更新完了'
+    else
+      render :edit_calendar_setting, notice: '入力内容にエラーがあります。'
+    end
   end
 
   private
@@ -67,6 +80,9 @@ class Company::SettingsController < ApplicationController
     end
 
     def calendar_setting_params
-      params.require(:calendar_setting).permit()
+      params.require(:calendar_setting).permit(
+        :is_open,
+        open_collection_item_ids: [],
+      )
     end
 end

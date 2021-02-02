@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Auth::SessionsController < Devise::SessionsController
+  #prepend_before_action :require_no_authentication, only: [:new, :create, :line_in]
   layout 'temporary'
 
   # GET /resource/sign_in
@@ -25,6 +26,14 @@ class Auth::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
+
+  def line_in
+    raise CanCan::AccessDenied if company.blank?
+    user = company.users.find_by(line_user_id: params[:line_user_id])
+    raise CanCan::AccessDenied if user.blank?
+    sign_in(user) unless user_signed_in?
+    redirect_to homes_path
+  end
 
   private
     def company

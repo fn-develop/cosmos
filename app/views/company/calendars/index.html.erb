@@ -5,12 +5,12 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1 class="m-0 text-dark"><%= t('common.calendar') %></h1>
+        <h1 class="m-0 text-dark"><%= t('common.calendar_regist') %></h1>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="<%= homes_path %>"><%= t('common.home') %></a></li>
-          <li class="breadcrumb-item active"><%= t('common.calendar') %></li>
+          <li class="breadcrumb-item active"><%= t('common.calendar_regist') %></li>
         </ol>
       </div>
     </div>
@@ -41,13 +41,24 @@
           <%= hidden_field_tag :id, '', { id: 'calendar_id' } %>
 
           <div class="form-group row">
-            <div class="col-sm-6">
+            <div class="col-sm-4">
               <div class="input-group">
                 <%= f.select :event_type, @company.calendar_event_types, { include_blank: '選択してください。' }, { class: 'custom-select', required: true } %>
               </div>
             </div>
 
-            <div class="col-sm-6">
+            <div class="col-sm-4">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <%= f.check_box(:is_entry, {}, checked_value = 'true', unchecked_value = 'false' ) %>
+                  </span>
+                </div>
+                <%= f.label :is_entry , class: "form-control text-nowrap" do Calendar::human_attribute_name(:is_entry) end %>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
@@ -75,6 +86,14 @@
             <div class="col-sm-12">
               <div class="input-group">
                 <%= f.text_field :title, { autocomplete: "off", class: "form-control", placeholder:  t('.title'), maxlength: 200, required: true } %>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-12">
+              <div class="input-group">
+                <%= f.text_area :memo, { autocomplete: "off", class: "form-control", placeholder:  t('.memo'), maxlength: 2048, rows: 5, } %>
               </div>
             </div>
           </div>

@@ -1,0 +1,112 @@
+<%= javascript_pack_tag 'company/open_calendar' %>
+<%= stylesheet_pack_tag 'company/open_calendar' %>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 pt-3">
+        <!-- THE CALENDAR -->
+        <div id="calendar"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="d-none">
+  <div id="calendar_modal" data-izimodal-title="<%= t('common.calendar') %>" class="mx-auto">
+    <div>
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <h4 id="calendar_title" class="p-2">HOGE</h4>
+        </div>
+
+        <div class="col-sm-12">
+          <div id="calendar_memo" class="p-2">HOGE</div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <div class="input-group">
+            <a href="javascript: void(0)" id="calendar_url" class="p-2">HOGE</a>
+          </div>
+        </div>
+      </div>
+
+      <%= form_with(model: CalendarJoinedUser.new, url: join_calendar_homes_path, method: :post, id: :join_form, local: false) do |f| %>
+        <%= f.hidden_field :calendar_id %>
+        <div class="form-group row p-2">
+          <div class="col-12 btn-group" data-toggle="buttons">
+            <label class="btn btn-outline-warning" style="width:50%">
+              <%= f.radio_button :is_join, 1, { class: 'invisible d-none' } %><%= t('common.join') %>
+            </label>
+            <label class="btn btn-outline-warning" style="width:50%">
+              <%= f.radio_button :is_join, 0, { class: 'invisible d-none' } %><%= t('common.unjoin') %>
+            </label>
+          </div>
+
+          <div class="col-12 pb-2">
+            <%= f.text_field :comment, { class: 'form-control', placeholder: 'コメント' } %>
+          </div>
+
+          <div class="col-12 pb-2">
+            <%= f.submit class: 'btn btn-primary float-right', value: t('common.submit_button'), data: { confirm: t('common.submit_confirm'), disable_with: t('common.submit_disable_with') } %>
+          </div>
+          <div class="col-12 pb-2">
+            参加者：<span id="joined_count"></span>人
+          </div>
+          <div class="col-12 pb-2" id="joined_user_list">
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>
+
+<% # カレンダーイベントJSON %>
+<%= javascript_tag do %>
+  var calendar_events = [
+    <% @calendar_events.each do |e| %>
+      <%= e.json_calendar_event.html_safe + ',' %>
+    <% end %>
+    ];
+<% end %>
+
+<% content_for :page_javascript do %>
+  <%= javascript_tag do %>
+    $(function() {
+      // see: open_calendar.js
+      document.addEventListener('show_event', function (e){
+        // 参加情報取得
+        $.ajax({
+          url: '<%= join_calendar_info_homes_path %>',
+          data: { calendar_id: e.detail },
+          type: 'GET',
+          dataType : 'script',
+        });
+      }, true);
+    });
+  <% end %>
+<% end %>
+
+<% content_for :page_style do %>
+<style>
+td.fc-day-sat {
+  background-color: #eaf4ff;
+}
+td.fc-day-sun {
+  background-color: #ffeaea;
+}
+.fc-toolbar, .fc-toolbar.fc-header-toolbar {
+  margin: 0;
+  padding: 0rem;
+}
+.fc-toolbar {
+  flex-direction: row;
+}
+.fc .fc-toolbar.fc-header-toolbar {
+  margin-bottom: 0.5em !important;
+}
+</style>
+<% end %>

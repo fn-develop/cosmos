@@ -1,0 +1,16 @@
+<% user = cju.user %>
+<div class="direct-chat-messages" style="height: auto">
+  <div class="direct-chat-msg">
+    <div class="direct-chat-infos clearfix">
+      <span class="direct-chat-name float-left">
+        <%= user.line_display_name.to_s %>
+      </span>
+    </div>
+    <% if user.image.present? %>
+      <img class="direct-chat-img" src="<%= cju.user.base64_image(:thumb_50) %>" alt="<%= user.line_display_name %>" />
+    <% end %>
+    <div class="direct-chat-text">
+      <%= cju.is_join? ? '⭕️' : '✖️' %>：<%= cju.comment %>
+    </div>
+  </div>
+</div>

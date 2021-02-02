@@ -5,6 +5,7 @@
 #  id                     :bigint           not null, primary key
 #  email                  :string(255)      default(""), not null
 #  encrypted_password     :string(255)      default(""), not null
+#  image                  :string(255)
 #  line_display_name      :string(255)
 #  line_image_url         :string(255)
 #  line_status_message    :string(255)
@@ -23,6 +24,8 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
+  mount_uploader :image, InsiteImageUploader
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   # devise :database_authenticatable, :registerable,
@@ -36,7 +39,8 @@ class User < ApplicationRecord
   has_many :staff_line_mseege_logs, class_name: 'LineMessageLog', foreign_key: 'staff_id', dependent: :destroy
   has_many :staff_line_mseege_bulk_logs, class_name: 'LineMessageBulkLog', foreign_key: 'staff_id', dependent: :nullify
   has_one :customer, dependent: :nullify
-  has_many :calendars, class_name: 'Calendar', foreign_key: 'staff_id', dependent: :nullify
+  has_many :calendar_joined_users, dependent: :destroy
+  has_many :calendars, through: :calendar_joined_users
 
   enum role: { guest: 0, customer: 1, staff: 2, owner: 3, system_admin: 9 }
 
@@ -68,9 +72,15 @@ class User < ApplicationRecord
       profile_has = JSON.parse(profile.body)
       self.line_display_name = profile_has['displayName']
       self.line_image_url = profile_has['pictureUrl']
+      self.remote_image_url = profile_has['pictureUrl']
       self.line_status_message = profile_has['statusMessage']
       self.save(validate: false)
     end
+  end
+
+  def base64_image(size)
+    file = self.image.try(size)
+    "data:#{ file.content_type };base64,#{ Base64.strict_encode64(file.read) }"
   end
 
   #### START EMAIL 重複OK ######

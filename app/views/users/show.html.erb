@@ -28,12 +28,31 @@
             <th class="text-nowrap"><%= User.human_attribute_name(:email) %></th>
             <td><%= @user.email.to_s %></td>
           </tr>
+
+          <tr>
+            <th class="text-nowrap"><%= User.human_attribute_name(:line_display_name) %></th>
+            <td><%= @user.line_display_name.to_s %></td>
+          </tr>
+
+          <tr>
+            <th class="text-nowrap"><%= User.human_attribute_name(:image) %></th>
+            <td>
+              <% if @user.image.present? %>
+                <img src="<%= current_user.base64_image(:thumb_50) %>" style="border-radius: 50%;" />
+              <% end %>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
 
     <div class="card-footer clearfix">
       <a href="<%= edit_user_path(@company.code, @user) %>" class="btn btn-info float-left mr-2"><%= t('.edit_link') %></a>
+      <% if @user.line_user_id.present? %>
+        <%= form_with(url: reset_line_info_user_path(@company.code, @user), method: :post, local: false) do |f| %>
+          <%= f.submit 'LINE情報更新', class: 'btn btn-success', data: { disable_with: t('.updating') } %>
+        <% end %>
+      <% end %>
       <a href="<%= homes_path %>" class="btn btn-default float-right"><%= t('.return_link') %></a>
     </div>
   </div>

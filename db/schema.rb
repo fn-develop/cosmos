@@ -10,11 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_13_072214) do
+ActiveRecord::Schema.define(version: 2021_01_28_041342) do
 
   create_table "app_settings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "management_company_name", default: ""
     t.text "privacy_policy"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "calendar_joined_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "calendar_id", null: false
+    t.integer "user_id", null: false
+    t.boolean "is_join", default: false
+    t.string "comment"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "calendar_settings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "company_id", null: false
+    t.boolean "is_open", default: false
+    t.text "open_collection_item_ids"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -28,6 +45,8 @@ ActiveRecord::Schema.define(version: 2021_01_13_072214) do
     t.string "allday", default: "false"
     t.string "site_url"
     t.string "event_type"
+    t.boolean "is_entry", default: false
+    t.text "memo"
     t.integer "staff_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -193,6 +212,7 @@ ActiveRecord::Schema.define(version: 2021_01_13_072214) do
     t.string "line_user_id"
     t.string "line_display_name"
     t.string "line_image_url"
+    t.string "image"
     t.string "line_status_message"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

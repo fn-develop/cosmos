@@ -28,6 +28,7 @@ module Const
     module Type
       TEXT  = 'text'.freeze
       IMAGE = 'image'.freeze
+      FLEX  = 'flex'.freeze
     end
 
     # Const::LineMessage::Code

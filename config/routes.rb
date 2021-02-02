@@ -27,16 +27,23 @@ Rails.application.routes.draw do
       get 'xhr_get_customers', to: 'customers#xhr_get_customers', on: :collection, as: :xhr_get_customers, defaults: { format: 'js' }
       post 'update_introducer', to: 'customers#update_introducer', on: :member, as: :update_introducer
       get 'xhr_get_base64_message_image', to: 'customers#xhr_get_base64_message_image', on: :member, as: :xhr_get_base64_message_image
+      post 'reset_line_info', to: 'customers#reset_line_info', on: :member, as: :reset_line_info
 
       scope module: :customer do
         resources :visited_logs
       end
     end
 
-    resources :users
+    resources :users do
+      post 'reset_line_info', to: 'users#reset_line_info', on: :member
+    end
 
     scope module: :public do
-      resources :homes, path: ''
+      resources :homes, path: '', only: [:index] do
+        get 'calendar', to: 'homes#calendar', on: :collection, as: :calendar
+        get 'join_calendar_info', to: 'homes#join_calendar_info', on: :collection, as: :join_calendar_info
+        post 'join_calendar', to: 'homes#join_calendar', on: :collection, as: :join_calendar
+      end
     end
 
     namespace 'company', path: 'setting' do
@@ -44,7 +51,7 @@ Rails.application.routes.draw do
         get 'edit_notify_setting', to: 'settings#edit_notify_setting'
         put 'update_notify_setting', to: 'settings#update_notify_setting'
         get 'edit_calnedar_setting', to: 'settings#edit_calendar_setting'
-        put 'update_calendar_setting', to: 'settings#update_calendar_setting'
+        post 'save_calendar_setting', to: 'settings#save_calendar_setting'
       end
       resources :items
       resources :bulk_line_messages
@@ -52,6 +59,12 @@ Rails.application.routes.draw do
         post 'save', to: 'calendars#save', on: :collection
       end
       resources :staffs
+    end
+
+    scope module: :auth do
+      devise_scope :user do
+        get 'line_in/:line_user_id', to: 'sessions#line_in', as: :line_in
+      end
     end
 
     namespace 'api' do
