@@ -13,11 +13,15 @@ class LineMessage
   validates :message, presence: true
 
   def send_text_message
+    current_user = RequestStore.store[:current_user]
+    w_message = "#{ self.message }\r\n\r\n#{ current_user.name }"
+
     line_user_id = User.find(self.user_id).line_user_id
     send_message = {
       type: Const::LineMessage::Type::TEXT,
-      text: self.message,
+      text: w_message,
     }
+
     response = client.push_message(line_user_id, send_message)
     response_code = response.code.to_i
 
@@ -30,7 +34,7 @@ class LineMessage
       month:        today.month.to_s,
       code:         Const::LineMessage::Code::PUSH,
       message:      self.message,
-      staff:        RequestStore.store[:current_user],
+      staff:        current_user,
       checked:      true,
     )
 
