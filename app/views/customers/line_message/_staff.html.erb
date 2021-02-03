@@ -1,9 +1,16 @@
 <div class="direct-chat-msg right">
   <div class="direct-chat-infos clearfix">
     <span class="direct-chat-timestamp float-right"><%= message.created_at.strftime("%Y/%m/%d %H:%M") %></span>
-    <span class="direct-chat-name float-right"><%= @company.name %>&nbsp;</span>
+    <span class="direct-chat-name float-right"><%= message.staff.name %>&nbsp;</span>
   </div>
-  <div class="w-10 direct-chat-text float-right text-left bg-white" style="margin-right: 0px;">
+
+  <% if message.staff.try(:image).present? %>
+    <img src="<%= message.staff.base64_image(:thumb_50) %>" class="direct-chat-img" />
+  <% else %>
+    <img src="<%= asset_pack_path 'media/images/staff.jpg'%>" class="direct-chat-img" />
+  <% end %>
+
+  <div class="direct-chat-text float-right text-left bg-white mr-2">
     <%= br message.message.to_s %>
   </div>
 </div>

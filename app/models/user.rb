@@ -39,6 +39,7 @@ class User < ApplicationRecord
   has_many :staff_line_mseege_logs, class_name: 'LineMessageLog', foreign_key: 'staff_id', dependent: :destroy
   has_many :staff_line_mseege_bulk_logs, class_name: 'LineMessageBulkLog', foreign_key: 'staff_id', dependent: :nullify
   has_one :customer, dependent: :nullify
+  accepts_nested_attributes_for :customer
   has_many :calendar_joined_users, dependent: :destroy
   has_many :calendars, through: :calendar_joined_users
 
@@ -81,6 +82,10 @@ class User < ApplicationRecord
   def base64_image(size)
     file = self.image.try(size)
     "data:#{ file.content_type };base64,#{ Base64.strict_encode64(file.read) }"
+  end
+
+  def name
+    (self.customer.try(:name) || self.line_display_name || self.company.try(:name)).to_s
   end
 
   #### START EMAIL 重複OK ######

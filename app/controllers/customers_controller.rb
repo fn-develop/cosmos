@@ -79,6 +79,10 @@ class CustomersController < ApplicationController
     redirect_to customers_path(company_code), notice: "顧客:#{ @customer.name }を削除しました。"
   end
 
+  def recent_message_index
+    @line_message_logs = company.line_message_logs.where(success_or_failure: true).last(Const::LineMessage::DISPLAY_LIMIT)
+  end
+
   def new_line_message
     # 未閲覧を閲覧済に
     LineMessageLog.where(user_id: @customer.user_id, success_or_failure: true).update_all(checked: true)

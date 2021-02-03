@@ -14,6 +14,7 @@ class UsersController < ApplicationController
   def edit
     # 権限チェック：see: Ability.rb
     authorize! :manage, @user
+    @user.build_customer if @user.customer.blank?
   end
 
   def update
@@ -42,7 +43,27 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      wp = params.require(:user).permit(:email, :password)
+      wp = params.require(:user).permit(
+        :email,
+        :password,
+        customer_attributes: [
+          :company_id,
+          :agreement,
+          :name,
+          :name_kana,
+          :gender,
+          :tel_number1,
+          :tel_number2,
+          :tel_number3,
+          :birthday,
+          :postal_code1,
+          :postal_code2,
+          :prefecture,
+          :city,
+          :address1,
+          :address2,
+        ],
+      )
       wp.delete(:password) if wp[:password].blank?
       wp
     end

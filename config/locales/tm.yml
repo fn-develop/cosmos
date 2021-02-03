@@ -13,6 +13,7 @@ tm:
     company_setting_line_notify_setting: LINEメッセージ通知設定
     to_customers_link: メンバーリストへ
     to_customer_detail_link: メンバー詳細画面へ
+    recent_message: 最近の受信メッセージ
     year: 年
     month: 月
     day: 日

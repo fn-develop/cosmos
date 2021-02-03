@@ -84,7 +84,7 @@
                     <% if message_log.staff_id.present? %>
                       <%= render '/customers/line_message/staff', message: message_log %>
                     <% else %>
-                      <%= render '/customers/line_message/user', customer: @customer, message: message_log %>
+                      <%= render '/customers/line_message/user', message: message_log %>
                     <% end %>
                   <% end %>
                 </div>

@@ -27,6 +27,171 @@
                   <span class="error invalid-feedback"><%= user.errors.full_messages_for(:password).first %></span>
                 <% end %>
               </div>
+
+              <%= f.fields_for :customer do |cf| %>
+                <%= cf.hidden_field :company_id, value: @company.id %>
+
+                <% if @company.is_input_customer_name? %>
+                  <div class="form-group">
+                    <% name_err = true if user.errors.include?(:'customer.name') %>
+                    <%= cf.label :name %>
+                    <%= cf.text_field :name, { class: "form-control #{ name_err ? 'is-invalid' : '' }", placeholder: t('.name') } %>
+                    <% if name_err %>
+                      <span class="error invalid-feedback"><%= user.errors.full_messages_for(:'customer.name').first %></span>
+                    <% end %>
+                  </div>
+                <% end %>
+
+                <% if @company.is_input_customer_name_kana? %>
+                  <div class="form-group">
+                    <% name_kana_err = true if user.errors.include?(:'customer.name_kana') %>
+                    <%= cf.label :name_kana %>
+                    <%= cf.text_field :name_kana, { class: "form-control #{ name_kana_err ? 'is-invalid' : '' }", placeholder: t('.name_kana') } %>
+                    <% if name_kana_err %>
+                      <span class="error invalid-feedback"><%= user.errors.full_messages_for(:'customer.name_kana').first %></span>
+                    <% end %>
+                  </div>
+                <% end %>
+
+                <% if @company.is_input_customer_gender? %>
+                  <div class="form-group">
+                    <% gender_err = true if user.errors.include?(:'customer.gender') %>
+
+                    <%= cf.label :gender , { class: "#{ gender_err ? 'is-invalid' : '' }" } %><br />
+
+                    <div class="form-check form-check-inline">
+                      <%= cf.radio_button :gender, :men, class: 'form-check-input', checked: "#{ 'checked' if cf.object.men? }" %>
+                      <%= cf.label :gender, Customer.human_attribute_name("gender.men"), value: :men, class: 'form-check-label' %>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                      <%= cf.radio_button :gender, :women, class: 'form-check-input', checked: "#{ 'checked' if cf.object.women? }" %>
+                      <%= cf.label :gender, Customer.human_attribute_name("gender.women"), value: :women, class: 'form-check-label' %>
+                    </div>
+                    <% if gender_err %>
+                      <span class="error invalid-feedback"><%= user.errors.full_messages_for(:'customer.gender').first %></span>
+                    <% end %>
+                  </div>
+                <% end %>
+
+                <% if @company.is_input_customer_tel_number? %>
+                  <div class="form-group">
+                    <% tel_number_err = true if user.errors.include?(:'customer.tel_number') %>
+                    <%= cf.label :tel_number, { class: "#{ tel_number_err ? 'is-invalid' : '' }" } %>
+                    <div class="form-row align-items-center">
+                      <div class="col-4">
+                        <%= cf.telephone_field :tel_number1, {
+                          maxlength:3,
+                          class: "form-control #{ tel_number_err ? 'is-invalid' : '' }",
+                          onKeyup: "this.value=this.value.replace(/[^0-9]+/i,''); nextField(this, 'user_customer_attributes_tel_number2', 3)"
+                        } %>
+                      </div>
+                      <div class="col-4">
+                        <%= cf.telephone_field :tel_number2, {
+                          maxlength:4,
+                          class: "form-control #{ tel_number_err ? 'is-invalid' : '' }",
+                          onKeyup: "this.value=this.value.replace(/[^0-9]+/i,''); nextField(this, 'user_customer_attributes_tel_number3', 4)"
+                        } %>
+                      </div>
+                      <div class="col-4">
+                        <%= cf.telephone_field :tel_number3, {
+                          maxlength:4,
+                          class: "form-control #{ tel_number_err ? 'is-invalid' : '' }",
+                          onKeyup: "this.value=this.value.replace(/[^0-9]+/i,'')"
+                        } %>
+                      </div>
+                    </div>
+                    <span class="error invalid-feedback"><%= user.errors.full_messages_for(:'customer.tel_number').first %></span>
+                  </div>
+                <% end %>
+
+                <% if @company.is_input_customer_birthday? %>
+                  <div class="form-group">
+                    <%= cf.label :birthday %>
+                    <div >
+                    <%= raw sprintf(cf.date_select(
+                                      :birthday,
+                                      {
+                                        with_css_classes: true,
+                                        use_month_numbers: true,
+                                        start_year: 1940,
+                                        end_year: (Time.now.year),
+                                        default: Date.today - 20.years,
+                                        date_separator: '%s',
+                                        class: 'form-control',
+                                      }),
+                                    '年 ', '月 ') + '日'
+                    %>
+                    </div>
+                  </div>
+                <% end %>
+
+                <% if @company.is_input_customer_address? %>
+                  <div class="form-group">
+                    <% postal_code_err = true if user.errors.include?(:'customer.postal_code') %>
+                    <%= cf.label :postal_code, { class: "#{ postal_code_err ? 'is-invalid' : '' }" } %>
+                    <div class="form-row align-items-center">
+                      <div class="col-3">
+                        <%= cf.telephone_field :postal_code1, {
+                          maxlength:3,
+                          class: "form-control #{ postal_code_err ? 'is-invalid' : '' }",
+                          onKeyup: "this.value=this.value.replace(/[^0-9]+/i,''); nextField(this, 'user_customer_attributes_postal_code2', 3)"
+                        } %>
+                      </div>
+                      <div class="col-4">
+                        <%= cf.telephone_field :postal_code2, {
+                          maxlength:4,
+                          class: "form-control #{ postal_code_err ? 'is-invalid' : '' }",
+                          onKeyup: "this.value=this.value.replace(/[^0-9]+/i,'');"
+                        } %>
+                      </div>
+                    </div>
+                    <span class="error invalid-feedback"><%= user.errors.full_messages_for(:'customer.postal_code').first %></span>
+                  </div>
+
+                  <div class="form-group">
+                    <%= cf.label :prefecture %>
+                    <%= cf.text_field :prefecture, { class: 'form-control' } %>
+                  </div>
+
+                  <div class="form-group">
+                    <%= cf.label :city %>
+                    <%= cf.text_field :city, { class: 'form-control' } %>
+                  </div>
+
+                  <div class="form-group">
+                    <%= cf.label :address1 %>
+                    <%= cf.text_field :address1, { class: 'form-control' } %>
+                  </div>
+
+                  <div class="form-group">
+                    <%= cf.label :address2 %>
+                    <%= cf.text_field :address2, { class: 'form-control' } %>
+                  </div>
+                <% end %>
+
+                <% if @company.is_for_profit? %>
+                  <div class="form-group">
+                    <a href="javascript: void(0);" id="agreement_link">
+                      <%= t('.agreement_link') %>
+                    </a>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-sm-6">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <%= cf.check_box(:agreement, { required: false }) %>
+                          </span>
+                        </div>
+                        <%= cf.label :agreement , class: 'form-control text-nowrap' do t('.agreement') end %>
+                      </div>
+                    </div>
+                    <span class="error invalid-feedback"><%= user.errors.full_messages_for(:'customer.agreement').first %></span>
+                  </div>
+                <% end %>
+
+              <% end %>
             </div>
 
             <div class="card-footer">
@@ -41,3 +206,51 @@
     </div>
   </div>
 </section>
+
+<div class="d-none">
+  <div id="agreement_modal" data-izimodal-title="<%= t('common.agreement_link') %>" class="mx-auto">
+    <p>
+      <div class="col p-3">
+        <%= br AppSetting.first.try(:privacy_policy).to_s %>
+      </div>
+    </p>
+  </div>
+</div>
+
+<% content_for :page_javascript do %>
+  <%= javascript_tag do %>
+    $(function() {
+      $('.year, .month, .day').addClass('form-control d-inline col-3');
+
+      $('#customer_postal_code1').jpostal({
+        postcode : [
+          '#user_customer_attributes_postal_code1',
+          '#user_customer_attributes_postal_code2'
+        ],
+        address : {
+          '#user_customer_attributes_prefecture' : '%3',
+          '#user_customer_attributes_city'       : '%4%5',
+        }
+      });
+    });
+
+    function nextField(i, n, m) {
+      if (i.value.length >= m) {
+        i.form.elements[n].focus();
+      }
+    }
+
+    $(function () {
+      $('#agreement_modal').iziModal({
+        headerColor: '#007BFF', //ヘッダー部分の色
+        width: 768, //横幅
+        zindex: 9999,
+        fullscreen: true, //全画面表示
+      });
+
+      $('#agreement_link').on('click', function(){
+        $('#agreement_modal').iziModal('open');
+      });
+    });
+  <% end %>
+<% end %>

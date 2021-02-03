@@ -12,6 +12,7 @@ ja:
     company_setting: 店舗設定
     company_setting_line_notify_setting: LINEメッセージ通知設定
     to_customers_link: 顧客一覧へ
+    recent_message: 最近の受信メッセージ
     to_customer_detail_link: 顧客詳細画面へ
     year: 年
     month: 月
