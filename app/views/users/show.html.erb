@@ -42,6 +42,62 @@
               <% end %>
             </td>
           </tr>
+
+          <% if @user.customer.present? %>
+            <% if @company.is_input_customer_name? %>
+              <tr>
+                <th class="text-nowrap"><%= Customer.human_attribute_name(:name) %></th>
+                <td><%= @user.customer.name.to_s %></td>
+              </tr>
+            <% end %>
+
+            <% if @company.is_input_customer_name_kana? %>
+              <tr>
+                <th class="text-nowrap"><%= Customer.human_attribute_name(:name_kana) %></th>
+                <td><%= @user.customer.name_kana.to_s %></td>
+              </tr>
+            <% end %>
+
+            <% if @company.is_input_customer_gender? %>
+              <tr>
+                <th class="text-nowrap"><%= Customer.human_attribute_name(:gender) %></th>
+                <td><%= Customer.human_attribute_name("gender.#{ @user.customer.gender }") %></td>
+              </tr>
+            <% end %>
+
+            <% if @company.is_input_customer_tel_number? %>
+              <tr>
+                <th class="text-nowrap"><%= Customer.human_attribute_name(:tel_number) %></th>
+                <td><%= @user.customer.formatted_tel_number %></td>
+              </tr>
+            <% end %>
+
+            <% if @company.is_input_customer_birthday? %>
+              <tr>
+                <th class="text-nowrap"><%= Customer.human_attribute_name(:birthday) %></th>
+                <td><%= @user.customer.birthday.strftime("%Y年%m月%d日") if @user.customer.birthday %></td>
+              </tr>
+            <% end %>
+
+            <% if @company.is_input_customer_address? %>
+              <tr>
+                <th class="text-nowrap"><%= Customer.human_attribute_name(:postal_code) %></th>
+                <td><%= @user.customer.formatted_postal_code %></td>
+              </tr><tr>
+                <th class="text-nowrap"><%= Customer.human_attribute_name(:prefecture) %></th>
+                <td><%= @user.customer.prefecture %></td>
+              </tr><tr>
+                <th class="text-nowrap"><%= Customer.human_attribute_name(:city) %></th>
+                <td><%= @user.customer.city %></td>
+              </tr><tr>
+                <th class="text-nowrap"><%= Customer.human_attribute_name(:address1) %></th>
+                <td><%= @user.customer.address1 %></td>
+              </tr><tr>
+                <th class="text-nowrap"><%= Customer.human_attribute_name(:address2) %></th>
+                <td><%= @user.customer.address2 %></td>
+              </tr>
+            <% end %>
+          <% end %>
         </tbody>
       </table>
     </div>
