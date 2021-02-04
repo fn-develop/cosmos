@@ -24,14 +24,16 @@
           </a>
         </li>
 
-        <li class="nav-item">
-          <a href="<%= calendar_homes_path %>" class="nav-link">
-            <i class="nav-icon fas fa-calendar-alt"></i>
-            <p>
-              <%= t('common.calendar_event_list') %>
-            </p>
-          </a>
-        </li>
+        <% if can?(:calendar, :home) %>
+          <li class="nav-item">
+            <a href="<%= calendar_homes_path %>" class="nav-link">
+              <i class="nav-icon fas fa-calendar-alt"></i>
+              <p>
+                <%= t('common.calendar_event_list') %>
+              </p>
+            </a>
+          </li>
+        <% end %>
       </ul>
     </nav>
   </div>

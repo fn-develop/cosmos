@@ -29,7 +29,7 @@ class Ability
     def customer_ability(user)
       can [:new_with_line, :new_with_line_non_tel_number, :create_with_line], :customer
       can :read, Company
-      if user.company.try(:is_calendar_feature?)
+      if user.company.try(:is_calendar_feature?) && user.company.calendar_setting.try(:is_open)
         can [:calendar, :join_calendar, :join_calendar_info], :home
       end
       can :manage, :user
@@ -46,7 +46,9 @@ class Ability
       can :manage, User, company: user.company
       can :read, :setting
       can :manage, :bulk_line_message
-      can :manage, :calendar
+      if user.company.try(:is_calendar_feature?)
+        can :manage, :calendar
+      end
       can :manage, :visited_log
       can :manage, :home
     end
