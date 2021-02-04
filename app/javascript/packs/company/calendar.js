@@ -124,7 +124,10 @@ $(function () {
       $('#calendar_end_4i').val(eh);
       $('#calendar_end_5i').val(emi);
 
-      $('.iziModal-header-title').text(info.dateStr);
+      var str = sdate.getFullYear()
+          + '-' + ('0' + (sdate.getMonth() + 1)).slice(-2)
+          + '-' + ('0' + sdate.getDate()).slice(-2)
+      $('.iziModal-header-title').text(str);
       $('#calendar_modal').iziModal('open');
       // alert('Clicked on: ' + info.event.id);
       // alert('Event: ' + info.event.title);
