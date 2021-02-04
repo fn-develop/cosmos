@@ -22,10 +22,12 @@
         <div id="message-log" class="direct-chat-messages" style="height: 550px;">
           <% @line_message_logs.each do |message_log| %>
             <% if message_log.staff_id.present? # スタッフのメッセージは無視 %>
-            <% elsif message_log.user_id.present? %>
+            <% elsif message_log.user.try(:customer).present? %>
               <a href="<%= new_line_message_customer_path(@company.code, message_log.user.customer) %>">
                 <%= render '/customers/line_message/user', message: message_log %>
               </a>
+            <% else %>
+              <%= render '/customers/line_message/user', message: message_log %>
             <% end %>
           <% end %>
         </div>
