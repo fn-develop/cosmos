@@ -35,7 +35,7 @@
 
       <%= form_with(model: CalendarJoinedUser.new, url: join_calendar_homes_path, method: :post, id: :join_form, local: false) do |f| %>
         <%= f.hidden_field :calendar_id %>
-        <div class="form-group row p-2">
+        <div class="form-group row p-2 <%= 'd-none' if current_user.blank? %>">
           <div class="col-12 btn-group" data-toggle="buttons">
             <label class="btn btn-outline-warning" style="width:50%">
               <%= f.radio_button :is_join, 1, { class: 'invisible d-none' } %><%= t('common.join') %>
