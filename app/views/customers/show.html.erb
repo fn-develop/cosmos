@@ -138,11 +138,12 @@
         </div>
       <% end %>
 
-      <% if can? :manage, :line_richmenu_image, @customer.try(:user).try(:line_user_id).present? %>
+      <% if can?(:manage, :line_richmenu_image) && @customer.try(:user).try(:line_user_id).present? %>
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">
-              <%= 'リッチメニュー ' %>
+              リッチメニュー
+              <%= '（適用済）' if @customer.try(:user).try(:line_richmenu_id).present? %>
             </h3>
           </div>
 
