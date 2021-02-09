@@ -11,6 +11,8 @@ tm:
     bulk_line_messages_detail: LINEメッセージ一括送信詳細
     company_setting: チーム設定
     company_setting_line_notify_setting: LINEメッセージ通知設定
+    new_line_richmenu_image: LINEリッチメニュー画像 登録
+    line_richmenu_image: LINEリッチメニュー 画像
     to_customers_link: メンバーリストへ
     to_customer_detail_link: メンバー詳細画面へ
     recent_message: 最近の受信メッセージ
@@ -223,6 +225,8 @@ tm:
       visited_log: '参加履歴'
       calendar: 'カレンダー'
       collection_item: 'コレクション項目'
+      calendar_setting: 'カレンダー設定'
+      line_richmenu_image: 'LINEリッチメニュー画像'
     attributes:
       attr_common: &attr_common
         id: 'ID'
@@ -281,6 +285,9 @@ tm:
         email: メール
         line_display_name: LINEプロフィール名
         image: LINEプロフィール画像
+      line_richmenu_image:
+        memo: 'メモ'
+        image_file: '画像ファイル'
   activemodel:
     models:
       line_message: 'LINEメッセージ'

@@ -11,6 +11,7 @@ ja:
     bulk_line_messages_detail: LINEメッセージ一括送信詳細
     company_setting: 店舗設定
     company_setting_line_notify_setting: LINEメッセージ通知設定
+    line_richmenu_image: LINEリッチメニュー 画像
     to_customers_link: 顧客一覧へ
     recent_message: 最近の受信メッセージ
     to_customer_detail_link: 顧客詳細画面へ
@@ -23,10 +24,12 @@ ja:
     updating: '更新中...'
     delete_link: '　削　除　'
     delete_confirm: 削除してよろしいですか？
+    adjust_confirm: このリッチメニューを適用してよろしいですか？
     user_show: アカウント
     user_edit: アカウント
     account: アカウント
     logout: ログアウト
+    new: 登録
     edit: 編集
     edit_link: '　編集　'
     return_link: '　戻る　'
@@ -225,6 +228,7 @@ ja:
       calendar: 'カレンダー'
       collection_item: 'コレクション項目'
       calendar_setting: 'カレンダー設定'
+      line_richmenu_image: 'LINEリッチメニュー画像'
     attributes:
       attr_common: &attr_common
         id: 'ID'
@@ -283,6 +287,9 @@ ja:
         email: メール
         line_display_name: LINEプロフィール名
         image: LINEプロフィール画像
+      line_richmenu_image:
+        memo: 'メモ'
+        image_file: '画像ファイル'
   activemodel:
     models:
       line_message: 'LINEメッセージ'

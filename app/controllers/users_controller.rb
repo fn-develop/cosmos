@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :reset_line_info]
+  before_action :set_user, only: [:show, :edit, :update, :reset_line_info, :adjust_rich_menu]
   layout :specification_layout
 
   def show
@@ -34,7 +34,28 @@ class UsersController < ApplicationController
 
   # xhr
   def reset_line_info
+    # 権限チェック：see: Ability.rb
+    authorize! :manage, @user
+
     @user.reset_line_info
+  end
+
+  # xhr
+  def adjust_rich_menu
+    # 権限チェック：see: Ability.rb
+    authorize! :manage, @user
+
+    lri = company.line_richmenu_images.find(params[:line_rich_menu_image_id])
+
+    file = File.new(lri.image_file.path)
+
+    url = line_in_url({
+      company_code: company.code,
+      line_user_id: @user.line_user_id,
+    })
+
+
+    @flag = @user.adjust_one_button_insite_menu(url, file, @user)
   end
 
   private

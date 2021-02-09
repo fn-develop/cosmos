@@ -16,6 +16,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  company_id             :integer          not null
+#  line_richmenu_id       :string(255)
 #  line_user_id           :string(255)
 #
 # Indexes
@@ -104,4 +105,50 @@ class User < ApplicationRecord
   validates_format_of :email, with: Devise.email_regexp, if: :email_changed?
   validates_uniqueness_of :email, scope: :company_id, if: :email_changed?
   #### END EMAIL 重複OK ######
+
+  def adjust_one_button_insite_menu(uri, file, user)
+    create_one_button_insite_menu(uri, file, user)
+  end
+
+  def create_one_button_insite_menu(uri, file, user)
+    rich_menu = LineMenu::one_button_insite_rich_menu_has(uri)
+    response = client.create_rich_menu(rich_menu)
+
+    response_code = response.code.to_i
+    if (response_code >= 200 && response_code < 300)
+      rich_menu_id = JSON.parse(response.body)['richMenuId']
+      response = client.create_rich_menu_image(rich_menu_id, file)
+
+      response_code = response.code.to_i
+      if (response_code >= 200 && response_code < 300)
+        response = client.link_user_rich_menu(user.line_user_id, rich_menu_id)
+        response_code = response.code.to_i
+        if (response_code >= 200 && response_code < 300)
+          if user.line_richmenu_id.present?
+            client.delete_rich_menu(user.line_richmenu_id)
+          end
+          user.line_richmenu_id = rich_menu_id
+          user.save
+        else
+          client.delete_rich_menu(rich_menu_id)
+          return false
+        end
+      else
+        client.delete_rich_menu(rich_menu_id)
+        return false
+      end
+    else
+      return false
+    end
+
+    true
+  end
+
+  private
+    def client
+      @client ||= Line::Bot::Client.new { |config|
+        config.channel_secret = self.company.try(:line_channel_secret)
+        config.channel_token  = self.company.try(:line_channel_token)
+      }
+    end
 end

@@ -37,6 +37,7 @@ Rails.application.routes.draw do
 
     resources :users do
       post 'reset_line_info', to: 'users#reset_line_info', on: :member
+      post 'adjust_rich_menu/:line_rich_menu_image_id', to: 'users#adjust_rich_menu', on: :member, as: :adjust_rich_menu
     end
 
     scope module: :public do
@@ -60,6 +61,7 @@ Rails.application.routes.draw do
         post 'save', to: 'calendars#save', on: :collection
       end
       resources :staffs
+      resources :line_richmenu_images
     end
 
     scope module: :auth do

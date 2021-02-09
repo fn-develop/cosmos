@@ -1,0 +1,68 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">
+              <%= line_richmenu_image.new_record? ? t('common.new') : t('common.edit') %>
+              <small></small>
+            </h3>
+          </div>
+
+          <%= form_with(model: line_richmenu_image, url: url, local: true) do |f| %>
+            <div class="card-body">
+              <div class="form-group">
+                <%= f.label :memo %>
+                <%= f.text_field :memo, { class: "form-control", maxlength: 100 } %>
+              </div>
+
+              <div class="form-group">
+                <% image_file_err = true if line_richmenu_image.errors.include?(:image_file) %>
+                <%= f.label :image_file %>
+
+                <div class="input-group">
+                  <div class="custom-file <%= image_file_err ? 'is-invalid' : '' %>">
+                    <%= f.file_field :image_file, { class: "custom-file-input #{ image_file_err ? 'is-invalid' : '' }", accept: 'image/jpeg,image/gif,image/png' } %>
+                    <%= f.label :image_file, { id: 'line_richmenu_image_image_file-label', class: 'custom-file-label', 'data-browse': t('common.see') }  do %>
+                      ファイルを選択(ここにドロップすることもできます)
+                    <% end %>
+                  </div>
+
+                  <div class="input-group-append">
+                    <button type="button" class="btn btn-outline-secondary company_image_file-reset"><%= t('common.cancel') %></button>
+                  </div>
+
+                  <% if image_file_err %>
+                    <span class="error invalid-feedback"><%= line_richmenu_image.errors.full_messages_for(:image_file_err).first %></span>
+                  <% end %>
+                </div>
+              </div>
+
+              <%= javascript_tag do %>
+                $(function() {
+                  $('.custom-file-input').on('change',function(){
+                    $(this).next('.custom-file-label').html($(this)[0].files[0].name);
+                  })
+                  // ファイルの取消
+                  $('.company_image_file-reset').click(function(){
+                    $('#line_richmenu_image_image_file-label').html('イメージファイルを選択(ここにドロップすることもできます)');
+                    $('#line_richmenu_image_image_file').val('');
+                  })
+                });
+              <% end %>
+            </div>
+
+            <div class="card-footer">
+              <%= f.submit class: 'btn btn-primary', data: { confirm: t('common.submit_confirm'), disable_with: t('common.submit_disable_with') } %>
+              <a href="<%= company_setting_path %>" class="btn btn-default float-right"><%= t('common.return_link') %></a>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+      </div>
+    </div>
+  </div>
+</section>

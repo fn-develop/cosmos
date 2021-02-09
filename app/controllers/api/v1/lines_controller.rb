@@ -80,7 +80,7 @@ module Api
             image_message[:previewImageUrl] = image_url
             client.reply_message(event['replyToken'], image_message)
           elsif event['message']['text'] == FLEX＿MENU_MESSAGE
-            flex_menu_message = LineFlexMenu::site_menu(
+            flex_menu_message = LineMenu::flex_menu(
               line_in_url({
                 company_code: company.code,
                 line_user_id: event['source']['userId']

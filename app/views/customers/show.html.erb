@@ -97,7 +97,7 @@
         </div>
 
         <div class="card-footer clearfix">
-          <a href="<%= edit_customer_path(@customer, company_code: @company.code ) %>" class="btn btn-info float-left mr-2">　編集　</a>
+          <a href="<%= edit_customer_path(@customer, company_code: @company.code ) %>" class="btn btn-info float-left mr-2"><%= t('common.edit_link') %></a>
           <% if @customer.line? %>
             <%= link_to 'LINE通知', new_line_message_customer_path(@company.code, @customer), class: 'btn btn-success float-left' %>
           <% end %>
@@ -137,6 +137,34 @@
           </div>
         </div>
       <% end %>
+
+      <% if can? :manage, :line_richmenu_image, @customer.try(:user).try(:line_user_id).present? %>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <%= 'リッチメニュー ' %>
+            </h3>
+          </div>
+
+          <div class="card-body">
+            <% @company.line_richmenu_images.each do |lri| %>
+              <p>
+                <%= lri.memo %><br />
+                <%= link_to adjust_rich_menu_user_path(@company.code, @customer.user, lri.id),
+                      data: {
+                        confirm: t('common.adjust_confirm'),
+                        disable_with: t('common.submit_disable_with'),
+                      },
+                      method: :post,
+                      remote: true do %>
+                  <%= image_tag lri.base64_image(:thumb_240) %>
+                <% end %>
+              </p>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
     </div>
   </div>
 </section>

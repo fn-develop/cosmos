@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_28_041342) do
+ActiveRecord::Schema.define(version: 2021_02_08_022947) do
 
   create_table "app_settings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "management_company_name", default: ""
@@ -190,6 +190,14 @@ ActiveRecord::Schema.define(version: 2021_01_28_041342) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "line_richmenu_images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "company_id", null: false
+    t.string "image_file"
+    t.string "memo"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "option_for_collection_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "collection_item_id"
     t.string "code"
@@ -214,6 +222,7 @@ ActiveRecord::Schema.define(version: 2021_01_28_041342) do
     t.string "line_image_url"
     t.string "image"
     t.string "line_status_message"
+    t.string "line_richmenu_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email"

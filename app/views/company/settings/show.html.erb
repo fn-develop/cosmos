@@ -34,11 +34,15 @@
           </tr>
           <tr>
             <th class="text-nowrap"><%= Company.human_attribute_name(:logo) %></th>
-            <td><%= image_tag @company.logo.try(:thumb_220).try(:url) if @company.logo.present? %></td>
+            <td>
+              <%= image_tag @company.logo.try(:thumb_220).try(:url) if @company.logo.present? %>
+            </td>
           </tr>
           <tr>
             <th class="text-nowrap"><%= Company.human_attribute_name(:line_qr_code) %></th>
-            <td><%= image_tag @company.line_qr_code.try(:thumb_220).try(:url) if @company.line_qr_code.present? %></td>
+            <td>
+              <%= image_tag @company.line_qr_code.try(:thumb_220).try(:url) if @company.line_qr_code.present? %>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -46,13 +50,20 @@
 
     <div class="card-footer clearfix">
       <% if can? :manage, :setting %>
-        <a href="<%= edit_company_setting_path(@company.code) %>" class="btn btn-info float-left mr-2"><%= t('.edit_link') %></a>
+        <a href="<%= edit_company_setting_path(@company.code) %>" class="btn btn-info float-left mr-2">
+          <%= t('.edit_link') %>
+        </a>
         <% if @company.is_notify_unread_line_message_existance? %>
-          <a href="<%= edit_notify_setting_company_setting_path(@company.code) %>" class="btn btn-success float-left mr-2"><%= t('.line_message_notify_setting_link') %></a>
+          <a href="<%= edit_notify_setting_company_setting_path(@company.code) %>" class="btn btn-success float-left mr-2">
+            <%= t('.line_message_notify_setting_link') %>
+          </a>
         <% end %>
       <% end %>
       <% if can? :manage, :calendar %>
         <a href="<%= edit_calnedar_setting_company_setting_path %>" class="btn btn-success float-left mr-2"><%= t('.calendar_setting') %></a>
+      <% end %>
+      <% if can?(:manage, :line_richmenu_image) %>
+        <a href="<%= company_line_richmenu_images_path %>" class="btn btn-success float-left mr-2"><%= t('common.line_richmenu_image') %></a>
       <% end %>
       <a href="<%= homes_path %>" class="btn btn-default float-right">　戻る　</a>
     </div>
