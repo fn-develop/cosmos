@@ -128,7 +128,7 @@ class User < ApplicationRecord
             client.delete_rich_menu(user.line_richmenu_id)
           end
           user.line_richmenu_id = rich_menu_id
-          user.save
+          user.save!(validate: false)
         else
           client.delete_rich_menu(rich_menu_id)
           return false
