@@ -3,6 +3,22 @@
 <section class="content">
   <div class="container-fluid">
     <div class="row">
+
+      <% if @company.try(:is_calendar_feature?) && can?(:read, :calendar) %>
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <span class="info-box-icon bg-success elevation-1">
+              <a href="<%= can?(:read, :calendar) ? calendar_homes_path : '#' %>"><i class="fas fa-calendar-alt"></i></a>
+            </span>
+
+            <div class="info-box-content">
+              <span class="info-box-text"><%= t('common.calendar_event_list') %></span>
+              <span class="info-box-number"><small></small></span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
       <div class="col-12 col-sm-6 col-md-3">
         <div class="info-box mb-3">
           <span class="info-box-icon bg-info elevation-1">
