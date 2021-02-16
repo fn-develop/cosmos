@@ -69,6 +69,17 @@
             </a>
           </li>
         <% end %>
+
+        <% if @company.is_chat_feature? %>
+          <li class="nav-item">
+            <a href="<%= chat_logs_path %>" class="nav-link">
+              <i class="nav-icon fas fa-comments"></i>
+              <p>
+                <%= t('common.chat') %>
+              </p>
+            </a>
+          </li>
+        <% end %>
       </ul>
     </nav>
   </div>

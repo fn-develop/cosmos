@@ -6,6 +6,7 @@
 #  code                                    :string(255)
 #  enabled                                 :boolean
 #  is_calendar_feature                     :boolean          default(FALSE)
+#  is_chat_feature                         :boolean          default(FALSE)
 #  is_for_profit                           :boolean          default(TRUE)
 #  is_input_customer_address               :boolean          default(TRUE)
 #  is_input_customer_birthday              :boolean          default(TRUE)
@@ -42,6 +43,7 @@ class Company < ApplicationRecord
   has_many :calendars, dependent: :destroy
   has_one :calendar_setting, dependent: :destroy
   has_many :line_richmenu_images, dependent: :destroy
+  has_many :chat_logs, dependent: :destroy
 
   validates :code, presence: true, uniqueness: true, length: { in: 2..10 }, format: { with: /\A[a-z]+\z/, message: "英文字のみが使用できます" }
   validates :name, presence: true, length: { in: 1..50 }

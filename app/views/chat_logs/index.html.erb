@@ -1,0 +1,87 @@
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">
+          <%= t('common.chat') %>
+        </h1>
+      </div>
+
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="<%= homes_path %>"><%= t('common.home') %></a></li>
+          <li class="breadcrumb-item active"><%= t('common.chat') %></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="col-md-12">
+      <div class="card card-primary direct-chat direct-chat-default">
+        <div class="card-body">
+          <div id="message-log" class="direct-chat-messages" style="height: 320px;">
+            <% @chat_logs.each do |chat_log| %>
+              <% if chat_log.user_id == current_user.id %>
+                <%= render 'self', chat_log: chat_log %>
+              <% else %>
+                <%= render 'user', chat_log: chat_log %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+        <div class="card-footer">
+          <%= form_with(model: ChatLog.new, url: chat_logs_path) do |f| %>
+            <div class="form-group">
+              <%= f.text_area :message, { class: 'form-control', placeholder: t('common.input_message_prompt'), maxlength: 240, rows: 2, required: true } %>
+            </div>
+
+            <%= f.submit class: 'btn btn-block btn-primary', value: t('common.submit_button'), data: { disable_with: t('common.submit_disable_with') } %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="image_modal" data-izimodal-title="<%= t('.image') %>" class="mx-auto">
+  <img src='' id="modal-image" class="mx-auto d-block img-fluid"/>
+</div>
+
+<%= javascript_tag do %>
+  $(function() {
+    setInterval(function(){
+      if ($('#chat_log_message').val() == '') {
+        window.location.reload()
+      }
+    }, 60000);
+
+    // メッセージの表示部分を最新のコメントにスクロールする処理
+    $("#message-log").scrollTop($("#message-log")[0].scrollHeight);
+
+    $('#image_modal').iziModal({
+      headerColor: '#26A69A', //ヘッダー部分の色
+      width: 1024, //横幅
+      zindex: 9999,
+      fullscreen: true, //全画面表示
+    });
+
+    $('.message-image').on('click', function() {
+      let message_id = $(this).data('message_id');
+      get_base64_image(message_id);
+    });
+
+    let get_base64_image = function(message_id){
+      $.ajax({
+        url: '<%= xhr_get_base64_message_image_customer_path(Customer.first, company_code: @company.code) %>',
+        type: 'GET',
+        data: { message_id: message_id },
+        dataType : 'script',
+      }).done(function() {
+        $('#image_modal').iziModal('open');
+      });
+    }
+  });
+<% end %>

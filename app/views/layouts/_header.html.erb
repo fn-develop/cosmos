@@ -28,6 +28,11 @@
         <a href="<%= company_staffs_path %>" class="nav-link"><%= t('common.staff') %></a>
       </li>
     <% end %>
+    <% if @company.is_chat_feature? %>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="<%= chat_logs_path %>" class="nav-link"><%= t('common.chat') %></a>
+      </li>
+    <% end %>
   </ul>
 
   <ul class="navbar-nav ml-auto">

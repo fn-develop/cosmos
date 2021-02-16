@@ -40,6 +40,8 @@ Rails.application.routes.draw do
       post 'adjust_rich_menu/:line_rich_menu_image_id', to: 'users#adjust_rich_menu', on: :member, as: :adjust_rich_menu
     end
 
+    resources :chat_logs, path: 'chat'
+
     scope module: :public do
       resources :homes, path: '', only: [:index] do
         get 'calendar', to: 'homes#calendar', on: :collection, as: :calendar

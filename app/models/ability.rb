@@ -10,6 +10,12 @@ class Ability
 
     # User.roles => { guest: 0, customer: 1, staff: 2, owner: 3, system_admin: 9 }
     send("#{ user.try(:role) || 'guest' }_ability", user)
+
+    if user.company.try(:is_chat_feature?)
+      can :manage, :chat_log
+      can :read, ChatLog, company: user.company
+      can :manage, ChatLog, user: user
+    end
   end
 
   private

@@ -19,6 +19,21 @@
           </div>
         </div>
       <% end %>
+
+      <% if @company.is_chat_feature? %>
+        <div class="col-sm-12 col-md-6">
+          <div class="info-box mb-3">
+            <span class="info-box-icon bg-success elevation-1">
+              <a href="<%= chat_logs_path %>"><i class="fas fa-comments"></i></a>
+            </span>
+
+            <div class="info-box-content">
+              <span class="info-box-text"><%= t('common.chat') %></span>
+              <span class="info-box-number"><small></small></span>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </section>

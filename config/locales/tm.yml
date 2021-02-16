@@ -10,6 +10,7 @@ tm:
     bulk_line_messages: LINEメッセージ一括送信
     bulk_line_messages_detail: LINEメッセージ一括送信詳細
     company_setting: チーム設定
+    chat: チャット
     company_setting_line_notify_setting: LINEメッセージ通知設定
     new_line_richmenu_image: LINEリッチメニュー画像 登録
     line_richmenu_image: LINEリッチメニュー 画像

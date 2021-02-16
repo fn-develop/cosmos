@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_08_022947) do
+ActiveRecord::Schema.define(version: 2021_02_10_053812) do
 
   create_table "app_settings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "management_company_name", default: ""
@@ -52,6 +52,16 @@ ActiveRecord::Schema.define(version: 2021_02_08_022947) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "chat_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "company_id", null: false
+    t.integer "user_id"
+    t.string "message"
+    t.string "image_file"
+    t.boolean "is_canceled", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "collection_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "item_id"
     t.string "key"
@@ -86,6 +96,7 @@ ActiveRecord::Schema.define(version: 2021_02_08_022947) do
     t.string "line_channel_token"
     t.boolean "is_for_profit", default: true
     t.boolean "is_calendar_feature", default: false
+    t.boolean "is_chat_feature", default: false
     t.boolean "is_notify_unread_line_message_existance", default: true
     t.boolean "is_inviting_feature", default: true
     t.boolean "is_input_customer_name", default: true

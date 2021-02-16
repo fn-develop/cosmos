@@ -1,0 +1,20 @@
+<div class="direct-chat-msg right">
+  <div class="direct-chat-infos clearfix">
+    <span class="direct-chat-timestamp float-right">
+      <%= chat_log.created_at.strftime("%Y/%m/%d %H:%M") %>
+    </span>
+    <span class="direct-chat-name float-right">
+      <%= current_user.name %>&nbsp;
+    </span>
+  </div>
+
+  <% if current_user.try(:image).present? %>
+    <img src="<%= current_user.base64_image(:thumb_50) %>" class="direct-chat-img" />
+  <% else %>
+    <img src="<%= asset_pack_path 'media/images/user.png'%>" class="direct-chat-img" />
+  <% end %>
+
+  <div class="direct-chat-text float-right text-left bg-white mr-2">
+    <%= br chat_log.message.to_s %>
+  </div>
+</div>

@@ -10,6 +10,7 @@ ja:
     bulk_line_messages: LINEメッセージ一括送信
     bulk_line_messages_detail: LINEメッセージ一括送信詳細
     company_setting: 店舗設定
+    chat: チャット
     company_setting_line_notify_setting: LINEメッセージ通知設定
     line_richmenu_image: LINEリッチメニュー 画像
     to_customers_link: 顧客一覧へ
