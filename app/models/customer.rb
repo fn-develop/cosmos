@@ -57,6 +57,10 @@ class Customer < ApplicationRecord
     self.user.try(:line_user_id).present?
   end
 
+  def have_mobile_phone_number?
+    !!self.tel_number.to_s.match(/\A0[5789]0[-]?\d{4}[-]?\d{4}\z/)
+  end
+
   def formatted_tel_number
     self[:tel_number].to_s.gsub(/(\d{3})(\d{4})(\d{4})/, '\1-\2-\3')
   end

@@ -103,8 +103,8 @@
           <% end %>
 
           <% if @company.is_input_customer_tel_number? %>
-            <% if @company.is_sms_feature && @customer.tel_number.present? %>
-              <%= link_to 'SMS通知', new_sms_message_customer_path(@company.code, @customer), class: 'btn btn-success float-left' %>
+            <% if @company.is_sms_feature && @customer.agreement? && @customer.have_mobile_phone_number? %>
+              <%= link_to 'SMS通知', new_sms_message_customer_path(@company.code, @customer), class: 'btn btn-warning float-left' %>
             <% end %>
           <% end %>
           <a href="<%= customers_path(company_code: @company.code) %>" class="btn btn-default float-right"><%= t('common.return_link') %></a>
