@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Sms Logs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sms_logs.each do |sms_log| %>
+      <tr>
+        <td><%= link_to 'Show', sms_log %></td>
+        <td><%= link_to 'Edit', edit_sms_log_path(sms_log) %></td>
+        <td><%= link_to 'Destroy', sms_log, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sms Log', new_sms_log_path %>

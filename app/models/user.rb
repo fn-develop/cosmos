@@ -43,7 +43,7 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :customer, update_only: true
   has_many :calendar_joined_users, dependent: :destroy
   has_many :calendars, through: :calendar_joined_users
-  has_many :chat_logs
+  has_many :chat_logs, class_name: 'SmsLog', foreign_key: 'staff_id', dependent: :nullify
 
   enum role: { guest: 0, customer: 1, staff: 2, owner: 3, system_admin: 9 }
 

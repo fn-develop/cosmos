@@ -99,7 +99,13 @@
         <div class="card-footer clearfix">
           <a href="<%= edit_customer_path(@customer, company_code: @company.code ) %>" class="btn btn-info float-left mr-2"><%= t('common.edit_link') %></a>
           <% if @customer.line? %>
-            <%= link_to 'LINE通知', new_line_message_customer_path(@company.code, @customer), class: 'btn btn-success float-left' %>
+            <%= link_to 'LINE通知', new_line_message_customer_path(@company.code, @customer), class: 'btn btn-success float-left mr-2' %>
+          <% end %>
+
+          <% if @company.is_input_customer_tel_number? %>
+            <% if @company.is_sms_feature && @customer.tel_number.present? %>
+              <%= link_to 'SMS通知', new_sms_message_customer_path(@company.code, @customer), class: 'btn btn-success float-left' %>
+            <% end %>
           <% end %>
           <a href="<%= customers_path(company_code: @company.code) %>" class="btn btn-default float-right"><%= t('common.return_link') %></a>
         </div>

@@ -1,5 +1,5 @@
 class CustomersController < ApplicationController
-  before_action :set_customer, only: [:show, :reset_line_info, :edit, :update, :destroy, :new_line_message, :send_line_message]
+  before_action :set_customer, only: [:show, :reset_line_info, :edit, :update, :destroy, :new_line_message, :send_line_message, :new_sms_message, :send_sms_message]
   include LineLinkingController
 
   VISITED_LOGS_PER = '10'
@@ -105,6 +105,32 @@ class CustomersController < ApplicationController
     end
 
     redirect_to new_line_message_customer_path(company_code, @customer)
+  end
+
+  def new_sms_message
+    @sms_logs = SmsLog.where(customer: @customer).last(Const::SMS::DISPLAY_LIMIT)
+  end
+
+  def send_sms_message
+    require 'sms-api'
+
+    if company.within_limit_sms_message?
+      @client ||= Sms::Client.new { |config| config.company = company }
+      res = @client.send_message(@customer.tel_number, params[:message])
+
+      @sms_log = company.sms_logs.new(
+        message: params[:message],
+        customer: @customer,
+        staff: current_user,
+        response_code: res.try(:body).to_s,
+      )
+
+      @sms_log.save
+    else
+      flash[:alert] = '送信可能上限に達した為、送信できません。'
+    end
+
+    redirect_to new_sms_message_customer_path(company_code, @customer)
   end
 
   def xhr_get_customers

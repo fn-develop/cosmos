@@ -38,6 +38,7 @@ ja:
     in_search: '検索中...'
     clear: クリア
     line_notify: LINE通知
+    sms_notify: SMS通知
     honorifics: 様
     max_num: 最大%{max_num}件表示
     info: 情報

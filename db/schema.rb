@@ -10,11 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_10_053812) do
+ActiveRecord::Schema.define(version: 2021_03_02_005814) do
 
   create_table "app_settings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "management_company_name", default: ""
     t.text "privacy_policy"
+    t.string "sms_send_api_url"
+    t.string "sms_result_api_url"
+    t.string "sms_cancel_api_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -94,6 +97,9 @@ ActiveRecord::Schema.define(version: 2021_02_10_053812) do
     t.string "line_qr_code"
     t.string "line_channel_secret"
     t.string "line_channel_token"
+    t.boolean "is_sms_feature", default: false
+    t.integer "limit_sms_message_count", default: 0
+    t.string "sms_tel_number"
     t.boolean "is_for_profit", default: true
     t.boolean "is_calendar_feature", default: false
     t.boolean "is_chat_feature", default: false
@@ -218,6 +224,17 @@ ActiveRecord::Schema.define(version: 2021_02_10_053812) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "item_type"
+  end
+
+  create_table "sms_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "company_id", null: false
+    t.integer "customer_id"
+    t.string "message"
+    t.string "response_code"
+    t.integer "staff_id", null: false
+    t.boolean "checked", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|

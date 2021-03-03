@@ -16,12 +16,15 @@
 #  is_input_customer_tel_number            :boolean          default(TRUE)
 #  is_inviting_feature                     :boolean          default(TRUE)
 #  is_notify_unread_line_message_existance :boolean          default(TRUE)
+#  is_sms_feature                          :boolean          default(FALSE)
 #  limit_line_message_count                :integer          default(1000)
+#  limit_sms_message_count                 :integer          default(0)
 #  line_channel_secret                     :string(255)
 #  line_channel_token                      :string(255)
 #  line_qr_code                            :string(255)
 #  logo                                    :string(255)
 #  name                                    :string(255)
+#  sms_tel_number                          :string(255)
 #  type_for                                :string(255)      default("")
 #  visit_confirmation_code                 :string(255)      default("0000")
 #  created_at                              :datetime         not null
@@ -44,6 +47,7 @@ class Company < ApplicationRecord
   has_one :calendar_setting, dependent: :destroy
   has_many :line_richmenu_images, dependent: :destroy
   has_many :chat_logs, dependent: :destroy
+  has_many :sms_logs, dependent: :destroy
 
   validates :code, presence: true, uniqueness: true, length: { in: 2..10 }, format: { with: /\A[a-z]+\z/, message: "英文字のみが使用できます" }
   validates :name, presence: true, length: { in: 1..50 }
@@ -56,6 +60,14 @@ class Company < ApplicationRecord
     today = Date.today
     line_message_count = self.line_message_counts.find_by(year: today.year.to_s, month: today.month.to_s)
     line_message_count.try(:total) || 0
+  end
+
+  def within_limit_sms_message?
+    get_current_month_sms_message_count < self.limit_sms_message_count
+  end
+
+  def get_current_month_sms_message_count
+    sms_message_count = self.sms_logs.size()
   end
 
   def calendar_open_event_types

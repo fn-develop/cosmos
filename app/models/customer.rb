@@ -32,6 +32,7 @@ class Customer < ApplicationRecord
   has_many :visited_logs, dependent: :destroy
   belongs_to :introducer, class_name: 'Customer', required: false
   has_many :invited_people, class_name: 'Customer', foreign_key: 'introducer_id'
+  has_many :chat_logs
 
   enum gender: { men: 0, women: 1 }
 

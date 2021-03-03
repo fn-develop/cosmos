@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  # resources :collections
 
   root to: 'public/homes#index'
 
@@ -19,6 +18,8 @@ Rails.application.routes.draw do
       post 'new_with_line_non_tel_number', to: 'customers#new_with_line_non_tel_number', as: :new_with_line_non_tel_number, on: :collection
       get  'new_line_message', to: 'customers#new_line_message', on: :member
       post 'send_line_message', to: 'customers#send_line_message', on: :member
+      get  'new_sms_message', to: 'customers#new_sms_message', on: :member
+      post 'send_sms_message', to: 'customers#send_sms_message', on: :member
       post 'create_with_line', to: 'customers#create_with_line', on: :collection
       get 'reload_notify_area', to: 'customers#reload_notify_area', on: :collection
       get 'visit_user_qr_code/:visit_token', to: 'customers#visit_user_qr_code', on: :collection, as: :visit_user_qr_code
@@ -41,6 +42,7 @@ Rails.application.routes.draw do
     end
 
     resources :chat_logs, path: 'chat'
+    resources :sms_logs, path: 'sms'
 
     scope module: :public do
       resources :homes, path: '', only: [:index] do

@@ -40,4 +40,9 @@ module Const
 
     DISPLAY_LIMIT = 100.freeze
   end
+
+  # Const::SMS
+  module SMS
+    DISPLAY_LIMIT = 100.freeze
+  end
 end
