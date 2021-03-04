@@ -108,7 +108,7 @@ class CustomersController < ApplicationController
   end
 
   def new_sms_message
-    @sms_logs = SmsLog.where(customer: @customer).last(Const::SMS::DISPLAY_LIMIT)
+    @sms_logs = company.sms_logs.where(customer: @customer).last(Const::SMS::DISPLAY_LIMIT)
   end
 
   def send_sms_message

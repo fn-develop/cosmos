@@ -1,10 +1,15 @@
 class SmsLogsController < ApplicationController
   before_action :set_sms_log, only: [:show, :edit, :update, :destroy]
 
+  SMS_LOGS_PER = '100'
+
   # GET /sms_logs
   # GET /sms_logs.json
   def index
-    @sms_logs = SmsLog.all
+    @sms_logs = company.sms_logs
+                       .order(created_at: :desc)
+                       .page(params[:page])
+                       .per(SMS_LOGS_PER)
   end
 
   # GET /sms_logs/1

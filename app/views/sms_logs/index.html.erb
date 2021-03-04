@@ -1,25 +1,58 @@
-<p id="notice"><%= notice %></p>
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">
+          <%= t('common.sms_logs') %>
+        </h1>
+      </div>
 
-<h1>Sms Logs</h1>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="<%= homes_path %>">ホーム</a></li>
+          <li class="breadcrumb-item active"><%= t('common.sms_logs') %></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<section class="content">
+  <div class="card">
+    <div class="card-header">
+      <%= paginate @sms_logs %>
+    </div>
 
-  <tbody>
-    <% @sms_logs.each do |sms_log| %>
-      <tr>
-        <td><%= link_to 'Show', sms_log %></td>
-        <td><%= link_to 'Edit', edit_sms_log_path(sms_log) %></td>
-        <td><%= link_to 'Destroy', sms_log, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover table-striped">
+          <thead>
+            <tr>
+              <th>日時</th>
+              <th>顧客</th>
+              <th>メッセージ</th>
+              <th>スタッフ</th>
+            </tr>
+          </thead>
 
-<br>
+          <tbody>
+            <% @sms_logs.each do |sms_log| %>
+              <tr>
+                <td><%= sms_log.created_at.strftime("%y-%m-%d %H:%M") %></td>
+                <td><%= sms_log.customer.try(:name).to_s %></td>
+                <td><%= sms_log.message.to_s %></td>
+                <td><%= sms_log.staff.try(:id).to_s %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-<%= link_to 'New Sms Log', new_sms_log_path %>
+    <div class="card-footer">
+      <%= paginate @sms_logs %>
+    </div>
+  </div>
+</section>
+
+

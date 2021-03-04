@@ -78,7 +78,7 @@
               <div class="card-body">
                 <div id="message-log" class="direct-chat-messages" style="height: 320px;">
                   <% @sms_logs.each do |sms_log| %>
-                     <p><small><%= sms_log.created_at.strftime("%Y-%m-%d %H:%M") %></small><br /><%= sms_log.message.to_s %> </p>
+                     <p><small><%= sms_log.created_at.strftime("%Y-%m-%d %H:%M") %></small><br /><%= br sms_log.message.to_s %> </p>
                   <% end %>
                 </div>
               </div>
