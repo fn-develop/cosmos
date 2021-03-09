@@ -292,7 +292,7 @@
                   <td>
                     <% if customer.line? %>
                       <%= form_with(url: reset_line_info_customer_path(@company.code, customer.id), method: :post, local: false) do |f| %>
-                        <%= f.submit 'LINE情報更新', class: 'btn btn-sm btn-success rounded-pill', data: { disable_with: t('.updating') } %>
+                        <%= f.submit t('.update_line_info_button'), class: 'btn btn-sm btn-success rounded-pill', data: { disable_with: t('.updating') } %>
                       <% end %>
                     <% end %>
                   </td>

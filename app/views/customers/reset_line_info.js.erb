@@ -1,6 +1,6 @@
 <% if @user.saved_changes? %>
-  alert('更新しました。');
+  alert('<%= t('common.update_complete_message') %>');
   location.reload();
 <% else %>
-  alert('変更はありませんでした。');
+  alert('<%= t('common.non_change_message') %>');
 <% end %>

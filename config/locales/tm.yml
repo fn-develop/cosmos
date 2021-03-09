@@ -87,6 +87,9 @@ tm:
     confirm_append_set_for_introducer: 'さんに紹介者を変更してよろしいですか？'
     prompt_logo_file: ロゴファイルを選択(ここにドロップすることもできます)
     prompt_qrcode_file: LINE QRコードファイルを選択(ここにドロップすることもできます)
+    update_line_info_button: LINE情報更新
+    update_complete_message: 更新しました。
+    non_change_message: 変更はありませんでした。
   layouts: &layouts
     header:
       <<: *common
