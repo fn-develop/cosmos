@@ -51,6 +51,7 @@ tm:
     failuere: 失敗
     see: 参照
     cancel: 取消
+    introducer: 紹介者
     invite_code: 紹介コード
     next: 次へ
     enabled: 有効
@@ -82,6 +83,7 @@ tm:
     memo: メモ
     join: 参加
     unjoin: 不参加
+    applied: （適用済）
   layouts: &layouts
     header:
       <<: *common
@@ -242,6 +244,7 @@ tm:
         line_qr_code: 'LINE QRコード'
         line_channel_secret: 'チャネルシークレット'
         line_channel_token: 'チャネルアクセストークン'
+        confirm_append_set_for_introducer: 'さんに紹介者を変更してよろしいですか？'
       customer:
         <<: *attr_common
         name:           '名前'

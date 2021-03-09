@@ -53,6 +53,7 @@ ja:
     failuere: 失敗
     see: 参照
     cancel: 取消
+    introducer: 紹介者
     invite_code: 紹介コード
     next: 次へ
     enabled: 有効
@@ -84,6 +85,8 @@ ja:
     memo: メモ
     join: 参加
     unjoin: 不参加
+    applied: （適用済）
+    confirm_append_set_for_introducer: 'さんに紹介者を変更してよろしいですか？'
   layouts: &layouts
     header:
       <<: *common

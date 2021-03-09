@@ -7,7 +7,7 @@
 
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="<%= homes_path %>">ホーム</a></li>
+          <li class="breadcrumb-item"><a href="<%= homes_path %>"><%= t('common.customer_index') %></a></li>
           <li class="breadcrumb-item"><a href="<%= customers_path %>"><%= t('common.customer_index') %></a></li>
           <li class="breadcrumb-item active"><%= t('common.customer_show') %></li>
         </ol>
@@ -99,12 +99,12 @@
         <div class="card-footer clearfix">
           <a href="<%= edit_customer_path(@customer, company_code: @company.code ) %>" class="btn btn-info float-left mr-2"><%= t('common.edit_link') %></a>
           <% if @customer.line? %>
-            <%= link_to 'LINE通知', new_line_message_customer_path(@company.code, @customer), class: 'btn btn-success float-left mr-2' %>
+            <%= link_to t('common.line_notify'), new_line_message_customer_path(@company.code, @customer), class: 'btn btn-success float-left mr-2' %>
           <% end %>
 
           <% if @company.is_input_customer_tel_number? %>
             <% if @company.is_sms_feature && @customer.agreement? && @customer.have_mobile_phone_number? %>
-              <%= link_to 'SMS通知', new_sms_message_customer_path(@company.code, @customer), class: 'btn btn-warning float-left' %>
+              <%= link_to t('common.sms_notify'), new_sms_message_customer_path(@company.code, @customer), class: 'btn btn-warning float-left' %>
             <% end %>
           <% end %>
           <a href="<%= customers_path(company_code: @company.code) %>" class="btn btn-default float-right"><%= t('common.return_link') %></a>
@@ -149,7 +149,7 @@
           <div class="card-header">
             <h3 class="card-title">
               リッチメニュー
-              <%= '（適用済）' if @customer.try(:user).try(:line_richmenu_id).present? %>
+              <%= t('common.applied') if @customer.try(:user).try(:line_richmenu_id).present? %>
             </h3>
           </div>
 
@@ -177,7 +177,7 @@
 </section>
 
 <% if @company.is_inviting_feature? %>
-  <div id="notice_modal" data-izimodal-title="<%= t('common.introducer_changing') %>" data-izimodal-subtitle="紹介者：<%= @customer.try(:name) || t('common.nothing') %>">
+  <div id="notice_modal" data-izimodal-title="<%= t('common.introducer_changing') %>" data-izimodal-subtitle="<%= t('common.introducer') %>：<%= @customer.try(:name) || t('common.nothing') %>">
     <p>
       <div class="col p-3">
         <%= form_with(id: 'modal_form', url: xhr_get_customers_customers_path, method: :get) do |form| %>
@@ -190,7 +190,6 @@
       </div>
     </p>
   </div>
-
 
   <%= javascript_tag do %>
     $(function() {
@@ -207,7 +206,7 @@
 
       $(document).on('click', '.select_customer', function (){
         $('#modal_introducer_id_hidden').val($(this).data('customer_id'));
-        if (window.confirm($(this).text() + ' さんに紹介者を変更してよろしいですか？')) {
+        if (window.confirm($(this).text() + '<%= t('common.confirm_append_set_for_introducer') %>')) {
           $('#modal_form_introducer_update').submit();
         }
       });
