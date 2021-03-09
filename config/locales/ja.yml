@@ -87,6 +87,8 @@ ja:
     unjoin: 不参加
     applied: （適用済）
     confirm_append_set_for_introducer: 'さんに紹介者を変更してよろしいですか？'
+    prompt_logo_file: ロゴファイルを選択(ここにドロップすることもできます)
+    prompt_qrcode_file: LINE QRコードファイルを選択(ここにドロップすることもできます)
   layouts: &layouts
     header:
       <<: *common

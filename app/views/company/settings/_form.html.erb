@@ -33,7 +33,7 @@
                   <div class="custom-file <%= logo_err ? 'is-invalid' : '' %>">
                     <%= f.file_field :logo, { class: "custom-file-input #{ logo_err ? 'is-invalid' : '' }", accept: 'image/jpeg,image/gif,image/png' } %>
                     <%= f.label :logo, { id: 'company_logo-label', class: 'custom-file-label', 'data-browse': t('.see') }  do %>
-                      ロゴファイルを選択(ここにドロップすることもできます)
+                      <%= t('.prompt_logo_file') %>
                     <% end %>
                   </div>
 
@@ -55,7 +55,7 @@
                   <div class="custom-file <%= line_qr_code_err ? 'is-invalid' : '' %>">
                     <%= f.file_field :line_qr_code, { class: "custom-file-input #{ line_qr_code_err ? 'is-invalid' : '' }", accept: 'image/jpeg,image/gif,image/png' } %>
                     <%= f.label :line_qr_code, { id: 'company_line_qr_code-label', class: 'custom-file-label', 'data-browse': t('.see') }  do %>
-                      LINE QRコードファイルを選択(ここにドロップすることもできます)
+                      <%= t('.prompt_qrcode_file') %>
                     <% end %>
                   </div>
 
@@ -76,12 +76,12 @@
                   })
                   // ファイルの取消(ロゴ)
                   $('.company_logo-reset').click(function(){
-                    $('#company_logo-label').html('ロゴファイルを選択(ここにドロップすることもできます)');
+                    $('#company_logo-label').html('<%= t('.prompt_logo_file') %>');
                     $('#company_logo').val('');
                   })
                   // ファイルの取消(QRコード)
                   $('.company_line_qr_code-reset').click(function(){
-                    $('#company_line_qr_code-label').html('LINE QRコードファイルを選択(ここにドロップすることもできます)');
+                    $('#company_line_qr_code-label').html('<%= t('.prompt_qrcode_file') %>');
                     $('#company_line_qr_code').val('');
                   })
                 });
