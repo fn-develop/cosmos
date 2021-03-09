@@ -57,6 +57,9 @@ class Ability
       end
       can :manage, :visited_log
       can :manage, :home
+      if user.company.try(:is_sms_feature?)
+        can :read, :sms
+      end
     end
 
     # 店舗オーナー
@@ -75,6 +78,9 @@ class Ability
       can :manage, :visited_log
       can :manage, :staff
       can :manage, :home
+      if user.company.try(:is_sms_feature?)
+        can :magage, :sms
+      end
     end
 
     # システム管理者

@@ -33,6 +33,11 @@
         <a href="<%= chat_logs_path %>" class="nav-link"><%= t('common.chat') %></a>
       </li>
     <% end %>
+    <% if @company.is_sms_feature? && can?(:read, :sms_logs) %>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="<%= sms_logs_path %>" class="nav-link"><%= t('common.sms_notify') %></a>
+      </li>
+    <% end %>
   </ul>
 
   <ul class="navbar-nav ml-auto">
