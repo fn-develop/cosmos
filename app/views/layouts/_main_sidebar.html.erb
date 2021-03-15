@@ -83,7 +83,7 @@
 
         <% if @company.try(:is_sms_feature?) && can?(:read, :sms) %>
           <li class="nav-item">
-            <a href="<%= sms_logs_path %>" class="nav-link">
+            <a href="<%= company_sms_logs_path %>" class="nav-link">
               <i class="nav-icon fas fa-comment"></i>
               <p>
                 <%= t('common.sms_logs') %>

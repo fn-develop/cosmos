@@ -202,7 +202,7 @@
           <div class="mailbox-controls">
             <a href="javascript: void(0)" class="btn btn-sm float-right" id="redirect_sms_logs_button"><i class="fas fa-comment fa-2x text-success"></i></a>
 
-            <%= form_with model: @search, url: sms_logs_path, method: :get, id: :sms_logs_form, local:true do |f| %>
+            <%= form_with model: @search, url: company_sms_logs_path, method: :get, id: :sms_logs_form, local:true do |f| %>
               <%= f.hidden_field :name %>
               <%= f.hidden_field :gender %>
               <%= f.hidden_field :from_age %>

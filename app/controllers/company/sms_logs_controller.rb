@@ -1,4 +1,4 @@
-class SmsLogsController < ApplicationController
+class Company::SmsLogsController < ApplicationController
   before_action :set_sms_log, only: [:show, :edit, :update, :destroy]
 
   SMS_LOGS_PER = '100'

@@ -42,7 +42,6 @@ Rails.application.routes.draw do
     end
 
     resources :chat_logs, path: 'chat'
-    resources :sms_logs, path: 'sms'
 
     scope module: :public do
       resources :homes, path: '', only: [:index] do
@@ -66,6 +65,7 @@ Rails.application.routes.draw do
       end
       resources :staffs
       resources :line_richmenu_images
+      resources :sms_logs, path: 'sms'
     end
 
     scope module: :auth do
