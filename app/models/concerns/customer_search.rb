@@ -44,6 +44,10 @@ class CustomerSearch
     customers.where(user_id: user_ids)
   end
 
+  def search_for_sms
+    customers.select{ |c| c.have_mobile_phone_number? }
+  end
+
   def customers
     c = get_base_rel
 

@@ -3,70 +3,58 @@ class Company::SmsLogsController < ApplicationController
 
   SMS_LOGS_PER = '100'
 
-  # GET /sms_logs
-  # GET /sms_logs.json
   def index
+    referer_path = Rails.application.routes.recognize_path(request.referer)
+    if referer_path[:controller] == 'customers' && referer_path[:action] == 'index'
+      session[:customer_search_params] = customer_search_params
+    end
+
+    @search = CustomerSearch.new({
+      company: company,
+      current_ability: current_ability,
+    }.merge(session[:customer_search_params] || {}))
+
+    @customers = @search.search_for_sms
     @sms_logs = company.sms_logs
                        .order(created_at: :desc)
                        .page(params[:page])
                        .per(SMS_LOGS_PER)
   end
 
-  # GET /sms_logs/1
-  # GET /sms_logs/1.json
-  def show
-  end
-
-  # GET /sms_logs/new
-  def new
-    @sms_log = SmsLog.new
-  end
-
-  # GET /sms_logs/1/edit
-  def edit
-  end
-
-  # POST /sms_logs
-  # POST /sms_logs.json
   def create
-    @sms_log = SmsLog.new(sms_log_params)
+    require 'sms-api'
+    @client ||= Sms::Client.new { |config| config.company = company }
+    target_customers = company.customers.where(id: params[:customer_ids])
 
-    respond_to do |format|
-      if @sms_log.save
-        format.html { redirect_to @sms_log, notice: 'Sms log was successfully created.' }
-        format.json { render :show, status: :created, location: @sms_log }
-      else
-        format.html { render :new }
-        format.json { render json: @sms_log.errors, status: :unprocessable_entity }
+    if target_customers.blank?
+      flash[:message] = params[:message]
+      flash[:alert] = '送信対象を選択してください。'
+    else
+      target_customers.each do |customer|
+        unless company.within_limit_sms_message?
+          flash[:alert] = '送信上限を超えました。'
+          break
+        end
+        res = @client.send_message(customer.tel_number, params[:message])
+        sms_log = company.sms_logs.new(
+          message: params[:message],
+          customer: customer,
+          staff: current_user,
+          response_code: res.try(:body).to_s,
+        )
+        sms_log.save
+        company.reload
       end
     end
-  end
 
-  # PATCH/PUT /sms_logs/1
-  # PATCH/PUT /sms_logs/1.json
-  def update
-    respond_to do |format|
-      if @sms_log.update(sms_log_params)
-        format.html { redirect_to @sms_log, notice: 'Sms log was successfully updated.' }
-        format.json { render :show, status: :ok, location: @sms_log }
-      else
-        format.html { render :edit }
-        format.json { render json: @sms_log.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /sms_logs/1
-  # DELETE /sms_logs/1.json
-  def destroy
-    @sms_log.destroy
-    respond_to do |format|
-      format.html { redirect_to sms_logs_url, notice: 'Sms log was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to company_sms_logs_path(company_code)
   end
 
   private
+    def customer_search_params
+      params.key?(:customer_search) ? params.require(:customer_search).permit(:name, :from_age, :to_age, :gender, :line_registed, :unread_line, :visited_over) : {}
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_sms_log
       @sms_log = SmsLog.find(params[:id])

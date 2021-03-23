@@ -92,6 +92,9 @@ ja:
     update_line_info_button: LINE情報更新
     update_complete_message: 更新しました。
     non_change_message: 変更はありませんでした。
+    message_content: メッセージ
+    max_60_annotation: ※ 最大60文字まで。
+    target_customers: 送信対象顧客
   layouts: &layouts
     header:
       <<: *common
@@ -106,9 +109,7 @@ ja:
     bulk_line_messages:
       index: &bulk_line_messages_index
         <<: *common
-        message_content: メッセージ
         annotation: ※ 顧客毎のLINEメッセージには履歴されません。
-        target_customers: 送信対象顧客
         disabled_customers: 送信無効顧客
         send_date: 日付
         send_status: ステータス
